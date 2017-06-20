@@ -6,7 +6,7 @@
 	line-height: 1.2;
 
 	&:hover {
-		box-shadow: 0 5px 15px rgba(#001341, .3);
+		box-shadow: 0 rem(5) rem(15) rgba(#001341, .3);
 	}
 
 	&__image {

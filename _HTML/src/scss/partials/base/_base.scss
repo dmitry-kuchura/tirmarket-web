@@ -28,9 +28,10 @@ body {
 
 a {
 	color: #113da9;
+	text-decoration: none;
 
 	&:hover {
-		text-decoration: none;
+		color: $color-red;
 	}
 }
 

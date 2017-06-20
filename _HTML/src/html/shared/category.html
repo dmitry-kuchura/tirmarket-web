@@ -1,0 +1,23 @@
+{% set list = [
+    {
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа в две строки"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа"
+    }
+] %}
+
+<div class="_flex _grid-space-3 _mb-4">
+    {% for item in list %}
+        <div class="_col-12 _sm-col-6 _lg-col-3 _mb-3">
+            {% include "./category-card.html" %}
+        </div>
+    {% endfor %}
+</div>

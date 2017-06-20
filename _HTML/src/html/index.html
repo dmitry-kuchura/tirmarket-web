@@ -5,31 +5,39 @@
 {% set bodyClass = "" %}
 
 {% block content %}
-    <div class="title">Каталог товаров</div>
 
-    <div class="title">Популярные категории</div>
-
-    <div class="">
-        <a href="#" class="" data-tab-trigger="1" data-tab-ns="category">Акции</a>
-        <a href="#" class="" data-tab-trigger="2" data-tab-ns="category">Популярные товары</a>
-    </div>
-
-    <div class="">
-        <div class="" data-tab-content="1" data-tab-ns="category">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolores, eveniet fugiat maiores molestias mollitia porro! Aliquid, aspernatur assumenda cum dolorem est magnam nihil omnis perferendis ratione repellendus ut vitae.
+    <div class="page-size">
+        <div class="_flex _justify-between _items-center _mb-3">
+            <div class="title">Каталог товаров</div>
+            <a href="#">Все категории →</a>
         </div>
 
-        <div class="" data-tab-content="2" data-tab-ns="category">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, eos esse, harum id magnam minus, modi officia porro possimus praesentium quo sint vel? Illum, ipsam, quam. Ad beatae ea minus!
-        </div>
-    </div>
+        {% include "shared/category.html" %}
 
-    <div class="title">Подобрать деталь / автозапчасть</div>
+        <div class="title">Популярные категории</div>
+
+        <div class="">
+            <a href="#" class="" data-tab-trigger="1" data-tab-ns="category">Акции</a>
+            <a href="#" class="" data-tab-trigger="2" data-tab-ns="category">Популярные товары</a>
+        </div>
+
+        <div class="">
+            <div class="is-active" data-tab-content="1" data-tab-ns="category">
+                Акции Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolores, eveniet fugiat maiores molestias mollitia porro! Aliquid, aspernatur assumenda cum dolorem est magnam nihil omnis perferendis ratione repellendus ut vitae.
+            </div>
+
+            <div class="" data-tab-content="2" data-tab-ns="category">
+                Популярные товары Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, eos esse, harum id magnam minus, modi officia porro possimus praesentium quo sint vel? Illum, ipsam, quam. Ad beatae ea minus!
+            </div>
+        </div>
+
+        <div class="title">Подобрать деталь / автозапчасть</div>
+    </div>
 
     <div class="page-size">
         <div class="_flex _justify-between _items-center _mb-3">
             <div class="title">Производители</div>
-            <a href="#">Все производители -></a>
+            <a href="#">Все производители →</a>
         </div>
 
         {% include "shared/producer.html" %}
@@ -38,7 +46,7 @@
     <div class="page-size">
         <div class="_flex _justify-between _items-center _mb-3">
             <div class="title">Наши партнеры</div>
-            <a href="#">Все партнёры -></a>
+            <a href="#">Все партнёры →</a>
         </div>
 
         <div class="wysiwyg">
@@ -52,7 +60,7 @@
         <div class="page-size">
             <div class="_flex _justify-between _items-center _mb-3">
                 <div class="title">Новости и статьи</div>
-                <a href="#">Все новости -></a>
+                <a href="#">Все новости →</a>
             </div>
 
             {% include "shared/news.html" %}

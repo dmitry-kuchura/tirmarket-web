@@ -1,0 +1,25 @@
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{ title }}</title>
+	<meta property="og:title" content="Main page">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="">
+	<meta property="og:url" content="">
+	<meta property="og:description" content="{{ title }}">
+	<!-- Touch -->
+	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="address=no">
+	<!-- Responsive -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    {% include "./favicons.html" %}
+
+	<style>{% block inlinecss %}{% endblock %}</style>
+
+	<!-- Styles -->
+    {% block css %}<link rel="stylesheet" href="css/style.css">{% endblock %}
+</head>

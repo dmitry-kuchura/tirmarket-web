@@ -1,0 +1,37 @@
+@mixin h-visibility {
+	._hide {
+		display: none;
+	}
+	._hide\! {
+		display: none !important;
+	}
+	@media print {
+		._noprint {
+			display: none !important;
+		}
+	}
+}
+
+@mixin h-visibility-mq ($points: $breakpoints) {
+	@each $point-name,
+	$point in $points {
+		@media only screen and (min-width: $point + 1) {
+			._#{$point-name}-hide {
+				display: none;
+			}
+			._#{$point-name}-hide\! {
+				display: none !important;
+			}
+		}
+		@media only screen and (max-width: $point) {
+			._#{$point-name}-show {
+				display: none;
+			}
+			._#{$point-name}-show\! {
+				display: none !important;
+			}
+		}
+	}
+}
+
+@include h-visibility-mq();

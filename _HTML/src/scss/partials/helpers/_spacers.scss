@@ -1,0 +1,93 @@
+@mixin h-spacers() {
+	$sides: (t: top, r: right, b: bottom, l: left);
+	$property: (m: margin, p: padding);
+	$space: $space;
+	$space-factor: $space-factor;
+	$breakpoints: $breakpoints;
+
+	@each $prop-name,
+	$prop in $property {
+		@each $factor-name,
+		$factor in $space-factor {
+			._#{$prop-name}-#{$factor-name} {
+				#{$prop}: $space*$factor !important;
+			}
+		}
+		@each $short-side,
+		$side in $sides {
+			@each $factor-name,
+			$factor in $space-factor {
+				._#{$prop-name}#{$short-side}-#{$factor-name} {
+					#{$prop}-#{$side}: $space*$factor !important;
+				}
+			}
+			._#{$prop-name}#{$short-side}-#{0} {
+				#{$prop}-#{$side}: 0 !important;
+			}
+		}
+		._#{$prop-name}-#{0} {
+			#{$prop}: 0 !important;
+		}
+	}
+	._m-auto {
+		margin: auto !important;
+	}
+	._ml-auto {
+		margin-left: auto !important;
+	}
+	._mr-auto {
+		margin-right: auto !important;
+	}
+	._mt-auto {
+		margin-top: auto !important;
+	}
+	._mb-auto {
+		margin-bottom: auto !important;
+	}
+	@each $point-name,
+	$point in $breakpoints {
+		@media only screen and (min-width: $point + 1) {
+			@each $short-prop,
+			$prop in $property {
+				@each $factor-name,
+				$factor in $space-factor {
+					._#{$point-name}-#{$short-prop}-#{$factor-name} {
+						#{$prop}: $space*$factor !important;
+					}
+				}
+				@each $short-side,
+				$side in $sides {
+					@each $factor-name,
+					$factor in $space-factor {
+						._#{$point-name}-#{$short-prop}#{$short-side}-#{$factor-name} {
+							#{$prop}-#{$side}: $space*$factor !important;
+						}
+					}
+					._#{$point-name}-#{$short-prop}#{$short-side}-#{0} {
+						#{$prop}-#{$side}: 0 !important;
+					}
+				}
+				._#{$point-name}-#{$short-prop}-#{0} {
+					#{$prop}: 0 !important;
+				}
+			}
+			._#{$point-name}-m-auto {
+				margin: auto !important;
+			}
+			._#{$point-name}-ml-auto {
+				margin-left: auto !important;
+			}
+			._#{$point-name}-mr-auto {
+				margin-right: auto !important;
+			}
+			._#{$point-name}-mt-auto {
+				margin-top: auto !important;
+			}
+			._#{$point-name}-mb-auto {
+				margin-bottom: auto !important;
+			}
+		}
+	}
+}
+
+@include h-spacers();

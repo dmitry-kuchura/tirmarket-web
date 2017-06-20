@@ -1,0 +1,64 @@
+{% extends 'layouts/main.html' %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Главная" %}
+{% set bodyClass = "" %}
+
+{% block content %}
+    <div class="title">Каталог товаров</div>
+
+    <div class="title">Популярные категории</div>
+
+    <div class="">
+        <a href="#" class="" data-tab-trigger="1" data-tab-ns="category">Акции</a>
+        <a href="#" class="" data-tab-trigger="2" data-tab-ns="category">Популярные товары</a>
+    </div>
+
+    <div class="">
+        <div class="" data-tab-content="1" data-tab-ns="category">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolores, eveniet fugiat maiores molestias mollitia porro! Aliquid, aspernatur assumenda cum dolorem est magnam nihil omnis perferendis ratione repellendus ut vitae.
+        </div>
+
+        <div class="" data-tab-content="2" data-tab-ns="category">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, eos esse, harum id magnam minus, modi officia porro possimus praesentium quo sint vel? Illum, ipsam, quam. Ad beatae ea minus!
+        </div>
+    </div>
+
+    <div class="title">Подобрать деталь / автозапчасть</div>
+
+    <div class="page-size">
+        <div class="_flex _justify-between _items-center _mb-3">
+            <div class="title">Производители</div>
+            <a href="#">Все производители -></a>
+        </div>
+
+        {% include "shared/producer.html" %}
+    </div>
+
+    <div class="page-size">
+        <div class="_flex _justify-between _items-center _mb-3">
+            <div class="title">Наши партнеры</div>
+            <a href="#">Все партнёры -></a>
+        </div>
+
+        <div class="wysiwyg">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias at atque, debitis eligendi, illum incidunt iste maiores molestias neque odio quia rem sequi, unde vitae voluptatem! Aliquam assumenda corporis doloremque ducimus, enim eveniet exercitationem hic libero maiores minima natus pariatur quisquam sapiente sunt, tenetur? Distinctio dolores eos, esse fugit id illo illum laborum nesciunt omnis optio perferendis perspiciatis quia quis ratione veritatis. Aliquam aliquid culpa dolor dolore doloremque eos est impedit inventore iure laudantium, nisi quidem ratione sapiente sint temporibus vero vitae! Accusamus aperiam blanditiis delectus modi mollitia quisquam voluptatem, voluptates! Amet assumenda, eos eveniet fugiat laborum numquam optio quam.</p>
+        </div>
+
+        {% include "shared/partners.html" %}
+    </div>
+
+    <div style="background-color: #f8f8f8;" class="_pt-4 _pb-4">
+        <div class="page-size">
+            <div class="_flex _justify-between _items-center _mb-3">
+                <div class="title">Новости и статьи</div>
+                <a href="#">Все новости -></a>
+            </div>
+
+            {% include "shared/news.html" %}
+        </div>
+    </div>
+
+    {% include "shared/seo-section.html" %}
+
+{% endblock %}

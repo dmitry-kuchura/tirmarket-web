@@ -1,0 +1,29 @@
+@mixin h-columns($point-alias: '', $columns: 12) {
+	@for $i from 1 through $columns {
+		._#{$point-alias}col-#{$i} {
+			width: ($i*100%)/$columns;
+			max-width: ($i*100%)/$columns;
+			flex-basis: ($i*100%)/$columns;
+		}
+	}
+	._#{$point-alias}col-auto {
+		width: auto;
+		max-width: auto;
+		flex-basis: auto;
+	}
+}
+
+@mixin h-columns-mq() {
+	$breakpoints: $breakpoints;
+
+	@include h-columns();
+
+	@each $point-name,
+	$point in $breakpoints {
+		@media only screen and (min-width: $point + 1) {
+			@include h-columns($point-name+'-');
+		}
+	}
+}
+
+@include h-columns-mq();

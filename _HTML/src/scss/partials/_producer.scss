@@ -1,0 +1,42 @@
+.producer {
+	column-count: 2;
+	column-gap: rem(40);
+	column-rule: 1px solid #ccc;
+
+	@include media($sm) {
+		column-count: 3;
+	}
+
+	@include media($md) {
+		column-count: 4;
+	}
+
+	@include media($lg) {
+		column-count: 5;
+	}
+
+	@include media($xl) {
+		column-count: 6;
+	}
+
+	&__item {
+		page-break-inside: avoid;
+		break-inside: avoid;
+		padding: rem(10) 0;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		line-height: 1.0;
+		
+		a {
+			display: inline-block;
+			font-size: rem(16);
+			text-decoration: none;
+			border-bottom: 1px solid transparent;
+
+			&:hover {
+				border-bottom: 1px solid;
+			}
+		}
+	}
+}

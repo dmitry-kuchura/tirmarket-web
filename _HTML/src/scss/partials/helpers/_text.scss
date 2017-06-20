@@ -1,0 +1,29 @@
+@mixin h-texts() {
+	$breakpoints: $breakpoints;
+
+	._text-left {
+		text-align: left;
+	}
+	._text-right {
+		text-align: right;
+	}
+	._text-center {
+		text-align: center;
+	}
+
+	@each $point-name, $point in $breakpoints {
+		@media only screen and (min-width: $point + 1) {
+			._#{$point-name}-text-left {
+				text-align: left;
+			}
+			._#{$point-name}-text-right {
+				text-align: right;
+			}
+			._#{$point-name}-text-center {
+				text-align: center;
+			}
+		}
+	}
+}
+
+@include h-texts();

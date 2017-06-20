@@ -1,0 +1,95 @@
+@mixin h-flex-container($point-alias: '') {
+	._#{$point-alias}items-start {
+		align-items: flex-start;
+	}
+	._#{$point-alias}items-end {
+		align-items: flex-end;
+	}
+	._#{$point-alias}items-center {
+		align-items: center;
+	}
+	._#{$point-alias}items-stretch {
+		align-items: stretch;
+	}
+	._#{$point-alias}justify-start {
+		justify-content: flex-start;
+	}
+	._#{$point-alias}justify-end {
+		justify-content: flex-end;
+	}
+	._#{$point-alias}justify-center {
+		justify-content: center;
+	}
+	._#{$point-alias}justify-between {
+		justify-content: space-between;
+	}
+	._#{$point-alias}justify-around {
+		justify-content: space-around;
+	}
+	._#{$point-alias}flex-wrap {
+		flex-wrap: wrap;
+	}
+	._#{$point-alias}flex-nowrap {
+		flex-wrap: nowrap;
+	}
+	._#{$point-alias}flex-column {
+		flex-direction: column;
+	}
+	._#{$point-alias}flex-row {
+		flex-direction: row;
+	}
+}
+
+@mixin h-flex-item($point-alias: '') {
+	._#{$point-alias}self-start {
+		align-self: flex-start;
+	}
+	._#{$point-alias}self-end {
+		align-self: flex-end;
+	}
+	._#{$point-alias}self-center {
+		align-self: center;
+	}
+	._#{$point-alias}self-stretch {
+		align-self: stretch;
+	}
+	._#{$point-alias}flex-grow-0 {
+		flex-grow: 0;
+	}
+	._#{$point-alias}flex-grow-1 {
+		flex-grow: 1;
+	}
+	._#{$point-alias}flex-shrink-0 {
+		flex-shrink: 0;
+	}
+	._#{$point-alias}flex-shrink-1 {
+		flex-shrink: 1;
+	}
+	._#{$point-alias}order-start {
+		order: -1;
+	}
+	._#{$point-alias}order-end {
+		order: 1;
+	}
+	._#{$point-alias}order-0 {
+		order: 0;
+	}
+	._#{$point-alias}basis-0 {
+		flex-basis: 0;
+	}
+}
+
+@mixin h-flex {
+	$breakpoints: $breakpoints;
+	@include h-flex-container();
+	@include h-flex-item();
+	@each $point-name,
+	$point in $breakpoints {
+		@media only screen and (min-width: $point + 1) {
+			@include h-flex-container($point-name+'-');
+			@include h-flex-item($point-name+'-');
+		}
+	}
+}
+
+@include h-flex();

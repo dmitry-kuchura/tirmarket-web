@@ -4,6 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "blendid": "^4.1.1"
+    "blendid": "^4.1.1",
+    "es6-promise-polyfill": "^1.2.0",
+    "jquery": "^3.2.1",
+    "jquery-validation": "^1.16.0",
+    "magnific-popup": "^1.1.0",
+    "normalize.css": "^7.0.0",
+    "vue": "^2.3.4",
+    "vue-loader": "^12.2.1"
   }
 }

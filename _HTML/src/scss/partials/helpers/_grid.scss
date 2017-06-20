@@ -1,0 +1,49 @@
+@mixin h-grid-columns($point-alias: '', $columns: 12) {
+	@for $i from 1 through $columns {
+		._#{$point-alias}grid-#{$i} {
+			> * {
+				width: 100%/$i;
+				max-width: 100%/$i;
+				flex-basis: 100%/$i;
+			}
+		}
+	}
+}
+
+@mixin h-grid-spaces($point-name: '') {
+	$space: $space;
+	$space-factor: $space-factor;
+
+	@each $factor-name, $factor in $space-factor {
+		._#{$point-name}grid-space-#{$factor-name} {
+			margin-left: -($space*$factor);
+			> * {
+				padding-left: ($space*$factor);
+			}
+		}
+	}
+}
+
+@mixin h-grid() {
+	$breakpoints: $breakpoints;
+
+	@include h-grid-columns();
+	@include h-grid-spaces();
+
+	@each $point-name,
+	$point in $breakpoints {
+		@media only screen and (min-width: $point + 1) {
+			@include h-grid-columns($point-name+'-');
+			._#{$point-name}-grid-auto {
+				> * {
+					width: auto;
+					max-width: none;
+					flex-basis: auto;
+				}
+			}
+			@include h-grid-spaces($point-name+'-');
+		}
+	}
+}
+
+@include h-grid();

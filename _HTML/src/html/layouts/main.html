@@ -1,0 +1,25 @@
+{% from 'macros/helpers.html' import svg %}
+<!doctype html>
+<html>
+
+<head>
+	{% include "shared/structure/head.html" %}
+	{% include "shared/structure/favicons.html" %}
+	{% block head %}{% endblock %}
+</head>
+
+<body class="{{ bodyClass }}">
+	<div class="page-wrapper">
+		{% include "shared/structure/page-header.html" %}
+
+		<main class="page-main">
+			{% block content %}{% endblock %}
+		</main>
+
+		{% include "shared/structure/page-footer.html" %}
+	</div>
+
+	{% include "shared/structure/page-bottom.html" %}
+</body>
+
+</html>

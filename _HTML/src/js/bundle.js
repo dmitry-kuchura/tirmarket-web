@@ -33,4 +33,11 @@ window.jQuery(function ($) {
         }, 'wysiwyg-media');
     }
 
+    // slick
+    if ($(`[data-slider]`).length) {
+        require.ensure([], (require) => {
+            require('./modules/slider')();
+        }, 'slick');
+    }
+
 });

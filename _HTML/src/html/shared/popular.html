@@ -1,0 +1,29 @@
+{% set popular = [
+    {
+        "image": "pic/item-image-1.jpg",
+        "title": "Pеле регулятор DAF/Iveco/Volvo/RVI"
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Поршневой комплект 75,5 мм"
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Джойстик управления соединяется с тросом"
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Выключатель массы 24V VOLVO/MAN/IVECO/DAF/MB/ICARUS"
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Джойстик управления соединяется с тросом"
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Выключатель массы 24V VOLVO/MAN/IVECO/DAF/MB/ICARUS"
+    }
+] %}
+
+<div data-slider="promo" class="catalog-slider">
+    {% for item in popular %}
+        <div class="catalog-slider__slide">
+            {% include "./item-card.html" %}
+        </div>
+    {% endfor %}
+</div>

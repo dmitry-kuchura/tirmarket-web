@@ -1,0 +1,11 @@
+.catalog-slider {
+	position: relative;
+
+	&__slide {
+		margin: 0 rem(10);
+	}
+
+	.slick-list {
+		overflow: visible;
+	}
+}

@@ -1,0 +1,44 @@
+[data-tab-content] {
+	display: none;
+
+	&.is-active {
+		display: block;
+	}
+}
+
+.tab-link {
+	position: relative;
+	display: inline-block;
+	margin: 0 rem(15);
+	color: #acb4bd;
+	font-size: rem(24);
+	line-height: 1.6;
+	transition: color .25s;
+
+	&::after {
+		content: '';
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-bottom: 1px solid #acb4bd;
+		transition: border .25s;
+	}
+
+	&:hover {
+		color: #1e2227;
+
+		&::after {
+			border-color: #1e2227;
+		}
+	}
+
+	&.is-active {
+		color: #1e2227;
+
+		&::after {
+			border-bottom: 1px solid $color-red;
+		}
+	}
+}

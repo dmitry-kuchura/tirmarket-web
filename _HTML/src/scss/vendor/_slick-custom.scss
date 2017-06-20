@@ -1,0 +1,9 @@
+@import '../node_modules/slick-carousel/slick/slick.scss';
+
+.slick-slide {
+	outline: 0;
+}
+
+.slick-arrow.slick-disabled {
+	visibility: hidden !important;
+}

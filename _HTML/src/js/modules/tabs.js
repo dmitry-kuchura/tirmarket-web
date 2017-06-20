@@ -11,7 +11,7 @@ module.exports = function (context = `body`) {
 		$LinkList.each(function (i, item) {
 			let $item = $(item);
 
-			if($item.data('tab-trigger') == tabIndex) {
+			if($item.data('tab-trigger') === tabIndex) {
 				$item.addClass('is-active');
 			} else {
 				$item.removeClass('is-active');
@@ -23,18 +23,12 @@ module.exports = function (context = `body`) {
 		$ContentList.each(function (i, item) {
 			let $item = $(item);
 
-			if($item.data('tab-content') == tabIndex) {
+            let $sliders = $item.find(`[data-slider]`);
+
+            if($item.data('tab-content') === tabIndex) {
 				$item.addClass('is-active');
 
-				/*if($item.find(`[data-slick]`).length) {
-
-					require.ensure([], () => {
-						let slickInit = require("./slick");
-
-						slickInit($item, true);
-					}, 'slick');
-
-				}*/
+				if($sliders.length) $sliders.slick('refresh');
 			} else {
 				$item.removeClass('is-active');
 			}

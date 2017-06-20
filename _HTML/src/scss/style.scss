@@ -4,6 +4,7 @@
 
 // Vendor
 @import '../../node_modules/normalize.css/normalize';
+@import 'vendor/slick-custom';
 
 // Base
 @import "partials/base/base";
@@ -16,14 +17,17 @@
 // UI
 @import "partials/ui/title";
 @import "partials/ui/wysiwyg";
-@import "partials/tabs";
+@import "partials/ui/tabs";
+@import "partials/ui/label";
 
 // content
 @import "partials/news-card";
 @import "partials/category-card";
+@import "partials/item-card";
 @import "partials/partner";
 @import "partials/producer";
 @import "partials/seo-section";
+@import "partials/promo-slider";
 
 // Helpers
 @import 'partials/helpers/display';

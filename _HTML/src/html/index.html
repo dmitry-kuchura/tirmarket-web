@@ -17,7 +17,7 @@
 
     <div style="background-color: #f8f8f8;" class="_pt-4 _pb-4">
         <div class="page-size">
-            <div class="title">Популярные категории</div>
+            <div class="title _mb-3">Популярные категории</div>
             {% include "shared/categories.html" %}
         </div>
     </div>
@@ -43,13 +43,15 @@
         </div>
     </div>
 
-    <div class="page-size _pt-4 _pb-4">
-        <div class="_flex _justify-between _items-center _mb-3">
-            <div class="title">Производители</div>
-            <a href="#">Все производители →</a>
-        </div>
+    <div style="background-color: #f8f8f8;" class="_pt-4 _pb-2">
+        <div class="page-size">
+            <div class="_flex _justify-between _items-center _mb-3">
+                <div class="title">Производители</div>
+                <a href="#">Все производители →</a>
+            </div>
 
-        {% include "shared/producer.html" %}
+            {% include "shared/producer.html" %}
+        </div>
     </div>
 
     <div class="page-size _pt-4 _pb-4">

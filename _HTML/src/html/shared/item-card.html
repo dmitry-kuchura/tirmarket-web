@@ -8,4 +8,45 @@
     </div>
 
     <div class="item-card__title">{{ item.title }}</div>
+
+    <div class="item-card__code">Артикул: 2152345-Р5223</div>
+
+    <div class="_flex _mb-3 _justify-between">
+        <div class="_col-auto">
+            <div class="item-card__price item-card__price--past">1 530 грн.</div>
+            <div class="item-card__price">100 530 грн.</div>
+        </div>
+
+        <div class="_col-auto">
+            {% if item.exist %}
+                <div class="item-card__exist item-card__exist--true">В наличии</div>
+            {% else %}
+                <div class="item-card__exist item-card__exist--false">Нет в наличии</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="_flex _justify-between _items-center _grid-space-3">
+        <div class="_col-auto">
+            <a href="#" class="icon-button">
+                <i>{{ svg('star') }}</i>
+            </a>
+        </div>
+
+        <div class="_col-auto _flex-grow-1">
+            <a href="#" class="button button--full">
+                <span>
+                    <i>{{ svg('cart') }}</i>
+
+                    {% if item.exist %}
+                        <span>В корзину</span>
+                    {% else %}
+                        <span>Заказать</span>
+                    {% endif %}
+                </span>
+            </a>
+        </div>
+
+    </div>
+
 </div>

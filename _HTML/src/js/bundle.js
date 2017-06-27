@@ -3,11 +3,12 @@ window.Promise = window.Promise || Promise;
 
 window.jQuery = window.$ = require('jquery');
 
-import './vue-modules';
-
 console.log(`bundle.js has loaded!`);
 
 window.jQuery(function ($) {
+
+    // Vue
+    require("./vue-modules");
 
     // tabs
     require("./modules/tabs")();

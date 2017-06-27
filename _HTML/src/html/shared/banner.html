@@ -1,0 +1,20 @@
+<div class="slider-holder _md-show">
+    <div class="banner-slider _mb-4" data-slider="banner">
+        {% for item in range(0, 3) %}
+            <div class="banner-slider__item">
+                <div class="banner">
+                    <img src="pic/banner-1.jpg" class="banner__image" />
+
+                    <div class="banner__content">
+                        <div class="banner__caption">сервисное обслуживание</div>
+                        <div class="banner__title">грузовиков</div>
+                        <a href="#" class="button"><span>Узнать подробнее</span></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div data-slider-prev class="banner-slider__prev">{{ svg('arrow-prev') }}</div>
+    <div data-slider-next class="banner-slider__next">{{ svg('arrow-next') }}</div>
+</div>

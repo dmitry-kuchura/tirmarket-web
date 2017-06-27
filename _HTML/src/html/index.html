@@ -7,6 +7,8 @@
 {% block content %}
 
     <div class="page-size">
+        {% include "shared/banner.html" %}
+        
         <div class="_flex _justify-between _items-center _mb-3">
             <div class="title">Каталог товаров</div>
             <a href="#">Все категории →</a>
@@ -37,11 +39,7 @@
         </div>
     </div>
 
-    <div class="fast-order-section _pt-4 _pb-4" style="background-color:#050505;">
-        <div class="page-size">
-            <div class="title">Подобрать деталь / автозапчасть</div>
-        </div>
-    </div>
+    {% include "shared/order-section.html" %}
 
     <div style="background-color: #f8f8f8;" class="_pt-4 _pb-2">
         <div class="page-size">

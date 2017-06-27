@@ -13,6 +13,14 @@
 // Structure
 @import "partials/structure/page-size";
 @import "partials/structure/footer";
+@import "partials/structure/header";
+@import "partials/ui/lang";
+@import "partials/structure/catalog-menu";
+@import "partials/structure/site-menu";
+@import "partials/structure/sidebar";
+@import "partials/structure/content";
+@import "partials/structure/breadcrumbs";
+@import "partials/structure/paginator";
 
 // UI
 @import "partials/ui/title";
@@ -20,6 +28,7 @@
 @import "partials/ui/tabs";
 @import "partials/ui/label";
 @import "partials/ui/button";
+@import "partials/ui/form-elements";
 
 // content
 @import "partials/news-card";
@@ -30,6 +39,8 @@
 @import "partials/producer";
 @import "partials/seo-section";
 @import "partials/promo-slider";
+@import "partials/banner";
+@import "partials/content/order-section";
 
 // Helpers
 @import 'partials/helpers/display';

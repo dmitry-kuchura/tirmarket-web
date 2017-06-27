@@ -1,4 +1,158 @@
 .page-footer {
 	background: #9a9fa3;
 	padding: rem(50) 0;
+	font-size: 14px;
+	color: #000000;
+	text-align: center;
+	
+	@include media($md) {
+		text-align: left;
+	}
+	
+	a {
+		color: #fff;
+
+		&:hover {
+			color: $color-red;
+		}
+	}
+}
+
+.footer-menu {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	@include media($xl) {
+		margin: 0 40px;
+	}
+	
+	&__item {
+		&:not(:last-child) {
+			margin: 0 0 10px;
+		}
+	}
+	
+	&__link {
+		color: #fff;
+		
+		&:hover {
+			color: #fff;
+		}
+	}
+}
+
+.copyright {
+	color: #000000;
+}
+
+.footer-logo {
+	margin: 0 0 15px;
+	display: none;
+
+	@include media($md) {
+		display: block;
+	}
+
+	img {
+		display: block;
+		max-width: 120px;
+	}
+}
+
+.footer-phone {
+	margin: 0 0 5px;
+
+	a {
+		font-size: 17px;
+		color: #000000;
+		font-weight: 500;
+	}
+}
+
+.social {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+
+	@include media($md) {
+		justify-content: flex-start;
+	}
+
+	&__item {
+		display: block;
+		position: relative;
+		width: 36px;
+		height: 36px;
+		border: 1px solid #fff;
+		border-radius: 50%;
+		transition: border .25s, background .25s;
+
+		&:not(:first-child) {
+			margin-left: 10px;
+		}
+
+		svg {
+			position: absolute;
+			max-width: 50%;
+			max-height: 50%;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			fill: #fff;
+		}
+
+		&--ok {
+			&:hover {
+				background: map-get($palette-social, odnoklassniki);
+				border: 1px solid map-get($palette-social, odnoklassniki);
+			}
+		}
+
+		&--fb {
+			&:hover {
+				background: map-get($palette-social, facebook);
+				border: 1px solid map-get($palette-social, facebook);
+			}
+		}
+
+		&--youtube {
+			&:hover {
+				background: map-get($palette-social, youtube);
+				border: 1px solid map-get($palette-social, youtube);
+			}
+		}
+
+		&--linkedin {
+			&:hover {
+				background: map-get($palette-social, linked-in);
+				border: 1px solid map-get($palette-social, linked-in);
+			}
+		}
+	}
+}
+
+.develop-link {
+	display: inline-flex;
+	align-items: center;
+	transition: color .25s;
+
+	i {
+		display: block;
+		margin: 0 10px 0 0;
+		width: 40px;
+		height: 20px;
+
+		svg {
+			max-width: 100%;
+			max-height: 100%;
+			fill: #ff0000;
+		}
+	}
+
+	&:hover {
+		color: #ff0000;
+	}
 }

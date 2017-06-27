@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Главная" %}
+{% set bodyClass = "" %}
+
+{% set list = [
+    {
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа в две строки"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Двигатель и системы выхлопа"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Автомобильные масла и смазки"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Аксессуары"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Фильтры"
+    },{
+        "image": "/pic/category-image-1.jpg",
+        "title": "Для прицепа"
+    }
+] %}
+
+{% block content %}
+
+    <div class="page-size">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "Каталог товаров"}
+        ]) }}
+
+        <div class="title _mb-3">Каталог товаров</div>
+
+        <div class="_flex _grid-space-3">
+            {% for item in list %}
+                <div class="_col-12 _sm-col-6 _lg-col-3 _mb-3">
+                    {% include "shared/category-card.html" %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include "shared/seo-section.html" %}
+
+{% endblock %}

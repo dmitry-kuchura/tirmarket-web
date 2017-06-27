@@ -2,9 +2,9 @@
     <div class="item-card__image" style="background-image:url({{ item.image }});"></div>
 
     <div class="item-card__labels">
-        <div class="label label--orange"><span>акция</span></div>
-        <div class="label label--purple"><span>популярный</span></div>
-        <div class="label label--green"><span>новинка</span></div>
+        {% if [true, false] | random %}<div class="label label--orange"><span>акция</span></div>{% endif %}
+        {% if [true, false] | random %}<div class="label label--purple"><span>популярный</span></div>{% endif %}
+        {% if [true, false] | random %}<div class="label label--green"><span>новинка</span></div>{% endif %}
     </div>
 
     <div class="item-card__title">{{ item.title }}</div>
@@ -37,12 +37,7 @@
             <a href="#" class="button button--full">
                 <span>
                     <i>{{ svg('cart') }}</i>
-
-                    {% if item.exist %}
-                        <span>В корзину</span>
-                    {% else %}
-                        <span>Заказать</span>
-                    {% endif %}
+                    {% if item.exist %}<span>В корзину</span>{% else %}<span>Заказать</span>{% endif %}
                 </span>
             </a>
         </div>

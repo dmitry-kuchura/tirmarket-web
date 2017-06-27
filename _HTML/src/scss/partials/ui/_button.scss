@@ -2,8 +2,12 @@
 	display: inline-block;
 	background: #113da9;
 	color: #fff;
+	font-size: rem(18);
 	padding: 0 rem(30);
 	border-radius: 42/2 + px;
+	outline: none;
+	border: none;
+	cursor: pointer;
 	transition: background .25s;
 
 	&--full {

@@ -2,4 +2,26 @@
 	color: #1e2227;
 	font-weight: 500;
 	font-size: rem(36);
+	line-height: 1.2;
+
+	&--sm {
+		font-size: rem(18);
+	}
+
+	&--md {
+		font-size: rem(24);
+	}
+	
+	&--white {
+		color: #fff;
+	}
+}
+
+.subtitle {
+	font-size: rem(20);
+	font-weight: 100;
+
+	&--white {
+		color: #fff;
+	}
 }

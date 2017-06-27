@@ -1,0 +1,40 @@
+.lang {
+	display: flex;
+
+	&__item {
+		display: flex;
+		align-items: center;
+		margin: 0 10px;
+		font-weight: 500;
+		color: #fff;
+		opacity: .7;
+		transition: opacity .25s;
+
+		&--active {
+			font-weight: 500;
+			opacity: 1;
+		}
+
+		&:hover {
+			opacity: 1;
+			color: #fff;
+		}
+	}
+
+	&__title {
+		font-size: 14px;
+		text-transform: uppercase;
+	}
+
+	&__icon {
+		display: block;
+		width: 24px;
+		height: 24px;
+		margin: 0 10px 0 0;
+
+		svg {
+			max-width: 100%;
+			max-height: 100%;
+		}
+	}
+}

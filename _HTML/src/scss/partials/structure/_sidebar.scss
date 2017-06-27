@@ -1,0 +1,18 @@
+.sidebar {
+	width: 320px;
+	min-width: 320px;
+	background: #f8f8f8;
+	margin: 0 30px 0 0;
+	flex-shrink: 0;
+	flex-grow: 0;
+	align-self: flex-start;
+	box-sizing: border-box;
+
+	&__section {
+		padding: rem(30) rem(30) rem(20) rem(30);
+
+		&:not(:last-child) {
+			border-bottom: 1px solid #fff;
+		}
+	}
+}

@@ -1,3 +1,111 @@
 <header class="page-header">
-    header
+    <div class="page-header__above">
+        <div class="page-size">
+            <div class="_flex _justify-between _items-center _grid-space-3">
+                <div class="_col-auto">
+                    <ul class="site-menu">
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Каталог</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">О компании</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Вакансии</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Доставка и оплата</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Гарантия и возврат</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <div class="_col-auto _ml-auto">
+                    <div class="lang">
+                        <a href="#" class="lang__item lang__item--active">
+                            <span class="lang__icon">{{ svg('russia') }}</span>
+                            <span class="lang__title">рус</span>
+                        </a>
+
+                        <a href="#" class="lang__item">
+                            <span class="lang__icon">{{ svg('ukraine') }}</span>
+                            <span class="lang__title">укр</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="_col-auto">
+                    <a href="#" class="account-link"><i>{{ svg('user') }}</i><span>Личный кабинет</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-header__middle">
+        <div class="page-size">
+
+            <div class="_flex _grid-space-3 _flex-nowrap _items-center _justify-between">
+                <div class="_col-auto _flex-shrink-0">
+                    <a href="/" class="logo">
+                        <img src="pic/logo.png" alt="" />
+                    </a>
+                </div>
+
+                <div class="_col-auto _flex-grow-1 _lg-show">
+                    <div class="title title--sm _mb-2">Автозапчасти для грузовых автомобилей по всей Украине</div>
+
+                    <search-form data-vue="true"></search-form>
+                </div>
+
+                <div class="_col-auto _xl-show">
+                    <div class="_flex _flex-nowrap">
+                        <div class="header-contact">
+                            <div class="header-contact__title">г. Киев, ул. Леся Курбаса, 2-Б</div>
+
+                            <div class="header-contact__phone"><a href="tel:">+38 050 123 45 67</a></div>
+                            <div class="header-contact__phone"><a href="tel:">+38 067 123 45 67</a></div>
+                        </div>
+
+                        <div class="header-contact">
+                            <div class="header-contact__title">Приём заявок:</div>
+
+                            <div class="header-contact__data">Пн-Пт: с 09:30 до 17:30;</div>
+                            <div class="header-contact__data">Сб: с 09:30 до 14:30. Вс: выходной</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="_col-auto _flex-shrink-0">
+
+                    <div class="_flex">
+                        <a href="#" class="header-icon">
+                            <span class="header-icon__caption">Избранное</span>
+                            <span class="header-icon__image">
+                                {{ svg('star') }}
+                            </span>
+                        </a>
+
+                        <a href="#" class="header-icon">
+                            <span class="header-icon__caption">корзина</span>
+                            <span class="header-icon__image">
+                                {{ svg('cart') }}
+
+                                <span class="header-icon__count">10</span>
+                            </span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="page-header__below">
+        <div class="page-size">
+            <ul class="catalog-menu" data-menu-tip="Все категории">
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Запчасти</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Сервисное обслуживание</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Масло и смазки</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Фильтры</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Аксессуары</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">ADR</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Для прицепа</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Шины</a></li>
+            </ul>
+        </div>
+    </div>
 </header>

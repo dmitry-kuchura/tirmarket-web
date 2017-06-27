@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "blendid": "^4.1.1",
     "es6-promise-polyfill": "^1.2.0",
     "jquery": "^3.2.1",
@@ -12,6 +13,7 @@
     "normalize.css": "^7.0.0",
     "slick-carousel": "^1.6.0",
     "vue": "^2.3.4",
-    "vue-loader": "^12.2.1"
+    "vue-loader": "^12.2.1",
+    "vue-template-compiler": "^2.3.4"
   }
 }

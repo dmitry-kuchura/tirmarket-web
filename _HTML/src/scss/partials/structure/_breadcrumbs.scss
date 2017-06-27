@@ -1,0 +1,32 @@
+.breadcrumbs {
+	display: flex;
+	margin: 0 0 15px;
+
+	&__item {
+		display: block;
+		position: relative;
+		font-size: 14px;
+		text-transform: uppercase;
+		color: #6e90e3;
+		
+		&:not(:first-child) {
+			margin: 0 0 0 30px;
+
+			&::before {
+				content: '';
+				display: block;
+				position: absolute;
+				left: -15px;
+				top: 50%;
+				transform: translate(0, -50%);
+				height: 40px;
+				width: 1px;
+				background: #e4ebf5;
+			}
+		}
+	}
+
+	&__link {
+		color: #113da9;
+	}
+}

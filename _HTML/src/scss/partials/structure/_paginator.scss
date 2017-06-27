@@ -1,0 +1,56 @@
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: rem(20);
+	color: #1e2227;
+	margin: rem(30) 0;
+
+	&__link {
+		width: rem(50);
+		height: rem(50);
+		line-height: rem(50);
+		text-align: center;
+		color: #1e2227;
+		font-weight: 500;
+		border-radius: 50%;
+		transition: color .25s;
+
+		&--active {
+			box-shadow: 0 0 rem(15) rgba(#001341, .3);
+			color: #6c819b;
+		}
+
+		&:hover {
+			color: #6c819b;
+		}
+	}
+
+	&__prev, &__next {
+		position: relative;
+		width: rem(50);
+		height: rem(50);
+
+		svg {
+			position: absolute;
+			max-width: 50%;
+			max-height: 50%;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			fill: $color-primary;
+			stroke: $color-primary;
+			stroke-width: 4px;
+			transition: fill .25s, stroke .25s;
+		}
+
+		&:hover {
+			svg {
+				fill: $color-red;
+				stroke: $color-red;
+			}
+		}
+	}
+}

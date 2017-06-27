@@ -10,12 +10,6 @@ module.exports = {
     javascripts: {
         entry: {
             bundle: ['./bundle.js']
-        }
-    },
-
-    browserSync: {
-        proxy: {
-            target: 'tirmarket.loc'
         },
         customizeWebpackConfig: function (webpackConfig, env, webpack) {
             webpackConfig.output.chunkFilename = '[name].js';
@@ -31,6 +25,12 @@ module.exports = {
             ];
 
             return webpackConfig;
+        }
+    },
+
+    browserSync: {
+        proxy: {
+            target: 'tirmarket.loc'
         }
     },
 

@@ -1,0 +1,69 @@
+{% extends 'layouts/catalog.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Главная" %}
+{% set bodyClass = "" %}
+
+{% set catalog = [
+    {
+        "image": "pic/item-image-1.jpg",
+        "title": "Джойстик управления соединяется с тросом",
+        "exist": false
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Выключатель массы 24V VOLVO / MAN / IVECO / DAF / MB / ICARUS",
+        "exist": true
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Pеле регулятор DAF / Iveco / Volvo / RVI",
+        "exist": true
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Поршневой комплект 75,5 мм",
+        "exist": false
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Pеле регулятор DAF / Iveco / Volvo / RVI",
+        "exist": true
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Поршневой комплект 75,5 мм",
+        "exist": true
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Поршневой комплект 75,5 мм",
+        "exist": false
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Pеле регулятор DAF ",
+        "exist": true
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Поршневой комплект 75,5 мм",
+        "exist": true
+    }
+] %}
+
+
+{% block content %}
+
+    {{ breadcrumbs([
+        {"title": "Главная", "link": "/"},
+        {"title": "Каталог товаров", "link": "/category.html"},
+        {"title": "масла и смазки"}
+    ]) }}
+
+    <div class="title _mb-3">Масла и смазки</div>
+
+    <div class="_flex _grid-space-3">
+        {% for item in catalog %}
+            <div class="_col-4 _mb-3">
+                {% include "shared/item-card.html" %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% include "shared/structure/paginator.html" %}
+
+{% endblock %}

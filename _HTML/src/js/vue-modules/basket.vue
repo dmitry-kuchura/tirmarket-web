@@ -53,7 +53,7 @@
         beforeCreate() {
             let $this = this;
 
-            axios.post('mock-data/basket.json', {
+            axios.post(window.initialConfig.ajax.basket , {
                 params: {
                     "action": "default"
                 }

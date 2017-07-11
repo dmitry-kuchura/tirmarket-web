@@ -21,6 +21,8 @@
                 </div>
             </div>
 
+            <slot name="header"></slot>
+
             <div class="mobile-menu__body">
                 <div class="mobile-menu__item" v-for="(item, index) in view" :key="item.alias">
                     <a href="#" class="mobile-menu__link">{{ item.alias }}</a>

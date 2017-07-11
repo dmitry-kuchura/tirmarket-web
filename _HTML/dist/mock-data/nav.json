@@ -1,0 +1,128 @@
+{
+  "menu": [
+    {
+      "link": "",
+      "alias": "КАТАЛОГ",
+      "children": [
+        {
+          "link": "",
+          "alias": "ЗАПЧАСТИ",
+          "children": false
+        },
+        {
+          "link": "",
+          "alias": "СЕРВИСНОЕ ОБСЛУЖИВАНИЕ",
+          "children": false
+        },
+        {
+          "link": "",
+          "alias": "МАСЛО И СМАЗКИ",
+          "children": false
+        },
+        {
+          "link": "",
+          "alias": "ФИЛЬТРЫ",
+          "children": [
+            {
+              "link": "",
+              "alias": "ФИЛЬТРЫ 1",
+              "children": false
+            },
+            {
+              "link": "",
+              "alias": "ФИЛЬТРЫ 2",
+              "children": false
+            },
+            {
+              "link": "",
+              "alias": "ФИЛЬТРЫ 3",
+              "children": false
+            }
+          ]
+        },
+        {
+          "link": "",
+          "alias": "АКСЕССУАРЫ",
+          "children": false
+        },
+        {
+          "link": "",
+          "alias": "ADR",
+          "children": [
+            {
+              "link": "",
+              "alias": "ADR 1",
+              "children": false
+            },
+            {
+              "link": "",
+              "alias": "ADR 2",
+              "children": [
+                {
+                  "link": "",
+                  "alias": "ADR 2-1",
+                  "children": false
+                },
+                {
+                  "link": "",
+                  "alias": "ADR 2-2",
+                  "children": false
+                },
+                {
+                  "link": "",
+                  "alias": "ADR 2-3",
+                  "children": false
+                }
+              ]
+            },
+            {
+              "link": "",
+              "alias": "ADR 3",
+              "children": false
+            }
+          ]
+        },
+        {
+          "link": "",
+          "alias": "ДЛЯ ПРИЦЕПА",
+          "children": false
+        },
+        {
+          "link": "",
+          "alias": "ШИНЫ",
+          "children": false
+        }
+      ]
+    },
+    {
+      "link": "",
+      "alias": "О КОМПАНИИ",
+      "children": false
+    },
+    {
+      "link": "",
+      "alias": "ВАКАНСИИ",
+      "children": false
+    },
+    {
+      "link": "",
+      "alias": "ДОСТАВКА И ОПЛАТА",
+      "children": false
+    },
+    {
+      "link": "",
+      "alias": "ГАРАНТИЯ И ВОЗВРАТ",
+      "children": false
+    },
+    {
+      "link": "",
+      "alias": "КОНТАКТЫ",
+      "children": false
+    },
+    {
+      "link": "",
+      "alias": "ЛИЧНЫЙ КАБИНЕТ",
+      "children": false
+    }
+  ]
+}

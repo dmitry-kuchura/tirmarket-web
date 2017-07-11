@@ -10,7 +10,7 @@ module.exports = function (context = `body`) {
         console.log(ID);
 
         $.ajax({
-          url: "mock-data/basket.json",
+          url: window.initialConfig.ajax.basket,
           method: "POST",
           data: {
               "action": "add",

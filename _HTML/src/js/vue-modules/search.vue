@@ -42,7 +42,7 @@
                 let $this = this;
 
                 if(this.search.length > 2) {
-                    axios.post('mock-data/search.php', {
+                    axios.post(window.initialConfig.ajax.autocomplete, {
                         params: {
                             search: $this.search
                         }

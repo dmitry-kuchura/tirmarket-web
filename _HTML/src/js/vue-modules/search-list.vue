@@ -23,7 +23,7 @@
         beforeCreate() {
             let $this = this;
 
-            axios.post('mock-data/search-result.json', {
+            axios.post(window.initialConfig.ajax.search, {
                 params: {}
             })
                 .then((response) => {

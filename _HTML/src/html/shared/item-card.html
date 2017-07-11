@@ -40,12 +40,21 @@
         </div>
 
         <div class="_col-auto _flex-grow-1">
-            <a href="#" class="button button--full">
-                <span>
-                    <i>{{ svg('cart') }}</i>
-                    {% if item.exist %}<span>В корзину</span>{% else %}<span>Заказать</span>{% endif %}
-                </span>
-            </a>
+            {% if item.exist %}
+                <a href="#" class="button button--full" data-basket-trigger data-id="36">
+                    <span>
+                        <i>{{ svg('cart') }}</i>
+                        <span>В корзину</span>
+                    </span>
+                </a>
+            {% else %}
+                <a href="#" class="button button--full">
+                    <span>
+                        <i>{{ svg('cart') }}</i>
+                        <span>Заказать</span>
+                    </span>
+                </a>
+            {% endif %}
         </div>
 
     </div>

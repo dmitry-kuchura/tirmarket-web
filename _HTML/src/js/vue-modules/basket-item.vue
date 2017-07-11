@@ -49,7 +49,7 @@
                 let $this = this;
                 $this.$parent.load = true;
 
-                axios.post('mock-data/basket.json', {
+                axios.post(window.initialConfig.ajax.basket , {
                     params: {
                         action: action,
                         id: $this.item.id
@@ -102,7 +102,7 @@
         },
 
         mounted() {
-            console.log(this.item);
+            //console.log(this.item);
         },
 
         updated() {

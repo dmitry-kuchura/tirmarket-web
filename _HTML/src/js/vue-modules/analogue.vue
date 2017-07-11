@@ -24,7 +24,7 @@
         beforeCreate() {
             let $this = this;
 
-            axios.post('mock-data/analogue.json', {
+            axios.post(window.initialConfig.ajax.analogue, {
                 params: {}
             })
                 .then((response) => {

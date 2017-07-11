@@ -3,6 +3,7 @@
 	padding: 0;
 	margin: 0;
 	list-style: none;
+	overflow: hidden;
 
 	&__item {
 		position: relative;
@@ -35,5 +36,36 @@
 		&:hover {
 			color: #6186e1;
 		}
+	}
+}
+
+.dropdown-menu {
+	position: absolute;
+	z-index: 100;
+	background: $color-primary;
+	right: 0;
+	top: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility .25s, opacity .25s, top .25s;
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		border-bottom: 10px solid $color-primary;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		top: -10px;
+		right: calc(50% - 10px);
+	}
+
+	.catalog-menu__item.is-active & {
+		visibility: visible;
+		opacity: 1;
+		top: calc(100% + 20px);
 	}
 }

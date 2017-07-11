@@ -1,0 +1,16 @@
+.modal {
+	position: relative;
+	background: #fff;
+	margin: auto;
+	padding: rem(40);
+	max-width: 600px;
+	box-sizing: border-box;
+
+	&--basket {
+		padding: 0;
+	}
+
+	&--sm {
+		max-width: 400px;
+	}
+}

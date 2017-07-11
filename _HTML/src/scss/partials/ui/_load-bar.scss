@@ -1,0 +1,61 @@
+.load-bar {
+	position: absolute;
+	width: 100%;
+	background-color: #fff;
+	top: 0;
+	left: 0;
+	height: 4px;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility .25s, opacity .25s;
+
+	&--visible {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+.load-bar__item {
+	content: "";
+	display: inline;
+	position: absolute;
+	width: 0;
+	height: 100%;
+	left: 50%;
+	text-align: center
+}
+
+.load-bar__item:nth-child(1) {
+	background-color: $color-primary;
+	-webkit-animation: sidebar-loading 3s linear infinite;
+	animation: sidebar-loading 3s linear infinite
+}
+
+.load-bar__item:nth-child(2) {
+	background-color: $color-green;
+	-webkit-animation: sidebar-loading 3s linear 1s infinite;
+	animation: sidebar-loading 3s linear 1s infinite
+}
+
+.load-bar__item:nth-child(3) {
+	background-color: $color-orange;
+	-webkit-animation: sidebar-loading 3s linear 2s infinite;
+	animation: sidebar-loading 3s linear 2s infinite
+}
+
+@keyframes sidebar-loading {
+	from {
+		left: 50%;
+		width: 0;
+		z-index: 100
+	}
+	33.3333% {
+		left: 0;
+		width: 100%;
+		z-index: 10
+	}
+	to {
+		left: 0;
+		width: 100%
+	}
+}

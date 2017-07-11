@@ -1,0 +1,49 @@
+{% extends 'layouts/main.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Новости" %}
+{% set bodyClass = "" %}
+
+{% block content %}
+
+    <div class="page-size">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "Новости и статьи"}
+        ]) }}
+
+        <div class="title _mb-3">Новости и статьи</div>
+
+        <div class="_flex _grid-space-3">
+            <div class="_col-12 _xl-col-6">
+                {% include "shared/news-card-lg.html" %}
+            </div>
+
+            <div class="_col-12 _xl-col-6">
+                {% include "shared/news-card.html" %}
+
+                {% include "shared/news-card.html" %}
+            </div>
+
+            <div class="_col-12 _xl-col-6">
+                {% include "shared/news-card.html" %}
+            </div>
+
+            <div class="_col-12 _xl-col-6">
+                {% include "shared/news-card.html" %}
+            </div>
+
+            <div class="_col-12 _xl-col-6">
+                {% include "shared/news-card.html" %}
+            </div>
+
+            <div class="_col-12 _xl-col-6">
+                {% include "shared/news-card.html" %}
+            </div>
+        </div>
+
+        {% include "shared/structure/paginator.html" %}
+    </div>
+
+{% endblock %}

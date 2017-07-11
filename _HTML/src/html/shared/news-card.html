@@ -1,0 +1,29 @@
+<a href="#" class="news-card _mb-3">
+    <div class="news-card__image">
+        {% if item.image %}
+            <img src="{{ item.image }}" alt="">
+        {% else %}
+            <img src="pic/news-image-1.jpg" alt="">
+        {% endif %}
+    </div>
+
+    <div class="news-card__body">
+        {% if item.date %}
+            <div class="news-card__date">{{ item.date }}</div>
+        {% else %}
+            <div class="news-card__date">27/07/2017</div>
+        {% endif %}
+
+        {% if item.title %}
+            <div class="news-card__title">{{ item.title }}</div>
+        {% else %}
+            <div class="news-card__title">Европейское турне новых MAN TG в две строки</div>
+        {% endif %}
+
+        {% if item.descr %}
+            <div class="news-card__descr">{{ item.descr }}</div>
+        {% else %}
+            <div class="news-card__descr">Автопробег новых представителей мощных грузовиков серии MAN TG по Европе стартовал в октябре. В нем компания MAN Truck & Bus продемонстрировала новейшие автомобили модельного ряда TG, представленные на выставке IAA в Ганновере.</div>
+        {% endif %}
+    </div>
+</a>

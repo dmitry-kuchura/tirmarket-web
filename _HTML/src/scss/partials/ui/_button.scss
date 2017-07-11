@@ -1,9 +1,12 @@
 .button {
 	display: inline-block;
+	font-family: $font-primary;
 	background: #113da9;
 	color: #fff;
 	font-size: rem(18);
 	padding: 0 rem(30);
+	height: 42px;
+	line-height: 42px;
 	border-radius: 42/2 + px;
 	outline: none;
 	border: none;
@@ -24,6 +27,13 @@
 		align-items: center;
 		justify-content: center;
 		height: 42px;
+
+		span {
+			display: block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 
 		i {
 			display: block;
@@ -51,6 +61,14 @@
 			max-height: 100%;
 			fill: #113da9;
 			transition: fill .25s;
+		}
+	}
+
+	&--orange {
+		i {
+			svg {
+				fill: $color-orange;
+			}
 		}
 	}
 

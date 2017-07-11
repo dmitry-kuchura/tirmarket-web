@@ -1,0 +1,85 @@
+{% extends 'layouts/main.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Личный кабинет" %}
+{% set bodyClass = "" %}
+
+{% block content %}
+
+    <div class="page-size">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "Личный кабинет"}
+        ]) }}
+
+        <div class="title _mb-3">Личный кабинет</div>
+
+        <div class="_flex _grid-space-4">
+            <div class="_col-3 _lg-show">
+                {% include "shared/account-menu.html" %}
+            </div>
+
+            <div class="_col-12 _lg-col-9 _flex-grow-0">
+                <div class="title title--md _mb-3">Личные данные</div>
+
+                <div class="wysiwyg _mb-5">
+                    <table class="table-zebra">
+                        <tr>
+                            <td><b>Имя и фамилия:</b></td>
+                            <td>Тарас Шевченко</td>
+                        </tr>
+                        <tr>
+                            <td><b>Телефон:</b></td>
+                            <td>+38 (050) 580 78 60</td>
+                        </tr>
+                        <tr>
+                            <td><b>Город:</b></td>
+                            <td>Киев</td>
+                        </tr>
+                        <tr>
+                            <td><b>Адрес:</b></td>
+                            <td>ул. Ярослава Мудрого, 12/14</td>
+                        </tr>
+                        <tr>
+                            <td><b>Email:</b></td>
+                            <td>examle@exampel.com</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="title title--md _mb-3">Ваше транспортные средства</div>
+
+                <div class="wysiwyg _mb-5 _text-center">
+                    <table class="table-null">
+                        <tr>
+                            <th>№</th>
+                            <th>Гос. номер</th>
+                            <th>Марка</th>
+                            <th>Модель</th>
+                            <th>Год выпуска</th>
+                            <th>VIN</th>
+                        </tr>
+
+                        {% for i in range(0, 5) %}
+                        <tr>
+                            <td>1</td>
+                            <td>АА0780ВВ</td>
+                            <td>Renault</td>
+                            <td>T 440</td>
+                            <td>2010</td>
+                            <td>ABC123456789DFE789465123</td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+
+                <a href="#" class="button">
+                    <span>Добавить Т/С</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

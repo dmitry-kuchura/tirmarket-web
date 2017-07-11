@@ -23,31 +23,21 @@
 </template>
 
 <script>
-    import Vue from 'vue/dist/vue';
+    import Vue from 'vue';
 
     export default {
         props: ['data'],
 
         data() {
-            return {
-
-            }
+            return {}
         },
 
-        computed: {
+        computed: {},
 
-        },
+        methods: {},
 
-        methods: {
+        mounted() {},
 
-        },
-
-        mounted() {
-            console.log(this.data);
-        },
-
-        updated() {
-
-        }
+        updated() {}
     };
 </script>

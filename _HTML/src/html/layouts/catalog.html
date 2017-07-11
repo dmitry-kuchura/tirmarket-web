@@ -13,17 +13,7 @@
 		{% include "shared/structure/page-header.html" %}
 
 		<main class="page-main">
-			<div class="page-size">
-				<div class="_flex _flex-nowrap">
-                    {% include "shared/structure/sidebar.html" %}
-
-					<div class="content">
-                        {% block content %}{% endblock %}
-					</div>
-				</div>
-			</div>
-
-            {% include "shared/seo-section.html" %}
+            {% block content %}{% endblock %}
 		</main>
 
 		{% include "shared/structure/page-footer.html" %}

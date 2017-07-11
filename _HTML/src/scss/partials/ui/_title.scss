@@ -8,12 +8,20 @@
 		font-size: rem(18);
 	}
 
+	&--ms {
+		font-size: rem(20);
+	}
+
 	&--md {
 		font-size: rem(24);
 	}
 	
 	&--white {
 		color: #fff;
+	}
+
+	&--center {
+		text-align: center;
 	}
 }
 

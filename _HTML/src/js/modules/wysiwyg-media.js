@@ -2,11 +2,11 @@ let $ = require('jquery');
 
 function pageTextMedia (selector) {
 	selector = selector || '.wysiwyg';
-	var ignoreClass = 'ignore';
-	var wrapperClass = 'media-wrapper';
-	var holderClass = wrapperClass + '__holder';
-	var _getRatio = function (element) {
-		var ratio = parseFloat((+element.offsetHeight / +element.offsetWidth * 100).toFixed(2));
+	let ignoreClass = 'ignore';
+	let wrapperClass = 'media-wrapper';
+	let holderClass = wrapperClass + '__holder';
+	let _getRatio = function (element) {
+		let ratio = parseFloat((+element.offsetHeight / +element.offsetWidth * 100).toFixed(2));
 		if (isNaN(ratio)) {
 			// страховка 16:9
 			ratio = 56.25;
@@ -15,18 +15,18 @@ function pageTextMedia (selector) {
 	};
 
 	$(selector).each(function (index, text) {
-		var $text = $(text);
-		var $media = $text.find('iframe').add($text.find('video'));
+		let $text = $(text);
+		let $media = $text.find('iframe').add($text.find('video'));
 
 		$media.each(function (index, el) {
-			var $el = $(el);
+			let $el = $(el);
 			if ($el.hasClass(ignoreClass) || $el.parent().hasClass(holderClass)) {
 				return;
 			}
 
-			var ratio = _getRatio(el);
-			var ratioClass = holderClass + ' ' + holderClass + '--' + ratio.replace('.', '-');
-			var maxWidth = el.offsetWidth;
+			let ratio = _getRatio(el);
+			let ratioClass = holderClass + ' ' + holderClass + '--' + ratio.replace('.', '-');
+			let maxWidth = el.offsetWidth;
 
 			$el.unwrap('p').wrap('' +
 				'<div class="' + wrapperClass + '" style="max-width:' + maxWidth + 'px;">' +
@@ -34,7 +34,7 @@ function pageTextMedia (selector) {
 				'</div>');
 		});
 
-		var $tables = $text.children('table');
+		let $tables = $text.children('table');
 		$tables.each(function (index, el) {
 			$(el)
 				.addClass('table-wrapp__table js-table-wrapper__table')

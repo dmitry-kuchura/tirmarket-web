@@ -1,0 +1,33 @@
+{% extends 'layouts/main.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Главная" %}
+{% set bodyClass = "" %}
+
+{% block content %}
+
+    <div class="page-size page-size--sm">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "О компании"}
+        ]) }}
+
+        <div class="title _mb-3">О компании</div>
+
+        <div class="wysiwyg _mb-4">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+
+            <blockquote>Шведская компания Volvo Trucks официально презентовала обновлённую версию концептуального грузовика Volvo Concept Truck, впервые представленного весной прошлого года. Машина получила новые аэродинамические «одежды», благодаря которым удалось значительно снизить потребление топлива, а также новую гибридную силовую установку.</blockquote>
+
+            <p>Отметим, что на текущий момент гибридные тягачи компании Volvo Trucks серийно не выпускаются. Однако производитель постоянно испытывает такой вид транспорта, а значит, в ближайшее время может начать производство машин с гибридным приводом.</p>
+
+            <blockquote>Шведская компания Volvo Trucks официально презентовала обновлённую версию концептуального грузовика.</blockquote>
+
+            <p>Отметим, что на текущий момент гибридные тягачи компании Volvo Trucks серийно не выпускаются. Однако производитель постоянно испытывает такой вид транспорта, а значит, в ближайшее время может начать производство машин с гибридным приводом.</p>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -4,6 +4,7 @@
 	font-size: 14px;
 	color: #000000;
 	text-align: center;
+	margin: rem(50) 0 0;
 	
 	@include media($md) {
 		text-align: left;

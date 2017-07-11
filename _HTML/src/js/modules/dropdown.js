@@ -4,11 +4,11 @@ module.exports = function (context = `body`) {
     let $allToggle = $(toggleSelector);
     let activeClassName = `is-active`;
 
-    $(toggleSelector, context).on('click', switchSelector, (event) => {
+    $(context).on('click', switchSelector, (event) => {
 
         event.preventDefault();
 
-        let $parentDropdown = $(event.delegateTarget);
+        let $parentDropdown = $(event.currentTarget).closest(`[data-dropdown]`);
 
         let $allNamespacedToggles = $allToggle.filter(function () {
             return $(this).data('dropdown') === $parentDropdown.data('dropdown');

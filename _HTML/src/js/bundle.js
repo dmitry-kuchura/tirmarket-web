@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise-polyfill';
 window.Promise = window.Promise || Promise;
-
 window.jQuery = window.$ = require('jquery');
+window.wHTML = window.wHTML || {};
 
 console.log(`bundle.js has loaded!`);
 
@@ -12,6 +12,21 @@ window.jQuery(function ($) {
 
     // tabs
     require("./modules/tabs")();
+
+    // toggle
+    require("./modules/toggle")();
+
+    // dropdown
+    require("./modules/dropdown")();
+
+    // counter
+    require("./modules/counter")();
+
+    // menu
+    require("./modules/menu")();
+
+    // basket
+    require("./modules/basket")();
 
     // magnific
     if ($('[data-mfp], [data-gallery-root]').length) {
@@ -27,11 +42,22 @@ window.jQuery(function ($) {
         }, 'validation');
     }
 
-    // wysiwyg media wrapper
+
     if ($('.wysiwyg').length) {
+        // wysiwyg media wrapper
         require.ensure([], (require) => {
             require('./modules/wysiwyg-media')();
         }, 'wysiwyg-media');
+
+        // viewTextImages
+        require.ensure([], () => {
+            require("./modules/view-text-images")();
+        }, 'viewTextImages');
+
+        // tableWrapper
+        require.ensure([], () => {
+            require("./modules/table-wrapper")();
+        }, 'tableWrapper');
     }
 
     // slick
@@ -39,6 +65,49 @@ window.jQuery(function ($) {
         require.ensure([], (require) => {
             require('./modules/slider')();
         }, 'slick');
+    }
+
+    // range slider
+    if ($('[data-range]').length) {
+        require.ensure([], () => {
+            let rangeInit = require("./modules/range-slider");
+
+            rangeInit();
+        }, 'range-slider');
+    }
+
+    // Google map
+
+    const loadGoogleMapsAPI = require('load-google-maps-api');
+
+    if($('[data-map]').length) {
+        loadGoogleMapsAPI({"key": "AIzaSyDeHkq36yoP2nl_2eLXUpLvpywOEGzpnhI"}).then(function(googleMaps) {
+
+            require.ensure([], () => {
+                require("./modules/change.map");
+
+                let $maps = $('[data-map]');
+
+                window['init-google-map'] = () => {
+                    $maps.each(function (index, element) {
+                        $(element).wMap({
+                            width: '100%',
+                            height: 500,
+                            zoom: 16,
+                            marker: {
+                                icon: "pic/marker.png"
+                            }
+                        });
+                    });
+                };
+
+                window['init-google-map']();
+
+            }, 'google-map');
+
+        }).catch((err) => {
+            console.error(err);
+        });
     }
 
 });

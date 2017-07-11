@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Личный кабинет" %}
+{% set bodyClass = "" %}
+
+{% set catalog = [
+    {
+        "image": "pic/item-image-1.jpg",
+        "title": "Джойстик управления соединяется с тросом",
+        "exist": false,
+        "favorite": true
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Выключатель массы 24V VOLVO / MAN / IVECO / DAF / MB / ICARUS",
+        "exist": true,
+        "favorite": true
+    },{
+        "image": "pic/item-image-1.jpg",
+        "title": "Pеле регулятор DAF / Iveco / Volvo / RVI",
+        "exist": true,
+        "favorite": true
+    }
+] %}
+
+
+{% block content %}
+
+    <div class="page-size">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "Личный кабинет"}
+        ]) }}
+
+        <div class="title _mb-3">Личный кабинет</div>
+
+        <div class="_flex _grid-space-4">
+            <div class="_col-3 _lg-show">
+                {% include "shared/account-menu.html" %}
+            </div>
+
+            <div class="_col-12 _lg-col-9 _flex-grow-0">
+                <div class="title title--md _mb-3">Избранное</div>
+
+                <div class="_flex _grid-space-3">
+                    {% for item in catalog %}
+                        <div class="_col-12 _sm-col-6 _md-col-4 _lg-col-6 _xl-col-4 _mb-3">
+                            {% include "./shared/item-card.html" %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

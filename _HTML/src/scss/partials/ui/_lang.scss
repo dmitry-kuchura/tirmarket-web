@@ -10,6 +10,10 @@
 		opacity: .7;
 		transition: opacity .25s;
 
+		&:first-child {
+			margin-left: 0;
+		}
+
 		&--active {
 			font-weight: 500;
 			opacity: 1;

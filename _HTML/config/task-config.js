@@ -8,21 +8,30 @@ module.exports = {
     stylesheets: true,
 
     javascripts: {
+        babel: {
+            presets: [
+                ["stage-2"],
+                ["es2015",  {"modules": false}]
+            ]
+        },
         entry: {
             bundle: ['./bundle.js']
         },
+        loaders: [
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            }
+        ],
+
         customizeWebpackConfig: function (webpackConfig, env, webpack) {
             webpackConfig.output.chunkFilename = '[name].js';
 
-            webpackConfig.module.rules = [
-                {
-                    test: /\.vue$/,
-                    loader: 'vue-loader',
-                    options: {
-                        // extractCSS: true
-                    }
+            webpackConfig.resolve = {
+                alias: {
+                    'vue$': 'vue/dist/vue.esm.js'
                 }
-            ];
+            };
 
             return webpackConfig;
         }
@@ -35,7 +44,7 @@ module.exports = {
     },
 
     production: {
-        rev: true
+        rev: false
     }
 };
 

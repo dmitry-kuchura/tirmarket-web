@@ -1,5 +1,5 @@
 <div class="item-card">
-    <div class="item-card__image" style="background-image:url({{ item.image }});"></div>
+    <a href="/product.html" class="item-card__image" style="background-image:url({{ item.image }});"></a>
 
     <div class="item-card__labels">
         {% if [true, false] | random %}<div class="label label--orange"><span>акция</span></div>{% endif %}
@@ -7,7 +7,7 @@
         {% if [true, false] | random %}<div class="label label--green"><span>новинка</span></div>{% endif %}
     </div>
 
-    <div class="item-card__title">{{ item.title }}</div>
+    <a href="/product.html" class="item-card__title">{{ item.title }}</a>
 
     <div class="item-card__code">Артикул: 2152345-Р5223</div>
 
@@ -26,11 +26,17 @@
         </div>
     </div>
 
-    <div class="_flex _justify-between _items-center _grid-space-3">
+    <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
         <div class="_col-auto">
-            <a href="#" class="icon-button">
-                <i>{{ svg('star') }}</i>
-            </a>
+            {% if item.favorite %}
+                <a href="#" class="icon-button icon-button--orange">
+                    <i>{{ svg('star') }}</i>
+                </a>
+            {% else %}
+                <a href="#" class="icon-button">
+                    <i>{{ svg('star') }}</i>
+                </a>
+            {% endif %}
         </div>
 
         <div class="_col-auto _flex-grow-1">

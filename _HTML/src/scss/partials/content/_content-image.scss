@@ -1,0 +1,46 @@
+
+// mixins
+// ================================
+
+@mixin content-image-full-width {
+	display: block;
+	float: none !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+};
+
+
+// scss
+// ================================
+
+.content-image {
+	position: relative;
+
+	&--width-1200-and-more {
+		@include content-image-full-width;
+	}
+
+	&--width-600-and-more {
+		.view-text--article & {
+			@include content-image-full-width;
+		}
+	}
+}
+
+.content-image {
+	$and-more-sizes: (
+		$xs: 100,
+		$sm: 200,
+		$md: 300,
+		$lg: 400,
+		$xl: 600
+	);
+
+	@each $size-mq, $size-value in $and-more-sizes {
+		@include media( $size-mq, max ) {
+			&--width-#{$size-value}-and-more {
+				@include content-image-full-width;
+			}
+		}
+	}
+}

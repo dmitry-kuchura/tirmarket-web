@@ -25,6 +25,15 @@ function mfpAjax (context, selector) {
 			ajaxContentAdded () {
 				let $content = this.content;
 
+                let $vue = $(`[data-vue]`, $content);
+
+                for(let item of $vue) {
+                    if($(item).data('vue-init') !== true) {
+                        new Vue().$mount(item);
+                        $(item).data('vue-init', true);
+                    }
+                }
+
 				if ($('[data-form]', $content).length) {
 					require.ensure([], (require) => {
 						require('./validation')();

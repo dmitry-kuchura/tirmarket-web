@@ -1,29 +1,23 @@
+{% set news = [
+    {
+        "image": "pic/news-image-1.jpg",
+        "title": "Европейское турне новых MAN TG в две строки",
+        "descr": "Автопробег новых представителей мощных грузовиков серии MAN TG по Европе стартовал в октябре. В нем компания MAN Truck & Bus продемонстрировала новейшие автомобили модельного ряда TG, представленные на выставке IAA в Ганновере.",
+        "date": "27/07/2017"
+    },{
+        "image": "pic/news-image-1.jpg",
+        "title": "Европейское турне новых MAN TG",
+        "descr": "Автопробег новых представителей мощных грузовиков серии MAN TG по Европе стартовал в октябре. В нем компания MAN Truck & Bus продемонстрировала новейшие автомобили модельного ряда TG, представленные на выставке IAA в Ганновере.",
+        "date": "27/07/2017"
+    }
+] %}
+
 <div class="_flex _grid-space-3">
-    <div class="_col-12 _xl-col-6 _mb-3">
-        <a href="#" class="news-card">
-            <div class="news-card__image">
-                <img src="pic/news-image-1.jpg" alt="">
-            </div>
 
-            <div class="news-card__body">
-                <div class="news-card__date">27/07/2017</div>
-                <div class="news-card__title">Европейское турне новых MAN TG в две строки</div>
-                <div class="news-card__descr">Автопробег новых представителей мощных грузовиков серии MAN TG по Европе стартовал в октябре. В нем компания MAN Truck & Bus продемонстрировала новейшие автомобили модельного ряда TG, представленные на выставке IAA в Ганновере.</div>
-            </div>
-        </a>
+    {% for item in news %}
+    <div class="_col-12 _xl-col-6">
+        {% include "./news-card.html" %}
     </div>
+    {% endfor %}
 
-    <div class="_col-12 _xl-col-6 _mb-3">
-        <a href="#" class="news-card">
-            <div class="news-card__image">
-                <img src="pic/news-image-1.jpg" alt="">
-            </div>
-
-            <div class="news-card__body">
-                <div class="news-card__date">27/07/2017</div>
-                <div class="news-card__title">Европейское турне новых MAN TG</div>
-                <div class="news-card__descr">Маршрут протяженностью более 9800 км прошли грузовики MAN TGX, TGS, TGM и TGL в новом оригинальном дизайне с более производительными и эффективными силовыми агрегатами.</div>
-            </div>
-        </a>
-    </div>
 </div>

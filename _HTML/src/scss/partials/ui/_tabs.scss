@@ -9,11 +9,14 @@
 .tab-link {
 	position: relative;
 	display: inline-block;
-	margin: 0 rem(15);
 	color: #acb4bd;
 	font-size: rem(24);
 	line-height: 1.6;
 	transition: color .25s;
+
+	&:not(:first-child) {
+		margin: 0 0 0 rem(30);
+	}
 
 	&::after {
 		content: '';

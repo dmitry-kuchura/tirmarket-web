@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="_col-auto">
-                    <a href="#" class="account-link"><i>{{ svg('user') }}</i><span>Личный кабинет</span></a>
+                    <a href="#" class="account-link" data-mfp="popups/auth.php"><i>{{ svg('user') }}</i><span>Личный кабинет</span></a>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
 
                 <div class="_col-auto _flex-shrink-0">
 
-                    <div class="_flex">
+                    <div class="_flex _items-center">
                         <a href="#" class="header-icon">
                             <span class="header-icon__caption">Избранное</span>
                             <span class="header-icon__image">
@@ -78,7 +78,7 @@
                             </span>
                         </a>
 
-                        <a href="#" class="header-icon">
+                        <a href="#" class="header-icon" data-mfp="popups/basket.php">
                             <span class="header-icon__caption">корзина</span>
                             <span class="header-icon__image">
                                 {{ svg('cart') }}
@@ -86,6 +86,15 @@
                                 <span class="header-icon__count">10</span>
                             </span>
                         </a>
+
+                        <div class="hamburger hamburger--spin _lg-hide" data-navbar-trigger>
+                            <div class="hamburger-box">
+                                <div class="hamburger-inner">
+                                    <div class="hamburger-inner__top"></div>
+                                    <div class="hamburger-inner__bottom"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -96,7 +105,7 @@
 
     <div class="page-header__below">
         <div class="page-size">
-            <ul class="catalog-menu" data-menu-tip="Все категории">
+            <ul class="catalog-menu" data-menu data-menu-tip="Все категории">
                 <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Запчасти</a></li>
                 <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Сервисное обслуживание</a></li>
                 <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Масло и смазки</a></li>
@@ -105,6 +114,12 @@
                 <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">ADR</a></li>
                 <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Для прицепа</a></li>
                 <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Шины</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Аксессуары</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">ADR</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Сервисное обслуживание</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Для прицепа</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Шины</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Все категории</a></li>
             </ul>
         </div>
     </div>

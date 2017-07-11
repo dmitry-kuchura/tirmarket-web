@@ -5,12 +5,15 @@
 // Vendor
 @import '../../node_modules/normalize.css/normalize';
 @import 'vendor/slick-custom';
+@import 'vendor/nouislider';
+@import '../../node_modules/magnific-popup/src/css/main';
 
 // Base
 @import "partials/base/base";
 @import "partials/base/fonts";
 
 // Structure
+@import "partials/structure/base";
 @import "partials/structure/page-size";
 @import "partials/structure/footer";
 @import "partials/structure/header";
@@ -21,6 +24,7 @@
 @import "partials/structure/content";
 @import "partials/structure/breadcrumbs";
 @import "partials/structure/paginator";
+@import "partials/structure/modal";
 
 // UI
 @import "partials/ui/title";
@@ -29,8 +33,15 @@
 @import "partials/ui/label";
 @import "partials/ui/button";
 @import "partials/ui/form-elements";
+@import "partials/ui/icon";
+@import "partials/ui/divider";
+@import "partials/ui/mobile-menu";
+@import "partials/ui/habburger";
+@import "partials/ui/load-bar";
 
 // content
+@import "partials/content/table-wrapper";
+@import "partials/content/content-image";
 @import "partials/news-card";
 @import "partials/category-card";
 @import "partials/top-category";
@@ -41,6 +52,14 @@
 @import "partials/promo-slider";
 @import "partials/banner";
 @import "partials/content/order-section";
+@import "partials/content/contact";
+@import "partials/content/product";
+@import "partials/zoom-in";
+@import "partials/content/analogue";
+@import "partials/content/account";
+@import "partials/content/history";
+@import "partials/content/basket";
+@import "partials/content/order";
 
 // Helpers
 @import 'partials/helpers/display';

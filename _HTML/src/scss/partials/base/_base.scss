@@ -4,6 +4,7 @@ html {
 	font-size: 14px;
 	line-height: 1.4;
 	overflow-x: hidden;
+	font-family: $font-primary;
 
 	@media only screen and (min-width: $md) {
 		font-size: $font-size-base;
@@ -87,4 +88,8 @@ input,
 textarea {
 	box-shadow: none;
 	border-radius: 0;
+}
+
+._clear {
+	clear: both;
 }

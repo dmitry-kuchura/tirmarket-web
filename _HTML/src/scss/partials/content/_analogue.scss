@@ -1,0 +1,56 @@
+.analogue-table {
+	display: table;
+	width: 100%;
+	text-align: center;
+
+	&__row {
+		display: table-row;
+		
+		&--header {
+			background: #f8f8f8;
+			font-size: 20px;
+			color: #1e2227;
+			font-weight: 500;
+		}
+	}
+
+	&__col {
+		display: table-cell;
+		padding: 20px 15px;
+		vertical-align: middle;
+
+		&:first-child {
+			text-align: left;
+			width: 25%;
+			max-width: 25%;
+		}
+	}
+}
+
+.analogue-title {
+	font-size: 20px;
+	color: #1e2227;
+	font-weight: 500;
+}
+
+.analogue-price {
+	font-size: 24px;
+	color: #000000;
+	font-weight: 500;
+}
+
+.analogue-image {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 40px;
+	height: 40px;
+	margin: 0 20px 0 0;
+
+	img {
+		display: block;
+		max-width: 100%;
+		max-height: 100%;
+	}
+}

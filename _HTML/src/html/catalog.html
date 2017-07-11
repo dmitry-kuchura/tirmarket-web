@@ -2,7 +2,7 @@
 {% from 'macros/helpers.html' import breadcrumbs %}
 
 {#{% from 'data/global.json' import data %}#}
-{% set title = "tirmarket | Главная" %}
+{% set title = "tirmarket | Масла и смазки" %}
 {% set bodyClass = "" %}
 
 {% set catalog = [
@@ -48,22 +48,58 @@
 
 {% block content %}
 
-    {{ breadcrumbs([
-        {"title": "Главная", "link": "/"},
-        {"title": "Каталог товаров", "link": "/category.html"},
-        {"title": "масла и смазки"}
-    ]) }}
+    <div class="page-size">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "Каталог товаров", "link": "/category.html"},
+            {"title": "масла и смазки"}
+        ]) }}
 
-    <div class="title _mb-3">Масла и смазки</div>
+        <div class="_flex _lg-flex-nowrap">
+            {% include "shared/structure/sidebar.html" %}
 
-    <div class="_flex _grid-space-3">
-        {% for item in catalog %}
-            <div class="_col-4 _mb-3">
-                {% include "shared/item-card.html" %}
+            <div class="content">
+                <div class="_flex _grid-space-4 _items-center _mb-3">
+                    <div class="title _flex-grow-1">Масла и смазки</div>
+
+                    <div class="_col-auto _flex _items-center _grid-space-2 _lg-show">
+                        <div class="form-label">Сортировать:</div>
+
+                        <div class="_col-auto">
+                            <select name="sort" class="select">
+                                <option value="1">Наименованию</option>
+                                <option value="2">Наименованию</option>
+                                <option value="3">Наименованию</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="_col-auto _flex _items-center _grid-space-2 _lg-show">
+                        <div class="form-label">Показывать:</div>
+
+                        <div class="_col-auto">
+                            <select name="count" class="select">
+                                <option value="1">12 товаров</option>
+                                <option value="2">24 товаров</option>
+                                <option value="3">30 товаров</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="_flex _grid-space-3">
+                    {% for item in catalog %}
+                        <div class="_col-12 _sm-col-6 _md-col-4 _lg-col-6 _xl-col-4 _mb-3">
+                            {% include "shared/item-card.html" %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% include "shared/structure/paginator.html" %}
             </div>
-        {% endfor %}
+        </div>
     </div>
 
-    {% include "shared/structure/paginator.html" %}
+    {% include "shared/seo-section.html" %}
 
 {% endblock %}

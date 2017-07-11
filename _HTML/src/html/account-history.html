@@ -1,0 +1,79 @@
+{% extends 'layouts/main.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Личный кабинет" %}
+{% set bodyClass = "" %}
+
+{% block content %}
+
+    <div class="page-size">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "Личный кабинет"}
+        ]) }}
+
+        <div class="title _mb-3">Личный кабинет</div>
+
+        <div class="_flex _grid-space-4">
+            <div class="_col-3 _lg-show">
+                {% include "shared/account-menu.html" %}
+            </div>
+
+            <div class="_col-12 _lg-col-9 _flex-grow-0">
+                <div class="title title--md _mb-3">История заказов</div>
+
+                <div class="wysiwyg">
+                    <table class="table-null">
+                        <tr>
+                            <th></th>
+                            <th>№</th>
+                            <th>Дата заказа</th>
+                            <th>Кол-во товаров</th>
+                            <th>Способы оплаты</th>
+                            <th>Сумма</th>
+                            <th>Статус</th>
+                        </tr>
+
+                        {% for i in range(1, 6) %}
+                        <tr class="_text-center" style="vertical-align: middle;">
+                            <td><span class="history-trigger" data-toggle-trigger data-toggle-ns="order-id-{{ i }}"></span></td>
+                            <td>577851</td>
+                            <td>26/03/2017</td>
+                            <td>2</td>
+                            <td>Наличный</td>
+                            <td><b>250&nbsp;000&nbsp;грн.</b></td>
+
+                            {% if [true, false] | random %}
+                                <td><span class="status status--wait">В обработке</span></td>
+                            {% else %}
+                                <td><span class="status status--success">Выполнен</span></td>
+                            {% endif %}
+                        </tr>
+
+                        <tr>
+                            <td colspan="7" style="padding: 0;">
+                                <table class="table-null table-history" data-toggle-target data-toggle-ns="order-id-{{ i }}">
+                                    {% for i in range(1, 3) %}
+                                    <tr style="vertical-align: middle;">
+                                        <td>{{ i }}</td>
+                                        <td><div class="history-image"><img src="pic/item-image-2.jpg" alt=""></div></td>
+                                        <td><a href="product.html" class="history-title">Моторное масло Mobil Super 3000 x1 Formula FE 5W-30</a></td>
+                                        <td>2 шт.</td>
+                                        <td><span class="history-price">1 700 грн.</span></td>
+                                        <td><span class="history-price">3 400 грн.</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                {% include "shared/structure/paginator.html" %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

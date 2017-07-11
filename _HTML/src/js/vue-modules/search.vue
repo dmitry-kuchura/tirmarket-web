@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import Vue from 'vue/dist/vue';
+    import Vue from 'vue';
     import axios from 'axios';
 
     import searchResult from './search-result.vue';
@@ -42,7 +42,7 @@
                 let $this = this;
 
                 if(this.search.length > 2) {
-                    axios.post('/mock-data/search.php', {
+                    axios.post('mock-data/search.php', {
                         params: {
                             search: $this.search
                         }

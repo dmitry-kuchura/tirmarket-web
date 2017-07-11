@@ -1,0 +1,47 @@
+.icon {
+	display: block;
+	position: relative;
+
+	&--md {
+		width: rem(30);
+		height:  rem(30);
+	}
+
+	&--sm {
+		width: rem(20);
+		height: rem(20);
+	}
+
+	&--xs {
+		width: rem(12);
+		height: rem(12);
+	}
+
+	&--grey {
+		fill: #b2c0e0;
+	}
+
+	&--blue {
+		fill: $color-primary;
+	}
+
+	&--remove {
+		fill: #9fa0a2;
+
+		&:hover {
+			fill: $color-red;
+		}
+	}
+
+	svg {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		max-width: 100%;
+		max-height: 100%;
+		transition: fill .25s;
+	}
+}

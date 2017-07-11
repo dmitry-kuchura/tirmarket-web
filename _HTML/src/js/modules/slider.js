@@ -27,6 +27,19 @@ function slider (context = 'body') {
                     }
                 }
             ]
+        },
+        'product': {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            asNavFor: '[data-slider="product-thumb"]'
+        },
+        'product-thumb': {
+            vertical: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            centerMode: true,
+            focusOnSelect: true,
+            asNavFor: '[data-slider="product"]'
         }
     };
 

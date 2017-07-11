@@ -1,9 +1,16 @@
 .news-card {
+	position: relative;
 	display: flex;
 	background: #fff;
 	text-decoration: none;
 	transition: box-shadow .25s;
 	line-height: 1.2;
+
+	&--lg {
+		@include media($xl) {
+			min-height: calc(100% - 1.25rem);
+		}
+	}
 
 	&:hover {
 		box-shadow: 0 rem(5) rem(15) rgba(#001341, .3);
@@ -14,6 +21,7 @@
 		flex-shrink: 0;
 		flex-grow: 0;
 		max-width: 50%;
+		width: 325px;
 
 		@include media(600px) {
 			display: block;
@@ -22,11 +30,29 @@
 		img {
 			display: block;
 		}
+
+		.news-card--lg & {
+			@include media($xl) {
+				display: block;
+				width: 100%;
+				max-width: 100%;
+			}
+		}
 	}
 
 	&__body {
 		flex-grow: 1;
 		padding: rem(20);
+
+		.news-card--lg & {
+			@include media($xl) {
+				position: absolute;
+				background: rgba(#000, .8);
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+		}
 	}
 
 	&__date {
@@ -34,6 +60,12 @@
 		color: #627a9a;
 		font-weight: 100;
 		margin: 0 0 rem(10);
+
+		.news-card--lg & {
+			@include media($xl) {
+				color: #fff;
+			}
+		}
 	}
 
 	&__title {
@@ -46,6 +78,18 @@
 		.news-card:hover & {
 			color: #6c819b;
 		}
+
+		.news-card--lg & {
+			@include media($xl) {
+				color: #fff;
+			}
+		}
+
+		.news-card--lg:hover & {
+			@include media($xl) {
+				color: #fff;
+			}
+		}
 	}
 
 	&__descr {
@@ -54,5 +98,17 @@
 		line-height: 1.4;
 		max-height: #{1.4 * 5}em;
 		overflow: hidden;
+
+		.news-card--lg & {
+			@include media($xl) {
+				color: #fff;
+			}
+		}
 	}
+}
+
+.date {
+	font-size: 15px;
+	color: #627a9a;
+	font-weight: 100;
 }

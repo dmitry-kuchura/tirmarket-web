@@ -1,79 +1,98 @@
-<?php
-use Core\HTML;
-use Core\Config;
-use Core\Widgets;
-
-?>
-<header class="wHeader">
-    <div class="wSize">
-        <div class="head_top">
-            <div class="fll">
-                <ul>
-                    <li><a href="<?php echo HTML::link(); ?>">
-                            <div class="gl"></div>
-                        </a></li>
-                    <?php foreach ($contentMenu as $obj): ?>
-                        <li><a href="<?php echo HTML::link($obj->url); ?>"><?php echo $obj->name; ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
+<header class="page-header">
+    <div class="page-header__above">
+        <div class="page-size">
+            <div class="_flex _justify-between _items-center _grid-space-3">
+                <div class="_col-auto">
+                    <ul class="site-menu">
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Каталог</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">О компании</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Вакансии</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Доставка и оплата</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Гарантия и возврат</a></li>
+                        <li class="site-menu__item"><a href="#" class="site-menu__link">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="_col-auto _ml-auto">
+                    <div class="lang"><a href="#" class="lang__item lang__item--active"><span class="lang__icon"><svg><use
+                                            xlink:href="icons/icons.svg#russia"></use></svg> </span><span
+                                    class="lang__title">рус</span> </a><a href="#" class="lang__item"><span
+                                    class="lang__icon"><svg><use
+                                            xlink:href="icons/icons.svg#ukraine"></use></svg> </span><span
+                                    class="lang__title">укр</span></a></div>
+                </div>
+                <div class="_col-auto"><a href="#" class="account-link" data-mfp="popups/auth.php"><i>
+                            <svg>
+                                <use xlink:href="icons/icons.svg#user"></use>
+                            </svg>
+                        </i><span>Личный кабинет</span></a></div>
             </div>
-            <div class="flr">
-                <div class="block_p">
-                    <a href="tel:<?php echo Config::get('static.phone'); ?>?call"
-                       class="head_phone"><?php echo Config::get('static.phone'); ?></a>
-                    <a href="#enterReg2" class="call_back enterReg2"><span><?php echo __('ОБРАТНЫЙ ЗВОНОК');?></span></a>
+        </div>
+    </div>
+    <div class="page-header__middle">
+        <div class="page-size">
+            <div class="_flex _grid-space-3 _flex-nowrap _items-center _justify-between">
+                <div class="_col-auto _flex-shrink-0"><a href="/" class="logo"><img src="pic/logo.png" alt=""></a>
+                </div>
+                <div class="_col-auto _flex-grow-1 _lg-show">
+                    <div class="title title--sm _mb-2">Автозапчасти для грузовых автомобилей по всей Украине</div>
+                    <search-form data-vue="true"></search-form>
+                </div>
+                <div class="_col-auto _xl-show">
+                    <div class="_flex _flex-nowrap">
+                        <div class="header-contact">
+                            <div class="header-contact__title">г. Киев, ул. Леся Курбаса, 2-Б</div>
+                            <div class="header-contact__phone"><a href="tel:">+38 050 123 45 67</a></div>
+                            <div class="header-contact__phone"><a href="tel:">+38 067 123 45 67</a></div>
+                        </div>
+                        <div class="header-contact">
+                            <div class="header-contact__title">Приём заявок:</div>
+                            <div class="header-contact__data">Пн-Пт: с 09:30 до 17:30;</div>
+                            <div class="header-contact__data">Сб: с 09:30 до 14:30. Вс: выходной</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="_col-auto _flex-shrink-0">
+                    <div class="_flex _items-center"><a href="#" class="header-icon"><span
+                                    class="header-icon__caption">Избранное</span> <span class="header-icon__image"><svg><use
+                                            xlink:href="icons/icons.svg#star"></use></svg> </span></a><a href="#"
+                                                                                                         class="header-icon"
+                                                                                                         data-mfp="popups/basket.php"><span
+                                    class="header-icon__caption">корзина</span> <span class="header-icon__image"><svg><use
+                                            xlink:href="icons/icons.svg#cart"></use></svg> <span
+                                        class="header-icon__count">10</span></span></a>
+                        <div class="hamburger hamburger--spin _lg-hide" data-navbar-trigger>
+                            <div class="hamburger-box">
+                                <div class="hamburger-inner">
+                                    <div class="hamburger-inner__top"></div>
+                                    <div class="hamburger-inner__bottom"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flc">
-                <!-- <a href="<?php // echo Core\HTML::link(); ?>"><img src="<?php // echo Core\HTML::media('pic/logo.png'); ?>" alt=""></a> -->
-            </div>
         </div>
-        <div class="head_center">
-            <div class="fll">
-                <ul class="soc_seti">
-                    <li><a href="<?php echo Config::get('socials.vk'); ?>" class="circle_seti"
-                           target="_blank"><span class="img_seti"></span>
-                            <div class="name_seti"></div>
-                            <div class="name_seti"></div>
-                        </a></li>
-                    <li><a href="<?php echo Config::get('socials.fb'); ?>" class="circle_seti"
-                           target="_blank"><span class="img_seti"></span>
-                            <div class="name_seti"></div>
-                            <div class="name_seti"></div>
-                        </a></li>
-                    <li><a href="<?php echo Config::get('socials.instagram'); ?>" class="circle_seti"
-                           target="_blank"><span class="img_seti"></span>
-                            <div class="name_seti"></div>
-                            <div class="name_seti"></div>
-                        </a></li>
-                </ul>
-            </div>
-            <div class="flr">
-                <?php echo Widgets::get('LanguageSwitcher'); ?>
-                <?php if (!$user): ?>
-                    <a href="#enterReg" class="enter enterReg"><span><?php echo __('Вход');?></span></a>
-                <?php else: ?>
-                    <a href="<?php echo HTML::link('account'); ?>" class="basket enter"><span><?php echo __('Кабинет');?></span></a>
-                    <a href="<?php echo HTML::link('account/logout'); ?>" class="basket"><span><?php echo __('Выход');?></span></a>
-                <?php endif ?>
-                <a href="<?php echo HTML::link('cart'); ?>" class="basket"><span><?php echo __('Корзина');?></span></a>
-                <a href="#orderBasket" class="basket_img wb_edit_init wb_butt">
-                    <div class="paket"></div>
-                    <span class="paket_in"></span>
-                    <span id="topCartCount"><?php echo $countItemsInTheCart; ?></span>
-                </a>
-            </div>
-            <?php echo Widgets::get('Info'); ?>
-        </div>
-        <div class="head_bot">
-            <?php echo Widgets::get('CatalogMenuTop'); ?>
-            <div class="lupa"></div>
-            <div class="poisk_block">
-                <form action="<?php echo HTML::link('search'); ?>" method="GET">
-                    <input type="text" name="query" placeholder="<?php echo __('Поиск по сайту');?>">
-                    <input type="submit" value="<?php echo __('искать');?>">
-                </form>
-            </div>
+    </div>
+    <div class="page-header__below">
+        <div class="page-size">
+            <ul class="catalog-menu" data-menu data-menu-tip="Все категории">
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Запчасти</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Сервисное обслуживание</a>
+                </li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Масло и смазки</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Фильтры</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Аксессуары</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">ADR</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Для прицепа</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Шины</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Аксессуары</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">ADR</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Сервисное обслуживание</a>
+                </li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Для прицепа</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Шины</a></li>
+                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Все категории</a></li>
+            </ul>
         </div>
     </div>
 </header>

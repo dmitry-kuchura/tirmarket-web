@@ -17,6 +17,7 @@ module.exports = {
         entry: {
             bundle: ['./bundle.js']
         },
+        publicPath: '/Media/js/',
         loaders: [
             {
                 test: /\.vue$/,

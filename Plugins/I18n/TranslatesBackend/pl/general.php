@@ -648,4 +648,5 @@
 		'Вставить перед ' => 'Wstaw przed </head>',
 		'Вставить после ' => 'Wstaw po </body>',
 		'Мобильное приложение' => 'Aplikacja mobilna',
+		'color_type' => 'Цвет',
 	);

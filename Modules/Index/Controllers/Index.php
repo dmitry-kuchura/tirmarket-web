@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Index\Controllers;
 
 use Core\Route;

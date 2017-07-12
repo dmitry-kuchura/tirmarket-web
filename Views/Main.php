@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-    <?php echo Widgets::get('Head'); ?>
+    <?php echo Widgets::get('Head', $_seo); ?>
     <?php foreach ($_seo['scripts']['head'] as $script): ?>
         <?php echo $script; ?>
     <?php endforeach ?>

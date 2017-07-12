@@ -1,5 +1,4 @@
 <?php
-// Settings of images on the site
 return [
     // Watermark path
     'watermark' => 'pic/logo.png',
@@ -28,32 +27,10 @@ return [
         ],
         [
             'path' => 'big',
-            'width' => 1460,
-            'height' => 500,
+            'width' => 1366,
+            'height' => 321,
             'resize' => 1,
             'crop' => 1,
-        ],
-        [
-            'path' => 'original',
-            'resize' => 0,
-            'crop' => 0,
-        ],
-    ],
-    // Blog images
-    'blog' => [
-        [
-            'path' => 'small',
-            'width' => 200,
-            'height' => 160,
-            'resize' => 1,
-            'crop' => 1,
-        ],
-        [
-            'path' => 'big',
-            'width' => 600,
-            'height' => 400,
-            'resize' => 1,
-            'crop' => 0,
         ],
         [
             'path' => 'original',
@@ -65,17 +42,24 @@ return [
     'news' => [
         [
             'path' => 'small',
-            'width' => 200,
-            'height' => 160,
+            'width' => 326,
+            'height' => 268,
             'resize' => 1,
             'crop' => 1,
         ],
         [
             'path' => 'big',
-            'width' => 600,
-            'height' => NULL,
+            'width' => 673,
+            'height' => 554,
             'resize' => 1,
-            'crop' => 0,
+            'crop' => 1,
+        ],
+        [
+            'path' => 'inner',
+            'width' => 650,
+            'height' => 325,
+            'resize' => 1,
+            'crop' => 1,
         ],
         [
             'path' => 'original',
@@ -151,34 +135,6 @@ return [
             'height' => 200,
             'resize' => 1,
             'crop' => 1,
-        ],
-    ],
-    'gallery_images' => [
-        [
-            'path' => 'small',
-            'width' => 200,
-            'height' => 200,
-            'resize' => 1,
-            'crop' => 1,
-        ],
-        [
-            'path' => 'medium',
-            'width' => 350,
-            'height' => 350,
-            'resize' => 1,
-            'crop' => 1,
-        ],
-        [
-            'path' => 'big',
-            'width' => 1280,
-            'height' => 1024,
-            'resize' => 1,
-            'crop' => 0,
-        ],
-        [
-            'path' => 'original',
-            'resize' => 0,
-            'crop' => 0,
         ],
     ],
 ];

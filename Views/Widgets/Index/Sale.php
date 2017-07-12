@@ -6,8 +6,9 @@
         <div class="slider-holder">
             <div data-slider="promo" class="catalog-slider">
                 <div class="catalog-slider__slide">
-                    <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                    <div class="item-card">
+                        <a href="/product.html" class="item-card__image"
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--orange"><span>акция</span></div>
                         </div>
@@ -26,19 +27,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#"
                                                                    class="button button--full"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--orange"><span>акция</span></div>
                             <div class="label label--purple"><span>популярный</span></div>
@@ -58,19 +59,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#" class="button button--full"
                                                                    data-basket-trigger data-id="36"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--orange"><span>акция</span></div>
                             <div class="label label--purple"><span>популярный</span></div>
@@ -91,19 +92,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#" class="button button--full"
                                                                    data-basket-trigger data-id="36"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--orange"><span>акция</span></div>
                             <div class="label label--green"><span>новинка</span></div>
@@ -122,19 +123,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#"
                                                                    class="button button--full"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--purple"><span>популярный</span></div>
                         </div>
@@ -153,19 +154,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#" class="button button--full"
                                                                    data-basket-trigger data-id="36"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--purple"><span>популярный</span></div>
                         </div>
@@ -183,12 +184,12 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#" class="button button--full"
                                                                    data-basket-trigger data-id="36"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
                             </div>
                         </div>
                     </div>
@@ -196,12 +197,12 @@
             </div>
             <div data-slider-prev class="catalog-slider__prev">
                 <svg>
-                    <use xlink:href="icons/icons.svg#arrow-prev"></use>
+                    <use xlink:href="Media/icons/icons.svg#arrow-prev"></use>
                 </svg>
             </div>
             <div data-slider-next class="catalog-slider__next">
                 <svg>
-                    <use xlink:href="icons/icons.svg#arrow-next"></use>
+                    <use xlink:href="Media/icons/icons.svg#arrow-next"></use>
                 </svg>
             </div>
         </div>
@@ -210,8 +211,11 @@
         <div class="slider-holder">
             <div data-slider="promo" class="catalog-slider">
                 <div class="catalog-slider__slide">
-                    <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                    <div class="item-card">
+                        <a href="/product.html" class="item-card__image"
+                                              style="background-image:url(Media/pic/item-image-1.jpg)">
+
+                        </a>
                         <div class="item-card__labels">
                             <div class="label label--orange"><span>акция</span></div>
                             <div class="label label--purple"><span>популярный</span></div>
@@ -231,19 +235,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#" class="button button--full"
                                                                    data-basket-trigger data-id="36"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--orange"><span>акция</span></div>
                             <div class="label label--green"><span>новинка</span></div>
@@ -262,19 +266,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#"
                                                                    class="button button--full"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--purple"><span>популярный</span></div>
                             <div class="label label--green"><span>новинка</span></div>
@@ -294,19 +298,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#" class="button button--full"
                                                                    data-basket-trigger data-id="36"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--purple"><span>популярный</span></div>
                             <div class="label label--green"><span>новинка</span></div>
@@ -326,19 +330,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#"
                                                                    class="button button--full"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--purple"><span>популярный</span></div>
                             <div class="label label--green"><span>новинка</span></div>
@@ -358,19 +362,19 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#" class="button button--full"
                                                                    data-basket-trigger data-id="36"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>В корзину</span></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="catalog-slider__slide">
                     <div class="item-card"><a href="/product.html" class="item-card__image"
-                                              style="background-image:url(pic/item-image-1.jpg)"></a>
+                                              style="background-image:url(Media/pic/item-image-1.jpg)"></a>
                         <div class="item-card__labels">
                             <div class="label label--orange"><span>акция</span></div>
                         </div>
@@ -389,12 +393,12 @@
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto"><a href="#" class="icon-button"><i>
                                         <svg>
-                                            <use xlink:href="icons/icons.svg#star"></use>
+                                            <use xlink:href="Media/icons/icons.svg#star"></use>
                                         </svg>
                                     </i></a></div>
                             <div class="_col-auto _flex-grow-1"><a href="#"
                                                                    class="button button--full"><span><i><svg><use
-                                                    xlink:href="icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
+                                                    xlink:href="Media/icons/icons.svg#cart"></use></svg> </i><span>Заказать</span></span></a>
                             </div>
                         </div>
                     </div>
@@ -402,12 +406,12 @@
             </div>
             <div data-slider-prev class="catalog-slider__prev">
                 <svg>
-                    <use xlink:href="icons/icons.svg#arrow-prev"></use>
+                    <use xlink:href="Media/icons/icons.svg#arrow-prev"></use>
                 </svg>
             </div>
             <div data-slider-next class="catalog-slider__next">
                 <svg>
-                    <use xlink:href="icons/icons.svg#arrow-next"></use>
+                    <use xlink:href="Media/icons/icons.svg#arrow-next"></use>
                 </svg>
             </div>
         </div>

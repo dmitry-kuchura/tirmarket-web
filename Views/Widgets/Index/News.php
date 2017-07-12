@@ -5,7 +5,7 @@
             <a href="#">Все новости →</a></div>
         <div class="_flex _grid-space-3">
             <div class="_col-12 _xl-col-6"><a href="#" class="news-card _mb-3">
-                    <div class="news-card__image"><img src="pic/news-image-1.jpg" alt=""></div>
+                    <div class="news-card__image"><img src="Media/pic/news-image-1.jpg" alt=""></div>
                     <div class="news-card__body">
                         <div class="news-card__date">27/07/2017</div>
                         <div class="news-card__title">Европейское турне новых MAN TG в две строки</div>
@@ -17,7 +17,7 @@
                     </div>
                 </a></div>
             <div class="_col-12 _xl-col-6"><a href="#" class="news-card _mb-3">
-                    <div class="news-card__image"><img src="pic/news-image-1.jpg" alt=""></div>
+                    <div class="news-card__image"><img src="Media/pic/news-image-1.jpg" alt=""></div>
                     <div class="news-card__body">
                         <div class="news-card__date">27/07/2017</div>
                         <div class="news-card__title">Европейское турне новых MAN TG</div>

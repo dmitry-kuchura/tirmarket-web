@@ -1,3 +1,4 @@
+<?php use Core\HTML; ?>
 <simple-menu data-vue>
     <div slot="header">
         <form class="" data-form>
@@ -10,10 +11,10 @@
         <div class="mobile-phone"><a href="tel:+380501234567">+38 050 123 45 67</a></div>
         <div class="mobile-phone"><a href="tel:+380671234567">+38 067 123 45 67</a></div>
         <div class="lang _mt-3"><a href="#" class="lang__item lang__item--active"><span class="lang__icon"><svg><use
-                                xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#russia"></use></svg> </span><span
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Media/icons/icons.svg#russia"></use></svg> </span><span
                         class="lang__title">рус</span> </a><a href="#" class="lang__item"><span class="lang__icon"><svg><use
                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                xlink:href="icons/icons.svg#ukraine"></use></svg> </span><span class="lang__title">укр</span></a></div>
+                                xlink:href="Media/icons/icons.svg#ukraine"></use></svg> </span><span class="lang__title">укр</span></a></div>
     </div>
 </simple-menu>
 <!-- Inline scripts -->
@@ -83,15 +84,9 @@
     });</script>
 
 
+
+<script>svg4everybody();</script><!-- Scripts -->
 <?php $js = Minify\Core::factory('js')->minify($scripts); ?>
 <?php foreach ($js as $file_script): ?>
     <?php echo HTML::script($file_script) . "\n"; ?>
 <?php endforeach; ?>
-
-<script>svg4everybody();</script><!-- Scripts -->
-<script src="js/programmer/initial-config.js"></script>
-<script src="js/bundle.js"></script>
-<script src="js/programmer/formValidationOnSubmit.js"></script>
-<script src="js/programmer/programmer.js"></script>
-<script src="js/programmer/translate-ru.js"></script>
-<!--<script src="js/programmer/translate-ua.js"></script>-->

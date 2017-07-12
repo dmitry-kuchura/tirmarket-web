@@ -13,16 +13,19 @@
                     </ul>
                 </div>
                 <div class="_col-auto _ml-auto">
-                    <div class="lang"><a href="#" class="lang__item lang__item--active"><span class="lang__icon"><svg><use
-                                            xlink:href="icons/icons.svg#russia"></use></svg> </span><span
-                                    class="lang__title">рус</span> </a><a href="#" class="lang__item"><span
+                    <div class="lang">
+                        <a href="#" class="lang__item lang__item--active"><span class="lang__icon"><svg><use
+                                            xlink:href="Media/icons/icons.svg#russia"></use></svg> </span><span
+                                    class="lang__title">рус</span> </a>
+                        <a href="#" class="lang__item"><span
                                     class="lang__icon"><svg><use
-                                            xlink:href="icons/icons.svg#ukraine"></use></svg> </span><span
-                                    class="lang__title">укр</span></a></div>
+                                            xlink:href="Media/icons/icons.svg#ukraine"></use></svg> </span><span
+                                    class="lang__title">укр</span></a>
+                    </div>
                 </div>
-                <div class="_col-auto"><a href="#" class="account-link" data-mfp="popups/auth.php"><i>
+                <div class="_col-auto"><a href="#" class="account-link" data-mfp="Media/popups/auth.php"><i>
                             <svg>
-                                <use xlink:href="icons/icons.svg#user"></use>
+                                <use xlink:href="Media/icons/icons.svg#user"></use>
                             </svg>
                         </i><span>Личный кабинет</span></a></div>
             </div>
@@ -31,7 +34,7 @@
     <div class="page-header__middle">
         <div class="page-size">
             <div class="_flex _grid-space-3 _flex-nowrap _items-center _justify-between">
-                <div class="_col-auto _flex-shrink-0"><a href="/" class="logo"><img src="pic/logo.png" alt=""></a>
+                <div class="_col-auto _flex-shrink-0"><a href="/" class="logo"><img src="Media/pic/logo.png" alt=""></a>
                 </div>
                 <div class="_col-auto _flex-grow-1 _lg-show">
                     <div class="title title--sm _mb-2">Автозапчасти для грузовых автомобилей по всей Украине</div>
@@ -52,13 +55,15 @@
                     </div>
                 </div>
                 <div class="_col-auto _flex-shrink-0">
-                    <div class="_flex _items-center"><a href="#" class="header-icon"><span
+                    <div class="_flex _items-center">
+                        <a href="#" class="header-icon"><span
                                     class="header-icon__caption">Избранное</span> <span class="header-icon__image"><svg><use
-                                            xlink:href="icons/icons.svg#star"></use></svg> </span></a><a href="#"
+                                            xlink:href="Media/icons/icons.svg#star"></use></svg> </span></a>
+                        <a href="#"
                                                                                                          class="header-icon"
                                                                                                          data-mfp="popups/basket.php"><span
                                     class="header-icon__caption">корзина</span> <span class="header-icon__image"><svg><use
-                                            xlink:href="icons/icons.svg#cart"></use></svg> <span
+                                            xlink:href="Media/icons/icons.svg#cart"></use></svg> <span
                                         class="header-icon__count">10</span></span></a>
                         <div class="hamburger hamburger--spin _lg-hide" data-navbar-trigger>
                             <div class="hamburger-box">

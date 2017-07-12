@@ -21,7 +21,7 @@
             <?php echo Widgets::get('Index_Catalog'); ?>
         </div>
         <?php echo Widgets::get('Index_Categories'); ?>
-        <?php echo Widgets::get('Index_Sale'); ?>
+        <?php //echo Widgets::get('Index_Sale'); ?>
         <?php echo Widgets::get('Index_Picking'); ?>
         <?php echo Widgets::get('Index_Manufactures'); ?>
         <?php echo Widgets::get('Index_Partners'); ?>

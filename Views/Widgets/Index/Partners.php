@@ -13,11 +13,11 @@
             temporibus vero vitae! Accusamus aperiam blanditiis delectus modi mollitia quisquam voluptatem,
             voluptates! Amet assumenda, eos eveniet fugiat laborum numquam optio quam.</p></div>
     <div class="_flex _grid-2 _sm-grid-3 _lg-grid-6 _items-center _mb-3 _mt-3">
-        <div class="partner-logo"><a href="#"><img src="pic/partner-1.png" alt=""></a></div>
-        <div class="partner-logo"><a href="#"><img src="pic/partner-2.png" alt=""></a></div>
-        <div class="partner-logo"><a href="#"><img src="pic/partner-3.png" alt=""></a></div>
-        <div class="partner-logo"><a href="#"><img src="pic/partner-4.png" alt=""></a></div>
-        <div class="partner-logo"><a href="#"><img src="pic/partner-1.png" alt=""></a></div>
-        <div class="partner-logo"><a href="#"><img src="pic/partner-2.png" alt=""></a></div>
+        <div class="partner-logo"><a href="#"><img src="Media/pic/partner-1.png" alt=""></a></div>
+        <div class="partner-logo"><a href="#"><img src="Media/pic/partner-2.png" alt=""></a></div>
+        <div class="partner-logo"><a href="#"><img src="Media/pic/partner-3.png" alt=""></a></div>
+        <div class="partner-logo"><a href="#"><img src="Media/pic/partner-4.png" alt=""></a></div>
+        <div class="partner-logo"><a href="#"><img src="Media/pic/partner-1.png" alt=""></a></div>
+        <div class="partner-logo"><a href="#"><img src="Media/pic/partner-2.png" alt=""></a></div>
     </div>
 </div>

@@ -18,7 +18,7 @@ return [
             'hostname' => 'localhost',
             'database' => 'tirmarket',
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'persistent' => false,
         ],
         'table_prefix' => '',

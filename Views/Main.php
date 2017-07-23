@@ -1,5 +1,4 @@
 <?php use Core\Widgets; ?>
-
 <!doctype html>
 <html>
 <head>

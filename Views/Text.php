@@ -1,11 +1,14 @@
 <?php
+
 use Core\Widgets;
-use Core\Config;
-use Core\Arr;
+
+/* @var $_seo array */
+/* @var $GLOBAL_MESSAGE string */
+/* @var $_breadcrumbs string */
+/* @var $_content string */
 ?>
-<!DOCTYPE html>
-<html lang="ru-ru" dir="ltr">
-<!-- (c) студия Wezom | www.wezom.com.ua -->
+<!doctype html>
+<html>
 <head>
     <?php echo Widgets::get('Head', $_seo); ?>
     <?php foreach ($_seo['scripts']['head'] as $script): ?>
@@ -13,31 +16,21 @@ use Core\Arr;
     <?php endforeach ?>
     <?php echo $GLOBAL_MESSAGE; ?>
 </head>
-<body>
+<body class="">
 <?php foreach ($_seo['scripts']['body'] as $script): ?>
     <?php echo $script; ?>
 <?php endforeach ?>
-<?php if (trim(strip_tags(Arr::get($_seo, 'seo_text')))): ?>
-    <div class="seoTxt" id="seoTxt">
-        <div class="wSize wTxt">
-            <?php echo Arr::get($_seo, 'seo_text'); ?>
-        </div>
-    </div>
-<?php endif ?>
-<div class="wWrapper">
-    <?php echo Widgets::get('Header', ['config' => $_config]); ?>
-    <div class="wConteiner">
-        <div class="wSize">
+<div class="page-wrapper">
+    <?php echo Widgets::get('Header'); ?>
+    <main class="page-main">
+        <div class="page-size page-size--sm">
             <?php echo $_breadcrumbs; ?>
-            <div class="<?php echo Config::get('content_class'); ?>">
-                <h1 class="title"><?php echo Arr::get($_seo, 'h1'); ?></h1>
-                <?php echo $_content; ?>
-            </div>
-            <div id="clonSeo"></div>
+            <div class="title _mb-3">О компании</div>
+            <?php echo $_content; ?>
         </div>
-    </div>
+    </main>
+    <?php echo Widgets::get('Footer'); ?>
 </div>
 <?php echo Widgets::get('HiddenData'); ?>
-<?php echo Widgets::get('Footer', ['counters' => Arr::get($_seo, 'scripts.counter'), 'config' => $_config]); ?>
 </body>
 </html>

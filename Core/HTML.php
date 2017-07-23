@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 use Forms\Form;
@@ -6,7 +7,6 @@ use I18n;
 
 class HTML
 {
-
     /**
      * Generate good link. Useful in multi language sites
      * @param  string $link - link
@@ -28,17 +28,16 @@ class HTML
             return '//' . I18n::createDomain() . '/' . trim($link, '/');
         } elseif (MULTI_LANGUAGE and !$useLang) {
             if (\I18n::$lang != \I18n::$default_lang) {
-                $link = \I18n::$lang.'/'.trim($link, '/');
+                $link = \I18n::$lang . '/' . trim($link, '/');
             }
         }
-        
+
         if ($http) {
             return '//' . $_SERVER['HTTP_HOST'] . '/' . trim($link, '/');
         }
 
         return '/' . trim($link, '/');
     }
-
 
     /**
      *  Generate breadcrumbs from array
@@ -54,13 +53,12 @@ class HTML
         unset($bread[count($bread) - 1]);
         $html = '<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
         foreach ($bread as $value) {
-            $html .= '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . HTML::link($value['link']) . '">' . $value['name'] . '</a></span>';
+            $html .= '<span class="breadcrumbs__item" typeof="v:Breadcrumb"><a class="breadcrumbs__link" rel="v:url" property="v:title" href="' . HTML::link($value['link']) . '">' . $value['name'] . '</a></span>';
         }
-        $html .= '<span>' . $last['name'] . '</span>';
+        $html .= '<span class="breadcrumbs__item">' . $last['name'] . '</span>';
         $html .= '</div>';
         return $html;
     }
-
 
     /**
      *  Generate breadcrumbs from array for wezom
@@ -97,7 +95,6 @@ class HTML
         return $html;
     }
 
-
     /**
      * Create path to media in frontend
      * @param  string $file - path to file
@@ -125,7 +122,6 @@ class HTML
         return DS . 'Wezom' . DS . 'Media' . DS . trim($file, DS);
     }
 
-
     /**
      * Put die after <pre>
      * @param mixed $object - what we want to <pre>
@@ -138,7 +134,6 @@ class HTML
         die;
     }
 
-
     /**
      * Emulation of php function getallheaders()
      */
@@ -149,7 +144,6 @@ class HTML
                 $headers[$hp[1]] = $v;
         return $headers;
     }
-
 
     /**
      * Convert special characters to HTML entities. All untrusted content
@@ -165,7 +159,6 @@ class HTML
     {
         return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8', $double_encode);
     }
-
 
     /**
      * Creates a style sheet link element.
@@ -198,7 +191,6 @@ class HTML
         return '<link' . Form::attributes($attributes) . ' />';
     }
 
-
     /**
      * Creates a script link.
      *
@@ -227,7 +219,6 @@ class HTML
         return '<script' . Form::attributes($attributes) . '></script>';
     }
 
-
     /**
      * Compress html page
      * @param $html
@@ -244,5 +235,4 @@ class HTML
         }
         return $html;
     }
-
 }

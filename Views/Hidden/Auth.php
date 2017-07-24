@@ -1,16 +1,19 @@
+<?php use Core\HTML; ?>
 <div class="modal modal--sm">
     <div data-tab-content="sing-in" data-tab-ns="auth" class="is-active">
         <div class="title title--md _mb-3">Войти в личный кабинет</div>
 
-        <form class="" data-form>
+        <form class="" data-form data-ajax="login">
             <div class="form-label">Укажите свой Email <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="email" class="form-element__input" name="mail" data-rule-email="true" required />
+                <input type="email" data-name="email" class="form-element__input" name="mail" data-rule-email="true"
+                       required/>
             </div>
 
             <div class="form-label">Пароль <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="password" class="form-element__input" name="pass" data-rule-password="true" required />
+                <input type="password" data-name="password" class="form-element__input" name="pass"
+                       data-rule-password="true" required/>
             </div>
 
             <div class="_mb-3">
@@ -19,11 +22,18 @@
 
             <div class="form-element form-element--check _mb-3">
                 <label>
-                    <input type="checkbox" name="remember" />
-                    <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#check"></use></svg></i>
+                    <input type="checkbox" data-name="remember" name="remember"/>
+                    <i>
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 xlink:href="<?php echo HTML::media('icons/icons.svg#check'); ?>"></use>
+                        </svg>
+                    </i>
                     <span>Запомнить меня</span>
                 </label>
             </div>
+
+            <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
 
             <div class="_flex _justify-between _items-center">
                 <div class="_col-auto">
@@ -40,15 +50,15 @@
     <div data-tab-content="sing-up" data-tab-ns="auth">
         <div class="title title--md _mb-3">Зарегистрироваться</div>
 
-        <form class="" data-form>
+        <form class="" data-form data-ajax="registration">
             <div class="form-label">Укажите свой Email <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="email" class="form-element__input" name="mail" data-rule-email="true" required />
+                <input type="email" class="form-element__input" name="mail" data-name="email" data-rule-email="true" required/>
             </div>
 
             <div class="form-label">Пароль <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="password" class="form-element__input" name="pass" data-rule-password="true" required />
+                <input type="password" class="form-element__input" name="pass" data-name="password" data-rule-password="true" required/>
             </div>
 
             <div class="_flex _justify-between _items-center _mb-3">
@@ -60,6 +70,8 @@
                     <a href="#" data-tab-trigger="forgot" data-tab-ns="auth">Забыли пароль?</a>
                 </div>
             </div>
+
+            <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
 
             <div class="_flex _justify-between _items-center">
                 <div class="_col-auto">
@@ -75,7 +87,7 @@
         <form class="" data-form>
             <div class="form-label">Укажите свой Email <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="email" class="form-element__input" name="mail" data-rule-email="true" required />
+                <input type="email" class="form-element__input" name="mail" data-rule-email="true" required/>
             </div>
 
             <div class="_flex _justify-between _items-center _mb-3">

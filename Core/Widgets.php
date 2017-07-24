@@ -96,6 +96,7 @@ class Widgets
     {
         $styles = [
             HTML::media('css/style.css', false),
+            HTML::media('js/noty/css/animate.css', false),
         ];
         return ['styles' => $styles];
 
@@ -118,6 +119,7 @@ class Widgets
             HTML::media('js/programmer/formValidationOnSubmit.js', false),
             HTML::media('js/programmer/programmer.js', false),
             HTML::media('js/programmer/translate-ru.js', false),
+            HTML::media('js/noty/packaged/jquery.noty.packaged.js', false),
         ];
 
         $scripts_no_minify = [

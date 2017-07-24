@@ -25,7 +25,7 @@ use Core\Widgets;
     <main class="page-main">
         <div class="page-size page-size--sm">
             <?php echo $_breadcrumbs; ?>
-            <div class="title _mb-3">О компании</div>
+            <div class="title _mb-3"><?php echo $_seo['h1']; ?></div>
             <?php echo $_content; ?>
         </div>
     </main>

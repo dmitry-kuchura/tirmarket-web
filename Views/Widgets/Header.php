@@ -1,4 +1,9 @@
-<?php use  Core\HTML; ?>
+<?php
+
+use  Core\HTML;
+use Core\Config;
+
+?>
 <header class="page-header">
     <div class="page-header__above">
         <div class="page-size">
@@ -49,9 +54,15 @@
                 <div class="_col-auto _xl-show">
                     <div class="_flex _flex-nowrap">
                         <div class="header-contact">
-                            <div class="header-contact__title">г. Киев, ул. Леся Курбаса, 2-Б</div>
-                            <div class="header-contact__phone"><a href="tel:">+38 050 123 45 67</a></div>
-                            <div class="header-contact__phone"><a href="tel:">+38 067 123 45 67</a></div>
+                            <div class="header-contact__title"><?php echo Config::get('static.location_' . I18n::$lang); ?></div>
+                            <div class="header-contact__phone">
+                                <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_1')); ?>"><?php echo Config::get('static.phone_1'); ?></a>
+                            </div>
+                            <?php if (Config::get('static.phone_2')): ?>
+                                <div class="header-contact__phone">
+                                    <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_2')); ?>"><?php echo Config::get('static.phone_2'); ?></a>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="header-contact">
                             <div class="header-contact__title">Приём заявок:</div>

@@ -1,6 +1,6 @@
 <?php
 
-use  Core\HTML;
+use Core\HTML;
 use Core\Config;
 
 ?>
@@ -45,7 +45,10 @@ use Core\Config;
     <div class="page-header__middle">
         <div class="page-size">
             <div class="_flex _grid-space-3 _flex-nowrap _items-center _justify-between">
-                <div class="_col-auto _flex-shrink-0"><a href="/" class="logo"><img src="Media/pic/logo.png" alt=""></a>
+                <div class="_col-auto _flex-shrink-0">
+                    <a href="<?php echo HTML::link(); ?>" class="logo">
+                        <img src="<?php echo HTML::media('pic/logo.png'); ?>" alt="">
+                    </a>
                 </div>
                 <div class="_col-auto _flex-grow-1 _lg-show">
                     <div class="title title--sm _mb-2">Автозапчасти для грузовых автомобилей по всей Украине</div>
@@ -66,8 +69,8 @@ use Core\Config;
                         </div>
                         <div class="header-contact">
                             <div class="header-contact__title">Приём заявок:</div>
-                            <div class="header-contact__data">Пн-Пт: с 09:30 до 17:30;</div>
-                            <div class="header-contact__data">Сб: с 09:30 до 14:30. Вс: выходной</div>
+                            <div class="header-contact__data"><?php echo Config::get('static.weekdays_' . I18n::$lang); ?></div>
+                            <div class="header-contact__data"><?php echo Config::get('static.weekends_' . I18n::$lang); ?></div>
                         </div>
                     </div>
                 </div>

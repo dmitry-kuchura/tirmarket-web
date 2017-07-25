@@ -1,7 +1,8 @@
 <?php
+
 use Core\HTML;
 
-/* @var $slider object */
+/* @var $slider [] */
 
 ?>
 <div class="slider-holder _md-show">
@@ -13,7 +14,7 @@ use Core\HTML;
                     <div class="banner__content">
                         <div class="banner__caption"><?php echo $obj->caption; ?></div>
                         <div class="banner__title"><?php echo $obj->title; ?></div>
-                        <a href="<?php echo $obj->url ? HTML::link($obj->url) : HTML::link('#');?>" class="button">
+                        <a href="<?php echo $obj->url ? HTML::link($obj->url) : HTML::link('#'); ?>" class="button">
                             <span>Узнать подробнее</span>
                         </a>
                     </div>

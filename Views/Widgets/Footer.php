@@ -48,8 +48,8 @@
                             <?php endif; ?>
                         </div>
                         <div class="_col-auto">
-                            <div>Пн-Пт: с 09:30 до 17:30;</div>
-                            <div>Сб: с 09:30 до 14:30. Вс: выходной</div>
+                            <div><?php echo Config::get('static.weekdays_' . I18n::$lang); ?></div>
+                            <div><?php echo Config::get('static.weekends_' . I18n::$lang); ?></div>
                         </div>
                     </div>
                 </div>

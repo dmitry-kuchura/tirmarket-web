@@ -160,4 +160,11 @@ class Widgets
         return ['slider' => $slider];
     }
 
+    public function Index_News()
+    {
+        $result = Common::factory('news')->getRows(NULL, 'id', 'ASC');
+
+        return ['result' => $result];
+    }
+
 }

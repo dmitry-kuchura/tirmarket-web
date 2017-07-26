@@ -107,6 +107,7 @@ class Widgets
         if (!$this->_contentMenu) {
             $this->_contentMenu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
         }
+        $array['user'] = User::info();
         $array['menu'] = $this->_contentMenu;
         return $array;
     }

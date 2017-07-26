@@ -135,6 +135,7 @@
 						}
 						if ( resp.response ) {
 							generate(resp.response, 'success', 5000);
+							magnificPopup.close();
 						}
 					} else {
 						if ( resp.response ) {

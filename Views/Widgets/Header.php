@@ -32,12 +32,21 @@ use Core\Config;
                     </div>
                 </div>
                 <div class="_col-auto">
-                    <a href="#" class="account-link" data-mfp="<?php echo HTML::link('hidden/auth'); ?>"><i>
-                            <svg>
-                                <use xlink:href="Media/icons/icons.svg#user"></use>
-                            </svg>
-                        </i><span>Личный кабинет</span>
-                    </a>
+                    <?php if (!$user): ?>
+                        <a href="#" class="account-link" data-mfp="<?php echo HTML::link('hidden/auth'); ?>"><i>
+                                <svg>
+                                    <use xlink:href="Media/icons/icons.svg#user"></use>
+                                </svg>
+                            </i><span>Личный кабинет</span>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?php echo HTML::link('user/logout'); ?>" class="account-link"><i>
+                                <svg>
+                                    <use xlink:href="Media/icons/icons.svg#user"></use>
+                                </svg>
+                            </i><span>Выход</span>
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

@@ -67,36 +67,24 @@ return [
             'crop' => 0,
         ],
     ],
-    // Articles images
-    'articles' => [
+    // Catalog groups images
+    'catalog_tree' => [
         [
             'path' => 'small',
-            'width' => 200,
-            'height' => 160,
+            'width' => 240,
+            'height' => 240,
             'resize' => 1,
             'crop' => 1,
         ],
         [
-            'path' => 'big',
-            'width' => 600,
-            'height' => NULL,
-            'resize' => 1,
+            'path' => 'popular',
+            'resize' => 0,
             'crop' => 0,
         ],
         [
             'path' => 'original',
             'resize' => 0,
             'crop' => 0,
-        ],
-    ],
-    // Catalog groups images
-    'catalog_tree' => [
-        [
-            'path' => '',
-            'width' => 240,
-            'height' => 240,
-            'resize' => 1,
-            'crop' => 1,
         ],
     ],
     // Products images

@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use I18n;
 use Modules\Catalog\Models\Groups;
 use Modules\Catalog\Models\Items;
 use Modules\News\Models\News;
@@ -163,7 +164,27 @@ class Widgets
 
     public function Index_News()
     {
-        $result = Common::factory('news')->getRows(NULL, 'id', 'ASC');
+        $result = CommonI18n::factory('news')->getRows(NULL, 'id', 'ASC');
+
+        return ['result' => $result];
+    }
+
+    public function Index_Categories()
+    {
+        $lang = I18n::$lang;
+        $table = 'catalog_tree';
+        $tableI18n = $table . '_i18n';
+
+        $result = DB::select(
+            $tableI18n . '.*',
+            $table . '.*'
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where($tableI18n . '.language', '=', $lang)
+            ->where($table . '.popular', '=', 1)
+            ->limit(4)
+            ->find_all();
 
         return ['result' => $result];
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Catalog\Models;
 
 use Core\Arr;
@@ -22,16 +23,21 @@ class Filter
         $result = DB::select(
             'catalog.id',
             'catalog.cost',
+            'catalog.cost_old',
             'catalog_i18n.name',
             'catalog.alias',
             'catalog.image',
             'catalog.brand_alias',
             'catalog.model_alias',
             'catalog.available',
-            'catalog.specifications'
+            'catalog.specifications',
+            'catalog.artikul',
+            'catalog.new',
+            'catalog.sale',
+            'catalog.top'
         )
             ->from('catalog')
-            ->join('catalog_i18n')->on('catalog.id','=','catalog_i18n.row_id')
+            ->join('catalog_i18n')->on('catalog.id', '=', 'catalog_i18n.row_id')
             ->where('catalog_i18n.language', '=', \I18n::$lang)
             ->where('catalog.status', '=', 1)
             ->where('catalog.parent_id', '=', (int)Route::param('group'));
@@ -80,9 +86,9 @@ class Filter
         }
         $result = $result->group_by('catalog.id')
             ->order_by('catalog.available', 'ASC')
-            ->order_by($sortTable.'.' . $sort, $type)
+            ->order_by($sortTable . '.' . $sort, $type)
             ->find_all();
-			
+
 
         static::$_data = $result;
 
@@ -120,9 +126,9 @@ class Filter
 
         $params = [];
         $costs = [];
-		$filtered_costs = [];
+        $filtered_costs = [];
         $sortable = Config::get('sortable');
-		$sortable = $sortable['spec'];
+        $sortable = $sortable['spec'];
         $items = [];
 
         $ids = [];
@@ -184,9 +190,9 @@ class Filter
             }
         }*/
         $counts = [];
-		$new_costs = [];
+        $new_costs = [];
         foreach ($items as $item) {
-			$for_cost = 0;
+            $for_cost = 0;
             foreach ($sortable as $sort) {
                 $filtered = 0;
                 $f = $filter;
@@ -197,7 +203,7 @@ class Filter
                     foreach ($f as $key => $value) {
                         if (!isset($item[$key]) and !in_array($key, ['mincost', 'maxcost'])) {
                             $filtered = 1;
-							$for_cost = 1;
+                            $for_cost = 1;
                         } else {
                             switch ($key) {
                                 case 'mincost':
@@ -219,7 +225,7 @@ class Filter
                                     }
                                     if (!$flag) {
                                         $filtered = 1;
-										$for_cost = 1;
+                                        $for_cost = 1;
                                     }
                                     break;
                             }
@@ -244,9 +250,9 @@ class Filter
                     }
                 }
             }
-			if ($for_cost == 0) {
-				$new_costs[] = $item['cost'][0];
-			}
+            if ($for_cost == 0) {
+                $new_costs[] = $item['cost'][0];
+            }
         }
         $min = $new_costs ? min($new_costs) : 0;
         $max = $new_costs ? max($new_costs) : 0;
@@ -266,12 +272,12 @@ class Filter
     public static function getBrandsWidget()
     {
         return DB::select(
-            'brands_i18n.name', 
+            'brands_i18n.name',
             'brands.alias',
             'brands.id')
             ->from('brands')
             ->join('brands_i18n')
-                ->on('brands_i18n.row_id', '=', 'brands.id')
+            ->on('brands_i18n.row_id', '=', 'brands.id')
             ->join('catalog')->on('catalog.brand_alias', '=', 'brands.alias')
             ->where('brands_i18n.language', '=', \I18n::$lang)
             ->where('catalog.status', '=', 1)
@@ -355,147 +361,150 @@ class Filter
     public static function setFilterParameters()
     {
         if (!Route::param('filter')) {
-			self::setParamsForCheck([]);
+            self::setParamsForCheck([]);
             return false;
         }
-		$fil = explode('/',Route::param('filter'));
-				
+        $fil = explode('/', Route::param('filter'));
+
         foreach ($fil AS $key => $g) {
             $g = rawurldecode($g);
             $g = strip_tags($g);
             $g = stripslashes($g);
             $g = trim($g);
             $s = explode("-", $g);
-			if (count($s)==2) {
-				$value = $s[1];
-				$value = rawurldecode($value);
-				$value = strip_tags($value);
-				$value = stripslashes($value);
-				$value = trim($value);
-				$arr_val = explode("_", $value);
-				$filter[$s[0]] = $arr_val;
-			}
+            if (count($s) == 2) {
+                $value = $s[1];
+                $value = rawurldecode($value);
+                $value = strip_tags($value);
+                $value = stripslashes($value);
+                $value = trim($value);
+                $arr_val = explode("_", $value);
+                $filter[$s[0]] = $arr_val;
+            }
         }
-		self::setParamsForCheck($filter);
-		$check = self::checkFilterValues($filter,Config::get('filter_array'));
-		
-		return $check;
-        
+        self::setParamsForCheck($filter);
+        $check = self::checkFilterValues($filter, Config::get('filter_array'));
+
+        return $check;
+
     }
-	
-	public static function setParamsForCheck($filter) {
-					
-		// specifications for sort
-		$all_spec = ['brand', 'model', 'available', 'mincost', 'maxcost'];
-		// values for sort
-		$all_params = [];
-		// right filter parameters for checking filter
-		$filter_params = [];
-		
-		
-		$brands = DB::select('alias')->from('brands')
-			->where('status','=',1)
-			->order_by('sort','ASC')
-			->order_by('id','DESC')
-			->find_all();
-			
-		foreach ($brands as $brand) {
-			$all_params['brand'][] = $brand->alias;
-			if (isset($filter['brand']) and in_array($brand->alias,$filter['brand'])) {
-				$filter_params['brand'][] = $brand->alias;
-			}
-		}
 
-		$models = DB::select('alias')->from('models')
-			->where('status','=',1)
-			->order_by('alias','ASC')
-			->order_by('id','DESC')
-			->find_all();
-		foreach ($models as $model) {
-			$all_params['model'][] = $model->alias;
-			if (isset($filter['model']) and in_array($model->alias,$filter['model'])) {
-				$filter_params['model'][] = $model->alias;
-			}
-		}
-		
-		$all_params['available'] = [0, 1, 2];
-		
-		if (isset($filter['available'])) {
-			foreach ($filter['available'] as $key=>$val) {
-				if ($val>0 and $val<3) {
-					$filter_params['available'][]=$val;
-				}
-			}
-		}
-		
-		if (isset($filter['mincost'])) {
-			$filter_params['mincost'] = $filter['mincost'];
-		}
-		
-		if (isset($filter['maxcost'])) {
-			$filter_params['maxcost'] = $filter['maxcost'];
-		}
-		
-		$specifications = DB::select('specifications.alias',['specifications_values.alias', 'value'])
-			->from('specifications')
-			->join('specifications_values')->on('specifications_values.specification_id','=','specifications.id')
-			->where('specifications.status','=',1)
-			->where('specifications_values.status','=',1)
-			->order_by('specifications.sort','asc')
-			->order_by('specifications.id','desc')
-			->order_by('specifications_values.sort','asc')
-			->order_by('specifications_values.id','desc')
-			->find_all();
+    public static function setParamsForCheck($filter)
+    {
 
-		foreach ($specifications as $spec) {
-			if (!in_array($spec->alias,$all_spec)) {
-				$all_spec[] = $spec->alias;
-			}
-			$all_params[$spec->alias][]=$spec->value;
-			if (isset($filter[$spec->alias]) and in_array($spec->value,$filter[$spec->alias])) {
-				$filter_params[$spec->alias][] = $spec->value;
-			}
-			
-		}	
-		Config::set('filter_array', $filter_params);
-		Config::set('sortable', ['spec'=>$all_spec, 'params' => $all_params]);
+        // specifications for sort
+        $all_spec = ['brand', 'model', 'available', 'mincost', 'maxcost'];
+        // values for sort
+        $all_params = [];
+        // right filter parameters for checking filter
+        $filter_params = [];
 
-	}
-	
-	public static function checkFilterValues($filter, $values) {
-		
-		foreach ($filter as $key=>$zna) {
-					
-			if (!isset($values[$key])) {
-				// error 404
-				return ['success'=>false];
-			}
-			foreach ($zna as $val) {
-				if (!in_array($val,$values[$key])) {
-					// error 404
-					return ['success'=>false];
-				}
-			}
-		}
-		
-		if ($filter !== $values) {
-			// need redirect
-			return ['success'=>true, 'resort' => true];
-		} else {
-			//ok
-			return ['success'=>true, 'resort' => false];
-		}
-		
 
-	}
-	
-	public static function getFilterFromArr($arr) {
-		$filter = '';
-		foreach ($arr as $key=>$val) {
-			$filter.= '/'.$key.'-'.implode('_',$val);
-		}
-		return $filter;
-	}
+        $brands = DB::select('alias')->from('brands')
+            ->where('status', '=', 1)
+            ->order_by('sort', 'ASC')
+            ->order_by('id', 'DESC')
+            ->find_all();
+
+        foreach ($brands as $brand) {
+            $all_params['brand'][] = $brand->alias;
+            if (isset($filter['brand']) and in_array($brand->alias, $filter['brand'])) {
+                $filter_params['brand'][] = $brand->alias;
+            }
+        }
+
+        $models = DB::select('alias')->from('models')
+            ->where('status', '=', 1)
+            ->order_by('alias', 'ASC')
+            ->order_by('id', 'DESC')
+            ->find_all();
+        foreach ($models as $model) {
+            $all_params['model'][] = $model->alias;
+            if (isset($filter['model']) and in_array($model->alias, $filter['model'])) {
+                $filter_params['model'][] = $model->alias;
+            }
+        }
+
+        $all_params['available'] = [0, 1, 2];
+
+        if (isset($filter['available'])) {
+            foreach ($filter['available'] as $key => $val) {
+                if ($val > 0 and $val < 3) {
+                    $filter_params['available'][] = $val;
+                }
+            }
+        }
+
+        if (isset($filter['mincost'])) {
+            $filter_params['mincost'] = $filter['mincost'];
+        }
+
+        if (isset($filter['maxcost'])) {
+            $filter_params['maxcost'] = $filter['maxcost'];
+        }
+
+        $specifications = DB::select('specifications.alias', ['specifications_values.alias', 'value'])
+            ->from('specifications')
+            ->join('specifications_values')->on('specifications_values.specification_id', '=', 'specifications.id')
+            ->where('specifications.status', '=', 1)
+            ->where('specifications_values.status', '=', 1)
+            ->order_by('specifications.sort', 'asc')
+            ->order_by('specifications.id', 'desc')
+            ->order_by('specifications_values.sort', 'asc')
+            ->order_by('specifications_values.id', 'desc')
+            ->find_all();
+
+        foreach ($specifications as $spec) {
+            if (!in_array($spec->alias, $all_spec)) {
+                $all_spec[] = $spec->alias;
+            }
+            $all_params[$spec->alias][] = $spec->value;
+            if (isset($filter[$spec->alias]) and in_array($spec->value, $filter[$spec->alias])) {
+                $filter_params[$spec->alias][] = $spec->value;
+            }
+
+        }
+        Config::set('filter_array', $filter_params);
+        Config::set('sortable', ['spec' => $all_spec, 'params' => $all_params]);
+
+    }
+
+    public static function checkFilterValues($filter, $values)
+    {
+
+        foreach ($filter as $key => $zna) {
+
+            if (!isset($values[$key])) {
+                // error 404
+                return ['success' => false];
+            }
+            foreach ($zna as $val) {
+                if (!in_array($val, $values[$key])) {
+                    // error 404
+                    return ['success' => false];
+                }
+            }
+        }
+
+        if ($filter !== $values) {
+            // need redirect
+            return ['success' => true, 'resort' => true];
+        } else {
+            //ok
+            return ['success' => true, 'resort' => false];
+        }
+
+
+    }
+
+    public static function getFilterFromArr($arr)
+    {
+        $filter = '';
+        foreach ($arr as $key => $val) {
+            $filter .= '/' . $key . '-' . implode('_', $val);
+        }
+        return $filter;
+    }
 
 
     /**
@@ -562,15 +571,15 @@ class Filter
 
 
     // Set to memory the algorithm of filter elements
- /*   public static function setSortElements()
-    {
-        $sortable = ['brand', 'model', 'available', 'mincost', 'maxcost'];
-        $result = DB::select('alias')->from('specifications')->where('status', '=', 1)->order_by('sort','ASC')->order_by('id','DESC')->find_all();
-        foreach ($result as $obj) {
-            $sortable[] = $obj->alias;
-        }
-        Config::set('sortable', $sortable);
-    }*/
+    /*   public static function setSortElements()
+       {
+           $sortable = ['brand', 'model', 'available', 'mincost', 'maxcost'];
+           $result = DB::select('alias')->from('specifications')->where('status', '=', 1)->order_by('sort','ASC')->order_by('id','DESC')->find_all();
+           foreach ($result as $obj) {
+               $sortable[] = $obj->alias;
+           }
+           Config::set('sortable', $sortable);
+       }*/
 
 
     // Generate input for filter
@@ -690,7 +699,7 @@ class Filter
         $arr = explode('?', $_SERVER['REQUEST_URI']);
         $link = $arr[0];
         $_get = explode('&', $arr[1]);
-        $get =[];
+        $get = [];
         foreach ($_get as $k) {
             $r = explode('=', $k);
             $get[$r[0]] = $r[1];
@@ -734,9 +743,9 @@ class Filter
         // If filter is empty - create it and return
         $filter = Config::get('filter_array');
         // Clear link from filter
-		if (Route::param('filter')) {
-			$link = str_replace('/' . Route::param('filter'), '', $link);
-		}
+        if (Route::param('filter')) {
+            $link = str_replace('/' . Route::param('filter'), '', $link);
+        }
         // Setup filter
         if (is_array($filter) && isset($filter[$key])) {
             if (!in_array($value, $filter[$key])) {
@@ -771,11 +780,11 @@ class Filter
         $array = Filter::sortFilter($array);
         // Generate and return filters part
         $link = [];
-		if (sizeof($array)) {
-			foreach ($array as $key => $values) {
-				$link[] = $key . '-' . implode('_', $values);
-			}
-		}
+        if (sizeof($array)) {
+            foreach ($array as $key => $values) {
+                $link[] = $key . '-' . implode('_', $values);
+            }
+        }
 
         return implode('/', $link);
     }
@@ -792,15 +801,15 @@ class Filter
         foreach ($template['spec'] as $tpl) {
             if (isset($array[$tpl]) and !empty($array[$tpl]) and !(count($array[$tpl]) == 1 and trim((string)end($array[$tpl])) == "")) {
                 $filter[$tpl] = [];
-				if ($tpl != 'mincost' and $tpl != 'maxcost') {
-					foreach ($template['params'][$tpl] as $key=>$val) {
-						if (in_array($val,$array[$tpl])) {
-							$filter[$tpl][]=$val;
-						}
-					}
-				} else {
-					$filter[$tpl] = $array[$tpl];
-				}
+                if ($tpl != 'mincost' and $tpl != 'maxcost') {
+                    foreach ($template['params'][$tpl] as $key => $val) {
+                        if (in_array($val, $array[$tpl])) {
+                            $filter[$tpl][] = $val;
+                        }
+                    }
+                } else {
+                    $filter[$tpl] = $array[$tpl];
+                }
             }
         }
         return $filter;

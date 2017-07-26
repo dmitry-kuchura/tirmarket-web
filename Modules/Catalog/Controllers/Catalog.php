@@ -42,7 +42,6 @@ class Catalog extends Base
         $this->type = in_array(strtolower(Arr::get($_GET, 'type')), ['asc', 'desc']) ? strtoupper(Arr::get($_GET, 'type')) : $type;
     }
 
-
     // Catalog main page with groups where parent_id = 0
     public function indexAction()
     {
@@ -66,7 +65,6 @@ class Catalog extends Base
         // Render template
         $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/Groups');
     }
-
 
     // Page with groups list
     public function groupsAction()
@@ -102,7 +100,6 @@ class Catalog extends Base
         // Render template
         $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/Groups');
     }
-
 
     // Items list page. Inside group
     public function listAction()
@@ -152,7 +149,6 @@ class Catalog extends Base
         // Render page
         $this->_content = View::tpl(['result' => $result['items'], 'pager' => $this->_pager->create()], 'Catalog/ItemsList');
     }
-
 
     // Set seo tags from template for items groups
     public function setSeoForGroup($page)

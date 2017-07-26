@@ -1,6 +1,11 @@
-<?php echo \Forms\Builder::open(); ?>
+<?php
+use Forms\Builder;
+use Forms\Form;
+?>
+
+<?php echo Builder::open(); ?>
     <div class="form-actions" style="display: none;">
-        <?php echo \Forms\Form::submit(['name' => 'name', 'value' => 'Отправить', 'class' => 'submit btn btn-primary pull-right']); ?>
+        <?php echo Form::submit(['name' => 'name', 'value' => 'Отправить', 'class' => 'submit btn btn-primary pull-right']); ?>
     </div>
     <div class="col-md-6">
         <div class="widget box">
@@ -8,21 +13,15 @@
                 <div class="form-vertical row-border">
                     <div class="form-group">
                         <div class="rowSection">
-                            <div class="col-md-4">
-                                <?php echo \Forms\Builder::bool($obj ? $obj->status : 1); ?>
-                            </div>
-                            <div class="col-md-4">
-                                <?php echo \Forms\Builder::bool($obj->new, 'new', __('Новинка')); ?>
-                            </div>
-                            <div class="col-md-4">
-                                <?php echo \Forms\Builder::bool($obj->top, 'top', __('Популярный товар')); ?>
+                            <div class="col-md-3">
+                                <?php echo Builder::bool($obj ? $obj->status : 1); ?>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="rowSection">
                             <div class="col-md-6 form-group">
-                                <?php echo \Forms\Builder::select('<option value="0">' . __('Не выбрано') . '</option>'.$tree,
+                                <?php echo Builder::select('<option value="0">' . __('Не выбрано') . '</option>'.$tree,
                                     NULL, [
                                         'id' => 'parent_id',
                                         'name' => 'FORM[parent_id]',
@@ -33,7 +32,7 @@
                                     ]); ?>
                             </div>
                             <div class="col-md-6 form-group">
-                                <?php echo \Forms\Builder::input([
+                                <?php echo Builder::input([
                                     'name' => 'FORM[sort]',
                                     'value' => $obj->sort,
                                 ], [
@@ -44,13 +43,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <?php echo \Forms\Builder::input([
+                        <?php echo Builder::input([
                             'name' => 'FORM[artikul]',
                             'value' => $obj->artikul,
                         ], __('Артикул')); ?>
                     </div>
                     <div class="form-group">
-                        <?php echo \Forms\Builder::alias([
+                        <?php echo Builder::alias([
                             'name' => 'FORM[alias]',
                             'value' => $obj->alias,
                             'class' => 'valid',
@@ -61,37 +60,36 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            <?php echo \Forms\Builder::bool($obj->sale, 'sale', __('Акция')); ?>
+                            <?php echo Builder::bool($obj->sale, 'sale', __('Акция')); ?>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-3">
+                            <?php echo Builder::bool($obj->new, 'new', __('Новинка')); ?>
+                        </div>
+                        <div class="col-md-3">
+                            <?php echo Builder::bool($obj->top, 'top', __('Популярный')); ?>
+                        </div>
+                        <div class="col-md-3">
                             <label class="control-label"><?php echo __('Наличие'); ?></label>
                             <div class="">
                                 <label class="checkerWrap-inline">
-                                    <?php echo \Forms\Builder::radio(($obj && $obj->available == 0) ? true : false, [
+                                    <?php echo Builder::radio(($obj && $obj->available == 0) ? true : false, [
                                         'name' => 'available',
                                         'value' => 0,
                                     ]); ?>
-                                    <?php echo __('Нет в наличии'); ?>
+                                    <?php echo __('Нет'); ?>
                                 </label>
                                 <label class="checkerWrap-inline">
-                                    <?php echo \Forms\Builder::radio((!$obj || $obj->available == 1) ? true : false, [
+                                    <?php echo Builder::radio((!$obj || $obj->available == 1) ? true : false, [
                                         'name' => 'available',
                                         'value' => 1,
                                     ]); ?>
-                                    <?php echo __('Есть в наличии'); ?>
-                                </label>
-                                <label class="checkerWrap-inline">
-                                    <?php echo \Forms\Builder::radio(($obj && $obj->available == 2) ? true : false, [
-                                        'name' => 'available',
-                                        'value' => 2,
-                                    ]); ?>
-                                    <?php echo __('Под заказ'); ?>
+                                    <?php echo __('Есть'); ?>
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group costField">
-                        <?php echo \Forms\Builder::input([
+                        <?php echo Builder::input([
                             'type' => 'tel',
                             'name' => 'FORM[cost]',
                             'value' => $obj->cost,
@@ -99,7 +97,7 @@
                         ], __('Цена')); ?>
                     </div>
                     <div class="form-group hiddenCostField" <?php echo !$obj->sale ? 'style="display:none;"' : ''; ?>>
-                        <?php echo \Forms\Builder::input([
+                        <?php echo Builder::input([
                             'type' => 'tel',
                             'name' => 'FORM[cost_old]',
                             'value' => $obj->cost_old,
@@ -113,7 +111,7 @@
                                 <a class="t_link" href="#"><?php echo $lang['name']; ?></a>
                                 <div class="t_content">
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::input([
+                                        <?php echo Builder::input([
                                             'name' => 'FORM['.$key.'][name]',
                                             'value' => $public->name,
                                             'class' => ['valid', $lang['default'] == 1 ? 'translitSource' : ''],
@@ -121,7 +119,7 @@
                                     </div>
                                     <div style="font-weight: bold; margin-bottom: 10px;"><?php echo __('Внимание! Незаполненные данные будут подставлены по шаблону', [':link' => \Core\HTML::link('wezom/seo_templates/edit/2')]); ?></div>
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::input([
+                                        <?php echo Builder::input([
                                             'name' => 'FORM['.$key.'][h1]',
                                             'value' => $public->h1,
                                         ], [
@@ -130,7 +128,7 @@
                                         ]); ?>
                                     </div>
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::input([
+                                        <?php echo Builder::input([
                                             'name' => 'FORM['.$key.'][title]',
                                             'value' => $public->title,
                                         ], [
@@ -139,7 +137,7 @@
                                         ]); ?>
                                     </div>
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::textarea([
+                                        <?php echo Builder::textarea([
                                             'name' => 'FORM['.$key.'][keywords]',
                                             'rows' => 5,
                                             'value' => $public->keywords,
@@ -148,7 +146,7 @@
                                         ]); ?>
                                     </div>
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::textarea([
+                                        <?php echo Builder::textarea([
                                             'name' => 'FORM['.$key.'][description]',
                                             'value' => $public->description,
                                             'rows' => 5,
@@ -174,14 +172,14 @@
             </div>
             <div class="widgetContent">
                 <div class="form-group">
-                    <?php echo \Forms\Builder::select(\Core\Support::selectData($brands, 'alias', 'name', [0, __('Нет')]),
+                    <?php echo Builder::select(\Core\Support::selectData($brands, 'alias', 'name', [0, __('Нет')]),
                         $obj->brand_alias, [
                             'id' => 'brand_alias',
                             'name' => 'FORM[brand_alias]',
                         ], __('Бренд')); ?>
                 </div>
                 <div class="form-group">
-                    <?php echo \Forms\Builder::select(\Core\Support::selectData($models, 'alias', 'name', [0, __('Нет')]),
+                    <?php echo Builder::select(\Core\Support::selectData($models, 'alias', 'name', [0, __('Нет')]),
                         $obj->model_alias, [
                             'id' => 'model_alias',
                             'name' => 'FORM[model_alias]',
@@ -192,14 +190,14 @@
                         <?php if (count($specValues[$spec->id])): ?>
                             <div class="form-group <?php echo $spec->type_id == 3 ? 'multiSelectBlock' : NULL; ?>">
                                 <?php if ($spec->type_id == 3): ?>
-                                    <?php echo \Forms\Builder::select(\Core\Support::selectData($specValues[$spec->id], 'alias', 'name'),
+                                    <?php echo Builder::select(\Core\Support::selectData($specValues[$spec->id], 'alias', 'name'),
                                         \Core\Arr::get($specArray, $spec->alias, []), [
                                             'name' => 'SPEC['.$spec->alias.'][]',
                                             'multiple' => 'multiple',
                                         ], $spec->name); ?>
                                 <?php endif ?>
                                 <?php if ($spec->type_id == 2 OR $spec->type_id == 1): ?>
-                                    <?php echo \Forms\Builder::select(\Core\Support::selectData($specValues[$spec->id], 'alias', 'name', [0, __('Нет')]),
+                                    <?php echo Builder::select(\Core\Support::selectData($specValues[$spec->id], 'alias', 'name', [0, __('Нет')]),
                                         \Core\Arr::get($specArray, $spec->alias), [
                                             'name' => 'SPEC['.$spec->alias.']',
                                         ], $spec->name); ?>
@@ -211,7 +209,7 @@
             </div>
         </div>
     </div>
-<?php echo \Forms\Form::close(); ?>
+<?php echo Form::close(); ?>
 
 <?php echo $uploader; ?>
 <?php echo $related; ?>

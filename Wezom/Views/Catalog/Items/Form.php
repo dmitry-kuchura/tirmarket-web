@@ -178,13 +178,13 @@ use Forms\Form;
                             'name' => 'FORM[brand_alias]',
                         ], __('Бренд')); ?>
                 </div>
-                <div class="form-group">
-                    <?php echo Builder::select(\Core\Support::selectData($models, 'alias', 'name', [0, __('Нет')]),
-                        $obj->model_alias, [
-                            'id' => 'model_alias',
-                            'name' => 'FORM[model_alias]',
-                        ], __('Модель')); ?>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    --><?php //echo Builder::select(\Core\Support::selectData($models, 'alias', 'name', [0, __('Нет')]),
+//                        $obj->model_alias, [
+//                            'id' => 'model_alias',
+//                            'name' => 'FORM[model_alias]',
+//                        ], __('Модель')); ?>
+<!--                </div>-->
                 <div class="form-vertical row-border" id="specGroup">
                     <?php foreach ($specifications as $spec): ?>
                         <?php if (count($specValues[$spec->id])): ?>

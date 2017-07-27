@@ -82,9 +82,9 @@
                                         <label><input type="checkbox"></label>
                                     </td>
                                     <td>
-                                        <?php if (is_file(HOST.Core\HTML::media('images/catalog/small/'.$obj->image, false))): ?>
+                                        <?php if (is_file(HOST.Core\HTML::media('images/catalog/thumb/'.$obj->image, false))): ?>
                                             <a href="/wezom/<?php echo Core\Route::controller(); ?>/edit/<?php echo $obj->id; ?>">
-                                                <img src="<?php echo Core\HTML::media('images/catalog/small/'.$obj->image); ?>" alt="<?php echo $obj->name; ?>" width="50">
+                                                <img src="<?php echo Core\HTML::media('images/catalog/thumb/'.$obj->image); ?>" alt="<?php echo $obj->name; ?>" width="50">
                                             </a>
                                         <?php else: ?>
                                             ----

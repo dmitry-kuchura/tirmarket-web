@@ -21,12 +21,12 @@ use Core\Config;
                     <div class="lang">
                         <a href="<?php echo I18n::switcherLink('ru'); ?>" class="lang__item lang__item--active">
                             <span class="lang__icon">
-                                <svg><use xlink:href="Media/icons/icons.svg#russia"></use></svg></span>
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#russia', false); ?>"></use></svg></span>
                             <span class="lang__title">рус</span>
                         </a>
                         <a href="<?php echo I18n::switcherLink('ua'); ?>" class="lang__item">
                             <span class="lang__icon">
-                                <svg><use xlink:href="Media/icons/icons.svg#ukraine"></use></svg></span>
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#ukraine', false); ?>"></use></svg></span>
                             <span class="lang__title">укр</span>
                         </a>
                     </div>
@@ -35,14 +35,14 @@ use Core\Config;
                     <?php if (!$user): ?>
                         <a href="#" class="account-link" data-mfp="<?php echo HTML::link('hidden/auth'); ?>"><i>
                                 <svg>
-                                    <use xlink:href="Media/icons/icons.svg#user"></use>
+                                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#user', false); ?>"></use>
                                 </svg>
                             </i><span>Личный кабинет</span>
                         </a>
                     <?php else: ?>
                         <a href="<?php echo HTML::link('user/logout'); ?>" class="account-link"><i>
                                 <svg>
-                                    <use xlink:href="Media/icons/icons.svg#user"></use>
+                                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#user', false); ?>"></use>
                                 </svg>
                             </i><span>Выход</span>
                         </a>
@@ -88,13 +88,13 @@ use Core\Config;
                         <a href="#" class="header-icon">
                             <span class="header-icon__caption">Избранное</span>
                             <span class="header-icon__image">
-                                <svg><use xlink:href="Media/icons/icons.svg#star"></use></svg>
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
                             </span>
                         </a>
                         <a href="#" class="header-icon" data-mfp="popups/basket.php">
                             <span class="header-icon__caption">корзина</span>
                             <span class="header-icon__image">
-                                <svg><use xlink:href="Media/icons/icons.svg#cart"></use></svg>
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
                                 <span class="header-icon__count">10</span>
                             </span>
                         </a>

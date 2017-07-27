@@ -71,8 +71,8 @@ return [
     'catalog_tree' => [
         [
             'path' => 'small',
-            'width' => 240,
-            'height' => 240,
+            'width' => 305,
+            'height' => 271,
             'resize' => 1,
             'crop' => 1,
         ],
@@ -90,9 +90,9 @@ return [
     // Products images
     'catalog' => [
         [
-            'path' => 'small',
-            'width' => 60,
-            'height' => 60,
+            'path' => 'thumb',
+            'width' => 58,
+            'height' => 58,
             'resize' => 1,
             'crop' => 1,
         ],
@@ -104,25 +104,31 @@ return [
             'crop' => 1,
         ],
         [
-            'path' => 'big',
-            'width' => 678,
-            'height' => 520,
+            'path' => 'main',
+            'width' => 350,
+            'height' => 410,
             'resize' => 1,
-            'crop' => 0,
+            'crop' => 1,
+        ],
+        [
+            'path' => 'search',
+            'width' => 49,
+            'height' => 67,
+            'resize' => 1,
+            'crop' => 1,
+        ],
+        [
+            'path' => 'item',
+            'width' => 305,
+            'height' => 250,
+            'resize' => 1,
+            'crop' => 1,
         ],
         [
             'path' => 'original',
             'resize' => 0,
             'crop' => 0,
         ],
-    ],
-    'gallery' => [
-        [
-            'path' => '',
-            'width' => 200,
-            'height' => 200,
-            'resize' => 1,
-            'crop' => 1,
-        ],
+
     ],
 ];

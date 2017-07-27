@@ -12,7 +12,7 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
 
 <div class="_col-12 _sm-col-6 _md-col-4 _lg-col-6 _xl-col-4 _mb-3">
     <div class="item-card">
-        <a href="/product.html" class="item-card__image" style="background-image:url(<?php echo $image; ?>)"></a>
+        <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image" style="background-image:url(<?php echo $image; ?>)"></a>
         <div class="item-card__labels">
             <?php if ($obj->sale == 1): ?>
                 <div class="label label--orange"><span><?php echo __('акция'); ?></span></div>
@@ -24,14 +24,12 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
                 <div class="label label--green"><span><?php echo __('новинка'); ?></span></div>
             <?php endif; ?>
         </div>
-        <a href="/product.html" class="item-card__title"><?php echo $obj->name; ?></a>
+        <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__title"><?php echo $obj->name; ?></a>
         <div class="item-card__code">Артикул: <?php echo $obj->artikul; ?></div>
         <div class="_flex _mb-3 _justify-between">
             <div class="_col-auto">
                 <?php if ($obj->sale == 1): ?>
-                    <div class="item-card__price item-card__price--past"><?php echo number_format($obj->cost_old); ?>
-                        грн.
-                    </div>
+                    <div class="item-card__price item-card__price--past"><?php echo number_format($obj->cost_old); ?> грн.</div>
                 <?php endif; ?>
                 <div class="item-card__price"><?php echo number_format($obj->cost); ?> грн.</div>
             </div>
@@ -49,7 +47,7 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
                     <i>
                         <svg>
                             <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                 xlink:href="<?php echo HTML::media('icons/icons.svg#star'); ?>"></use>
+                                 xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use>
                         </svg>
                     </i>
                 </a>
@@ -59,7 +57,7 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
                     <span><i>
                             <svg>
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     xlink:href="<?php echo HTML::media('icons/icons.svg#cart'); ?>"></use>
+                                     xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use>
                             </svg>
                         </i><span>В корзину</span>
                     </span>

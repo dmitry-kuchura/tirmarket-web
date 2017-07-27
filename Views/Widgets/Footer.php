@@ -1,10 +1,17 @@
-<?php use Core\Config; ?>
+<?php
+
+use Core\Config;
+use Core\HTML;
+
+?>
 
 <footer class="page-footer">
     <div class="page-size">
         <div class="_flex _md-flex-nowrap _justify-between _grid-space-4">
             <div class="_col-12 _md-col-auto _flex-shrink-0 _flex _flex-column _mb-3 _md-mb-0">
-                <div class="footer-logo"><img src="Media/pic/logo.png" alt=""></div>
+                <div class="footer-logo">
+                    <img src="<?php echo HTML::media('pic/logo.png', false); ?>" alt="">
+                </div>
                 <div class="copyright _flex-grow-1">
                     <div>© 2017 Copyright Tirmarket.com.ua</div>
                     <div>Продажа автозапчастей для грузовиков.</div>
@@ -65,33 +72,36 @@
                     <div class="social _mb-3">
                         <a href="<?php echo Config::get('socials.ok'); ?>" class="social__item social__item--ok">
                             <svg>
-                                <use xlink:href="Media/icons/icons.svg#odnoklassniki"></use>
+                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#odnoklassniki', false); ?>"></use>
                             </svg>
                         </a>
                         <a href="<?php echo Config::get('socials.fb'); ?>" class="social__item social__item--fb">
                             <svg>
-                                <use xlink:href="Media/icons/icons.svg#facebook"></use>
+                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#facebook', false); ?>"></use>
                             </svg>
                         </a>
                         <a href="<?php echo Config::get('socials.you'); ?>" class="social__item social__item--youtube">
                             <svg>
-                                <use xlink:href="Media/icons/icons.svg#youtube"></use>
+                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#youtube', false); ?>"></use>
                             </svg>
                         </a>
                         <a href="<?php echo Config::get('socials.li'); ?>" class="social__item social__item--linkedin">
                             <svg>
-                                <use xlink:href="Media/icons/icons.svg#linkedin"></use>
+                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#linkedin', false); ?>"></use>
                             </svg>
                         </a>
                     </div>
                 </div>
                 <div class="_col-auto">
                     <div class="_mb-2">Разработка сайта</div>
-                    <a href="http://wezom.com.ua/" target="_blank" class="develop-link"><i>
+                    <a href="http://wezom.com.ua/" target="_blank" class="develop-link">
+                        <i>
                             <svg>
-                                <use xlink:href="Media/icons/icons.svg#wezom"></use>
+                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#wezom', false); ?>"></use>
                             </svg>
-                        </i><span>Wezom Agency</span></a></div>
+                        </i><span>Wezom Agency</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

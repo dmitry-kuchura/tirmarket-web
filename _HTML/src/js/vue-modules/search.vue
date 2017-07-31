@@ -43,9 +43,7 @@
 
                 if(this.search.length > 2) {
                     axios.post(window.initialConfig.ajax.autocomplete, {
-                        params: {
-                            search: $this.search
-                        }
+                        search: $this.search
                     })
                         .then(function (response) {
                             $this.result.splice(0, $this.result.length);

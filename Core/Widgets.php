@@ -201,4 +201,34 @@ class Widgets
         return ['result' => $result];
     }
 
+    public function Index_Sale()
+    {
+        $table = 'catalog';
+        $tableI18n = $table . '_i18n';
+
+        $array['sale'] = DB::select(
+            $tableI18n . '.*', $table . '.*',
+            DB::expr('( SELECT RAND() * (SELECT MAX(`catalog`.`id`) FROM `catalog`) AS `max_id`) AS `max`')
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where($tableI18n . '.language', '=', I18n::$lang)
+            ->where($table . '.sale', '=', 1)
+            ->where($table . '.id', '>=', 'max')
+            ->find_all();
+
+        $array['top'] = DB::select(
+            $tableI18n . '.*', $table . '.*',
+            DB::expr('( SELECT RAND() * (SELECT MAX(`catalog`.`id`) FROM `catalog`) AS `max_id`) AS `max`')
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where($tableI18n . '.language', '=', I18n::$lang)
+            ->where($table . '.top', '=', 1)
+            ->where($table . '.id', '>=', 'max')
+            ->find_all();
+
+        return $array;
+    }
+
 }

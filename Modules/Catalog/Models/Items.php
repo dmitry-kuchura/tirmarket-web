@@ -16,7 +16,11 @@ class Items extends CommonI18n
     public static function searchRows($queries, $limit = null, $offset = null)
     {
         $result = DB::select(
-            static::$table . '.*'
+            static::$table . '.id',
+            [static::$table . '.alias', 'link'],
+            static::$table . '.image',
+            [static::$table . '.cost', 'price'],
+            [static::$tableI18n . '.name', 'title']
         )
             ->from(static::$table)
             ->join(static::$tableI18n)->on(static::$table.'.id', '=', static::$tableI18n.'.row_id')

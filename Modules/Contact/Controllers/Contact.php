@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Contact\Controllers;
 
 use Core\Route;
@@ -19,6 +20,7 @@ class Contact extends Base
         if (!$this->current) {
             return Config::error();
         }
+        $this->_template = 'Contact';
         $this->setBreadcrumbs($this->current->name, $this->current->alias);
     }
 

@@ -114,22 +114,15 @@ use Core\Config;
     <div class="page-header__below">
         <div class="page-size">
             <ul class="catalog-menu" data-menu data-menu-tip="Все категории">
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Запчасти</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Сервисное обслуживание</a>
+                <?php foreach ($top_menu as $obj): ?>
+                    <li class="catalog-menu__item">
+                        <a href="<?php echo HTML::link('products/' . $obj->alias); ?>"
+                           class="catalog-menu__link"><?php echo $obj->name; ?></a>
+                    </li>
+                <?php endforeach; ?>
+                <li class="catalog-menu__item">
+                    <a href="<?php echo HTML::link('products'); ?>" class="catalog-menu__link">Все категории</a>
                 </li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Масло и смазки</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Фильтры</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Аксессуары</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">ADR</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Для прицепа</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Шины</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Аксессуары</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">ADR</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Сервисное обслуживание</a>
-                </li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Для прицепа</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Шины</a></li>
-                <li class="catalog-menu__item"><a href="#" class="catalog-menu__link">Все категории</a></li>
             </ul>
         </div>
     </div>

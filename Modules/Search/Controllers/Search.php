@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Search\Controllers;
 
 use Core\HTML;
@@ -80,11 +81,10 @@ class Search extends Base
         return $result;
     }
 
-
     // This we will show when no results
     public function noResults()
     {
-        return '<p>'.__('По Вашему запросу ничего не найдено!').'</p>';
+        return '<p>' . __('По Вашему запросу ничего не найдено!') . '</p>';
     }
 
 }

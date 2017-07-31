@@ -105,6 +105,18 @@ class Widgets
 
     public function Header()
     {
+        $table = 'catalog_tree';
+        $tableI18n = $table . '_i18n';
+
+        $array['top_menu'] = DB::select(
+            $tableI18n . '.*', $table . '.*'
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where($tableI18n . '.language', '=', I18n::$lang)
+            ->where($table . '.top_menu', '=', 1)
+            ->find_all();
+
         if (!$this->_contentMenu) {
             $this->_contentMenu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
         }

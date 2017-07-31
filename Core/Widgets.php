@@ -164,7 +164,7 @@ class Widgets
 
     public function Index_News()
     {
-        $result = CommonI18n::factory('news')->getRows(NULL, 'id', 'ASC');
+        $result = CommonI18n::factory('news')->getRows(NULL, 'id', 'ASC', 2);
 
         return ['result' => $result];
     }

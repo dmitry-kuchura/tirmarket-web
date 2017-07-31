@@ -1,6 +1,8 @@
 <?php
+
 namespace Modules\News\Controllers;
 
+use Core\HTML;
 use Core\Route;
 use Core\View;
 use Core\Config;
@@ -23,7 +25,7 @@ class News extends Base
             return Config::error();
         }
         $this->setBreadcrumbs($this->current->name, $this->current->alias);
-        $this->_template = 'Text';
+        $this->_template = 'News';
 
         $this->_page = !(int)Route::param('page') ? 1 : (int)Route::param('page');
         $this->_limit = (int)Config::get('basic.limit_articles');
@@ -42,20 +44,40 @@ class News extends Base
         $this->_seo['description'] = $this->current->description;
         Config::set('content_class', 'news_block');
         // Get Rows
-        $result = Model::getRows(1, 'date', 'DESC', $this->_limit, $this->_offset);
+        $model = Model::getRows(1, 'date', 'DESC', $this->_limit, $this->_offset);
         // Get full count of rows
         $count = Model::countRows(1);
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
-		//canonicals settings
-		$this->_use_canonical=1;
-		$this->_canonical='news';
+        //canonicals settings
+        $this->_use_canonical = 1;
+        $this->_canonical = 'news';
+
+        $first = $model[0];
+        $second = $model[1];
+        $third = $model[2];
+
+        $result = [];
+
+        foreach ($model as $key => $obj) {
+            if (!in_array($key, [0, 1, 2])) {
+                $result[$key] = $obj;
+            }
+        }
+
         // Render template
-        $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'News/List');
+        $this->_content = View::tpl([
+            'first' => $first,
+            'second' => $second,
+            'third' => $third,
+            'result' => $result,
+            'pager' => $this->_pager->create()
+        ], 'News/List');
     }
 
     public function innerAction()
     {
+        $this->_template = 'Text';
         if (Config::get('error')) {
             return false;
         }
@@ -65,12 +87,12 @@ class News extends Base
         if (!$obj) {
             return Config::error();
         }
-		if ($obj->status != 1) {
-			HTTP::redirect(HTML::link('/news'),301);
-		}
+        if ($obj->status != 1) {
+            HTTP::redirect(HTML::link('/news'), 301);
+        }
         // Seo
-        $this->_seo['h1'] = $obj->h1;
-        $this->_seo['title'] = $obj->title;
+        $this->_seo['h1'] = $obj->h1 ? $obj->h1 : $obj->name;
+        $this->_seo['title'] = $obj->title ? $obj->title : $obj->name;
         $this->_seo['keywords'] = $obj->keywords;
         $this->_seo['description'] = $obj->description;
         $this->setBreadcrumbs($obj->name);
@@ -78,7 +100,7 @@ class News extends Base
         $obj = Model::addView($obj);
         // Render template
         $this->_content = View::tpl(['obj' => $obj], 'News/Inner');
-		$this->_content.= View::tpl(['obj' => $obj], 'News/MicroData');
+        $this->_content .= View::tpl(['obj' => $obj], 'News/MicroData');
     }
 
 }

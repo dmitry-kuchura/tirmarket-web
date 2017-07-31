@@ -1,4 +1,5 @@
 <?php
+
 use Core\HTML;
 
 // Beginning group of pages: $n1...$n2
@@ -45,21 +46,31 @@ for ($i = $n7; $i <= $n8; $i++) {
 <div class="pagination">
     <?php if ($_navigation): ?>
         <?php if ($_previous !== false): ?>
-            <a href="<?php echo HTML::chars($page->url($_previous)) ?>" rel="prev"><<</a>
+            <a href="<?php echo HTML::chars($page->url($_previous)) ?>" class="pagination__prev">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xlink:href="icons/icons.svg#arrow-prev"></use>
+                </svg>
+            </a>
         <?php endif ?>
     <?php endif ?>
 
     <?php foreach ($links as $number => $content): ?>
         <?php if ($number === $_current): ?>
-            <a href="<?php echo HTML::chars($page->url($number)) ?>" class="active_pag"><?php echo $content ?></a>
+            <a href="<?php echo HTML::chars($page->url($number)) ?>" class="pagination__link pagination__link--active"><?php echo $content ?></a>
         <?php else: ?>
-            <a href="<?php echo HTML::chars($page->url($number)) ?>"><?php echo $content ?></a>
+            <a href="<?php echo HTML::chars($page->url($number)) ?>" class="pagination__link"><?php echo $content ?></a>
         <?php endif ?>
     <?php endforeach ?>
 
     <?php if ($_navigation): ?>
         <?php if ($_next !== false): ?>
-            <a href="<?php echo HTML::chars($page->url($_next)) ?>" rel="next">>></a>
+            <a href="<?php echo HTML::chars($page->url($_next)) ?>" class="pagination__next">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xlink:href="icons/icons.svg#arrow-next"></use>
+                </svg>
+            </a>
         <?php endif ?>
     <?php endif ?>
 </div>

@@ -1,38 +1,38 @@
+<?php
+
+use Core\HTML;
+
+/* @var $slider [] */
+
+?>
 <div class="slider-holder _md-show">
     <div class="banner-slider _mb-4" data-slider="banner">
-        <div class="banner-slider__item">
-            <div class="banner"><img src="Media/pic/banner-1.jpg" class="banner__image">
-                <div class="banner__content">
-                    <div class="banner__caption">сервисное обслуживание</div>
-                    <div class="banner__title">грузовиков</div>
-                    <a href="#" class="button"><span>Узнать подробнее</span></a></div>
+        <?php foreach ($slider as $obj): ?>
+            <div class="banner-slider__item">
+                <div class="banner">
+                    <img src="<?php echo HTML::media('images/slider/big/' . $obj->image); ?>" class="banner__image">
+                    <div class="banner__content">
+                        <div class="banner__caption"><?php echo $obj->caption; ?></div>
+                        <div class="banner__title"><?php echo $obj->title; ?></div>
+                        <a href="<?php echo $obj->url ? HTML::link($obj->url) : HTML::link('#'); ?>" class="button">
+                            <span>Узнать подробнее</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="banner-slider__item">
-            <div class="banner"><img src="Media/pic/banner-1.jpg" class="banner__image">
-                <div class="banner__content">
-                    <div class="banner__caption">сервисное обслуживание</div>
-                    <div class="banner__title">грузовиков</div>
-                    <a href="#" class="button"><span>Узнать подробнее</span></a></div>
-            </div>
-        </div>
-        <div class="banner-slider__item">
-            <div class="banner"><img src="Media/pic/banner-1.jpg" class="banner__image">
-                <div class="banner__content">
-                    <div class="banner__caption">сервисное обслуживание</div>
-                    <div class="banner__title">грузовиков</div>
-                    <a href="#" class="button"><span>Узнать подробнее</span></a></div>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
-    <div data-slider-prev class="banner-slider__prev">
-        <svg>
-            <use xlink:href="Media/icons/icons.svg#arrow-prev"></use>
-        </svg>
-    </div>
-    <div data-slider-next class="banner-slider__next">
-        <svg>
-            <use xlink:href="Media/icons/icons.svg#arrow-next"></use>
-        </svg>
-    </div>
+
+    <?php if (count($slider) > 1): ?>
+        <div data-slider-prev class="banner-slider__prev">
+            <svg>
+                <use xlink:href="Media/icons/icons.svg#arrow-prev"></use>
+            </svg>
+        </div>
+        <div data-slider-next class="banner-slider__next">
+            <svg>
+                <use xlink:href="Media/icons/icons.svg#arrow-next"></use>
+            </svg>
+        </div>
+    <?php endif; ?>
 </div>

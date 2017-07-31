@@ -27,6 +27,15 @@
                                     ], __('Название')); ?>
                                 </div>
                                 <div class="form-group">
+                                    <?php echo \Forms\Builder::textarea([
+                                        'name' => 'FORM['.$key.'][short_text]',
+                                        'rows' => 5,
+                                        'value' => $public->short_text,
+                                    ], [
+                                        'text' => 'Краткое описание (250 символов)',
+                                    ]); ?>
+                                </div>
+                                <div class="form-group">
                                     <?php echo \Forms\Builder::tiny([
                                         'name' => 'FORM['.$key.'][text]',
                                         'value' => $public->text,

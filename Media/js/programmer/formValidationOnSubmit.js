@@ -104,7 +104,7 @@
 
 		// TODO - переписать запрос и ответ
 		var request = new XMLHttpRequest();
-		request.open("POST", '/mock-data/' + actionUrl);
+		request.open("POST", '/form/' + actionUrl);
 		request.onreadystatechange = function() {
 			var status;
 			var resp;
@@ -134,11 +134,12 @@
 							$(resp.insert.selector).html(resp.insert.html);
 						}
 						if ( resp.response ) {
-							generate(resp.response, 'success', 3500);
+							generate(resp.response, 'success', 5000);
+							magnificPopup.close();
 						}
 					} else {
 						if ( resp.response ) {
-							generate(resp.response, 'warning', 3500);
+							generate(resp.response, 'warning', 5000);
 						}
 					}
 					if( resp.redirect ) {

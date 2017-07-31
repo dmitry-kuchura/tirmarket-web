@@ -33,6 +33,20 @@ class User extends Base
         $this->_seo['description'] = __('Личный кабинет');
     }
 
+    /**
+     * Index action for User
+     *
+     * @return string
+     */
+    public function indexAction()
+    {
+        if (!U::info()) {
+            return Config::error();
+        }
+        $this->_content = View::tpl([
+            'user' => U::info()
+        ], 'User/Index');
+    }
 
     public function fastAuthAction()
     {
@@ -59,7 +73,6 @@ class User extends Base
         Message::GetMessage(1, __('Вы успешно авторизовались как пользователь'). ' ' . $name);
         HTTP::redirect('account');
     }
-
 
     public function socialsAction()
     {
@@ -134,7 +147,6 @@ class User extends Base
         HTTP::redirect('account');
     }
 
-
     public function addSocialsAction()
     {
         if (!U::info()) {
@@ -185,21 +197,6 @@ class User extends Base
         HTTP::redirect('account');
     }
 
-
-    public function indexAction()
-    {
-        if (!U::info()) {
-            return Config::error();
-        }
-        $arr = ['vkontakte' => [], 'facebook' => [], 'odnoklassniki' => [], 'mailru' => []];
-        $socials = DB::select()->from('users_networks')->where('user_id', '=', U::info()->id)->find_all();
-        foreach ($socials as $key => $value) {
-            $arr[$value->network] = $value;
-        }
-        $this->_content = View::tpl(['user' => U::info(), 'socials' => $arr], 'User/Index');
-    }
-
-
     public function logoutAction()
     {
         if (!U::info()) {
@@ -209,7 +206,6 @@ class User extends Base
         Message::GetMessage(1, __('Возвращайтесь еще!'));
         HTTP::redirect('/');
     }
-
 
     public function confirmAction()
     {
@@ -242,7 +238,6 @@ class User extends Base
         HTTP::redirect('account');
     }
 
-
     public function profileAction()
     {
         if (!U::info()) {
@@ -251,7 +246,6 @@ class User extends Base
         $this->addMeta(__('Редактирование личных данных'));
         $this->_content = View::tpl(['user' => U::info()], 'User/Profile');
     }
-
 
     public function ordersAction()
     {
@@ -262,7 +256,6 @@ class User extends Base
         $orders = Orders::getUserOrders(U::info()->id);
         $this->_content = View::tpl(['orders' => $orders, 'statuses' => Config::get('order.statuses')], 'User/Orders');
     }
-
 
     public function orderAction()
     {
@@ -281,7 +274,6 @@ class User extends Base
         ], 'User/Order');
     }
 
-
     public function printAction()
     {
         $this->_template = 'Print';
@@ -299,7 +291,6 @@ class User extends Base
         ], 'User/Print');
     }
 
-
     public function change_passwordAction()
     {
         if (!U::info()) {
@@ -308,7 +299,6 @@ class User extends Base
         $this->addMeta(__('Изменить пароль'));
         $this->_content = View::tpl([], 'User/ChangePassword');
     }
-
 
     public function addMeta($name, $order = false)
     {

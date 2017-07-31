@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use I18n;
 use Modules\Catalog\Models\Groups;
 use Modules\Catalog\Models\Items;
 use Modules\News\Models\News;
@@ -9,9 +10,6 @@ use Core\QB\DB;
 use Modules\Cart\Models\Cart;
 use Modules\Catalog\Models\Filter;
 
-/**
- *  Class that helps with widgets on the site
- */
 class Widgets
 {
 
@@ -95,6 +93,26 @@ class Widgets
         return null;
     }
 
+    public function Head()
+    {
+        $styles = [
+            HTML::media('css/style.css', false),
+            HTML::media('js/noty/css/animate.css', false),
+        ];
+        return ['styles' => $styles];
+
+    }
+
+    public function Header()
+    {
+        if (!$this->_contentMenu) {
+            $this->_contentMenu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
+        }
+        $array['user'] = User::info();
+        $array['menu'] = $this->_contentMenu;
+        return $array;
+    }
+
     public function HiddenData()
     {
         $scripts = [
@@ -103,6 +121,7 @@ class Widgets
             HTML::media('js/programmer/formValidationOnSubmit.js', false),
             HTML::media('js/programmer/programmer.js', false),
             HTML::media('js/programmer/translate-ru.js', false),
+            HTML::media('js/noty/packaged/jquery.noty.packaged.js', false),
         ];
 
         $scripts_no_minify = [
@@ -120,23 +139,54 @@ class Widgets
         return $array;
     }
 
-    public function Header()
+    public function Index_Manufactures()
     {
-        if (!$this->_contentMenu) {
-            $this->_contentMenu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
+        $result = CommonI18n::factory('brands')->getRows(1, 'sort', 'ASC');
+
+        return ['result' => $result];
+    }
+
+    public function Index_Slider()
+    {
+        $result = CommonI18n::factory('slider')->getRows(1, 'sort', 'ASC');
+        $url = HOST . HTML::media('images/slider/big/eb2470ea77bf84d8886f79984d2975a1.jpg', false);
+
+        $slider = [];
+
+        foreach ($result as $key => $value) {
+            if (is_file(HOST . HTML::media('images/slider/big/' . $value->image, false))) {
+                $slider[] = $value;
+            }
         }
-        $array['contentMenu'] = $this->_contentMenu;
-        $array['user'] = User::info();
-        $array['countItemsInTheCart'] = Cart::factory()->_count_goods;
-        return $array;
+
+        return ['slider' => $slider];
     }
 
-    public function Head()
+    public function Index_News()
     {
-        $styles = [
-            HTML::media('css/style.css', false),
-        ];
-        return ['styles' => $styles];
+        $result = CommonI18n::factory('news')->getRows(NULL, 'id', 'ASC', 2);
 
+        return ['result' => $result];
     }
+
+    public function Index_Categories()
+    {
+        $lang = I18n::$lang;
+        $table = 'catalog_tree';
+        $tableI18n = $table . '_i18n';
+
+        $result = DB::select(
+            $tableI18n . '.*',
+            $table . '.*'
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where($tableI18n . '.language', '=', $lang)
+            ->where($table . '.popular', '=', 1)
+            ->limit(4)
+            ->find_all();
+
+        return ['result' => $result];
+    }
+
 }

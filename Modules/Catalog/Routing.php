@@ -15,23 +15,14 @@ return [
     'products/page/<page:[0-9]*>' => 'catalog/catalog/index',
     'products/<alias>' => 'catalog/catalog/groups',
     'products/<alias>/page/<page:[0-9]*>' => 'catalog/catalog/groups',
-	
-	'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>page/<page:[0-9]*>' => 'catalog/catalog/groups',
+    'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>page/<page:[0-9]*>' => 'catalog/catalog/groups',
     'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>' => 'catalog/catalog/groups',
-	'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>/page/<page:[0-9]*>' => 'catalog/catalog/groups',
-    'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>' => 'catalog/catalog/groups',
-	
-    /*'products/<alias>/<filter:[0-9a-z-_]*>' => 'catalog/catalog/list',
-    'products/<alias>/<filter>/page/<page:[0-9]*>' => 'catalog/catalog/list',*/
+    'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>/page/<page:[0-9]*>' => 'catalog/catalog/groups',
     // Products routing
     '<alias>/p<id:[0-9]*>' => 'catalog/product/index',
     // Brands routing
     'brands' => 'catalog/brands/index',
     'brands/<alias>' => 'catalog/brands/inner',
     'brands/<alias>/page/<page:[0-9]*>' => 'catalog/brands/inner',
-//        'brands/<alias>/<group>' => 'catalog/brands/group',
-//        'brands/<alias>/<group>/page/<page:[0-9]*>' => 'catalog/brands/group',
-	
-	//export files
-	'export/yml' => 'catalog/export/yml',
+    'export/yml' => 'catalog/export/yml',
 ];

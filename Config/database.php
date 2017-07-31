@@ -15,10 +15,10 @@ return [
              *
              * Ports and sockets may be appended to the hostname.
              */
-            'hostname' => 'localhost',
-            'database' => 'tirmarket',
-            'username' => 'root',
-            'password' => 'root',
+            'hostname' => '91.200.60.68',
+            'database' => 'tirmarketdb',
+            'username' => 'tirmarketdb',
+            'password' => 'I2z2I3u0',
             'persistent' => false,
         ],
         'table_prefix' => '',

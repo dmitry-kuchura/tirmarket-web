@@ -25,11 +25,11 @@
                         </div>
                     <?php endif; ?>
                     <div class="loadedCtrl loadedView">
-                        <button class="btn btn-primary btnImage" alt="<?php echo __('Просмотр'); ?>" href="<?php echo Core\HTML::media('images/catalog/big/'.$im->image); ?>"><i class="fa fa-search-plus"></i></button>
+                        <button class="btn btn-primary btnImage" alt="<?php echo __('Просмотр'); ?>" href="<?php echo Core\HTML::media('images/catalog/original/'.$im->image); ?>"><i class="fa fa-search-plus"></i></button>
                     </div>
                     <?php if(\Core\User::god() || \Core\User::get_access_for_controller('items') == 'edit'): ?>
                         <div class="loadedCtrl">
-                            <button class="btn btn-warning" alt="<?php echo __('Редактировать'); ?>" href="<?php echo \Core\General::crop('catalog', 'small', $im->image, $_SERVER['HTTP_REFERER']); ?>"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-warning" alt="<?php echo __('Редактировать'); ?>" href="<?php echo \Core\General::crop('catalog', 'medium', $im->image, $_SERVER['HTTP_REFERER']); ?>"><i class="fa fa-pencil"></i></button>
                         </div>
                         <div class="loadedCtrl loadedDelete">
                             <button class="btn btn-danger" data-id="<?php echo $im->id; ?>" alt="<?php echo __('Удалить'); ?>"><i class="fa fa-remove"></i></button>

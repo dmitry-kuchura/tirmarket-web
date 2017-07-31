@@ -1,40 +1,63 @@
+<?php
+
+use Core\HTML;
+use Core\Config;
+
+?>
 <header class="page-header">
     <div class="page-header__above">
         <div class="page-size">
             <div class="_flex _justify-between _items-center _grid-space-3">
                 <div class="_col-auto">
                     <ul class="site-menu">
-                        <li class="site-menu__item"><a href="#" class="site-menu__link">Каталог</a></li>
-                        <li class="site-menu__item"><a href="#" class="site-menu__link">О компании</a></li>
-                        <li class="site-menu__item"><a href="#" class="site-menu__link">Вакансии</a></li>
-                        <li class="site-menu__item"><a href="#" class="site-menu__link">Доставка и оплата</a></li>
-                        <li class="site-menu__item"><a href="#" class="site-menu__link">Гарантия и возврат</a></li>
-                        <li class="site-menu__item"><a href="#" class="site-menu__link">Контакты</a></li>
+                        <?php foreach ($menu as $obj): ?>
+                            <li class="site-menu__item">
+                                <a href="<?php echo $obj->url; ?>" class="site-menu__link"><?php echo $obj->name; ?></a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 <div class="_col-auto _ml-auto">
                     <div class="lang">
-                        <a href="#" class="lang__item lang__item--active"><span class="lang__icon"><svg><use
-                                            xlink:href="Media/icons/icons.svg#russia"></use></svg> </span><span
-                                    class="lang__title">рус</span> </a>
-                        <a href="#" class="lang__item"><span
-                                    class="lang__icon"><svg><use
-                                            xlink:href="Media/icons/icons.svg#ukraine"></use></svg> </span><span
-                                    class="lang__title">укр</span></a>
+                        <a href="<?php echo I18n::switcherLink('ru'); ?>" class="lang__item lang__item--active">
+                            <span class="lang__icon">
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#russia', false); ?>"></use></svg></span>
+                            <span class="lang__title">рус</span>
+                        </a>
+                        <a href="<?php echo I18n::switcherLink('ua'); ?>" class="lang__item">
+                            <span class="lang__icon">
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#ukraine', false); ?>"></use></svg></span>
+                            <span class="lang__title">укр</span>
+                        </a>
                     </div>
                 </div>
-                <div class="_col-auto"><a href="#" class="account-link" data-mfp="Media/popups/auth.php"><i>
-                            <svg>
-                                <use xlink:href="Media/icons/icons.svg#user"></use>
-                            </svg>
-                        </i><span>Личный кабинет</span></a></div>
+                <div class="_col-auto">
+                    <?php if (!$user): ?>
+                        <a href="#" class="account-link" data-mfp="<?php echo HTML::link('hidden/auth'); ?>"><i>
+                                <svg>
+                                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#user', false); ?>"></use>
+                                </svg>
+                            </i><span>Личный кабинет</span>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?php echo HTML::link('user/logout'); ?>" class="account-link"><i>
+                                <svg>
+                                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#user', false); ?>"></use>
+                                </svg>
+                            </i><span>Выход</span>
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
     <div class="page-header__middle">
         <div class="page-size">
             <div class="_flex _grid-space-3 _flex-nowrap _items-center _justify-between">
-                <div class="_col-auto _flex-shrink-0"><a href="/" class="logo"><img src="Media/pic/logo.png" alt=""></a>
+                <div class="_col-auto _flex-shrink-0">
+                    <a href="<?php echo HTML::link(); ?>" class="logo">
+                        <img src="<?php echo HTML::media('pic/logo.png'); ?>" alt="">
+                    </a>
                 </div>
                 <div class="_col-auto _flex-grow-1 _lg-show">
                     <div class="title title--sm _mb-2">Автозапчасти для грузовых автомобилей по всей Украине</div>
@@ -43,28 +66,38 @@
                 <div class="_col-auto _xl-show">
                     <div class="_flex _flex-nowrap">
                         <div class="header-contact">
-                            <div class="header-contact__title">г. Киев, ул. Леся Курбаса, 2-Б</div>
-                            <div class="header-contact__phone"><a href="tel:">+38 050 123 45 67</a></div>
-                            <div class="header-contact__phone"><a href="tel:">+38 067 123 45 67</a></div>
+                            <div class="header-contact__title"><?php echo Config::get('static.location_' . I18n::$lang); ?></div>
+                            <div class="header-contact__phone">
+                                <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_1')); ?>"><?php echo Config::get('static.phone_1'); ?></a>
+                            </div>
+                            <?php if (Config::get('static.phone_2')): ?>
+                                <div class="header-contact__phone">
+                                    <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_2')); ?>"><?php echo Config::get('static.phone_2'); ?></a>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="header-contact">
                             <div class="header-contact__title">Приём заявок:</div>
-                            <div class="header-contact__data">Пн-Пт: с 09:30 до 17:30;</div>
-                            <div class="header-contact__data">Сб: с 09:30 до 14:30. Вс: выходной</div>
+                            <div class="header-contact__data"><?php echo Config::get('static.weekdays_' . I18n::$lang); ?></div>
+                            <div class="header-contact__data"><?php echo Config::get('static.weekends_' . I18n::$lang); ?></div>
                         </div>
                     </div>
                 </div>
                 <div class="_col-auto _flex-shrink-0">
                     <div class="_flex _items-center">
-                        <a href="#" class="header-icon"><span
-                                    class="header-icon__caption">Избранное</span> <span class="header-icon__image"><svg><use
-                                            xlink:href="Media/icons/icons.svg#star"></use></svg> </span></a>
-                        <a href="#"
-                                                                                                         class="header-icon"
-                                                                                                         data-mfp="popups/basket.php"><span
-                                    class="header-icon__caption">корзина</span> <span class="header-icon__image"><svg><use
-                                            xlink:href="Media/icons/icons.svg#cart"></use></svg> <span
-                                        class="header-icon__count">10</span></span></a>
+                        <a href="#" class="header-icon">
+                            <span class="header-icon__caption">Избранное</span>
+                            <span class="header-icon__image">
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
+                            </span>
+                        </a>
+                        <a href="#" class="header-icon" data-mfp="popups/basket.php">
+                            <span class="header-icon__caption">корзина</span>
+                            <span class="header-icon__image">
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
+                                <span class="header-icon__count">10</span>
+                            </span>
+                        </a>
                         <div class="hamburger hamburger--spin _lg-hide" data-navbar-trigger>
                             <div class="hamburger-box">
                                 <div class="hamburger-inner">

@@ -1,10 +1,10 @@
 window.initialConfig = {
-    "mediaPath": 'Media',
+    "mediaPath": '',
     "ajax": {
-        "menu": "mock-data/nav.json",
-        "basket": "mock-data/basket.json",
-        "autocomplete": "mock-data/search.php",
-        "analogue": "mock-data/analogue.json",
-        "search": "mock-data/search-result.json"
+        "menu": "Media/mock-data/nav.json",
+        "basket": "Media/mock-data/basket.json",
+        "autocomplete": "Media/mock-data/search.php",
+        "analogue": "Media/mock-data/analogue.json",
+        "search": "Media/mock-data/search-result.json"
     }
 };

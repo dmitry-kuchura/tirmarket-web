@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Catalog\Controllers;
 
 use Core\Common;
@@ -25,21 +26,21 @@ class Product extends Base
     {
         // Get item information from database
         $item = Items::getRow(Route::param('id'));
-		if (!$item) {
+        if (!$item) {
             return Config::error();
         }
         if ($item->alias != Route::param('alias')) {
             unset($_POST);
             HTTP::redirect($item->alias . '/p' . $item->id, 301);
         }
-		if ($item->status != 1) {
-			$group = Groups::getRow($item->parent_id);
-			if ($group) {
-				HTTP::redirect('/products/'.$group->alias, 301);
-			} else {
-				HTTP::redirect('/products', 301);
-			}
-		}
+        if ($item->status != 1) {
+            $group = Groups::getRow($item->parent_id);
+            if ($group) {
+                HTTP::redirect('/products/' . $group->alias, 301);
+            } else {
+                HTTP::redirect('/products', 301);
+            }
+        }
         Route::factory()->setParam('id', $item->id);
         Route::factory()->setParam('group', $item->parent_id);
         // Add to cookie viewed list
@@ -54,9 +55,9 @@ class Product extends Base
         $spec = Items::getItemSpecifications($item->id, $item->parent_id);
         // Render template
         $this->_content = View::tpl(['obj' => $item, 'images' => $images, 'specifications' => $spec], 'Catalog/Item');
-		
-		$reviews = Items::getReviews($item->id);
-		$this->_content.= View::tpl(['obj' => $item, 'reviews' => $reviews], 'Catalog/MicroData');
+
+        $reviews = Items::getReviews($item->id);
+        $this->_content .= View::tpl(['obj' => $item, 'reviews' => $reviews], 'Catalog/MicroData');
     }
 
     // Set seo tags from template for items

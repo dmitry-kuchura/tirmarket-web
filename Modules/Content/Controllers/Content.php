@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Content\Controllers;
 
 use Core\Route;
@@ -11,14 +12,14 @@ use Modules\Content\Models\Control;
 
 class Content extends Base
 {
-    public function indexAction() {
-        // Check for existance
+    public function indexAction()
+    {
         $simple = true;
         $page = Model::getRowSimple(Route::param('alias'), 'alias');
-        if( !$page ) {
+        if (!$page) {
             $simple = false;
             $page = Control::getRowSimple(Route::param('alias'), 'alias');
-            if( !$page ) {
+            if (!$page) {
                 return Config::error();
             }
         }
@@ -26,22 +27,22 @@ class Content extends Base
             HTTP::redirect('/', 301);
         }
         // Seo
-        $this->_seo['h1'] = $page->h1;
-        $this->_seo['title'] = $page->title;
+        $this->_seo['h1'] = $page->h1 ? $page->h1 : $page->name;
+        $this->_seo['title'] = $page->title ? $page->title : $page->name;
         $this->_seo['keywords'] = $page->keywords;
         $this->_seo['description'] = $page->description;
-        $this->generateParentBreadcrumbs( $page->parent_id, 'content', 'parent_id' );
-        $this->setBreadcrumbs( $page->name );
-        if($simple) {
-            // Add plus one to views
+        $this->generateParentBreadcrumbs($page->parent_id, 'content', 'parent_id');
+        $this->setBreadcrumbs($page->name);
+        if ($simple) {
             $page = Model::addView($page);
-            // Get content page children
             $kids = Model::getKids($page->id);
         } else {
-            $kids = array();
+            $kids = [];
         }
-        // Render template
-        $this->_content = View::tpl(['text' => $page->text, 'kids' => $kids], 'Content/Page' );
+        $this->_content = View::tpl([
+            'page' => $page,
+            'kids' => $kids
+        ], 'Content/Page');
     }
 }
     

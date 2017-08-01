@@ -3,7 +3,7 @@ use Core\Widgets;
 use Core\HTML;
 ?>
 <!DOCTYPE html>
-<html lang="ru-ru" dir="ltr">
+<html lang="<?php echo I18n::$lang;?>" dir="ltr">
 <!-- (c) студия Wezom | www.wezom.com.ua -->
 <head>
     <?php echo Widgets::get('Head', $_seo); ?>

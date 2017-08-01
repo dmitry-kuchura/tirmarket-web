@@ -54,9 +54,7 @@
             let $this = this;
 
             axios.post(window.initialConfig.ajax.basket , {
-                params: {
-                    "action": "default"
-                }
+                "action": "default"
             })
                 .then((response) => {
 

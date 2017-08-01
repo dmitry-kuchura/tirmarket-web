@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Internationalization (i18n) class. Provides language loading and translation
  * methods without dependencies on [gettext](http://php.net/gettext).
@@ -12,7 +13,8 @@
  *     // With parameter replacement
  *     echo __('Hello, :user', array(':user' => $username));
  */
-class I18n {
+class I18n
+{
 
     const LINK_TYPE_SUB_DOMAIN = 'sub_domain';
     const LINK_TYPE_PREFIX = 'prefix';
@@ -31,7 +33,7 @@ class I18n {
      * @var  string  source language: en, es, zh, etc
      */
     public static $source = 'ru';
-    
+
     /**
      * @var  string   default language on the admin panel
      */
@@ -46,7 +48,7 @@ class I18n {
     /**
      * @var  array  cache of loaded languages
      */
-    protected static $_cache = array();
+    protected static $_cache = [];
 
     /**
      * Get and set the target language.
@@ -57,23 +59,23 @@ class I18n {
      *     // Change the current language to Spanish
      *     I18n::lang('es');
      *
-     * @param   string  $lang   new language setting
+     * @param   string $lang new language setting
      * @return  string
      * @since   3.0.2
      */
     public static function lang($lang = NULL)
     {
-        if ($lang)
-        {
+        if ($lang) {
             // Normalize the language
-            I18n::$lang = strtolower(str_replace(array(' ', '_'), '-', $lang));
+            I18n::$lang = strtolower(str_replace([' ', '_'], '-', $lang));
         }
 
         return I18n::$lang;
     }
 
 
-    public static function default_lang($lang) {
+    public static function default_lang($lang)
+    {
         return I18n::$default_lang = $lang;
     }
 
@@ -84,14 +86,13 @@ class I18n {
      *
      *     $hello = I18n::get('Hello friends, my name is :name');
      *
-     * @param   string  $string text to translate
-     * @param   string  $lang   target language
+     * @param   string $string text to translate
+     * @param   string $lang target language
      * @return  string
      */
     public static function get($string, $lang = NULL)
     {
-        if ( ! $lang)
-        {
+        if (!$lang) {
             // Use the global target language
             $lang = I18n::$lang;
         }
@@ -109,7 +110,7 @@ class I18n {
      *     // Get all defined Spanish messages
      *     $messages = I18n::load('es');
      *
-     * @param   string  $lang   language to load
+     * @param   string $lang language to load
      * @return  array
      */
     public static function load($lang)
@@ -125,7 +126,7 @@ class I18n {
                 break;
             case 'frontend':
             default:
-                $files = glob(HOST . '/Plugins/I18n/Translates/' . $lang . '.php');
+                $files = glob(HOST . '/Plugins/I18n/Translates/' . $lang . '/*.php');
                 break;
         }
 
@@ -206,8 +207,7 @@ class I18n {
     }
 }
 
-if ( ! function_exists('__'))
-{
+if (!function_exists('__')) {
     /**
      * Translation/internationalization function. The PHP function
      * [strtr](http://php.net/strtr) is used for replacing parameters.
@@ -217,12 +217,12 @@ if ( ! function_exists('__'))
      * [!!] The target language is defined by [I18n::$lang].
      *
      * @uses    I18n::get
-     * @param   string  $string text to translate
-     * @param   array   $values values to replace in the translated text
-     * @param   string  $lang   source language
+     * @param   string $string text to translate
+     * @param   array $values values to replace in the translated text
+     * @param   string $lang source language
      * @return  string
      */
-    function __($string, array $values = NULL, $lang = 'en')
+    function __($string, array $values = NULL, $lang = 'ua')
     {
         $string = I18n::get($string);
         return empty($values) ? $string : strtr($string, $values);

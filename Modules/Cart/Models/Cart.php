@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Cart\Models;
 
 use Core\Common;
@@ -13,9 +14,9 @@ class Cart
 
     static $_instance;
 
-    public $_cart_id = 0; // Cart ID in our system
-    public $_cart = []; // Items in our cart
-    public $_count_goods = 0; // Count of items in our cart
+    public $_cart_id = 0;
+    public $_cart = [];
+    public $_count_goods = 0;
 
     function __construct()
     {
@@ -33,14 +34,11 @@ class Cart
         return self::$_instance;
     }
 
-
     public function clearCarts()
     {
         DB::query(Database::DELETE, 'DELETE FROM carts WHERE carts.id NOT IN (SELECT DISTINCT cart_id FROM carts_items) AND created_at < "' . (time() - 24 * 60 * 60) . '"')->execute();
     }
 
-
-    // Get goods list for basket from database
     public function get_list_for_basket()
     {
         $ids = [];
@@ -67,8 +65,6 @@ class Cart
         return $basket;
     }
 
-
-    // Setting cart ID
     public function set_cart_id()
     {
         // Check cookie for existance of the cart
@@ -86,8 +82,6 @@ class Cart
         return true;
     }
 
-
-    // Creation of the new cart
     public function create_cart()
     {
         // Generate hash of new cart for cookie
@@ -99,8 +93,6 @@ class Cart
         return true;
     }
 
-
-    // Check existance of cart
     public function check_cart()
     {
         if (!$this->_cart_id) {
@@ -122,8 +114,6 @@ class Cart
         return true;
     }
 
-
-    // Count goods in cart
     public function recount()
     {
         $count = 0;
@@ -133,8 +123,6 @@ class Cart
         $this->_count_goods = $count;
     }
 
-
-    // Get full cost of all cart
     public function get_summa()
     {
         $summa = 0;
@@ -158,13 +146,6 @@ class Cart
         return $summa;
     }
 
-
-    /**
-     *      Add goods to cart
-     * @param int $catalog_id - goods ID
-     * @param int $count - count goods in the cart
-     * @return boolean
-     */
     public function add($catalog_id, $count = 1)
     {
         if (!Arr::get($this->_cart, $catalog_id, false)) {
@@ -189,21 +170,14 @@ class Cart
         return true;
     }
 
-
-    /**
-     *      Change count in the cart
-     * @param int $catalog_id - goods ID
-     * @param int $count - new count in the cart
-     * @return boolean
-     */
-    public function edit($catalog_id, $count)
+    public function increment($catalog_id, $count)
     {
         if (!Arr::get($this->_cart, $catalog_id, false)) {
             return false;
         }
-        $this->_cart[$catalog_id]['count'] = $count;
+        $new = $this->_cart[$catalog_id]['count'] + $count;
         DB::update('carts_items')
-            ->set(['count' => $count])
+            ->set(['count' => $new])
             ->where('cart_id', '=', $this->_cart_id)
             ->where('catalog_id', '=', $catalog_id)
             ->execute();
@@ -211,12 +185,21 @@ class Cart
         return true;
     }
 
+    public function decrement($catalog_id, $count)
+    {
+        if (!Arr::get($this->_cart, $catalog_id, false)) {
+            return false;
+        }
+        $new = $this->_cart[$catalog_id]['count'] - $count;
+        DB::update('carts_items')
+            ->set(['count' => $new])
+            ->where('cart_id', '=', $this->_cart_id)
+            ->where('catalog_id', '=', $catalog_id)
+            ->execute();
+        $this->recount();
+        return true;
+    }
 
-    /**
-     *      Delete goods from the cart
-     * @param $catalog_id - goods ID
-     * @return boolean
-     */
     public function delete($catalog_id)
     {
         if (Arr::get($this->_cart, $catalog_id, false)) {
@@ -231,8 +214,6 @@ class Cart
         return false;
     }
 
-
-    // Total cleaning of the cart
     public function clear()
     {
         Common::factory('carts')->delete($this->_cart_id);

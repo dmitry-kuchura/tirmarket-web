@@ -6,7 +6,7 @@ use Core\Widgets;
 /* @var $GLOBAL_MESSAGE string */
 ?>
 <!doctype html>
-<html>
+<html lang="<?php echo I18n::$lang;?>" dir="ltr">
 <head>
     <?php echo Widgets::get('Head', $_seo); ?>
     <?php foreach ($_seo['scripts']['head'] as $script): ?>

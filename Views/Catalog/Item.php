@@ -80,7 +80,7 @@
                                 </i>
                                 <span>Купить в ОДИН КЛИК</span>
                             </a>
-                            <a href="#" class="button" data-basket-trigger data-id="34" data-binding="product">
+                            <a href="#" class="button" data-basket-trigger data-id="<?php echo $obj->id; ?>" data-binding="product">
                                 <span>
                                     <i>
                                         <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#cart"></use></svg>

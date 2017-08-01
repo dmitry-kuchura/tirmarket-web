@@ -50,10 +50,8 @@
                 $this.$parent.load = true;
 
                 axios.post(window.initialConfig.ajax.basket , {
-                    params: {
-                        action: action,
-                        id: $this.item.id
-                    }
+                    action: action,
+                    id: $this.item.id
                 })
                     .then((response) => {
                         window.setTimeout(function(){

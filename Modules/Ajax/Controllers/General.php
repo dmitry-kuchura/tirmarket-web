@@ -37,61 +37,93 @@ class General extends Ajax
         die(json_encode($data));
     }
 
-    public function removeConnectionAction()
+    public function showCartAction()
     {
-        $id = Arr::get($_POST, 'id');
-        $row = Common::factory('users_networks')->getRow($id);
-        if ($row) {
-            Common::factory('users_networks')->delete($id);
+        header('Content-Type: application/json');
+
+        $result = Cart::factory()->get_list_for_basket();
+        $list = [];
+        $total_price = 0;
+        $total_quantity = 0;
+
+        foreach ($result AS $item) {
+            $obj = Arr::get($item, 'obj');
+            if ($obj) {
+                $total_price += $obj->cost * $item['count'];
+                $total_quantity += $item['count'];
+            }
+            $list[] = [
+                'id' => $obj->id,
+                'link' => HTML::link($obj->alias . '/p' . $obj->id, false),
+                'title' => $obj->name,
+                'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : 'http://' . $_SERVER['HTTP_HOST'] . HTML::media('pic/no-photo.png'),
+                'count' => (int)$item['count'],
+                'price' => (int)$obj->cost,
+                'maxcount' => 50,
+            ];
         }
-        Message::GetMessage(1, __('Вы успешно удалили связь Вашего аккаунта и соц. сети!'), 5000);
-        $this->success();
+
+        $this->answer([
+            'success' => true,
+            'list' => $list,
+            'totalCount' => $total_quantity,
+            'totalPrice' => $total_price
+        ]);
     }
 
     public function addToCartAction()
     {
-        // Get and check incoming data
+        $action = json_decode(file_get_contents('php://input'), true);
+
+        switch ($action['action']) {
+            case 'decrement':
+                $this->decrementItemAction($action['id']);
+                break;
+            case 'increment':
+                $this->incrementAction($action['id']);
+                break;
+            case 'default':
+                $this->showCartAction();
+                break;
+            case 'remove':
+                $this->deleteItemFromCartAction();
+                break;
+        }
+
         $catalog_id = Arr::get($this->post, 'id', 0);
+
         if (!$catalog_id) {
             $this->error('No such item!');
         }
-        // Add one item to cart
+
         Cart::factory()->add($catalog_id);
-        $result = Cart::factory()->get_list_for_basket();
-        $cart = [];
-        foreach ($result as $item) {
-            $obj = Arr::get($item, 'obj');
-            if ($obj) {
-                $cart[] = [
-                    'id' => $obj->id,
-                    'name' => $obj->name,
-                    'cost' => $obj->cost,
-                    'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image) : '',
-                    'alias' => $obj->alias,
-                    'count' => Arr::get($item, 'count', 1),
-                ];
-            }
-        }
-        $this->success(['cart' => $cart]);
+
+        $this->showCartAction();
     }
 
-    public function editCartCountItemsAction()
+    public function decrementItemAction($id)
     {
-        // Get and check incoming data
-        $catalog_id = Arr::get($this->post, 'id', 0);
-        if (!$catalog_id) {
+        if (!$id) {
             $this->error('No such item!');
         }
-        $count = Arr::get($this->post, 'count', 0);
-        if (!$count) {
-            $this->error('Can\'t change to zero!');
-        }
-        // Edit count items in cirrent position
-        Cart::factory()->edit($catalog_id, $count);
-        $this->success(['count' => (int)Cart::factory()->_count_goods]);
+
+        Cart::factory()->decrement($id, 1);
+
+        $this->showCartAction();
     }
 
-    public function deleteItemFromCartAction()
+    public function incrementAction($id)
+    {
+        if (!$id) {
+            $this->error('No such item!');
+        }
+
+        Cart::factory()->increment($id, 1);
+
+        $this->showCartAction();
+    }
+
+    public function deleteItemAction()
     {
         // Get and check incoming data
         $catalog_id = Arr::get($this->post, 'id', 0);

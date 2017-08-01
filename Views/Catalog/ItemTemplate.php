@@ -34,7 +34,7 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
                 <div class="item-card__price"><?php echo number_format($obj->cost); ?> грн.</div>
             </div>
             <div class="_col-auto">
-                <?php if ($obj->availeble == 1): ?>
+                <?php if ($obj->available == 1): ?>
                     <div class="item-card__exist item-card__exist--true">В наличии</div>
                 <?php else: ?>
                     <div class="item-card__exist item-card__exist--false">Нет в наличии</div>

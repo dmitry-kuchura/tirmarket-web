@@ -1,5 +1,6 @@
 <div class="modal modal--basket">
 
+
     <simple-basket data-vue inline-template>
 
         <div class="basket" >

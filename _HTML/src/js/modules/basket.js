@@ -24,7 +24,7 @@ module.exports = function (context = `body`) {
 
                 $.magnificPopup.open({
                     items: {
-                        src: 'popups/basket.php'
+                        src: '/Media/popups/basket.php'
                     },
                     type: 'ajax',
                     fixedContentPos: true,

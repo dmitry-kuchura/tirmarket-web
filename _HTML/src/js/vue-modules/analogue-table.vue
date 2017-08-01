@@ -38,14 +38,14 @@
             <div class="analogue-table__col">
                 <a href="#" class="button" v-if="item.exist">
                     <span>
-                        <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#cart"></use></svg></i>
+                        <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
                         <span>В корзину</span>
                     </span>
                 </a>
 
                 <a href="#" class="button" data-mfp="/popups/order.php" :data-param='`{"id": "${item.id}"}`' v-else>
                     <span>
-                        <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#cart"></use></svg></i>
+                        <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
                         <span>Заказать</span>
                     </span>
                 </a>

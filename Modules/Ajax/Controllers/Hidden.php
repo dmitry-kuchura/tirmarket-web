@@ -13,4 +13,10 @@ class Hidden extends Ajax
         die;
     }
 
+    public function basketAction()
+    {
+        echo View::tpl([], 'Hidden/Basket');
+        die;
+    }
+
 }

@@ -183,4 +183,178 @@ class Form extends Ajax
             $this->success(['redirect' => '/account']);
         }
     }
+
+    /**
+     * First step order
+     */
+    public function firstStepOrderAction()
+    {
+        $name = Arr::get($this->post, 'name');
+        if (!$name or mb_strlen($name, 'UTF-8') < 2) {
+            $this->error(__('Укажите ФИО получателя!'));
+        }
+
+        $email = Arr::get($this->post, 'email');
+        if (!$email or mb_strlen($name, 'UTF-8') < 2) {
+            $this->error(__('Укажите Email!'));
+        }
+
+        $phone = trim(Arr::get($this->post, 'phone'));
+        if (!$phone) {
+            $this->error(__('Номер телефона введен неверно!'));
+        }
+
+        $city = Arr::get($this->post, 'city');
+        if (!$city or mb_strlen($city, 'UTF-8') < 2) {
+            $this->error(__('Город указан неверно либо не указан вовсе!'));
+        }
+
+        $ip = System::getRealIP();
+
+        $count = Cart::factory()->_count_goods;
+        if (!$count) {
+            $this->error(__('Вы ничего не выбрали для покупки!'));
+        }
+
+        $data = [];
+        $data['status'] = 0;
+        $data['ip'] = $ip;
+        $data['name'] = $name;
+        $data['phone'] = $phone;
+        $data['email'] = $email;
+        $data['city'] = $city;
+        $data['created_at'] = time();
+        $data['user_lang'] = \I18n::$lang;
+        if (User::info()) {
+            $data['user_id'] = User::info()->id;
+        }
+
+        $keys = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        $order_id = DB::insert('orders', $keys)->values($values)->execute();
+
+        if (!$order_id) {
+            $this->error(__('К сожалению, создать заказ не удалось. Пожалуйста повторите попытку через несколько секунд'));
+        }
+
+        $order_id = Arr::get($order_id, 0);
+
+        $_SESSION['order_id'] = $order_id;
+
+        $cart = Cart::factory()->get_list_for_basket();
+
+        foreach ($cart as $item) {
+            $obj = Arr::get($item, 'obj');
+            $count = (int)Arr::get($item, 'count');
+            $size_id = (int)Arr::get($item, 'size');
+            if ($obj and $count) {
+                $data = [];
+                $data['order_id'] = $order_id;
+                $data['catalog_id'] = $obj->id;
+                $data['size_id'] = $size_id;
+                $data['count'] = $count;
+                $data['cost'] = $obj->cost;
+                $keys = [];
+                $values = [];
+                foreach ($data as $key => $value) {
+                    $keys[] = $key;
+                    $values[] = $value;
+                }
+                DB::insert('orders_items', $keys)->values($values)->execute();
+            }
+        }
+
+        $link_user = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/orders/' . $order_id;
+        $link_admin = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/wezom/orders/edit/' . $order_id;
+
+        $qName = 'Новый заказ';
+        $url = '/wezom/orders/edit/' . $order_id;
+        Log::add($qName, $url, 8);
+
+        if (User::info() and User::info()->email) {
+            $email = User::info()->email;
+        }
+
+        Email::sendTemplate(11, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => $ip,
+            '{{date}}' => date('d.m.Y H:i'),
+            '{{name}}' => $name,
+            '{{phone}}' => $phone,
+            '{{link_admin}}' => $link_admin,
+            '{{link_user}}' => $link_user,
+            '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
+        ]);
+
+        Email::sendTemplate(12, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => $ip,
+            '{{date}}' => date('d.m.Y H:i'),
+            '{{name}}' => $name,
+            '{{phone}}' => $phone,
+            '{{link_admin}}' => $link_admin,
+            '{{link_user}}' => $link_user,
+            '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
+        ], $email);
+
+        $this->success([
+            'success' => true,
+            'showNextSteep' => true,
+            'msg' => 'Success'
+        ]);
+    }
+
+    /**
+     * Second step order
+     */
+    public function secondStepOrderAction()
+    {
+        $order_id = $_SESSION['order_id'];
+
+        $delivery = Arr::get($this->post, 'delivery');
+        if (!$delivery) {
+            $this->error(__('Вы не указали тип доставки'));
+        }
+
+        $payment = Arr::get($this->post, 'payment');
+        if (!$payment) {
+            $this->error(__('Вы не выбрали способ оплаты!'));
+        }
+
+        if ($order_id) {
+            $this->error(__('Не указан номер заказа!'));
+        }
+
+        $data = [];
+        $data['status'] = 0;
+        $data['delivery'] = $delivery;
+        $data['payment'] = $payment;
+
+        $keys = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        $update = DB::update('users')->set($data)->where('id', '=', $order_id)->execute();
+
+        if ($update) {
+            Cart::factory()->clear();
+        }
+
+        $this->success([
+            'success' => true,
+            'redirect' => '/',
+            'msg' => 'Success'
+        ]);
+
+    }
 }

@@ -77,7 +77,7 @@ use Core\Config;
                             <?php endif; ?>
                         </div>
                         <div class="header-contact">
-                            <div class="header-contact__title">Приём заявок:</div>
+                            <div class="header-contact__title"><?php echo __('Приём заявок'); ?>:</div>
                             <div class="header-contact__data"><?php echo Config::get('static.weekdays_' . I18n::$lang); ?></div>
                             <div class="header-contact__data"><?php echo Config::get('static.weekends_' . I18n::$lang); ?></div>
                         </div>
@@ -86,13 +86,13 @@ use Core\Config;
                 <div class="_col-auto _flex-shrink-0">
                     <div class="_flex _items-center">
                         <a href="#" class="header-icon">
-                            <span class="header-icon__caption">Избранное</span>
+                            <span class="header-icon__caption"><?php echo __('Избранное'); ?></span>
                             <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
                             </span>
                         </a>
-                        <a href="#" class="header-icon" data-mfp="popups/basket.php">
-                            <span class="header-icon__caption">корзина</span>
+                        <a href="#" class="header-icon" data-mfp="<?php echo HTML::link('hidden/basket'); ?>">
+                            <span class="header-icon__caption"><?php echo __('корзина'); ?></span>
                             <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
                                 <span class="header-icon__count">10</span>

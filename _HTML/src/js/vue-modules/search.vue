@@ -10,7 +10,7 @@
                        @keyup="change" />
 
                 <span class="search-form__icon">
-                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#find"></use></svg>
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#find"></use></svg>
                 </span>
             </span>
         </form>

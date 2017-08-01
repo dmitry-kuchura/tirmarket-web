@@ -1,7 +1,7 @@
 <template>
     <div class="basket-item">
         <a href="#" class="basket-item__remove" @click.prevent="removeItem">
-            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#cancel"></use></svg>
+            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cancel"></use></svg>
         </a>
 
         <div class="basket-item__image">

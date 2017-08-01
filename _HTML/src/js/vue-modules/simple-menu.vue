@@ -7,7 +7,7 @@
             <div class="mobile-menu__header">
                 <div class="mobile-menu__title">
                     <div v-if="route.length" @click="back" class="mobile-menu__icon">
-                        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#arrow-prev"></use></svg>
+                        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#arrow-prev"></use></svg>
                     </div>
 
                     <div class="mobile-menu__nesting">
@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="mobile-menu__close" @click="close">
-                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#cancel"></use></svg>
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cancel"></use></svg>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                     <a href="#" class="mobile-menu__link">{{ item.alias }}</a>
 
                     <div class="mobile-menu__icon" v-if="item.children" @click="showSubmenu(item, index)">
-                        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#arrow-next"></use></svg>
+                        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#arrow-next"></use></svg>
                     </div>
                 </div>
             </div>

@@ -37,6 +37,10 @@ class General extends Ajax
         die(json_encode($data));
     }
 
+    /**
+     * Отрисовка корзины
+     *
+     */
     public function showCartAction()
     {
         header('Content-Type: application/json');
@@ -46,7 +50,7 @@ class General extends Ajax
         $total_price = 0;
         $total_quantity = 0;
 
-        foreach ($result AS $item) {
+        foreach ($result as $item) {
             $obj = Arr::get($item, 'obj');
             if ($obj) {
                 $total_price += $obj->cost * $item['count'];
@@ -58,7 +62,7 @@ class General extends Ajax
                 'title' => $obj->name,
                 'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : 'http://' . $_SERVER['HTTP_HOST'] . HTML::media('pic/no-photo.png'),
                 'count' => (int)$item['count'],
-                'price' => (int)$obj->cost,
+                'price' => (int)$obj->cost . ' грн.',
                 'maxcount' => 50,
             ];
         }
@@ -71,6 +75,9 @@ class General extends Ajax
         ]);
     }
 
+    /**
+     * Основной обработчки корзины
+     */
     public function addToCartAction()
     {
         $action = json_decode(file_get_contents('php://input'), true);
@@ -82,25 +89,30 @@ class General extends Ajax
             case 'increment':
                 $this->incrementAction($action['id']);
                 break;
+            case 'remove':
+                $this->deleteItemAction($action['id']);
+                break;
             case 'default':
                 $this->showCartAction();
-                break;
-            case 'remove':
-                $this->deleteItemFromCartAction();
                 break;
         }
 
         $catalog_id = Arr::get($this->post, 'id', 0);
+        $count = Arr::get($this->post, 'count', 0);
 
         if (!$catalog_id) {
             $this->error('No such item!');
         }
 
-        Cart::factory()->add($catalog_id);
+        Cart::factory()->add($catalog_id, $count);
 
         $this->showCartAction();
     }
 
+    /**
+     * Убираем товар
+     * @param $id
+     */
     public function decrementItemAction($id)
     {
         if (!$id) {
@@ -112,6 +124,10 @@ class General extends Ajax
         $this->showCartAction();
     }
 
+    /**
+     * Добавляем товар
+     * @param $id
+     */
     public function incrementAction($id)
     {
         if (!$id) {
@@ -123,16 +139,15 @@ class General extends Ajax
         $this->showCartAction();
     }
 
-    public function deleteItemAction()
+    public function deleteItemAction($id)
     {
-        // Get and check incoming data
-        $catalog_id = Arr::get($this->post, 'id', 0);
-        if (!$catalog_id) {
+        if (!$id) {
             $this->error('No such item!');
         }
-        // Add one item to cart
-        Cart::factory()->delete($catalog_id);
-        $this->success(['count' => (int)Cart::factory()->_count_goods]);
+
+        Cart::factory()->delete($id);
+
+        $this->showCartAction();
     }
 
 }

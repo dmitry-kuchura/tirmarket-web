@@ -28,21 +28,21 @@
             <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                 <div class="_col-auto">
                     <a href="#" class="icon-button">
-                        <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#star"></use></svg></i>
+                        <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#star"></use></svg></i>
                     </a>
                 </div>
 
                 <div class="_col-auto _flex-grow-1">
                     <a href="#" class="button button--full" v-if="data.exist">
                         <span>
-                            <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#cart"></use></svg></i>
+                            <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
                             <span>В корзину</span>
                         </span>
                     </a>
 
                     <a href="#" class="button button--full" data-mfp="/popups/order.php" :data-param='`{"id": "${data.id}"}`' v-else>
                         <span>
-                            <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/icons.svg#cart"></use></svg></i>
+                            <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
                             <span>Заказать</span>
                         </span>
                     </a>

@@ -85,12 +85,21 @@ use Core\Config;
                 </div>
                 <div class="_col-auto _flex-shrink-0">
                     <div class="_flex _items-center">
-                        <a href="#" class="header-icon">
-                            <span class="header-icon__caption"><?php echo __('Избранное'); ?></span>
-                            <span class="header-icon__image">
+                        <?php if ($user): ?>
+                            <a href="<?php echo HTML::link('account/favorites'); ?>" class="header-icon">
+                                <span class="header-icon__caption"><?php echo __('Избранное'); ?></span>
+                                <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
                             </span>
-                        </a>
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php echo HTML::link('favorites'); ?>" class="header-icon">
+                                <span class="header-icon__caption"><?php echo __('Избранное'); ?></span>
+                                <span class="header-icon__image">
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
+                            </span>
+                            </a>
+                        <?php endif; ?>
                         <a href="#" class="header-icon" data-mfp="<?php echo HTML::link('hidden/basket'); ?>">
                             <span class="header-icon__caption"><?php echo __('корзина'); ?></span>
                             <span class="header-icon__image">

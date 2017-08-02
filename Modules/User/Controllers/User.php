@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\User\Controllers;
 
 use Core\Arr;
@@ -48,6 +49,60 @@ class User extends Base
         ], 'User/Index');
     }
 
+    /**
+     * Edit personal data
+     */
+    public function editAction()
+    {
+        $user = U::info();
+
+        if (!$user) {
+            return Config::error();
+        }
+
+        $this->_content = View::tpl([
+            'user' => $user
+        ], 'User/Edit');
+    }
+
+    /**
+     * Forgot password
+     */
+    public function passwordAction()
+    {
+        $user = U::info();
+
+        if (!$user) {
+            return Config::error();
+        }
+
+        $this->_content = View::tpl([
+            'user' => $user
+        ], 'User/Password');
+    }
+
+    /**
+     * Favorites list
+     *
+     * @return string
+     */
+    public function favoritesAction()
+    {
+        $user = U::info();
+
+        if (!$user) {
+            return Config::error();
+        }
+
+        $this->_content = View::tpl([
+            'user' => $user
+        ], 'User/Favorites');
+    }
+
+
+
+
+
     public function fastAuthAction()
     {
         if (!array_key_exists('admin', $_SESSION)) {
@@ -70,7 +125,7 @@ class User extends Base
         U::factory()->auth($user);
         $name = trim($user->last_name . ' ' . $user->name);
         $name = $name ?: '#' . $user->id;
-        Message::GetMessage(1, __('Вы успешно авторизовались как пользователь'). ' ' . $name);
+        Message::GetMessage(1, __('Вы успешно авторизовались как пользователь') . ' ' . $name);
         HTTP::redirect('account');
     }
 
@@ -89,9 +144,9 @@ class User extends Base
             HTTP::redirect('/');
         }
         $row = DB::select()
-                ->from('users_networks')
-                ->where('network', '=', Arr::get($data, 'network'))
-                ->where('uid', '=', Arr::get($data, 'uid'))->find();
+            ->from('users_networks')
+            ->where('network', '=', Arr::get($data, 'network'))
+            ->where('uid', '=', Arr::get($data, 'uid'))->find();
         if ($row) {
             $user = Common::factory('users')->getRow($row->user_id);
             if ($user) {
@@ -121,7 +176,7 @@ class User extends Base
                 Message::GetMessage(0, __('К сожалению, Вас не удалось зарегистрировать! Попробуйте позже'), 3500);
                 HTTP::redirect('/');
             }
-            
+
             Email::sendTemplate(13, [
                 '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
                 '{{ip}}' => Arr::get($data, 'ip'),
@@ -130,7 +185,7 @@ class User extends Base
                 '{{password}}' => $password,
                 '{{name}}' => trim(Arr::get($data, 'first_name') . ' ' . Arr::get($data, 'last_name'))
             ], Arr::get($data, 'email'));
-            
+
             $user = Common::factory('users')->getRow($id);
         }
         Common::factory('users_networks')->insert([
@@ -164,10 +219,10 @@ class User extends Base
             HTTP::redirect('/');
         }
         $row = DB::select()
-                ->from('users_networks')
-                ->where('network', '=', Arr::get($data, 'network'))
-                ->where('uid', '=', Arr::get($data, 'uid'))
-                ->find();
+            ->from('users_networks')
+            ->where('network', '=', Arr::get($data, 'network'))
+            ->where('uid', '=', Arr::get($data, 'uid'))
+            ->find();
         if ($row) {
             if ($row->user_id == U::info()->id) {
                 Message::GetMessage(0, __('Эта соц. сеть уже прикреплена к Вашему аккаунту!'), 3500);
@@ -226,10 +281,10 @@ class User extends Base
         }
 
         Model::update(['status' => 1], $user->id);
-        
+
         Email::sendTemplate(13, [
-            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'), 
-            '{{ip}}' => GeoIP::ip(), 
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => GeoIP::ip(),
             '{{date}}' => date('d.m.Y')
         ], $user->email);
 

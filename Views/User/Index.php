@@ -14,12 +14,8 @@
                     <td><?php echo $user->phone ? $user->phone : '-----'; ?></td>
                 </tr>
                 <tr>
-                    <td><b>Город:</b></td>
-                    <td><?php echo $user->city ? $user->city : '-----'; ?></td>
-                </tr>
-                <tr>
                     <td><b>Адрес:</b></td>
-                    <td><?php echo $user->street ? $user->street : '-----'; ?></td>
+                    <td><?php echo $user->address ? $user->address : '-----'; ?></td>
                 </tr>
                 <tr>
                     <td><b>Email:</b></td>

@@ -357,4 +357,120 @@ class Form extends Ajax
         ]);
 
     }
+
+    /**
+     * Edit profile action
+     */
+    public function editProfileAction()
+    {
+        $name = trim(Arr::get($this->post, 'name'));
+        if (!$name or mb_strlen($name, 'UTF-8') < 2) {
+            $this->error(__('Введенное имя слишком короткое!'));
+        }
+
+        $email = Arr::get($this->post, 'email');
+        if (!$email or !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->error(__('Вы неверно ввели E-Mail!'));
+        }
+
+        $check = DB::select([DB::expr('COUNT(users.id)'), 'count'])
+            ->from('users')
+            ->where('email', '=', $email)
+            ->where('id', '!=', User::info()->id)
+            ->as_object()->execute()->current();
+        if (is_object($check) and $check->count) {
+            $this->error(__('Пользователь с указанным E-Mail адресом уже зарегистрирован!'));
+        }
+
+        $phone = trim(Arr::get($this->post, 'phone'));
+        if (!$phone) {
+            $this->error('Номер телефона введен неверно!');
+        }
+
+        $address = trim(Arr::get($this->post, 'address'));
+        if (!$address) {
+            $this->error('Укажите адрес!');
+        }
+
+        $model = [];
+
+        $model['name'] = $name;
+        $model['email'] = $email;
+        $model['phone'] = $phone;
+        $model['address'] = $address;
+        $model['updated_at'] = time();
+
+        DB::update('users')->set($model)->where('id', '=', User::info()->id)->execute();
+
+        Message::GetMessage(1, __('Вы успешно изменили свои данные!'), 3500);
+
+        $this->success(['redirect' => '/account']);
+    }
+
+    /**
+     * Change password action
+     */
+    public function change_passwordAction()
+    {
+        $currpass = Arr::get($this->post, 'currpass');
+        if (!User::factory()->check_password($currpass, User::info()->password)) {
+            $this->error(__('Старый пароль введен неверно!'));
+        }
+
+        $newpass = trim(Arr::get($this->post, 'password'));
+        if (mb_strlen($newpass, 'UTF-8') < 6) {
+            $this->error(__('Пароль не может быть короче 6 символов!'));
+        }
+
+        if (User::factory()->check_password($newpass, User::info()->password)) {
+            $this->error(__('Нельзя поменять пароль на точно такой же!'));
+        }
+
+        $repeat = trim(Arr::get($this->post, 'confirm'));
+        if ($newpass != $repeat) {
+            $this->error(__('Поля "Новый пароль" и "Подтвердите новый пароль" должны совпадать!'));
+        }
+
+        User::factory()->update_password(User::info()->id, $newpass);
+
+        Email::sendTemplate(6, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => System::getRealIP(),
+            '{{date}}' => date('d.m.Y H:i'),
+            '{{password}}' => $password
+        ], User::info()->email);
+
+        $this->success(__('На указанный E-Mail адрес высланы новые данные для входа'));
+    }
+
+    /**
+     * Forgot password action
+     */
+    public function forgot_passwordAction()
+    {
+        $email = Arr::get($this->post, 'email');
+        if (!$email or !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->error(__('Вы неверно ввели E-Mail!'));
+        }
+        $user = Common::factory('users')->getRow($email, 'email');
+        if (!$user) {
+            $this->error(__('Пользователя с указанным E-Mail адресом не существует!'));
+        }
+        if (!$user->status) {
+            $this->error(__('Пользователь с указанным E-Mail адресом либо заблокирован либо не подтвердил E-Mail адрес. Пожалуйста обратитесь к Администратору для решения сложившейся ситуации'));
+        }
+
+        $password = User::factory()->generate_random_password();
+        User::factory()->update_password($user->id, $password);
+
+        Email::sendTemplate(5, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => System::getRealIP(),
+            '{{date}}' => date('d.m.Y H:i'),
+            '{{password}}' => $password
+        ], $user->email);
+
+        $this->success(__('На указанный E-Mail адрес выслан новый пароль для входа'));
+    }
+
 }

@@ -1,25 +1,40 @@
+<?php
+
+use Core\HTML;
+
+$alias = Core\Route::action();
+
+
+?>
 <div class="_col-3 _lg-show">
     <ul class="account-menu">
         <li class="account-menu__item">
-            <a href="account.html" class="account-menu__link account-menu__link--active">Личные данные</a>
+            <a href="<?php echo HTML::link('account'); ?>"
+               class="account-menu__link <?php echo $alias == 'index' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Личные данные'); ?></a>
         </li>
         <li class="account-menu__item">
-            <a href="account-edit.html" class="account-menu__link">Редактировать профиль</a>
+            <a href="<?php echo HTML::link('account/edit'); ?>"
+               class="account-menu__link <?php echo $alias == 'edit' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Редактировать профиль'); ?></a>
         </li>
         <li class="account-menu__item">
-            <a href="account-pass.html" class="account-menu__link">Напомнить/сменить пароль</a>
+            <a href="<?php echo HTML::link('account/password'); ?>"
+               class="account-menu__link <?php echo $alias == 'password' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Напомнить/сменить пароль'); ?></a>
         </li>
         <li class="account-menu__item">
-            <a href="account-favorite.html" class="account-menu__link">Избранное</a>
+            <a href="<?php echo HTML::link('account/favorites'); ?>"
+               class="account-menu__link <?php echo $alias == 'password' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Избранное'); ?></a>
         </li>
         <li class="account-menu__item">
-            <a href="account-history.html" class="account-menu__link">История заказов</a>
+            <a href="<?php echo HTML::link('account/orders'); ?>"
+               class="account-menu__link <?php echo $alias == 'orders' ? 'account-menu__link--active' : ''; ?>"><?php echo __('История заказов'); ?></a>
         </li>
         <li class="account-menu__item">
-            <a href="account-transport.html" class="account-menu__link">Добавить Т/С</a>
+            <a href="<?php echo HTML::link('account/transport'); ?>"
+               class="account-menu__link <?php echo $alias == 'transport' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Добавить Т/С'); ?></a>
         </li>
         <li class="account-menu__item">
-            <a href="#" class="account-menu__link">Выход</a>
+            <a href="<?php echo HTML::link('account/logout'); ?>"
+               class="account-menu__link"><?php echo __('Выход'); ?></a>
         </li>
     </ul>
 </div>

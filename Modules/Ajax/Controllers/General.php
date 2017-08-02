@@ -3,16 +3,20 @@
 namespace Modules\Ajax\Controllers;
 
 use Core\Arr;
-use Core\Common;
-use Core\Message;
-use Modules\Cart\Models\Cart;
 use Core\HTML;
+use Core\QB\DB;
 use Modules\Ajax;
+use Core\User;
+use Modules\Cart\Models\Cart;
 use Modules\Catalog\Models\Items;
 
 class General extends Ajax
 {
 
+    /**
+     * Аякс поиск на главной
+     * @return bool
+     */
     public function searchAction()
     {
         $post = json_decode(file_get_contents('php://input'), true);
@@ -139,6 +143,10 @@ class General extends Ajax
         $this->showCartAction();
     }
 
+    /**
+     * Удаляем товар с корзины
+     * @param $id
+     */
     public function deleteItemAction($id)
     {
         if (!$id) {
@@ -148,6 +156,58 @@ class General extends Ajax
         Cart::factory()->delete($id);
 
         $this->showCartAction();
+    }
+
+    /**
+     * Добавлем товар в избраннное
+     */
+    public function addToFavoriteAction()
+    {
+        $product = Arr::get($this->post, 'product');
+        if (!$product) {
+            $this->error(__('Опаньки, а товара то нет!'));
+        }
+
+        $user = Arr::get($this->post, 'user');
+        if (!$user) {
+            if (isset($_SESSION['user_favorites'])) {
+                $ghost_id = $_SESSION['user_favorites'];
+            } else {
+                $ghost_id = $_SESSION['user_favorites'] = md5(time());
+            }
+        } else {
+            unset($_SESSION['user_favorites']);
+        }
+
+        $check = DB::select()
+            ->from('users_favorites')
+            ->where('user_id', '=', $user)
+            ->or_where('ghost_id', '=', $ghost_id)
+            ->and_where('product_id', '=', $product)
+            ->find();
+        if (is_object($check) && $check->id) {
+            DB::delete('users_favorites')->where('id', '=', $check->id)->execute();
+        } else {
+            $model = [];
+
+            $model['user_id'] = $user;
+            $model['product_id'] = $product;
+            $model['created_at'] = time();
+            $model['ghost_id'] = $_SESSION['user_favorites'];
+
+            $keys = [];
+            $values = [];
+
+            foreach ($model as $key => $value) {
+                $keys[] = $key;
+                $values[] = $value;
+            }
+
+            DB::insert('users_favorites', $keys)->values($values)->execute();
+        }
+
+
+        $this->success(__('Товар добавлен в избаное!'));
     }
 
 }

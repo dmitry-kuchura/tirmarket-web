@@ -206,7 +206,6 @@ class General extends Ajax
             DB::insert('users_favorites', $keys)->values($values)->execute();
         }
 
-
         $this->success(__('Товар добавлен в избаное!'));
     }
 

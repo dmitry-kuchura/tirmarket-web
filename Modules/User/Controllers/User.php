@@ -19,6 +19,7 @@ use Core\Message;
 use Modules\Base;
 use Modules\Cart\Models\Orders;
 use Modules\User\Models\Users AS Model;
+use Modules\User\Models\Users;
 
 class User extends Base
 {
@@ -41,6 +42,8 @@ class User extends Base
      */
     public function indexAction()
     {
+        $this->_seo['user_title'] = __('Личные данные');
+
         if (!U::info()) {
             return Config::error();
         }
@@ -54,6 +57,8 @@ class User extends Base
      */
     public function editAction()
     {
+        $this->_seo['user_title'] = __('Редактировать профиль');
+
         $user = U::info();
 
         if (!$user) {
@@ -70,6 +75,8 @@ class User extends Base
      */
     public function passwordAction()
     {
+        $this->_seo['user_title'] = __('Изменить пароль');
+
         $user = U::info();
 
         if (!$user) {
@@ -88,19 +95,39 @@ class User extends Base
      */
     public function favoritesAction()
     {
+        $this->_seo['user_title'] = __('Избранное');
+
         $user = U::info();
 
         if (!$user) {
             return Config::error();
         }
 
+        $result = Users::getFavorites($user->id);
+
         $this->_content = View::tpl([
-            'user' => $user
+            'user' => $user,
+            'result' => $result,
         ], 'User/Favorites');
     }
 
+    public function transportAction()
+    {
+        $this->_seo['user_title'] = __('Добавить Т/С');
 
+        $user = U::info();
 
+        if (!$user) {
+            return Config::error();
+        }
+
+        $result = Users::getUserTransport($user->id);
+
+        $this->_content = View::tpl([
+            'user' => $user,
+            'result' => $result,
+        ], 'User/Transport');
+    }
 
 
     public function fastAuthAction()

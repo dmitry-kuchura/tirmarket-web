@@ -473,4 +473,53 @@ class Form extends Ajax
         $this->success(__('На указанный E-Mail адрес выслан новый пароль для входа'));
     }
 
+    /**
+     * Add transport to user
+     */
+    public function addTransportAction()
+    {
+        $gos_number = Arr::get($this->post, 'gos_number');
+        if (!$gos_number) {
+            $this->error(__('Не указан ГОС номер!'));
+        }
+        $mark = Arr::get($this->post, 'mark');
+        if (!$mark) {
+            $this->error(__('Не указана марка машины!'));
+        }
+        $mod = Arr::get($this->post, 'model');
+        if (!$mod) {
+            $this->error(__('Нет модели транспортного средства!'));
+        }
+        $year = Arr::get($this->post, 'year');
+        if (!$year) {
+            $this->error(__('Не указан год выпуска!'));
+        }
+        $vin = Arr::get($this->post, 'vin');
+        if (!$vin) {
+            $this->error(__('Укажите VIN!'));
+        }
+
+        $model = [];
+
+        $model['gos_number'] = $gos_number;
+        $model['mark'] = $mark;
+        $model['model'] = $mod;
+        $model['year'] = $year;
+        $model['vin'] = $vin;
+        $model['created_at'] = time();
+        $model['user_id'] = User::info()->id;
+
+        $keys = [];
+        $values = [];
+
+        foreach ($model as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::insert('users_transport', $keys)->values($values)->execute();
+
+        $this->success(['response' => __('Транспортное средство добавлено!'), 'redirect' => '/account']);
+    }
+
 }

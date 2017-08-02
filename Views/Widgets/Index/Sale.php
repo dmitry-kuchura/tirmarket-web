@@ -59,7 +59,7 @@ use Core\HTML;
                                     <a href="#" class="icon-button">
                                         <i>
                                             <svg>
-                                                <use xlink:href="Media/icons/icons.svg#star"></use>
+                                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use>
                                             </svg>
                                         </i>
                                     </a>

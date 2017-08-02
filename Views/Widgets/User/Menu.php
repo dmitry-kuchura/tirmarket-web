@@ -22,7 +22,7 @@ $alias = Core\Route::action();
         </li>
         <li class="account-menu__item">
             <a href="<?php echo HTML::link('account/favorites'); ?>"
-               class="account-menu__link <?php echo $alias == 'password' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Избранное'); ?></a>
+               class="account-menu__link <?php echo $alias == 'favorites' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Избранное'); ?></a>
         </li>
         <li class="account-menu__item">
             <a href="<?php echo HTML::link('account/orders'); ?>"

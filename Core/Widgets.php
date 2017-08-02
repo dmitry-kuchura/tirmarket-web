@@ -231,4 +231,14 @@ class Widgets
         return $array;
     }
 
+    public function User_Transport()
+    {
+        $result = DB::select()
+            ->from('users_transport')
+            ->where('users_transport.user_id', '=', User::info()->id)
+            ->find_all();
+
+        return ['result' => $result];
+    }
+
 }

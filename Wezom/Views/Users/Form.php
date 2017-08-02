@@ -17,24 +17,12 @@
                     </div>
                     <div class="form-group">
                         <div class="rowSection">
-                            <div class="col-md-4 form-group">
-                                <?php echo \Forms\Builder::input([
-                                    'name' => 'FORM[last_name]',
-                                    'value' => $obj->last_name,
-                                ], __('Фамилия')); ?>
-                            </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-12 form-group">
                                 <?php echo \Forms\Builder::input([
                                     'name' => 'FORM[name]',
                                     'value' => $obj->name,
                                     'class' => 'valid',
-                                ], __('Имя')); ?>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <?php echo \Forms\Builder::input([
-                                    'name' => 'FORM[middle_name]',
-                                    'value' => $obj->middle_name,
-                                ], __('Отчество')); ?>
+                                ], __('Фамилия Имя')); ?>
                             </div>
                         </div>
                     </div>

@@ -67,6 +67,13 @@ return [
             'crop' => 0,
         ],
     ],
+    'partners' => [
+        [
+            'path' => 'original',
+            'resize' => 0,
+            'crop' => 0,
+        ],
+    ],
     // Catalog groups images
     'catalog_tree' => [
         [

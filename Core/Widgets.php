@@ -176,7 +176,7 @@ class Widgets
 
     public function Index_News()
     {
-        $result = CommonI18n::factory('news')->getRows(NULL, 'id', 'ASC', 2);
+        $result = CommonI18n::factory('news')->getRows(NULL, 'id', 'DESC', 2);
 
         return ['result' => $result];
     }
@@ -231,7 +231,7 @@ class Widgets
         return $array;
     }
 
-    public function Index_catalog()
+    public function Index_Catalog()
     {
         $table = 'catalog_tree';
         $tableI18n = $table . '_i18n';
@@ -248,6 +248,13 @@ class Widgets
             ->find_all();
 
         return $array;
+    }
+
+    public function Index_Partners()
+    {
+        $result = CommonI18n::factory('partners')->getRows(1, 'id', 'DESC', 4);
+
+        return ['result' => $result];
     }
 
     public function User_Transport()

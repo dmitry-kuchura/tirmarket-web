@@ -13,8 +13,8 @@ use Core\HTML;
                     <img src="<?php echo HTML::media('pic/logo.png', false); ?>" alt="">
                 </div>
                 <div class="copyright _flex-grow-1">
-                    <div>© 2017 Copyright Tirmarket.com.ua</div>
-                    <div>Продажа автозапчастей для грузовиков.</div>
+                    <div><?php echo Config::get('basic.copyright'); ?></div>
+                    <div><?php echo Config::get('footer.text_copy_' . I18n::$lang); ?>.</div>
                 </div>
                 <div class="_col-auto"><a href="#">Карта сайта</a></div>
             </div>
@@ -60,15 +60,11 @@ use Core\HTML;
                         </div>
                     </div>
                 </div>
-                <div class="_col-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod
-                    bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin
-                    sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Nam ferment
-                </div>
+                <div class="_col-auto"><?php echo Config::get('footer.text_contacts_' . I18n::$lang); ?></div>
             </div>
             <div class="_col-12 _md-col-auto _flex-shrink-0 _flex _flex-column _md-ml-4">
                 <div class="_col-auto _flex-grow-1">
-                    <div class="_mb-2">Мы в социальных сетях:</div>
+                    <div class="_mb-2"><?php echo __('Мы в социальных сетях'); ?>:</div>
                     <div class="social _mb-3">
                         <a href="<?php echo Config::get('socials.ok'); ?>" class="social__item social__item--ok">
                             <svg>
@@ -93,7 +89,7 @@ use Core\HTML;
                     </div>
                 </div>
                 <div class="_col-auto">
-                    <div class="_mb-2">Разработка сайта</div>
+                    <div class="_mb-2"><?php echo __('Разработка сайта'); ?></div>
                     <a href="http://wezom.com.ua/" target="_blank" class="develop-link">
                         <i>
                             <svg>

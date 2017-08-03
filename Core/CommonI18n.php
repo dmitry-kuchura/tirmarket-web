@@ -5,16 +5,19 @@ namespace Core;
 use Core\QB\DB;
 use Core\Validation\Valid;
 
-class CommonI18n extends Common {
+class CommonI18n extends Common
+{
 
     public static $tableI18n;
     public static $rulesI18n;
 
-    public static function factory($table, $image = NULL) {
+    public static function factory($table, $image = NULL)
+    {
         return new CommonI18n($table, $image);
     }
 
-    public function __construct($table = NULL, $image = NULL) {
+    public function __construct($table = NULL, $image = NULL)
+    {
         if ($table !== NULL) {
             static::$table = $table;
         }
@@ -28,7 +31,8 @@ class CommonI18n extends Common {
      * Get table with multi-language data name
      * @return string
      */
-    public static function tableI18n() {
+    public static function tableI18n()
+    {
         static::$tableI18n = static::$table . '_i18n';
         return static::$tableI18n;
     }
@@ -37,10 +41,11 @@ class CommonI18n extends Common {
      * @param array $data - associative array with insert data
      * @return integer - inserted row ID
      */
-    public static function insert($data) {
+    public static function insert($data)
+    {
         static::$tableI18n = static::$table . '_i18n';
         $simple = $data;
-        $languages = \Core\Config::get('languages') ? \Core\Config::get('languages') : array();
+        $languages = \Core\Config::get('languages') ? \Core\Config::get('languages') : [];
         foreach ($languages AS $key => $lang) {
             unset($simple[$key]);
         }
@@ -49,7 +54,7 @@ class CommonI18n extends Common {
             return false;
         }
         foreach ($languages AS $key => $lang) {
-            $_data = Arr::get($data, $key, array());
+            $_data = Arr::get($data, $key, []);
             $_data['row_id'] = $id;
             $_data['language'] = $key;
             parent::factory(static::$tableI18n)->insert($_data);
@@ -59,11 +64,12 @@ class CommonI18n extends Common {
 
     /**
      * @param array $data - associative array with data to update
-     * @param string/integer $value - value for where clause
+     * @param string /integer $value - value for where clause
      * @param string $field - field for where clause
      * @return bool
      */
-    public static function update($data, $value, $field = 'id') {
+    public static function update($data, $value, $field = 'id')
+    {
         static::$tableI18n = static::$table . '_i18n';
         if ($field != 'id') {
             $result = parent::getRow($value, $field);
@@ -72,14 +78,14 @@ class CommonI18n extends Common {
             }
             $value = $result->id;
         }
-        $languages = \Core\Config::get('languages') ? \Core\Config::get('languages') : array();
+        $languages = \Core\Config::get('languages') ? \Core\Config::get('languages') : [];
         foreach ($languages AS $key => $lang) {
-            $_data = Arr::get($data, $key, array());
-            $check = DB::select(array(DB::expr('COUNT(' . static::$tableI18n . '.id)'), 'count'))
-                    ->from(static::$tableI18n)
-                    ->where(static::$tableI18n . '.row_id', '=', $value)
-                    ->where(static::$tableI18n . '.language', '=', $key)
-                    ->count_all();
+            $_data = Arr::get($data, $key, []);
+            $check = DB::select([DB::expr('COUNT(' . static::$tableI18n . '.id)'), 'count'])
+                ->from(static::$tableI18n)
+                ->where(static::$tableI18n . '.row_id', '=', $value)
+                ->where(static::$tableI18n . '.language', '=', $key)
+                ->count_all();
             if ($check) {
                 static::updateI18n($_data, $value, $key);
             } else {
@@ -102,34 +108,36 @@ class CommonI18n extends Common {
      * @param string $language - language code (ru, en, ua...)
      * @return bool|object
      */
-    public static function updateI18n($data, $row_id, $language) {
+    public static function updateI18n($data, $row_id, $language)
+    {
         static::$tableI18n = static::$table . '_i18n';
         if (!$row_id || !$language || !$data || !is_array($data)) {
             return false;
         }
         return DB::update(static::$tableI18n)
-                        ->set($data)
-                        ->where(static::$tableI18n . '.row_id', '=', $row_id)
-                        ->where(static::$tableI18n . '.language', '=', $language)
-                        ->execute();
+            ->set($data)
+            ->where(static::$tableI18n . '.row_id', '=', $row_id)
+            ->where(static::$tableI18n . '.language', '=', $language)
+            ->execute();
     }
 
     /**
      * @param mixed $value - value
      * @param string $field - field
-     * @param null/integer $status - 0 or 1
+     * @param null /integer $status - 0 or 1
      * @return object
      */
-    public static function getRowSimple($value, $field = 'id', $status = NULL) {
+    public static function getRowSimple($value, $field = 'id', $status = NULL)
+    {
         $lang = \I18n::$lang;
         if (APPLICATION == 'backend') {
             $lang = \I18n::$default_lang_backend;
         }
         static::$tableI18n = static::$table . '_i18n';
         $row = DB::select(static::$tableI18n . '.*', static::$table . '.*')
-                ->from(static::$table)
-                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-                ->where(static::$table . '.' . $field, '=', $value);
+            ->from(static::$table)
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->where(static::$table . '.' . $field, '=', $value);
         if ($status <> NULL) {
             $row->where(static::$table . '.status', '=', $status);
         }
@@ -143,19 +151,20 @@ class CommonI18n extends Common {
      * @param null $status
      * @return array
      */
-    public static function getRow($value, $field = 'id', $status = NULL) {
+    public static function getRow($value, $field = 'id', $status = NULL)
+    {
         static::$tableI18n = static::$table . '_i18n';
-        $result = array('obj' => array(), 'langs' => array());
+        $result = ['obj' => [], 'langs' => []];
         $object = parent::getRow($value, $field, $status);
         if (!$object) {
             return $result;
         }
         $result['obj'] = $object;
         $res = DB::select(static::$tableI18n . '.*')
-                ->from(static::$table)
-                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-                ->where(static::$table . '.' . $field, '=', (int) $value)
-                ->find_all();
+            ->from(static::$table)
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->where(static::$table . '.' . $field, '=', (int)$value)
+            ->find_all();
         foreach ($res AS $obj) {
             $result['langs'][$obj->language] = $obj;
         }
@@ -163,14 +172,15 @@ class CommonI18n extends Common {
     }
 
     /**
-     * @param null/integer $status - 0 or 1
-     * @param null/string $sort
-     * @param null/string $type - ASC or DESC. No $sort - no $type
-     * @param null/integer $limit
-     * @param null/integer $offset - no $limit - no $offset
+     * @param null /integer $status - 0 or 1
+     * @param null /string $sort
+     * @param null /string $type - ASC or DESC. No $sort - no $type
+     * @param null /integer $limit
+     * @param null /integer $offset - no $limit - no $offset
      * @return object
      */
-    public static function getRows($status = NULL, $sort = NULL, $type = NULL, $limit = NULL, $offset = NULL, $filter = true) {
+    public static function getRows($status = NULL, $sort = NULL, $type = NULL, $limit = NULL, $offset = NULL, $filter = true)
+    {
         $lang = \I18n::$lang;
         if (APPLICATION == 'backend') {
             $lang = \I18n::$default_lang_backend;
@@ -183,11 +193,11 @@ class CommonI18n extends Common {
             }
         }
         $result = DB::select(
-                        static::$tableI18n . '.*', static::$table . '.*'
-                )
-                ->from(static::$table)
-                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-                ->where(static::$tableI18n . '.language', '=', $lang);
+            static::$tableI18n . '.*', static::$table . '.*'
+        )
+            ->from(static::$table)
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->where(static::$tableI18n . '.language', '=', $lang);
         if ($filter) {
             $result = static::setFilter($result);
         }
@@ -212,19 +222,20 @@ class CommonI18n extends Common {
     }
 
     /**
-     * @param null/integer $status - 0 or 1
+     * @param null /integer $status - 0 or 1
      * @return int
      */
-    public static function countRows($status = NULL, $filter = true) {
+    public static function countRows($status = NULL, $filter = true)
+    {
         $lang = \I18n::$lang;
         if (APPLICATION == 'backend') {
             $lang = \I18n::$default_lang_backend;
         }
         static::$tableI18n = static::$table . '_i18n';
-        $result = DB::select(array(DB::expr('COUNT(' . static::$table . '.id)'), 'count'))
-                ->from(static::$table)
-                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-                ->where(static::$tableI18n . '.language', '=', $lang);
+        $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
+            ->from(static::$table)
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->where(static::$tableI18n . '.language', '=', $lang);
         if ($status !== NULL) {
             $result->where(static::$table . '.status', '=', $status);
         }
@@ -238,7 +249,8 @@ class CommonI18n extends Common {
      * @param array $data
      * @return bool
      */
-    public static function valid($data = []) {
+    public static function valid($data = [])
+    {
         if (!static::$rules && !static::$rulesI18n) {
             return TRUE;
         }
@@ -257,8 +269,8 @@ class CommonI18n extends Common {
         Message::GetMessage(0, $message, FALSE);
         return FALSE;
     }
-    
-     /**
+
+    /**
      *  Adding +1 in field `views`
      * @param object $row - object
      * @return object
@@ -266,7 +278,7 @@ class CommonI18n extends Common {
     public static function addView($row)
     {
         $row->views = $row->views + 1;
-        DB::update(static::$table)->set(['views' => $row->views])->where('id','=',$row->id)->execute();
+        DB::update(static::$table)->set(['views' => $row->views])->where('id', '=', $row->id)->execute();
         return $row;
     }
 

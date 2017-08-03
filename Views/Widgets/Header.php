@@ -60,8 +60,8 @@ use Core\Config;
                     </a>
                 </div>
                 <div class="_col-auto _flex-grow-1 _lg-show">
-                    <div class="title title--sm _mb-2">Автозапчасти для грузовых автомобилей по всей Украине</div>
-                    <search-form data-vue="true"></search-form>
+                    <div class="title title--sm _mb-2"><?php echo Config::get('static.text_header_' . I18n::$lang); ?></div>
+                    <search-form data-vue="true" data-placeholder="<?php echo __('Поиск'); ?>"></search-form>
                 </div>
                 <div class="_col-auto _xl-show">
                     <div class="_flex _flex-nowrap">
@@ -101,7 +101,7 @@ use Core\Config;
                             </a>
                         <?php endif; ?>
                         <a href="#" class="header-icon" data-mfp="<?php echo HTML::link('hidden/basket'); ?>">
-                            <span class="header-icon__caption"><?php echo __('корзина'); ?></span>
+                            <span class="header-icon__caption"><?php echo __('Корзина'); ?></span>
                             <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
                                 <span class="header-icon__count">10</span>
@@ -122,7 +122,7 @@ use Core\Config;
     </div>
     <div class="page-header__below">
         <div class="page-size">
-            <ul class="catalog-menu" data-menu data-menu-tip="Все категории">
+            <ul class="catalog-menu" data-menu data-menu-tip="<?php echo __('Все категории'); ?>">
                 <?php foreach ($top_menu as $obj): ?>
                     <li class="catalog-menu__item">
                         <a href="<?php echo HTML::link('products/' . $obj->alias); ?>"
@@ -130,7 +130,7 @@ use Core\Config;
                     </li>
                 <?php endforeach; ?>
                 <li class="catalog-menu__item">
-                    <a href="<?php echo HTML::link('products'); ?>" class="catalog-menu__link">Все категории</a>
+                    <a href="<?php echo HTML::link('products'); ?>" class="catalog-menu__link"><?php echo __('Все категории'); ?></a>
                 </li>
             </ul>
         </div>

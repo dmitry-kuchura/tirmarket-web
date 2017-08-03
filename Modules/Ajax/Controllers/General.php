@@ -33,7 +33,7 @@ class General extends Ajax
         foreach ($result as $key => $obj) {
             $data[$key]['id'] = $obj->id;
             $data[$key]['link'] = HTML::link($obj->link . '/p' . $obj->id, false);
-            $data[$key]['image'] = HTML::media('images/catalog/search/' . $obj->image, false);
+            $data[$key]['image'] = is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png');
             $data[$key]['price'] = $obj->price;
             $data[$key]['title'] = $obj->title;
         }

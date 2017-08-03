@@ -1,6 +1,18 @@
-<?php echo \Forms\Builder::open(); ?>
+<?php
+
+use Forms\Builder;
+use Forms\Form;
+use Core\Arr;
+
+/* @var $languages array */
+/* @var $langs array */
+/* @var $obj object */
+
+?>
+
+<?php echo Builder::open(); ?>
     <div class="form-actions" style="display: none;">
-        <?php echo \Forms\Form::submit(['name' => 'name', 'value' => __('Отправить'), 'class' => 'submit btn btn-primary pull-right']); ?>
+        <?php echo Form::submit(['name' => 'name', 'value' => __('Отправить'), 'class' => 'submit btn btn-primary pull-right']); ?>
     </div>
     <div class="col-md-7">
         <div class="widget box">
@@ -15,9 +27,9 @@
                 <div class="form-vertical row-border">
 
                     <ul class="liTabs t_wrap">
-                        <?php foreach( $languages AS $key => $lang ): ?>
-                            <?php $public = \Core\Arr::get($langs, $key, array()); ?>
-                            <?php echo $lang['default'] == 1 ? '<input type="hidden" class="default_lang" value="'.$lang['name'].'">' : ''; ?>
+                        <?php foreach ($languages AS $key => $lang): ?>
+                            <?php $public = Arr::get($langs, $key, []); ?>
+                            <?php echo $lang['default'] == 1 ? '<input type="hidden" class="default_lang" value="' . $lang['name'] . '">' : ''; ?>
                             <li class="t_item">
                                 <a class="t_link" href="#"><?php echo $lang['name']; ?></a>
                                 <div class="t_content">
@@ -25,20 +37,30 @@
                                         <label class="control-label"><?php echo __('Название'); ?></label>
                                         <b class="red"><?php echo $public->name; ?></b>
                                     </div>
+
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::tiny([
-                                            'name' => 'FORM['.$key.'][text]',
-                                            'value' => $public->text,
-                                            'id' => $key,
-                                        ], __('Контент')); ?>
+                                        <?php echo Builder::tiny([
+                                            'name' => 'FORM[' . $key . '][text_left]',
+                                            'value' => $public->text_left,
+                                            'id' => $key .'_text_left',
+                                        ], __('Левый столбец')); ?>
                                     </div>
+
+                                    <div class="form-group">
+                                        <?php echo Builder::tiny([
+                                            'name' => 'FORM[' . $key . '][text_right]',
+                                            'value' => $public->text_right,
+                                            'id' => $key .'_text_right',
+                                        ], __('Правый столбец')); ?>
+                                    </div>
+
                                 </div>
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                    <?php if($obj->alias == 'contact'): ?>
+                    <?php if ($obj->alias == 'contact'): ?>
                         <div class="form-group">
-                            <?php echo \Forms\Builder::textarea([
+                            <?php echo Builder::textarea([
                                 'name' => 'FORM[other]',
                                 'value' => $obj->other,
                                 'rows' => 7,
@@ -60,15 +82,15 @@
             <div class="widgetContent">
                 <div class="form-vertical row-border">
                     <ul class="liTabs t_wrap">
-                        <?php foreach( $languages AS $key => $lang ): ?>
-                            <?php $public = \Core\Arr::get($langs, $key, array()); ?>
-                            <?php echo $lang['default'] == 1 ? '<input type="hidden" class="default_lang" value="'.$lang['name'].'">' : ''; ?>
+                        <?php foreach ($languages AS $key => $lang): ?>
+                            <?php $public = Arr::get($langs, $key, []); ?>
+                            <?php echo $lang['default'] == 1 ? '<input type="hidden" class="default_lang" value="' . $lang['name'] . '">' : ''; ?>
                             <li class="t_item">
                                 <a class="t_link" href="#"><?php echo $lang['name']; ?></a>
                                 <div class="t_content">
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::input([
-                                            'name' => 'FORM['.$key.'][h1]',
+                                        <?php echo Builder::input([
+                                            'name' => 'FORM[' . $key . '][h1]',
                                             'value' => $public->h1,
                                         ], [
                                             'text' => 'H1',
@@ -76,8 +98,8 @@
                                         ]); ?>
                                     </div>
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::input([
-                                            'name' => 'FORM['.$key.'][title]',
+                                        <?php echo Builder::input([
+                                            'name' => 'FORM[' . $key . '][title]',
                                             'value' => $public->title,
                                         ], [
                                             'text' => 'Title',
@@ -85,8 +107,8 @@
                                         ]); ?>
                                     </div>
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::textarea([
-                                            'name' => 'FORM['.$key.'][keywords]',
+                                        <?php echo Builder::textarea([
+                                            'name' => 'FORM[' . $key . '][keywords]',
                                             'rows' => 5,
                                             'value' => $public->keywords,
                                         ], [
@@ -94,8 +116,8 @@
                                         ]); ?>
                                     </div>
                                     <div class="form-group">
-                                        <?php echo \Forms\Builder::textarea([
-                                            'name' => 'FORM['.$key.'][description]',
+                                        <?php echo Builder::textarea([
+                                            'name' => 'FORM[' . $key . '][description]',
                                             'value' => $public->description,
                                             'rows' => 5,
                                         ], [
@@ -110,4 +132,4 @@
             </div>
         </div>
     </div>
-<?php echo \Forms\Form::close(); ?>
+<?php echo Form::close(); ?>

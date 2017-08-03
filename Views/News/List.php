@@ -11,8 +11,15 @@ use Core\HTML;
     <div class="_flex _grid-space-3">
         <div class="_col-12 _xl-col-6">
             <a href="<?php echo HTML::link('news/' . $first->alias, false); ?>" class="news-card news-card--lg _mb-3">
+                <?php
+                if (is_file(HOST . HTML::media('images/news/big/' . $first->image, false))) {
+                    $image = HTML::media('images/news/big/' . $first->image, false);
+                } else {
+                    $image = HTML::media('pic/no-image.png');
+                }
+                ?>
                 <div class="news-card__image">
-                    <img src="<?php echo HTML::media('images/news/big/' . $first->image, false); ?>" alt="">
+                    <img src="<?php echo $image; ?>" alt="">
                 </div>
                 <div class="news-card__body">
                     <div class="news-card__date"><?php echo date('d/m/Y', $first->date); ?></div>
@@ -23,9 +30,16 @@ use Core\HTML;
         </div>
         <div class="_col-12 _xl-col-6">
             <?php if (isset($second)): ?>
+                <?php
+                if (is_file(HOST . HTML::media('images/news/big/' . $second->image, false))) {
+                    $image = HTML::media('images/news/big/' . $second->image, false);
+                } else {
+                    $image = HTML::media('pic/no-image.png');
+                }
+                ?>
                 <a href="<?php echo HTML::link('news/' . $second->alias, false); ?>" class="news-card _mb-3">
                     <div class="news-card__image">
-                        <img src="<?php echo HTML::media('images/news/big/' . $second->image, false); ?>" alt="">
+                        <img src="<?php echo $image; ?>" alt="">
                     </div>
                     <div class="news-card__body">
                         <div class="news-card__date"><?php echo date('d/m/Y', $second->date); ?></div>
@@ -35,9 +49,16 @@ use Core\HTML;
                 </a>
             <?php endif; ?>
             <?php if (isset($third)): ?>
+                <?php
+                if (is_file(HOST . HTML::media('images/news/big/' . $third->image, false))) {
+                    $image = HTML::media('images/news/big/' . $third->image, false);
+                } else {
+                    $image = HTML::media('pic/no-image.png');
+                }
+                ?>
                 <a href="<?php echo HTML::link('news/' . $third->alias, false); ?>" class="news-card _mb-3">
                     <div class="news-card__image">
-                        <img src="<?php echo HTML::media('images/news/big/' . $third->image, false); ?>" alt="">
+                        <img src="<?php echo $image; ?>" alt="">
                     </div>
                     <div class="news-card__body">
                         <div class="news-card__date"><?php echo date('d/m/Y', $third->date); ?></div>
@@ -49,10 +70,17 @@ use Core\HTML;
         </div>
         <?php if (count($result)): ?>
             <?php foreach ($result as $obj): ?>
+                <?php
+                if (is_file(HOST . HTML::media('images/news/big/' . $obj->image, false))) {
+                    $image = HTML::media('images/news/big/' . $obj->image, false);
+                } else {
+                    $image = HTML::media('pic/no-image.png');
+                }
+                ?>
                 <div class="_col-12 _xl-col-6">
                     <a href="<?php echo HTML::link('news/' . $obj->alias, false); ?>" class="news-card _mb-3">
                         <div class="news-card__image">
-                            <img src="<?php echo HTML::media('images/news/big/' . $third->image, false); ?>" alt="">
+                            <img src="<?php echo $image; ?>" alt="">
                         </div>
                         <div class="news-card__body">
                             <div class="news-card__date"><?php echo date('d/m/Y', $obj->date); ?></div>

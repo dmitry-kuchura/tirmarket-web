@@ -231,6 +231,25 @@ class Widgets
         return $array;
     }
 
+    public function Index_catalog()
+    {
+        $table = 'catalog_tree';
+        $tableI18n = $table . '_i18n';
+
+        $array['result'] = DB::select(
+            $tableI18n . '.*', $table . '.*'
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where($tableI18n . '.language', '=', I18n::$lang)
+            ->where($table . '.status', '=', 1)
+            ->order_by(DB::expr('RAND ()'))
+            ->limit(4)
+            ->find_all();
+
+        return $array;
+    }
+
     public function User_Transport()
     {
         $result = DB::select()

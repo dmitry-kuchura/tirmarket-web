@@ -10,8 +10,14 @@
                 <div class="_col-12 _xl-col-6">
                     <a href="<?php echo HTML::link('news/' . $obj->alias); ?>" class="news-card _mb-3">
                         <div class="news-card__image">
-                            <?php ?>
-                            <img src="Media/pic/news-image-1.jpg" alt="">
+                            <?php
+                            if (is_file(HOST . HTML::media('images/news/small/' . $obj->image, false))) {
+                                $image = HTML::media('images/news/small/' . $obj->image, false);
+                            } else {
+                                $image = HTML::media('pic/no-image.png');
+                            }
+                            ?>
+                            <img src="<?php echo $image; ?>" alt="">
                         </div>
                         <div class="news-card__body">
                             <div class="news-card__date"><?php echo date('d/m/Y', $obj->date); ?></div>

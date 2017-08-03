@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Catalog\Controllers;
 
 use Core\CommonI18n;
@@ -31,7 +32,8 @@ class Brands extends Base
             return Config::error();
         }
         $this->setBreadcrumbs($this->current->name, $this->current->alias);
-        $this->_template = 'CatalogItemsWithoutFilter';
+//        $this->_template = 'CatalogItemsWithoutFilter';
+        $this->_template = 'Catalog';
         $this->_page = !(int)Route::param('page') ? 1 : (int)Route::param('page');
         $this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
         $this->_offset = ($this->_page - 1) * $this->_limit;
@@ -45,12 +47,13 @@ class Brands extends Base
         if (Config::get('error')) {
             return false;
         }
-        $this->_template = 'Text';
+        $this->_template = 'Catalog';
         // Seo
         $this->_seo['h1'] = $this->current->h1;
         $this->_seo['title'] = $this->current->title;
         $this->_seo['keywords'] = $this->current->keywords;
         $this->_seo['description'] = $this->current->description;
+        $this->_seo['text'] = $this->current->text;
         // Get brands list
         $result = Model::getRows(1, 'brands_i18n.name');
         // Get alphabet
@@ -65,15 +68,13 @@ class Brands extends Base
         if (Config::get('error')) {
             return false;
         }
-        $this->_template = 'CatalogItemsWithoutFilter';
-        // Check for existance
         $brand = Model::getRowSimple(Route::param('alias'), 'alias');
         if (!$brand) {
             return Config::error();
         }
-		if ($brand->status != 1) {
-			HTTP::redirect('/brands',301);
-		}
+        if ($brand->status != 1) {
+            HTTP::redirect('/brands', 301);
+        }
         // Seo
         $this->_seo['h1'] = $brand->h1;
         $this->_seo['title'] = $brand->title;
@@ -88,14 +89,14 @@ class Brands extends Base
         $count = Items::countBrandItems($brand->alias);
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
-		//canonicals settings
-		$this->_use_canonical=1;
-		$this->_canonical='brands/'.Route::param('alias');
+        //canonicals settings
+        $this->_use_canonical = 1;
+        $this->_canonical = 'brands/' . Route::param('alias');
         // Render template
         $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/ItemsList');
     }
-	
-	// Set seo tags from template for brands
+
+    // Set seo tags from template for brands
     public function setSeoForBrand($page)
     {
         $tpl = CommonI18n::factory('seo_templates')->getRowSimple(3);
@@ -105,7 +106,7 @@ class Brands extends Base
         $this->_seo['title'] = $page->title ? str_replace($from, $to, $page->title) : str_replace($from, $to, $tpl->title);
         $this->_seo['keywords'] = $page->keywords ? str_replace($from, $to, $page->keywords) : str_replace($from, $to, $tpl->keywords);
         $this->_seo['description'] = $page->description ? str_replace($from, $to, $page->description) : str_replace($from, $to, $tpl->description);
-		$this->setBreadcrumbs($page->name);
+        $this->setBreadcrumbs($page->name);
     }
 
 }

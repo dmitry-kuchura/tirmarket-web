@@ -24,7 +24,6 @@ class Index extends Base
     public function indexAction()
     {
         $this->_template = 'Main';
-        // Check for existance
         if (Config::get('error')) {
             return false;
         }
@@ -33,6 +32,8 @@ class Index extends Base
         $this->_seo['title'] = $this->current->title;
         $this->_seo['keywords'] = $this->current->keywords;
         $this->_seo['description'] = $this->current->description;
+        $this->_seo['text_left'] = $this->current->text_left;
+        $this->_seo['text_right'] = $this->current->text_right;
         // Render template
         $this->_content = $this->current->text;
     }

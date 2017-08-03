@@ -8,10 +8,10 @@ return [
         3 => __('Отменен'),
     ],
     'st_classes' => [
-        0 =>  'default',
-        2 =>  'info',
-        1 =>  'success',
-        3 =>  'danger',
+        0 =>  'status--default',
+        2 =>  'status--wait',
+        1 =>  'status--success',
+        3 =>  'status--danger',
     ],
     'payment' => [
         1 => __('Наложенный платеж (оплата при получении)'),

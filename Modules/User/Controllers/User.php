@@ -129,6 +129,25 @@ class User extends Base
         ], 'User/Transport');
     }
 
+    public function ordersAction()
+    {
+        $this->_seo['user_title'] = __('История заказов');
+
+        $orders = Orders::getUserOrders(U::info()->id);
+
+        if (count($orders)) {
+            $orders_items = Orders::getUserOrdersItems(U::info()->id);
+        } else {
+            $orders_items = [];
+        }
+
+        $this->_content = View::tpl([
+            'orders' => $orders,
+            'orders_items' => $orders_items,
+            'statuses' => Config::get('order.statuses'),
+            'stClasses' => Config::get('order.st_classes'),
+        ], 'User/Orders');
+    }
 
     public function fastAuthAction()
     {
@@ -154,232 +173,6 @@ class User extends Base
         $name = $name ?: '#' . $user->id;
         Message::GetMessage(1, __('Вы успешно авторизовались как пользователь') . ' ' . $name);
         HTTP::redirect('account');
-    }
-
-    public function socialsAction()
-    {
-        // $s = file_get_contents('http://ulogin.ru/token.php?token=' . $_POST['token']);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://ulogin.ru/token.php?token=' . $_POST['token']);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $html = curl_exec($ch);
-        curl_close($ch);
-        $data = json_decode($html, true);
-        if (!Rules::email(Arr::get($data, 'email'))) {
-            Message::GetMessage(0, __('E-Mail некорректен или скрыт!'), 3500);
-            HTTP::redirect('/');
-        }
-        $row = DB::select()
-            ->from('users_networks')
-            ->where('network', '=', Arr::get($data, 'network'))
-            ->where('uid', '=', Arr::get($data, 'uid'))->find();
-        if ($row) {
-            $user = Common::factory('users')->getRow($row->user_id);
-            if ($user) {
-                U::factory()->auth($user);
-                Message::GetMessage(1, __('Вы успешно авторизовались на сайте!'), 3500);
-                HTTP::redirect('account');
-            }
-            Common::factory('users')->delete($row->id);
-        }
-
-        $user = Common::factory('users')->getRow(Arr::get($data, 'email'), 'email');
-        if (!$user) {
-            $password = U::generate_random_password();
-            $id = Common::factory('users')->insert([
-                'email' => Arr::get($data, 'email'),
-                'name' => Arr::get($data, 'first_name'),
-                'last_name' => Arr::get($data, 'last_name'),
-                'status' => 1,
-                'last_login' => time(),
-                'logins' => 1,
-                'role_id' => 1,
-                'ip' => GeoIP::ip(),
-                'hash' => U::factory()->hash_user(Arr::get($data, 'email'), $password),
-                'password' => U::factory()->hash_password($password),
-            ]);
-            if (!$id) {
-                Message::GetMessage(0, __('К сожалению, Вас не удалось зарегистрировать! Попробуйте позже'), 3500);
-                HTTP::redirect('/');
-            }
-
-            Email::sendTemplate(13, [
-                '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
-                '{{ip}}' => Arr::get($data, 'ip'),
-                '{{date}}' => date('d.m.Y'),
-                '{{email}}' => Arr::get($data, 'email'),
-                '{{password}}' => $password,
-                '{{name}}' => trim(Arr::get($data, 'first_name') . ' ' . Arr::get($data, 'last_name'))
-            ], Arr::get($data, 'email'));
-
-            $user = Common::factory('users')->getRow($id);
-        }
-        Common::factory('users_networks')->insert([
-            'user_id' => $user->id,
-            'network' => Arr::get($data, 'network'),
-            'uid' => Arr::get($data, 'uid'),
-            'profile' => Arr::get($data, 'profile'),
-            'first_name' => Arr::get($data, 'first_name'),
-            'last_name' => Arr::get($data, 'last_name'),
-            'email' => Arr::get($data, 'email'),
-        ]);
-        U::factory()->auth($user);
-        Message::GetMessage(1, __('Вы успешно авторизовались на сайте!'), 3500);
-        HTTP::redirect('account');
-    }
-
-    public function addSocialsAction()
-    {
-        if (!U::info()) {
-            return Config::error();
-        }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://ulogin.ru/token.php?token=' . $_POST['token']);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $html = curl_exec($ch);
-        curl_close($ch);
-        $data = json_decode($html, true);
-        if (!Rules::email(Arr::get($data, 'email'))) {
-            Message::GetMessage(0, __('E-Mail некорректен или скрыт!'), 3500);
-            HTTP::redirect('/');
-        }
-        $row = DB::select()
-            ->from('users_networks')
-            ->where('network', '=', Arr::get($data, 'network'))
-            ->where('uid', '=', Arr::get($data, 'uid'))
-            ->find();
-        if ($row) {
-            if ($row->user_id == U::info()->id) {
-                Message::GetMessage(0, __('Эта соц. сеть уже прикреплена к Вашему аккаунту!'), 3500);
-                HTTP::redirect('account');
-            }
-            Common::factory('users_networks')->update([
-                'user_id' => U::info()->id,
-                'network' => Arr::get($data, 'network'),
-                'uid' => Arr::get($data, 'uid'),
-                'profile' => Arr::get($data, 'profile'),
-                'first_name' => Arr::get($data, 'first_name'),
-                'last_name' => Arr::get($data, 'last_name'),
-                'email' => Arr::get($data, 'email'),
-            ], $row->id);
-        } else {
-            Common::factory('users_networks')->insert([
-                'user_id' => U::info()->id,
-                'network' => Arr::get($data, 'network'),
-                'uid' => Arr::get($data, 'uid'),
-                'profile' => Arr::get($data, 'profile'),
-                'first_name' => Arr::get($data, 'first_name'),
-                'last_name' => Arr::get($data, 'last_name'),
-                'email' => Arr::get($data, 'email'),
-            ]);
-        }
-        Message::GetMessage(1, __('Вы успешно добавили соц. сеть к своему аккаунту!'), 3500);
-        HTTP::redirect('account');
-    }
-
-    public function logoutAction()
-    {
-        if (!U::info()) {
-            return Config::error();
-        }
-        U::factory()->logout();
-        Message::GetMessage(1, __('Возвращайтесь еще!'));
-        HTTP::redirect('/');
-    }
-
-    public function confirmAction()
-    {
-        if (U::info()) {
-            return Config::error();
-        }
-        if (!Route::param('hash')) {
-            return Config::error();
-        }
-
-        $user = Model::getRow(Route::param('hash'), 'hash');
-        if (!$user) {
-            return Config::error();
-        }
-        if ($user->status) {
-            Message::GetMessage(0, __('Вы уже подтвердили свой E-Mail!'));
-            HTTP::redirect('/');
-        }
-
-        Model::update(['status' => 1], $user->id);
-
-        Email::sendTemplate(13, [
-            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
-            '{{ip}}' => GeoIP::ip(),
-            '{{date}}' => date('d.m.Y')
-        ], $user->email);
-
-        U::factory()->auth($user, 0);
-        Message::GetMessage(1, __('Вы успешно зарегистрировались на сайте! Пожалуйста укажите остальную информацию о себе в личном кабинете для того, что бы мы могли обращаться к Вам по имени'));
-        HTTP::redirect('account');
-    }
-
-    public function profileAction()
-    {
-        if (!U::info()) {
-            return Config::error();
-        }
-        $this->addMeta(__('Редактирование личных данных'));
-        $this->_content = View::tpl(['user' => U::info()], 'User/Profile');
-    }
-
-    public function ordersAction()
-    {
-        if (!U::info()) {
-            return Config::error();
-        }
-        $this->addMeta(__('Мои заказы'));
-        $orders = Orders::getUserOrders(U::info()->id);
-        $this->_content = View::tpl(['orders' => $orders, 'statuses' => Config::get('order.statuses')], 'User/Orders');
-    }
-
-    public function orderAction()
-    {
-        if (!U::info()) {
-            return Config::error();
-        }
-        $this->addMeta(__('Заказ №') . Route::param('id'), true);
-        $result = Orders::getOrder(Route::param('id'));
-        $cart = Orders::getOrderItems(Route::param('id'));
-        $this->_content = View::tpl([
-            'obj' => $result,
-            'cart' => $cart,
-            'payment' => Config::get('order.payment'),
-            'delivery' => Config::get('order.delivery'),
-            'statuses' => Config::get('order.statuses'),
-        ], 'User/Order');
-    }
-
-    public function printAction()
-    {
-        $this->_template = 'Print';
-        if (!U::info()) {
-            return Config::error();
-        }
-        $result = Orders::getOrder(Route::param('id'));
-        $cart = Orders::getOrderItems(Route::param('id'));
-        $this->_content = View::tpl([
-            'order' => $result,
-            'list' => $cart,
-            'payment' => Config::get('order.payment'),
-            'delivery' => Config::get('order.delivery'),
-            'statuses' => Config::get('order.statuses'),
-        ], 'User/Print');
-    }
-
-    public function change_passwordAction()
-    {
-        if (!U::info()) {
-            return Config::error();
-        }
-        $this->addMeta(__('Изменить пароль'));
-        $this->_content = View::tpl([], 'User/ChangePassword');
     }
 
     public function addMeta($name, $order = false)

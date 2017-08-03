@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Cart\Models;
 
 use Core\QB\DB;
@@ -9,6 +10,31 @@ class Orders extends Common
 
     public static $table = 'orders';
 
+    public static function getUserOrdersItems($user_id)
+    {
+        $items = DB::select(
+            'catalog.id',
+            'orders_items.order_id',
+            'catalog.alias',
+            'catalog_i18n.name',
+            'catalog.parent_id',
+            'catalog.image',
+            'orders_items.count',
+            ['orders_items.cost', 'price']
+        )
+            ->from('orders_items')
+            ->join('orders', 'LEFT')->on('orders.id', '=', 'orders_items.order_id')
+            ->join('catalog', 'LEFT')->on('orders_items.catalog_id', '=', 'catalog.id')
+            ->join('catalog_i18n', 'LEFT')->on('catalog_i18n.row_id', '=', 'catalog.id')
+            ->where('catalog_i18n.language', '=', \I18n::$lang)
+            ->where('orders.user_id', '=', $user_id)->find_all();
+
+        $order_items = [];
+        foreach ($items as $item) {
+            $order_items[$item->order_id][] = $item;
+        }
+        return $order_items;
+    }
 
     public static function getUserOrders($user_id)
     {

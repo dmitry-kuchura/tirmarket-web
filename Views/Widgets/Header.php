@@ -37,14 +37,14 @@ use Core\Config;
                                 <svg>
                                     <use xlink:href="<?php echo HTML::media('icons/icons.svg#user', false); ?>"></use>
                                 </svg>
-                            </i><span>Личный кабинет</span>
+                            </i><span><?php echo __('Авторизация/Регистрация'); ?></span>
                         </a>
                     <?php else: ?>
-                        <a href="<?php echo HTML::link('user/logout'); ?>" class="account-link"><i>
+                        <a href="<?php echo HTML::link('account'); ?>" class="account-link"><i>
                                 <svg>
                                     <use xlink:href="<?php echo HTML::media('icons/icons.svg#user', false); ?>"></use>
                                 </svg>
-                            </i><span>Выход</span>
+                            </i><span><?php echo __('Личный кабинет'); ?></span>
                         </a>
                     <?php endif; ?>
                 </div>

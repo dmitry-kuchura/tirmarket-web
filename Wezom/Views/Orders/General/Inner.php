@@ -56,29 +56,11 @@
                     <div class="widgetContent" data-ajax="orders/orderUser">
                         <?php echo \Forms\Form::open(['class' => 'form-vertical row-border']); ?>
                             <div class="form-group">
-                                <label class="control-label col-md-2"><?php echo __('Фамилия'); ?></label>
-                                <div class="col-md-10">
-                                    <?php echo \Forms\Builder::input([
-                                        'name' => 'last_name',
-                                        'value' => $obj->last_name,
-                                    ]); ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2"><?php echo __('Имя'); ?></label>
+                                <label class="control-label col-md-2"><?php echo __('Имя Фамилия'); ?></label>
                                 <div class="col-md-10">
                                     <?php echo \Forms\Builder::input([
                                         'name' => 'name',
                                         'value' => $obj->name,
-                                    ]); ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2"><?php echo __('Отчество'); ?></label>
-                                <div class="col-md-10">
-                                    <?php echo \Forms\Builder::input([
-                                        'name' => 'middle_name',
-                                        'value' => $obj->middle_name,
                                     ]); ?>
                                 </div>
                             </div>

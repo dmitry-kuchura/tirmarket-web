@@ -6,19 +6,19 @@
             <div class="title title--md _mb-2">ШАГ 1. Контактные данные</div>
             <div class="form-label">Ваше имя и фамилия <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="text" class="form-element__input" data-name="name" name="name" data-rule-minlength="3" required>
+                <input type="text" class="form-element__input" value="<?php echo $user->name ? $user->name : ''; ?>" data-name="name" name="name" data-rule-minlength="3" required>
             </div>
             <div class="form-label">Контактный телефон <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="tel" class="form-element__input" data-name="phone" name="phone" data-rule-phoneua="true" required>
+                <input type="tel" class="form-element__input" value="<?php echo $user->phone ? $user->phone : ''; ?>" data-name="phone" name="phone" data-rule-phoneua="true" required>
             </div>
             <div class="form-label">Укажите свой Email <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="email" class="form-element__input" data-name="email" name="email" data-rule-email="true" required>
+                <input type="email" class="form-element__input" value="<?php echo $user->email ? $user->email : ''; ?>" data-name="email" name="email" data-rule-email="true" required>
             </div>
             <div class="form-label">Город <i>*</i></div>
             <div class="form-element _mb-4">
-                <input type="text" class="form-element__input" data-name="city" name="city" required>
+                <input type="text" class="form-element__input" value="<?php echo $user->address ? $user->address : ''; ?>" data-name="city" name="city" required>
             </div>
             <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
             <button class="button _pl-5 _pr-5" type="submit">

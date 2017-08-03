@@ -2,6 +2,7 @@
 
 namespace Modules\Ajax\Controllers;
 
+use Core\Cookie;
 use Core\GeoIP;
 use Core\QB\DB;
 use Core\Arr;
@@ -245,7 +246,8 @@ class Form extends Ajax
 
         $order_id = Arr::get($order_id, 0);
 
-        $_SESSION['order_id'] = $order_id;
+        Cookie::delete('order_id');
+        Cookie::set('order_id', (int)$order_id, 60 * 60 * 24 * 365);
 
         $cart = Cart::factory()->get_list_for_basket();
 
@@ -315,7 +317,11 @@ class Form extends Ajax
      */
     public function secondStepOrderAction()
     {
-        $order_id = $_SESSION['order_id'];
+        $order_id = Cookie::get('order_id');
+
+        if (!$order_id) {
+            $this->error(__('Не указан номер заказа!'));
+        }
 
         $delivery = Arr::get($this->post, 'delivery');
         if (!$delivery) {
@@ -327,9 +333,6 @@ class Form extends Ajax
             $this->error(__('Вы не выбрали способ оплаты!'));
         }
 
-        if ($order_id) {
-            $this->error(__('Не указан номер заказа!'));
-        }
 
         $data = [];
         $data['status'] = 0;
@@ -344,7 +347,7 @@ class Form extends Ajax
             $values[] = $value;
         }
 
-        $update = DB::update('users')->set($data)->where('id', '=', $order_id)->execute();
+        $update = DB::update('orders')->set($data)->where('id', '=', $order_id)->execute();
 
         if ($update) {
             Cart::factory()->clear();
@@ -352,7 +355,7 @@ class Form extends Ajax
 
         $this->success([
             'success' => true,
-            'redirect' => '/',
+            'redirect' => '/cart/thank',
             'msg' => 'Success'
         ]);
 

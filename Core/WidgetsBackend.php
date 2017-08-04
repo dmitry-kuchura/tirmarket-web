@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 use Core\QB\DB;
@@ -6,18 +7,14 @@ use Core\QB\DB;
 use Wezom\Modules\Contacts\Models\Contacts;
 use Wezom\Modules\Orders\Models\Orders;
 
-/**
- *  Class that helps with widgets on the site
- */
 class WidgetsBackend
 {
 
-    static $_instance; // Constant that consists self class
+    static $_instance;
 
-    public $_data = []; // Array of called widgets
-    public $_tree = []; // Only for catalog menus on footer and header. Minus one query
+    public $_data = [];
+    public $_tree = [];
 
-    // Instance method
     static function factory()
     {
         if (self::$_instance == null) {
@@ -26,12 +23,6 @@ class WidgetsBackend
         return self::$_instance;
     }
 
-    /**
-     *  Common widget method. Uses when we have no widgets called $name
-     * @param  string $viewpath [Name of template file]
-     * @param  array $array [Array with data -> go to template]
-     * @return string              [Widget HTML or NULL if template doesn't exist]
-     */
     public function common($viewpath, $array)
     {
         if (file_exists(HOST . DS . 'Wezom' . DS . 'Views' . DS . 'Widgets' . DS . $viewpath . '.php')) {
@@ -39,7 +30,6 @@ class WidgetsBackend
         }
         return null;
     }
-
 
     public function Sidebar()
     {
@@ -75,10 +65,8 @@ class WidgetsBackend
         $counts = [];
         $counts['contacts'] = (int)DB::select([DB::expr('COUNT(id)'), 'count'])->from('contacts')->where('status', '=', 0)->count_all();
         $counts['callbacks'] = (int)DB::select([DB::expr('COUNT(id)'), 'count'])->from('callback')->where('status', '=', 0)->count_all();
-        $counts['all_emails'] = $counts['contacts'] + $counts['callbacks'];
-        $counts['blog'] = (int)DB::select([DB::expr('COUNT(id)'), 'count'])->from('blog')->where('status', '=', 0)->count_all();
-        $counts['blog_comments'] = (int)DB::select([DB::expr('COUNT(id)'), 'count'])->from('blog_comments')->where('status', '=', 0)->count_all();
-        $counts['all_blog'] = $counts['blog'] + $counts['blog_comments'];
+        $counts['picking'] = (int)DB::select([DB::expr('COUNT(id)'), 'count'])->from('picking')->where('status', '=', 0)->count_all();
+        $counts['all_emails'] = $counts['contacts'] + $counts['callbacks'] + $counts['picking'];
         $counts['orders'] = (int)Common::factory('orders')->countRows(0);
         $counts['simple_orders'] = (int)Common::factory('orders_simple')->countRows(0);
         $counts['all_orders'] = $counts['orders'] + $counts['simple_orders'];
@@ -86,7 +74,6 @@ class WidgetsBackend
 
         return ['result' => $arr, 'counts' => $counts];
     }
-
 
     public function Crumbs()
     {
@@ -103,7 +90,6 @@ class WidgetsBackend
         return ['cc' => $count_comments, 'co' => $count_orders];
     }
 
-
     public function HeaderContacts()
     {
         $contacts = Contacts::getRows(0, null, null, 'id', 'DESC', 5);
@@ -113,7 +99,6 @@ class WidgetsBackend
             'cContacts' => $cContacts,
         ];
     }
-
 
     public function HeaderNew()
     {
@@ -125,7 +110,6 @@ class WidgetsBackend
         ];
     }
 
-
     public function Index_Visitors()
     {
         if (!Config::get('main.visitor')) {
@@ -134,17 +118,10 @@ class WidgetsBackend
         return [];
     }
 
-
     public function Index_Readme()
     {
-        if (!is_file(HOST . '/README.md')) {
-            return null;
-        }
-        return [
-            'readme' => Parsedown::instance()->text(file_get_contents(HOST . '/README.md')),
-        ];
+        return null;
     }
-
 
     public function Index_News()
     {
@@ -168,7 +145,6 @@ class WidgetsBackend
         ];
     }
 
-
     public function Index_Log()
     {
         $log = DB::select()->from('log')->where('deleted', '=', 0)->order_by('id', 'DESC')->limit(20)->find_all();
@@ -176,7 +152,6 @@ class WidgetsBackend
             'log' => $log,
         ];
     }
-
 
     public function Index_Orders()
     {

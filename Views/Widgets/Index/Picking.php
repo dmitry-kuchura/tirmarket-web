@@ -7,6 +7,7 @@
                 <form class="" data-form data-ajax="picking">
                     <span class="form-element _mb-3">
                         <input type="text" class="form-element__input form-element__input--round"
+                               data-name="artikul"
                                name="target"
                                required
                                placeholder="<?php echo __('Наименование детали либо артикул'); ?>">
@@ -14,6 +15,7 @@
                     <span class="form-element _mb-3">
                         <input type="text" class="form-element__input form-element__input--round"
                                name="questions_name"
+                               data-name="name"
                                data-rule-minlength="2"
                                required
                                placeholder="<?php echo __('Ваше имя'); ?>">
@@ -21,13 +23,16 @@
                     <span class="form-element _mb-3">
                         <input type="tel" class="form-element__input form-element__input--round"
                                name="phone"
+                               data-name="phone"
                                data-rule-phoneua="true"
                                required
                                placeholder="<?php echo __('Контактный телефон'); ?>">
                     </span>
                     <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
                     <div class="_flex">
-                        <button class="button _m-auto _pl-5 _pr-5" type="submit"><span><?php echo __('Подобрать'); ?></span></button>
+                        <button class="button _m-auto _pl-5 _pr-5" type="submit">
+                            <span><?php echo __('Подобрать'); ?></span>
+                        </button>
                     </div>
                 </form>
             </div>

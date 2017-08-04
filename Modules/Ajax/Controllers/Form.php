@@ -440,7 +440,7 @@ class Form extends Ajax
             '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
             '{{ip}}' => System::getRealIP(),
             '{{date}}' => date('d.m.Y H:i'),
-            '{{password}}' => $password
+            '{{password}}' => $newpass
         ], User::info()->email);
 
         $this->success(__('На указанный E-Mail адрес высланы новые данные для входа'));
@@ -523,6 +523,50 @@ class Form extends Ajax
         DB::insert('users_transport', $keys)->values($values)->execute();
 
         $this->success(['response' => __('Транспортное средство добавлено!'), 'redirect' => '/account']);
+    }
+
+    /**
+     * Picking form action
+     */
+    public function pickingAction()
+    {
+        $artikul = Arr::get($this->post, 'artikul');
+        if (!$artikul) {
+            $this->error(__('Укажите наименование детали либо артикул'));
+        }
+        $name = Arr::get($this->post, 'name');
+        if (!$name) {
+            $this->error(__('Вы не указали имя'));
+        }
+        $phone = Arr::get($this->post, 'phone');
+        if (!$phone) {
+            $this->error(__('Не указан телефон'));
+        }
+
+        $model = [];
+
+        $model['artikul'] = $artikul;
+        $model['name'] = $name;
+        $model['phone'] = $phone;
+        $model['created_at'] = time();
+        $model['updated_at'] = time();
+        $model['status'] = 0;
+        $model['ip'] = System::getRealIP();
+
+        $keys = [];
+        $values = [];
+
+        foreach ($model as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        $result = DB::insert('picking', $keys)->values($values)->execute();
+        if (!$result) {
+            $this->error(__('Произошла ошибка!'));
+        }
+
+        $this->success(['response' => __('Запрос был сформирован')]);
     }
 
 }

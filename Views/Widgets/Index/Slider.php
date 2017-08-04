@@ -14,9 +14,11 @@ use Core\HTML;
                     <div class="banner__content">
                         <div class="banner__caption"><?php echo $obj->caption; ?></div>
                         <div class="banner__title"><?php echo $obj->title; ?></div>
-                        <a href="<?php echo $obj->url ? HTML::link($obj->url) : HTML::link('#'); ?>" class="button">
-                            <span>Узнать подробнее</span>
-                        </a>
+                        <?php if ($obj->url) : ?>
+                            <a href="<?php echo $obj->url ? HTML::link($obj->url) : HTML::link('#'); ?>" class="button">
+                                <span><?php echo __('Узнать подробнее'); ?></span>
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

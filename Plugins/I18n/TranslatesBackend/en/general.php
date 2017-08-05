@@ -633,4 +633,6 @@
 		'Значимая для продвижения часть заголовка должна быть не более 12 словСамые популярные ключевые слова должны идти в самом начале заголовка и уместиться в первых 50 символов, чтобы сохранить привлекательный вид в поисковой выдаче.Старайтесь не использовать в заголовке следующие знаки препинания – . ! ? – ' => '<p> Relevance for the promotion of the header must be no more than 12 words </p> <p> Most popular keywords should go at the beginning of the title and the fit in the first 50 characters to keep an attractive appearance in search results. </p> <p> Avoid using the following punctuation in the title -. ! ? - </p>',
 		'Мобильное приложение' => 'Mobile application',
 		'color_type' => 'Цвет',
+		'simple_type' => 'Simple type',
+		'multi_select_type' => 'Multiselect',
 	);

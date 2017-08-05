@@ -3,12 +3,9 @@
 namespace Core;
 
 use I18n;
-use Modules\Catalog\Models\Groups;
-use Modules\Catalog\Models\Items;
-use Modules\News\Models\News;
 use Core\QB\DB;
 use Modules\Cart\Models\Cart;
-use Modules\Catalog\Models\Filter;
+use Modules\Catalog\Models\Items;
 
 class Widgets
 {
@@ -122,6 +119,7 @@ class Widgets
         }
         $array['user'] = User::info();
         $array['menu'] = $this->_contentMenu;
+        $array['cart'] = Cart::factory()->_count_goods;
         return $array;
     }
 
@@ -255,6 +253,30 @@ class Widgets
         $result = CommonI18n::factory('partners')->getRows(1, 'id', 'DESC', 4);
 
         return ['result' => $result];
+    }
+
+    public function Catalog_Viewed()
+    {
+        $ids = Items::getViewedIDs();
+        if (!$ids) {
+            return false;
+        }
+
+        $table = 'catalog';
+        $tableI18n = $table . '_i18n';
+
+        $array['result'] = DB::select(
+            $tableI18n . '.*', $table . '.*'
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where($tableI18n . '.language', '=', I18n::$lang)
+            ->where('catalog.id', 'IN', $ids)
+            ->where($table . '.status', '=', 1)
+            ->order_by(DB::expr('RAND ()'))
+            ->limit(5)
+            ->find_all();
+        return $array;
     }
 
     public function User_Transport()

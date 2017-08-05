@@ -3,6 +3,11 @@
 use Core\HTML;
 use Core\Config;
 
+/* @var $cart integer */
+/* @var $menu array */
+/* @var $user object */
+/* @var $top_menu array */
+
 ?>
 <header class="page-header">
     <div class="page-header__above">
@@ -104,7 +109,7 @@ use Core\Config;
                             <span class="header-icon__caption"><?php echo __('Корзина'); ?></span>
                             <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
-                                <span class="header-icon__count">10</span>
+                                <span class="header-icon__count"><?php echo $cart; ?></span>
                             </span>
                         </a>
                         <div class="hamburger hamburger--spin _lg-hide" data-navbar-trigger>
@@ -130,7 +135,8 @@ use Core\Config;
                     </li>
                 <?php endforeach; ?>
                 <li class="catalog-menu__item">
-                    <a href="<?php echo HTML::link('products'); ?>" class="catalog-menu__link"><?php echo __('Все категории'); ?></a>
+                    <a href="<?php echo HTML::link('products'); ?>"
+                       class="catalog-menu__link"><?php echo __('Все категории'); ?></a>
                 </li>
             </ul>
         </div>

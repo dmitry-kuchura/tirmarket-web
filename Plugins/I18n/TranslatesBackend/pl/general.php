@@ -649,4 +649,6 @@
 		'Вставить после ' => 'Wstaw po </body>',
 		'Мобильное приложение' => 'Aplikacja mobilna',
 		'color_type' => 'Цвет',
+		'simple_type' => 'Simple type',
+		'multi_select_type' => 'Multiselect',
 	);

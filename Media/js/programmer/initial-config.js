@@ -4,7 +4,7 @@ window.initialConfig = {
         "menu": "Media/mock-data/nav.json",
         "basket": "/ajax/addToCart",
         "autocomplete": "/ajax/search",
-        "analogue": "Media/mock-data/analogue.json",
+        "analogue": "/ajax/analogue",
         "search": "Media/mock-data/search-result.json"
     }
 };

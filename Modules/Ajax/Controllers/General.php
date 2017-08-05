@@ -5,6 +5,8 @@ namespace Modules\Ajax\Controllers;
 use Core\Arr;
 use Core\HTML;
 use Core\QB\DB;
+use Core\Route;
+use I18n;
 use Modules\Ajax;
 use Core\User;
 use Modules\Cart\Models\Cart;
@@ -33,7 +35,7 @@ class General extends Ajax
         foreach ($result as $key => $obj) {
             $data[$key]['id'] = $obj->id;
             $data[$key]['link'] = HTML::link($obj->link . '/p' . $obj->id, false);
-            $data[$key]['image'] = is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png');
+            $data[$key]['image'] = is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false);
             $data[$key]['price'] = $obj->price;
             $data[$key]['title'] = $obj->title;
         }
@@ -64,7 +66,7 @@ class General extends Ajax
                 'id' => $obj->id,
                 'link' => HTML::link($obj->alias . '/p' . $obj->id, false),
                 'title' => $obj->name,
-                'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : 'http://' . $_SERVER['HTTP_HOST'] . HTML::media('pic/no-photo.png'),
+                'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
                 'count' => (int)$item['count'],
                 'price' => (int)$obj->cost . ' грн.',
                 'maxcount' => 50,
@@ -209,4 +211,61 @@ class General extends Ajax
         $this->success(__('Товар добавлен в избаное!'));
     }
 
+    /**
+     * Товары аналоги
+     */
+    public function analogueAction()
+    {
+        $refer = explode('/p', $_SERVER["HTTP_REFERER"]);
+        $refer = $refer[1];
+
+        $table = 'catalog';
+        $tableI18n = $table . '_i18n';
+        $array = [];
+
+        $result = DB::select(
+            $tableI18n . '.*',
+            $table . '.*',
+            ['brands_i18n.name', 'brand_name']
+        )
+            ->from($table)
+            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->join($table . '_related')
+            ->on($table . '_related.with_id', '=', $table . '.id')
+            ->join('brands', 'LEFT')
+            ->on($table . '.brand_alias', '=', 'brands.alias')
+            ->on('brands.status', '=', DB::expr('1'))
+            ->join('brands_i18n', 'LEFT')
+            ->on('brands_i18n.row_id', '=', 'brands.id')
+            ->on('brands_i18n.language', '=', DB::expr("'" . \I18n::$lang . "'"))
+            ->where($table . '_related.who_id', '=', $refer)
+            ->where($tableI18n . '.language', '=', I18n::$lang)
+            ->where($table . '.status', '=', 1)
+            ->order_by(DB::expr('RAND ()'))
+            ->limit(5)
+            ->find_all();
+
+        foreach ($result as $obj) {
+            $array[] = [
+                'id' => $obj->id,
+                'link' => HTML::link($obj->alias . '/p' . $obj->id, false),
+                'title' => $obj->name,
+                'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
+                'code' => $obj->artikul,
+                'number' => '559854132546',
+                'maker' => [
+                    'title' => $obj->brand_name,
+                    'link' => HTML::link('brands/' . $obj->brand_alias, false)
+                ],
+                'price' => $obj->cost . ' грн.',
+                'exist' => $obj->availeble == 1 ? true : false,
+                'exist-string' => $obj->availeble == 1 ? __('В наличии') : __('Нет в наличии'),
+                'new' => $obj->new == 1 ? true : false,
+                'promo' => $obj->top == 1 ? true : false,
+                'popular' => $obj->sale == 1 ? true : false
+            ];
+        }
+
+        die(json_encode($array));
+    }
 }

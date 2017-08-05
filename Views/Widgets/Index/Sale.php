@@ -6,8 +6,10 @@ use Core\HTML;
 
 <div class="page-size _pt-5 _pb-5">
     <div class="_flex _justify-center _mb-4">
-        <a href="#" class="tab-link is-active" data-tab-trigger="1" data-tab-ns="category"><?php echo __('Акции'); ?></a>
-        <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="category"><?php echo __('Популярные товары'); ?></a></div>
+        <a href="#" class="tab-link is-active" data-tab-trigger="1"
+           data-tab-ns="category"><?php echo __('Акции'); ?></a>
+        <a href="#" class="tab-link" data-tab-trigger="2"
+           data-tab-ns="category"><?php echo __('Популярные товары'); ?></a></div>
     <div class="is-active" data-tab-content="1" data-tab-ns="category">
         <div class="slider-holder">
             <div data-slider="promo" class="catalog-slider">
@@ -36,7 +38,8 @@ use Core\HTML;
                             </div>
                             <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>"
                                class="item-card__title"><?php echo $obj->name; ?></a>
-                            <div class="item-card__code"><?php echo __('Артикул'); ?>: <?php echo $obj->artikul; ?></div>
+                            <div class="item-card__code"><?php echo __('Артикул'); ?>
+                                : <?php echo $obj->artikul; ?></div>
                             <div class="_flex _mb-3 _justify-between">
                                 <div class="_col-auto">
                                     <?php if ($obj->sale == 1): ?>
@@ -65,7 +68,9 @@ use Core\HTML;
                                     </a>
                                 </div>
                                 <div class="_col-auto _flex-grow-1">
-                                    <a href="#" class="button button--full">
+                                    <a href="#" class="button button--full" data-basket-trigger
+                                       data-id="<?php echo $obj->id; ?>"
+                                       data-binding="product">
                                         <span>
                                             <i>
                                                 <svg><use xlink:href="Media/icons/icons.svg#cart"></use></svg>
@@ -96,11 +101,11 @@ use Core\HTML;
             <div data-slider="promo" class="catalog-slider">
                 <?php foreach ($top as $obj): ?>
                     <?php
-                        if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
-                            $image = HTML::media('images/catalog/main/' . $obj->image, false);
-                        } else {
-                            $image = HTML::media('pic/no-image.png');
-                        }
+                    if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
+                        $image = HTML::media('images/catalog/main/' . $obj->image, false);
+                    } else {
+                        $image = HTML::media('pic/no-image.png');
+                    }
                     ?>
                     <div class="catalog-slider__slide">
                         <div class="item-card">
@@ -119,7 +124,8 @@ use Core\HTML;
                             </div>
                             <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>"
                                class="item-card__title"><?php echo $obj->name; ?></a>
-                            <div class="item-card__code"><?php echo __('Артикул'); ?>: <?php echo $obj->artikul; ?></div>
+                            <div class="item-card__code"><?php echo __('Артикул'); ?>
+                                : <?php echo $obj->artikul; ?></div>
                             <div class="_flex _mb-3 _justify-between">
                                 <div class="_col-auto">
                                     <?php if ($obj->sale == 1): ?>
@@ -147,7 +153,9 @@ use Core\HTML;
                                         </i>
                                     </a>
                                 </div>
-                                <div class="_col-auto _flex-grow-1">
+                                <div class="_col-auto _flex-grow-1" data-basket-trigger
+                                     data-id="<?php echo $obj->id; ?>"
+                                     data-binding="product">
                                     <a href="#" class="button button--full">
                                         <span>
                                             <i>

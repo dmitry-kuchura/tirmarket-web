@@ -53,9 +53,11 @@ class Product extends Base
         $images = Items::getItemImages($item->id);
         // Get current item specifications list
         $spec = Items::getItemSpecifications($item->id, $item->parent_id);
+
+//        var_dump($spec);
+//        die;
         // Render template
         $this->_content = View::tpl(['obj' => $item, 'images' => $images, 'specifications' => $spec], 'Catalog/Item');
-
         $reviews = Items::getReviews($item->id);
         $this->_content .= View::tpl(['obj' => $item, 'reviews' => $reviews], 'Catalog/MicroData');
     }

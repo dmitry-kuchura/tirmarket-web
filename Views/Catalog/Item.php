@@ -107,14 +107,14 @@ use Core\User;
                     <div class="_col-auto _mb-2">
                         <div class="_flex _flex-column">
                             <a href="#" class="one-click-button _mb-2"
-                               data-mfp="popups/oneclick.php"
+                               data-mfp="<?php echo HTML::link('hidden/click'); ?>"
                                data-param='{"id": "<?php echo $obj->id; ?>"}'>
                                 <i class="icon icon--sm icon--blue _mr-2">
                                     <svg>
                                         <use xlink:href="<?php echo HTML::media('icons/icons.svg#cursor'); ?>"></use>
                                     </svg>
                                 </i>
-                                <span>Купить в ОДИН КЛИК</span>
+                                <span><?php echo __('Купить в ОДИН КЛИК'); ?></span>
                             </a>
                             <a href="#" class="button" data-basket-trigger data-id="<?php echo $obj->id; ?>"
                                data-binding="product">
@@ -147,7 +147,7 @@ use Core\User;
                         <use xlink:href="<?php echo HTML::media('icons/icons.svg#delivery'); ?>"></use>
                     </svg>
                 </i>
-                <div class="title title--ms">Доставка</div>
+                <div class="title title--ms"><?php echo __('Доставка'); ?></div>
             </div>
             <div class="wysiwyg _mb-3">
                 <ul>
@@ -160,7 +160,7 @@ use Core\User;
                         <use xlink:href="<?php echo HTML::media('icons/icons.svg#payment'); ?>"></use>
                     </svg>
                 </i>
-                <div class="title title--ms">Оплата</div>
+                <div class="title title--ms"><?php echo __('Оплата'); ?></div>
             </div>
             <div class="wysiwyg _mb-3">
                 <ul>
@@ -173,27 +173,34 @@ use Core\User;
                         <use xlink:href="<?php echo HTML::media('icons/icons.svg#warranty'); ?>"></use>
                     </svg>
                 </i>
-                <div class="title title--ms">Гарантия</div>
+                <div class="title title--ms"><?php echo __('Гарантия'); ?></div>
             </div>
-            <div class="wysiwyg _mb-3"><p>vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-                    vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p></div>
+            <div class="wysiwyg _mb-3">
+                <p>vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
+                    vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+            </div>
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
                         <use xlink:href="icons/icons.svg#refund"></use>
                     </svg>
                 </i>
-                <div class="title title--ms">Возврат</div>
+                <div class="title title--ms"><?php echo __('Возврат'); ?></div>
             </div>
-            <div class="wysiwyg _mb-3"><p>vulputate, felis tellus mollis orci, sed rhoncus sapien nunc
-                    eget.</p></div>
+            <div class="wysiwyg _mb-3">
+                <p>vulputate, felis tellus mollis orci, sed rhoncus sapien nunc
+                    eget.</p>
+            </div>
             <div><a href="#">Подробнее о доставке и оплате</a></div>
             <div><a href="#">Подробнее о гарантии и возврате</a></div>
         </div>
     </div>
 </div>
 <div class="_flex _mb-4">
-    <a href="#" class="tab-link is-active" data-tab-trigger="1" data-tab-ns="product"><?php echo __('Характеристики'); ?></a>
-    <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
+    <a href="#" class="tab-link is-active" data-tab-trigger="1"
+       data-tab-ns="product"><?php echo __('Характеристики'); ?></a>
+    <?php if ($obj->text): ?>
+        <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
+    <?php endif; ?>
     <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
 </div>
 <div class="_mb-5">

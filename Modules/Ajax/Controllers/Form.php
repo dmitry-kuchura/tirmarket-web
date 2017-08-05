@@ -2,6 +2,7 @@
 
 namespace Modules\Ajax\Controllers;
 
+use Core\CommonI18n;
 use Core\Cookie;
 use Core\GeoIP;
 use Core\QB\DB;
@@ -16,6 +17,7 @@ use Core\Email;
 use Core\Message;
 use Core\Common;
 use Modules\Ajax;
+use Modules\Catalog\Models\Items;
 
 class Form extends Ajax
 {
@@ -567,6 +569,61 @@ class Form extends Ajax
         }
 
         $this->success(['response' => __('Запрос был сформирован')]);
+    }
+
+    /**
+     * buy One Click
+     */
+    public function simpleAction()
+    {
+        $id = Arr::get($this->post, 'catalog');
+        if (!$id) {
+            $this->error(__('Такой товар не существует!'));
+        }
+        $item = CommonI18n::factory('catalog')->getRow($id);
+        $item = $item['obj'];
+        if (!$item) {
+            $this->error(__('Такой товар не существует!'));
+        }
+        $phone = trim(Arr::get($this->post, 'phone'));
+        if (!$phone) {
+            $this->error(__('Номер телефона введен неверно!'));
+        }
+
+        $ip = System::getRealIP();
+        $check = DB::select([DB::expr('orders_simple.id'), 'count'])
+            ->from('orders_simple')
+            ->where('ip', '=', $ip)
+            ->where('catalog_id', '=', $id)
+            ->where('created_at', '>', time() - 60)
+            ->as_object()->execute()->current();
+        if (is_object($check) and $check->count) {
+            $this->error(__('Вы только что заказали этот товар! Пожалуйста, повторите попытку через минуту'));
+        }
+
+        $keys = ['ip', 'phone', 'catalog_id', 'user_id', 'created_at'];
+        $values = [$ip, $phone, $item->id, User::info() ? User::info()->id : 0, time()];
+        $lastID = DB::insert('orders_simple', $keys)->values($values)->execute();
+        $lastID = Arr::get($lastID, 0);
+
+        $link = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/' . $item->alias . '/p' . $item->id;
+        $link_admin = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/wezom/catalog/edit/' . $item->id;
+
+        $qName = 'Заказ в один клик';
+        $url = '/wezom/simple/edit/' . $lastID;
+        Log::add($qName, $url, 7);
+
+        Email::sendTemplate(8, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => $ip,
+            '{{date}}' => date('d.m.Y H:i'),
+            '{{phone}}' => $phone,
+            '{{link}}' => $link,
+            '{{admin_link}}' => $link_admin,
+            '{{item_name}}' => $item->name
+        ]);
+
+        $this->success(__('Вы успешно оформили заказ в один клик! Оператор свяжется с Вами в скором времени'));
     }
 
 }

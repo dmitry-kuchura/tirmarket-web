@@ -1,4 +1,5 @@
 {
+    "plugins": ["lodash"],
     "presets": [
         ["stage-2"],
         ["es2015",  {"modules": false}]

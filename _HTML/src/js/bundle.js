@@ -2,10 +2,12 @@ import { Promise } from 'es6-promise-polyfill';
 window.Promise = window.Promise || Promise;
 window.jQuery = window.$ = require('jquery');
 window.wHTML = window.wHTML || {};
-
-console.log(`bundle.js has loaded!`);
+import filterHandle from './modules/filter';
 
 window.jQuery(function ($) {
+
+    // filter
+    filterHandle();
 
     // Vue
     require("./vue-modules");
@@ -27,6 +29,8 @@ window.jQuery(function ($) {
 
     // basket
     require("./modules/basket")();
+
+
 
     // magnific
     if ($('[data-mfp], [data-gallery-root]').length) {

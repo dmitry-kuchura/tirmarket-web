@@ -1,7 +1,7 @@
 <?php use Core\HTML; ?>
 
 <div class="sidebar">
-    <form class="" data-form>
+    <form class="js-filter" data-form>
         <div class="sidebar__section sidebar__section--header">
             <div class="_flex _items-center _justify-between">
                 <div class="title title--md">Фильтр товаров</div>
@@ -13,7 +13,7 @@
                 <div class="title title--sm _mb-3">Производитель</div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"> <i>
+                        <input type="checkbox" name="producer" value="1"> <i>
                             <svg>
                                 <use xlink:href="<?php echo HTML::media('icons/icons.svg#check', false); ?>"></use>
                             </svg>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"> <i>
+                        <input type="checkbox" name="producer" value="2"> <i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"><i>
+                        <input type="checkbox" name="producer" value="3"><i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"><i>
+                        <input type="checkbox" name="producer" value="4"><i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"><i>
+                        <input type="checkbox" name="producer" value="5"><i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"><i>
+                        <input type="checkbox" name="producer" value="6"><i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -67,14 +67,14 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"><i>
+                        <input type="checkbox" name="producer" value="7"><i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
                         </i><span>WOLF OIL</span></label></div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"><i>
+                        <input type="checkbox" name="producer" value="8"><i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"> <i>
+                        <input type="checkbox" name="producer" value="9"> <i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-element form-element--check _mb-2">
                     <label>
-                        <input type="checkbox" name="producer"><i>
+                        <input type="checkbox" name="producer" value="10"><i>
                             <svg>
                                 <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                             </svg>
@@ -113,7 +113,7 @@
                 <div class="_flex _grid-2 _grid-space-3">
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="1">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="2">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="3">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="4">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="5">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -161,14 +161,14 @@
                         </label>
                     </div>
                     <div class="form-element form-element--check _mb-2"><label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="6">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                                 </svg>
                             </i><span>75W-80</span></label></div>
                     <div class="form-element form-element--check _mb-2">
-                        <label><input type="checkbox" name="viscosity">
+                        <label><input type="checkbox" name="viscosity" value="7">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -178,7 +178,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="8">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="9">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -198,7 +198,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="viscosity">
+                            <input type="checkbox" name="viscosity" value="10">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -213,7 +213,7 @@
                 <div class="_flex _grid-2 _grid-space-3">
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="capacity">
+                            <input type="checkbox" name="capacity" value="1">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -223,7 +223,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="capacity">
+                            <input type="checkbox" name="capacity" value="2">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -233,7 +233,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="capacity">
+                            <input type="checkbox" name="capacity" value="3">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -243,7 +243,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="capacity">
+                            <input type="checkbox" name="capacity" value="4">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -253,7 +253,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="capacity">
+                            <input type="checkbox" name="capacity" value="5">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -261,7 +261,7 @@
                             </i><span>6 л</span></label></div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="capacity">
+                            <input type="checkbox" name="capacity" value="6">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -271,7 +271,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="capacity">
+                            <input type="checkbox" name="capacity" value="7">
                             <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
@@ -286,7 +286,7 @@
                 <div class="_flex _grid-2 _grid-space-3">
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="type"><i>
+                            <input type="checkbox" name="type" value="1"><i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                                 </svg>
@@ -295,14 +295,14 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="type"><i>
+                            <input type="checkbox" name="type" value="2"><i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                                 </svg>
                             </i><span>Дизель</span></label></div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="type"> <i>
+                            <input type="checkbox" name="type" value="3"> <i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                                 </svg>
@@ -311,14 +311,14 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="type"><i>
+                            <input type="checkbox" name="type" value="4"><i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                                 </svg>
                             </i><span>Газ</span></label></div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="type"><i>
+                            <input type="checkbox" name="type" value="5"><i>
                                 <svg>
                                     <use xlink:href=<?php echo HTML::media('icons/icons.svg#check', false); ?>></use>
                                 </svg>
@@ -327,7 +327,7 @@
                     </div>
                     <div class="form-element form-element--check _mb-2">
                         <label>
-                            <input type="checkbox" name="type"><i>
+                            <input type="checkbox" name="type" value="6"><i>
                                 <svg>
                                     <use xlink:href="<?php echo HTML::media('icons/icons.svg#check', false); ?>"></use>
                                 </svg>

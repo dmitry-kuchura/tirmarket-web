@@ -31,8 +31,13 @@ module.exports = function () {
         });
 
         item.noUiSlider.on('update', function( values, handle ) {
-            startInput.value = values[0];
-            endInput.value = values[1];
+            startInput.value = values[0].replace(' грн', '');
+            endInput.value = values[1].replace(' грн', '');
+        });
+
+        item.noUiSlider.on('change', function( values, handle ) {
+            $(startInput).trigger('change');
+            $(endInput).trigger('change');
         });
 
     }

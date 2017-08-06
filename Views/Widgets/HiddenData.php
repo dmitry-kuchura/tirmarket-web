@@ -4,14 +4,15 @@ use Core\Config;
 use Core\HTML;
 
 ?>
-    <simple-menu data-vue>
+    <simple-menu data-vue class="_hide">
         <div slot="header">
             <form class="" data-form>
                 <div class="form-element">
-                    <input type="text" class="form-element__input" name="search" placeholder="Поиск" required>
+                    <input type="text" class="form-element__input" name="search" placeholder="Поиск 1" required>
                 </div>
             </form>
         </div>
+
         <div slot="footer" class="mobile-menu__footer">
             <div class="mobile-location"><?php echo Config::get('static.location_' . I18n::$lang); ?></div>
             <div class="mobile-phone">

@@ -1,4 +1,10 @@
+[v-cloak] {
+	display: none;
+}
+
 .navbar {
+	display: block !important;
+
 	&__overlay {
 		position: fixed;
 		left: 0;

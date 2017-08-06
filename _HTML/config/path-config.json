@@ -1,6 +1,6 @@
 {
   "src": "./src",
-  "dest": "./dist",
+  "dest": "../Media",
 
   "html": {
     "src": "html",

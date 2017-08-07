@@ -109,7 +109,7 @@ use Core\Config;
                             <span class="header-icon__caption"><?php echo __('Корзина'); ?></span>
                             <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
-                                <span class="header-icon__count"><?php echo $cart; ?></span>
+                                <span class="header-icon__count" data-cart-count><?php echo $cart; ?></span>
                             </span>
                         </a>
                         <div class="hamburger hamburger--spin _lg-hide" data-navbar-trigger>

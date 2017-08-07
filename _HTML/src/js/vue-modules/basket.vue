@@ -23,22 +23,6 @@
         },
 
         methods: {
-            increment(id) {
-                this.products.forEach(function (el, index) {
-                    if(el.id === id) {
-                        if(el.count < el.maxCount) el.count += 1;
-                    }
-                });
-            },
-
-            decrement(id) {
-                this.products.forEach(function (el, index) {
-                    if(el.id === id) {
-                        if(el.count > 0) el.count -= 1;
-                    }
-                });
-            },
-
             update(data) {
                 //this.products = data.list;
                 this.products.splice(0, this.products.length);
@@ -47,6 +31,8 @@
                 this.totalCount = data.totalCount;
                 this.totalPrice = data.totalPrice;
                 this.load = false;
+
+                document.querySelector('[data-cart-count]').innerHTML = data.totalCount;
             }
         },
 
@@ -66,6 +52,8 @@
                         $this.totalCount = response.data.totalCount;
                         $this.totalPrice = response.data.totalPrice;
                         $this.load = false;
+
+                        document.querySelector('[data-cart-count]').innerHTML = response.data.totalCount;
                     }, 1000);
 
                 })

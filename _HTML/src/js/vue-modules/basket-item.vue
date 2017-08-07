@@ -54,9 +54,11 @@
                     id: $this.item.id
                 })
                     .then((response) => {
-                        window.setTimeout(function(){
+                        console.log(response);
+
+                        window.setTimeout(() => {
                             $this.$emit('update', response.data);
-                        }, 1000);
+                        }, 500);
                     })
                     .catch((error) => {
                         console.log(error);
@@ -74,7 +76,7 @@
                 this.$forceUpdate();*/
                 //this.$emit('increment', this.item.id);
 
-                if(this.item.count < this.item.maxCount)
+                if(this.item.count < this.item.maxcount)
                     this.send('increment');
             },
 

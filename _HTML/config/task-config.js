@@ -1,11 +1,11 @@
 module.exports = {
-    html: false,
+    html: true,
     images: false,
     fonts: false,
     static: false,
     svgSprite: false,
     ghPages: false,
-    stylesheets: false,
+    stylesheets: true,
 
     javascripts: {
         babel: {

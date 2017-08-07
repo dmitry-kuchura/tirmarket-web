@@ -66,7 +66,7 @@ use Core\Config;
                 </div>
                 <div class="_col-auto _flex-grow-1 _lg-show">
                     <div class="title title--sm _mb-2"><?php echo Config::get('static.text_header_' . I18n::$lang); ?></div>
-                    <search-form data-vue="true" data-placeholder="<?php echo __('Поиск'); ?>"></search-form>
+                    <search-form data-vue="true" data-lang="<?php echo I18n::$lang; ?>"></search-form>
                 </div>
                 <div class="_col-auto _xl-show">
                     <div class="_flex _flex-nowrap">

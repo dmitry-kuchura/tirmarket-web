@@ -3,9 +3,9 @@ module.exports = {
     images: false,
     fonts: false,
     static: false,
-    svgSprite: true,
+    svgSprite: false,
     ghPages: false,
-    stylesheets: true,
+    stylesheets: false,
 
     javascripts: {
         babel: {

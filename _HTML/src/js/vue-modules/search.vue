@@ -15,7 +15,7 @@
             </span>
         </form>
 
-        <search-result v-if="result.length" :data="result"></search-result>
+        <search-result v-if="result.length" :data="result" :static="static"></search-result>
     </div>
 </template>
 
@@ -33,6 +33,7 @@
         data() {
             return {
                 search: '',
+                static: {},
                 result: []
             }
         },
@@ -47,7 +48,8 @@
                     })
                         .then(function (response) {
                             $this.result.splice(0, $this.result.length);
-                            $this.result.push(...response.data);
+                            $this.result.push(...response.data.result);
+                            $this.static = response.data.static;
                         })
                         .catch(function (error) {
                             console.log(error);

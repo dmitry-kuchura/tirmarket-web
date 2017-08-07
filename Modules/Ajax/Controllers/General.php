@@ -31,14 +31,22 @@ class General extends Ajax
 
         $result = Items::searchRows($queries, $this->_limit, $this->_offset);
 
-        $data = [];
+        $data = [
+            'static' => [
+                'all' => __('Все результаты'),
+                'href' => HTML::link('search?query=' . $query),
+                'buy' => __('Купить'),
+            ]
+        ];
 
-        foreach ($result as $key => $obj) {
-            $data[$key]['id'] = $obj->id;
-            $data[$key]['link'] = HTML::link($obj->link . '/p' . $obj->id, false);
-            $data[$key]['image'] = is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false);
-            $data[$key]['price'] = $obj->price;
-            $data[$key]['title'] = $obj->title;
+        foreach ($result as $obj) {
+            $data['result'][] = [
+                'id' => $obj->id,
+                'link' => HTML::link($obj->link . '/p' . $obj->id, false),
+                'image' => is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
+                'price' => $obj->price,
+                'title' => $obj->title,
+            ];
         }
 
         die(json_encode($data));

@@ -16,8 +16,12 @@
             </div>
 
             <div class="_col-auto">
-                <a href="#" class="button"><span>Купить</span></a>
+                <a href="#" class="button" data-basket-trigger :data-id="item.id"><span>{{ static.buy }}</span></a>
             </div>
+        </div>
+
+        <div>
+            <a :href="static.href" >{{ static.all }}</a>
         </div>
     </div>
 </template>
@@ -26,7 +30,7 @@
     import Vue from 'vue';
 
     export default {
-        props: ['data'],
+        props: ['data', 'static'],
 
         data() {
             return {}

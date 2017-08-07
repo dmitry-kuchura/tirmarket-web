@@ -98,6 +98,7 @@ class Cart
         if (!$this->_cart_id) {
             return false;
         }
+
         $result = DB::select(['carts_items.catalog_id', 'catalog_id'], ['carts_items.count', 'count'])
             ->from('carts_items')
             ->join('catalog', 'LEFT')->on('catalog.id', '=', 'carts_items.catalog_id')
@@ -105,17 +106,20 @@ class Cart
             ->where('carts_items.cart_id', '=', $this->_cart_id)
             ->order_by('carts_items.id', 'DESC')
             ->find_all();
+
         foreach ($result as $obj) {
             $this->_cart[$obj->catalog_id] = [
                 'id' => $obj->catalog_id,
                 'count' => $obj->count,
             ];
         }
+
         return true;
     }
 
     public function recount()
     {
+        $this->check_cart();
         $count = 0;
         foreach ($this->_cart as $b) {
             $count += (int)$b['count'];

@@ -3,6 +3,7 @@
 namespace Modules\Ajax\Controllers;
 
 use Core\Arr;
+use Core\CommonI18n;
 use Core\HTML;
 use Core\QB\DB;
 use Core\Route;
@@ -267,5 +268,22 @@ class General extends Ajax
         }
 
         die(json_encode($array));
+    }
+
+    public function mobileMenuAction()
+    {
+        $result = [];
+
+        $menu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
+
+        foreach ($menu as $obj) {
+            $result['menu'][] = [
+                'link' => HTML::link($obj->url, false),
+                'alias' => $obj->name,
+                'children' => false,
+            ];
+        }
+
+        die(json_encode($result));
     }
 }

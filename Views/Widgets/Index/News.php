@@ -14,7 +14,7 @@
                             if (is_file(HOST . HTML::media('images/news/small/' . $obj->image, false))) {
                                 $image = HTML::media('images/news/small/' . $obj->image, false);
                             } else {
-                                $image = HTML::media('pic/no-image.png');
+                                $image = HTML::media('pic/no-news.png');
                             }
                             ?>
                             <img src="<?php echo $image; ?>" alt="">

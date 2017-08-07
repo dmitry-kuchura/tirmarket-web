@@ -13,8 +13,8 @@
             <basket-item v-for="item in products" :item="item" :key="item.id" @update="update"></basket-item>
             <div class="basket__footer">
                 <div class="_flex _flex-column">
-                    <div class="_col-auto"><?php echo __('Итого'); ?>: <span
-                                v-html="totalCount"></span> <?php echo __('товара на сумму'); ?><span
+                    <div class="_col-auto"><?php echo __('Итого1'); ?>: <span
+                                v-html="totalCount"></span> <?php echo __('товара1 на сумму'); ?><span
                                 class="basket__total"><span v-html="totalPrice"></span> грн.</span></div>
                 </div>
 

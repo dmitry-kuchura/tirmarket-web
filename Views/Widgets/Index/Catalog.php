@@ -9,7 +9,7 @@
             if (is_file(HOST . HTML::media('images/catalog_tree/small/' . $obj->image, false))) {
                 $image = HTML::media('images/catalog_tree/small/' . $obj->image, false);
             } else {
-                $image = HTML::media('pic/no-image.png');
+                $image = HTML::media('pic/no-catalog.png');
             }
             ?>
             <div class="_col-12 _sm-col-6 _lg-col-3 _mb-3">

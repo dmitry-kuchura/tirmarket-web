@@ -160,7 +160,7 @@ class Widgets
 
     public function Index_Manufactures()
     {
-        $result = CommonI18n::factory('brands')->getRows(1, 'sort', 'ASC');
+        $result = CommonI18n::factory('brands')->getRows(1, 'sort', 'ASC', 18);
 
         return ['result' => $result];
     }

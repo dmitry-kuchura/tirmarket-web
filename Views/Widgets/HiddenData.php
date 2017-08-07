@@ -8,7 +8,7 @@ use Core\HTML;
         <div slot="header">
             <form class="" data-form>
                 <div class="form-element">
-                    <input type="text" class="form-element__input" name="search" placeholder="Поиск 1" required>
+                    <input type="text" class="form-element__input" name="search" placeholder="<?php echo __('Поиск'); ?>" required>
                 </div>
             </form>
         </div>

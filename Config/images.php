@@ -6,14 +6,12 @@ return [
     'types' => [
         'jpg', 'jpeg', 'png', 'gif',
     ],
-    // Banners images
-    'banners' => [
+    // Delivery images
+    'delivery' => [
         [
-            'path' => '',
-            'width' => 483,
-            'height' => 160,
-            'resize' => 1,
-            'crop' => 1,
+            'path' => 'original',
+            'resize' => 0,
+            'crop' => 0,
         ],
     ],
     // Slider images
@@ -67,6 +65,7 @@ return [
             'crop' => 0,
         ],
     ],
+    // Partners images
     'partners' => [
         [
             'path' => 'original',

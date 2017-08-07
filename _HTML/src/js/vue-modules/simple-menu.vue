@@ -25,7 +25,7 @@
 
             <div class="mobile-menu__body">
                 <div class="mobile-menu__item" v-for="(item, index) in view" :key="item.alias">
-                    <a href="#" class="mobile-menu__link">{{ item.alias }}</a>
+                    <a :href="item.link" class="mobile-menu__link">{{ item.alias }}</a>
 
                     <div class="mobile-menu__icon" v-if="item.children" @click="showSubmenu(item, index)">
                         <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#arrow-next"></use></svg>

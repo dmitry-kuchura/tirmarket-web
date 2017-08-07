@@ -1,7 +1,7 @@
 window.initialConfig = {
     "mediaPath": '',
     "ajax": {
-        "menu": "Media/mock-data/nav.json",
+        "menu": "/ajax/mobileMenu",
         "basket": "/ajax/addToCart",
         "autocomplete": "/ajax/search",
         "analogue": "/ajax/analogue",

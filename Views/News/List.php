@@ -15,7 +15,7 @@ use Core\HTML;
                 if (is_file(HOST . HTML::media('images/news/big/' . $first->image, false))) {
                     $image = HTML::media('images/news/big/' . $first->image, false);
                 } else {
-                    $image = HTML::media('pic/no-image.png');
+                    $image = HTML::media('pic/no-big-news.png');
                 }
                 ?>
                 <div class="news-card__image">
@@ -34,7 +34,7 @@ use Core\HTML;
                 if (is_file(HOST . HTML::media('images/news/big/' . $second->image, false))) {
                     $image = HTML::media('images/news/big/' . $second->image, false);
                 } else {
-                    $image = HTML::media('pic/no-image.png');
+                    $image = HTML::media('pic/no-news.png');
                 }
                 ?>
                 <a href="<?php echo HTML::link('news/' . $second->alias, false); ?>" class="news-card _mb-3">
@@ -53,7 +53,7 @@ use Core\HTML;
                 if (is_file(HOST . HTML::media('images/news/big/' . $third->image, false))) {
                     $image = HTML::media('images/news/big/' . $third->image, false);
                 } else {
-                    $image = HTML::media('pic/no-image.png');
+                    $image = HTML::media('pic/no-news.png');
                 }
                 ?>
                 <a href="<?php echo HTML::link('news/' . $third->alias, false); ?>" class="news-card _mb-3">

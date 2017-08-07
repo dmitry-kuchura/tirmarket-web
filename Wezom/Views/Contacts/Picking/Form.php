@@ -23,6 +23,10 @@
                         <label class="control-label"><?php echo __('Номер телефона'); ?></label>
                         <a href="tel:<?php echo $obj->phone; ?>"><?php echo $obj->phone; ?></a>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo __('Артикул'); ?></label>
+                        <?php echo $obj->artikul; ?>
+                    </div>
                 </div>
             </div>
         </div>

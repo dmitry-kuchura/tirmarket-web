@@ -1,10 +1,12 @@
 <?php
+
 use Core\HTML;
 
 /* @var $hide_meta boolean */
 /* @var $canonical boolean */
 /* @var $next boolean */
 /* @var $prev boolean */
+/* @var $styles array */
 
 ?>
     <meta charset="utf-8">
@@ -31,13 +33,16 @@ use Core\HTML;
     <meta name="MobileOptimized" content="320">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo HTML::media('favicons/apple-touch-icon.png'); ?>">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo HTML::media('favicons/favicon-32x32.png'); ?>">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo HTML::media('favicons/favicon-16x16.png'); ?>">
-    <link rel="manifest" href="<?php echo HTML::media('favicons/manifest.json'); ?>">
-    <link rel="mask-icon" href="<?php echo HTML::media('favicons/safari-pinned-tab.svg'); ?>" color="#5bbad5">
-    <link rel="shortcut icon" href="<?php echo HTML::media('favicons/favicon.ico'); ?>">
-    <meta name="msapplication-config" content="<?php echo HTML::media('favicons/browserconfig.xml'); ?>">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="<?php echo HTML::media('favicons/apple-touch-icon.png', false); ?>">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="<?php echo HTML::media('favicons/favicon-32x32.png', false); ?>">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="<?php echo HTML::media('favicons/favicon-16x16.png', false); ?>">
+    <link rel="manifest" href="<?php echo HTML::media('favicons/manifest.json', false); ?>">
+    <link rel="mask-icon" href="<?php echo HTML::media('favicons/safari-pinned-tab.svg', false); ?>" color="#5bbad5">
+    <link rel="shortcut icon" href="<?php echo HTML::media('favicons/favicon.ico', false); ?>">
+    <meta name="msapplication-config" content="<?php echo HTML::media('favicons/browserconfig.xml', false); ?>">
     <meta name="theme-color" content="#ffffff">
 <?php $css = Minify\Core::factory('css')->minify($styles); ?>
 <?php foreach ($css as $file_style): ?>

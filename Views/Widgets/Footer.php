@@ -3,6 +3,9 @@
 use Core\Config;
 use Core\HTML;
 
+/* @var $left array */
+/* @var $right array */
+
 ?>
 
 <footer class="page-footer">
@@ -16,24 +19,28 @@ use Core\HTML;
                     <div><?php echo Config::get('basic.copyright'); ?></div>
                     <div><?php echo Config::get('footer.text_copy_' . I18n::$lang); ?>.</div>
                 </div>
-                <div class="_col-auto"><a href="#">Карта сайта</a></div>
+                <div class="_col-auto">
+                    <a href="<?php echo HTML::link('sitemap'); ?>"><?php echo __('Карта сайта'); ?></a>
+                </div>
             </div>
             <div class="_col-auto _flex-shrink-0 _md-show">
                 <ul class="footer-menu">
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Главная</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Каталог</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">О компании</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Новости</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Вакансии</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Отзывы</a></li>
+                    <?php foreach ($left as $l): ?>
+                        <li class="footer-menu__item">
+                            <a href="<?php echo HTML::link($l->url); ?>"
+                               class="footer-menu__link"><?php echo $l->name; ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <div class="_col-auto _flex-shrink-0 _md-show">
                 <ul class="footer-menu">
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Доставка и оплата</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Гарантия и возврат</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Наши партнёры</a></li>
-                    <li class="footer-menu__item"><a href="#" class="footer-menu__link">Контакты</a></li>
+                    <?php foreach ($right as $r): ?>
+                        <li class="footer-menu__item">
+                            <a href="<?php echo HTML::link($r->url); ?>"
+                               class="footer-menu__link"><?php echo $r->name; ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <div class="_col-auto _flex _flex-column _xl-show">

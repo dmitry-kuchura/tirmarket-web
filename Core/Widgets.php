@@ -82,10 +82,10 @@ class Widgets
         return $w->_data[$name] = $w->common($viewpath, $array);
     }
 
-    public function common($viewpath, $array)
+    public function common($viewPath, $array)
     {
-        if (file_exists(HOST . '/Views/Widgets/' . $viewpath . '.php')) {
-            return View::widget($array, $viewpath);
+        if (file_exists(HOST . '/Views/Widgets/' . $viewPath . '.php')) {
+            return View::widget($array, $viewPath);
         }
         return null;
     }
@@ -142,11 +142,20 @@ class Widgets
 
     public function Footer()
     {
-        if (!$this->_contentMenu) {
-            $this->_contentMenu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
+        $left = [];
+        $right = [];
+
+        $result = CommonI18n::factory('footermenu')->getRows(1, 'sort');
+
+        foreach ($result as $obj) {
+            if ($obj->parent_id == 1) {
+                $right[] = $obj;
+            } else {
+                $left[] = $obj;
+            }
         }
-        $array['contentMenu'] = $this->_contentMenu;
-        return $array;
+
+        return ['left' => $left, 'right' => $right];
     }
 
     public function Index_Manufactures()

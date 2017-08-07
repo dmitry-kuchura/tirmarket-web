@@ -8,10 +8,10 @@ use Core\Message;
 use Core\Arr;
 use Core\HTTP;
 use Core\View;
+use Wezom\Modules\Base;
+use Wezom\Modules\Menu\Models\Footer AS Model;
 
-use Wezom\Modules\Menu\Models\Menu AS Model;
-
-class Footer extends \Wezom\Modules\Base
+class Footer extends Base
 {
 
     public $tpl_folder = 'Footer';
@@ -19,9 +19,9 @@ class Footer extends \Wezom\Modules\Base
     function before()
     {
         parent::before();
-        $this->_seo['h1'] = __('Меню сайта');
-        $this->_seo['title'] = __('Меню сайта');
-        $this->setBreadcrumbs(__('Меню сайта'), 'wezom/' . Route::controller() . '/index');
+        $this->_seo['h1'] = __('Меню footer\'a');
+        $this->_seo['title'] = __('Меню footer\'a');
+        $this->setBreadcrumbs(__('Меню footer\'a'), 'wezom/' . Route::controller() . '/index');
     }
 
     function indexAction()

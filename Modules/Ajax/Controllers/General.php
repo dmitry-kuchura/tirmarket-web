@@ -59,6 +59,8 @@ class General extends Ajax
     public function showCartAction()
     {
         header('Content-Type: application/json');
+        Cart::factory()->recount();
+        Cart::factory()->recount();
 
         $result = Cart::factory()->get_list_for_basket();
         $list = [];

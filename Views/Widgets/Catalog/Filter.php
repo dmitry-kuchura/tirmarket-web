@@ -4,9 +4,10 @@
     <form class="js-filter" data-form>
         <div class="sidebar__section sidebar__section--header">
             <div class="_flex _items-center _justify-between">
-                <div class="title title--md">Фильтр товаров</div>
+                <div class="title title--md"><?php echo __('Фильтр товаров'); ?></div>
                 <a href="#" class="_lg-hide" data-toggle-trigger="false" data-toggle-ns="filter"
-                   data-toggle-text='["Скрыть", "Показать"]'>Показать</a></div>
+                   data-toggle-text='["Скрыть", "Показать"]'><?php echo __('Показать'); ?></a>
+            </div>
         </div>
         <div class="_lg-show" data-toggle-target="slide" data-toggle-ns="filter">
             <div class="sidebar__section _pt-0">
@@ -101,7 +102,7 @@
                 </div>
             </div>
             <div class="sidebar__section">
-                <div class="title title--sm _mb-3">Цена</div>
+                <div class="title title--sm _mb-3"><?php echo __('Цена'); ?></div>
                 <div class="form-element">
                     <div data-range="[100,10000,2000,8000]" data-ns="price"></div>
                     <input type="hidden" name="price-from" data-ns="price[0]">
@@ -160,7 +161,8 @@
                             </i><span>5W-40</span>
                         </label>
                     </div>
-                    <div class="form-element form-element--check _mb-2"><label>
+                    <div class="form-element form-element--check _mb-2">
+                        <label>
                             <input type="checkbox" name="viscosity" value="6">
                             <i>
                                 <svg>

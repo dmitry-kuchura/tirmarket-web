@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Catalog\Controllers;
 
 use Core\Common;
@@ -59,9 +60,9 @@ class Catalog extends Base
         $count = Model::countInnerGroups(0);
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
-		//canonicals settings
-		$this->_use_canonical=1;
-		$this->_canonical='products';
+        //canonicals settings
+        $this->_use_canonical = 1;
+        $this->_canonical = 'products';
         // Render template
         $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/Groups');
     }
@@ -78,8 +79,8 @@ class Catalog extends Base
             return Config::error();
         }
         if ($group->status != 1) {
-			HTTP::redirect('/products',301);
-		}
+            HTTP::redirect('/products', 301);
+        }
         Route::factory()->setParam('group', $group->id);
         // Count of child groups
         $count = Model::countInnerGroups($group->id);
@@ -94,9 +95,9 @@ class Catalog extends Base
         $result = Model::getInnerGroups($group->id, $this->sort, $this->type, $this->_limit, $this->_offset);
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
-		//canonicals settings
-		$this->_use_canonical=1;
-		$this->_canonical='products/'.Route::param('alias');
+        //canonicals settings
+        $this->_use_canonical = 1;
+        $this->_canonical = 'products/' . Route::param('alias');
         // Render template
         $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/Groups');
     }
@@ -104,7 +105,7 @@ class Catalog extends Base
     // Items list page. Inside group
     public function listAction()
     {
-		
+
         if (Config::get('error')) {
             return false;
         }
@@ -112,40 +113,36 @@ class Catalog extends Base
         Route::factory()->setAction('list');
         // Filter parameters to array if need
         $check = Filter::setFilterParameters();
-		if ($check['success'] === false) {
-			return Config::error();
-		}
-		if ($check['success'] === true and $check['resort'] === true) {
-			$new_filter = Filter::getFilterFromArr(Config::get('filter_array'));
-			$url = '/products/'.Route::param('alias').$new_filter;
-			HTTP::redirect($url, 301);
-		}
-        // Set filter elements sortable
-      //  Filter::setSortElements();
-		
-		//print_r(Route::param('filter')); die;
+        if ($check['success'] === false) {
+            return Config::error();
+        }
+        if ($check['success'] === true and $check['resort'] === true) {
+            $new_filter = Filter::getFilterFromArr(Config::get('filter_array'));
+            $url = '/products/' . Route::param('alias') . $new_filter;
+            HTTP::redirect($url, 301);
+        }
         // Check for existance
         $group = Model::getRowSimple(Route::param('alias'), 'alias');
         if (!$group) {
             return Config::error();
         }
-		if ($group->status != 1) {
-			HTTP::redirect('/products',301);
-		}
+        if ($group->status != 1) {
+            HTTP::redirect('/products', 301);
+        }
         // Seo
         $this->setSeoForGroup($group);
 
         // Add plus one to views
         Model::addView($group);
         // Get items list
-		$this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
+        $this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
         $this->_offset = ($this->_page - 1) * $this->_limit;
         $result = Filter::getFilteredItemsList($this->_limit, $this->_offset, $this->sort, $this->type);
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $result['total'], $this->_limit);
-		//canonicals settings
-		$this->_use_canonical=1;
-		$this->_canonical='products/'.Route::param('alias');
+        //canonicals settings
+        $this->_use_canonical = 1;
+        $this->_canonical = 'products/' . Route::param('alias');
         // Render page
         $this->_content = View::tpl(['result' => $result['items'], 'pager' => $this->_pager->create()], 'Catalog/ItemsList');
     }

@@ -99,7 +99,7 @@ window.jQuery(function ($) {
                             height: 500,
                             zoom: 16,
                             marker: {
-                                icon: "pic/marker.png"
+                                icon: "Media/pic/marker.png"
                             }
                         });
                     });

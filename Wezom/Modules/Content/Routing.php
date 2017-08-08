@@ -26,10 +26,10 @@ return [
     'wezom/partners/delete_image/<id:[0-9]*>' => 'content/partners/deleteImage',
     'wezom/partners/add' => 'content/partners/add',
     // Articles
-    'wezom/articles/index' => 'content/articles/index',
-    'wezom/articles/index/page/<page:[0-9]*>' => 'content/articles/index',
-    'wezom/articles/edit/<id:[0-9]*>' => 'content/articles/edit',
-    'wezom/articles/delete/<id:[0-9]*>' => 'content/articles/delete',
-    'wezom/articles/delete_image/<id:[0-9]*>' => 'content/articles/deleteImage',
-    'wezom/articles/add' => 'content/articles/add',
+    'wezom/maps/index' => 'content/maps/index',
+    'wezom/maps/index/page/<page:[0-9]*>' => 'content/maps/index',
+    'wezom/maps/edit/<id:[0-9]*>' => 'content/maps/edit',
+    'wezom/maps/delete/<id:[0-9]*>' => 'content/maps/delete',
+    'wezom/maps/delete_image/<id:[0-9]*>' => 'content/maps/deleteImage',
+    'wezom/maps/add' => 'content/maps/add',
 ];

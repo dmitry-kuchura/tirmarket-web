@@ -14,7 +14,7 @@
     use Core\View;
     use Core\Pager\Pager;
 
-    use Wezom\Modules\Content\Models\Articles AS Model;
+    use Wezom\Modules\Content\Models\Contacts AS Model;
 
     class Crop extends \Wezom\Modules\Base {
 

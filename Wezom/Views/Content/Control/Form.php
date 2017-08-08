@@ -23,9 +23,7 @@ use Core\Arr;
                 </div>
             </div>
             <div class="widgetContent">
-
                 <div class="form-vertical row-border">
-
                     <ul class="liTabs t_wrap">
                         <?php foreach ($languages AS $key => $lang): ?>
                             <?php $public = Arr::get($langs, $key, []); ?>
@@ -58,15 +56,6 @@ use Core\Arr;
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                    <?php if ($obj->alias == 'contact'): ?>
-                        <div class="form-group">
-                            <?php echo Builder::textarea([
-                                'name' => 'FORM[other]',
-                                'value' => $obj->other,
-                                'rows' => 7,
-                            ], __('Карта')); ?>
-                        </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>

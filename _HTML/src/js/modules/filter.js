@@ -8,7 +8,7 @@ export default function () {
 
 	let handler = _debounce(() => {
         let formData = serialize($form[0], {hash: true});
-        let queryString = `filter=1`;
+        let queryString = ``;
 
         for(let key in formData) {
 
@@ -22,7 +22,7 @@ export default function () {
 
 		}
 
-        window.location.href = `${window.location.pathname}?${queryString}`;
+        window.location.href = `${window.location.pathname}/${queryString}`;
 	}, 1000);
 
     $form.on(`change`, `input, select`, (event) => {

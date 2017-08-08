@@ -5,6 +5,7 @@ namespace Core;
 use I18n;
 use Core\QB\DB;
 use Modules\Cart\Models\Cart;
+use Modules\Catalog\Models\Filter;
 use Modules\Catalog\Models\Items;
 
 class Widgets
@@ -293,6 +294,21 @@ class Widgets
             ->limit(5)
             ->find_all();
         return $array;
+    }
+
+    public function Catalog_Filter()
+    {
+        $array = Filter::getClickableFilterElements();
+        $brands = Filter::getBrandsWidget();
+        $specifications = Filter::getSpecificationsWidget();
+        return [
+            'brands' => $brands,
+            'specifications' => $specifications,
+            'filter' => $array['filter'],
+            'min' => $array['min'],
+            'max' => $array['max'],
+            'filter_list' => Widgets::get('Catalog_FilterList'),
+        ];
     }
 
     public function User_Transport()

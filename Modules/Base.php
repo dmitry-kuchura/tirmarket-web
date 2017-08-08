@@ -33,7 +33,6 @@ class Base
 
     public function before()
     {
-        
         $this->setLanguage();
         $this->_languages = Config::get('languages') ? Config::get('languages') : array();
         $_POST = Arr::clearArray($_POST);

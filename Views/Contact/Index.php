@@ -5,6 +5,8 @@ use Modules\Contact\Controllers\Contact;
 
 $arr = [];
 
+/* @var $result array */
+
 ?>
 
 <div class="_flex _grid-space-4">
@@ -33,12 +35,12 @@ $arr = [];
                                 <a href="tel:+<?php echo preg_replace("/[^0-9]/", '', $obj->phone_1); ?>"><?php echo $obj->phone_1; ?></a>
                             </div>
                         <?php endif; ?>
-                        <?php if ($obj->phone_1): ?>
+                        <?php if ($obj->phone_2): ?>
                             <div class="contact-card__phone">
                                 <a href="tel:+<?php echo preg_replace("/[^0-9]/", '', $obj->phone_2); ?>"><?php echo $obj->phone_2; ?></a>
                             </div>
                         <?php endif; ?>
-                        <?php if ($obj->phone_1): ?>
+                        <?php if ($obj->phone_3): ?>
                             <div class="contact-card__phone">
                                 <a href="tel:+<?php echo preg_replace("/[^0-9]/", '', $obj->phone_3); ?>"><?php echo $obj->phone_3; ?></a>
                             </div>
@@ -47,7 +49,6 @@ $arr = [];
                 </div>
             </div>
         <?php endforeach; ?>
-        <?php var_dump(json_encode($arr)); die; ?>
     <?php endif; ?>
 </div>
-<div class="_mb-4" data-map='[<?php echo json_encode($arr); ?>]'></div>
+<div class="_mb-4" data-map='<?php echo json_encode($arr); ?>'></div>

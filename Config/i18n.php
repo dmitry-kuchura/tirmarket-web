@@ -14,18 +14,18 @@ return [
             'short_name' => 'Укр',
             'locale' => 'uk-uk',
         ],
-        'en' => [
-            'alias' => 'en',
-            'name' => 'English',
-            'short_name' => 'Eng',
-            'locale' => 'en-us',
-        ],
-        'pl' => [
-            'alias' => 'pl',
-            'name' => 'Polskie',
-            'short_name' => 'Pol',
-            'locale' => 'pl-pl',
-        ],
+//        'en' => [
+//            'alias' => 'en',
+//            'name' => 'English',
+//            'short_name' => 'Eng',
+//            'locale' => 'en-us',
+//        ],
+//        'pl' => [
+//            'alias' => 'pl',
+//            'name' => 'Polskie',
+//            'short_name' => 'Pol',
+//            'locale' => 'pl-pl',
+//        ],
     ],
     'default' => 'ru',
 ];

@@ -45,26 +45,21 @@ class Contact extends Base
 
     public static function generate($object)
     {
-        $html = '<div class="contact-card">
-            <div class="contact-card__location">' . $object->street . '</div>';
+        $html = '<div class="contact-card"><div class="contact-card__location">' . $object->street . '</div>';
         if ($object->phone_1) {
-            $html .= '<div class="contact-card__phone">
-                <a href="tel:+'. preg_replace("/[^0-9]/", '', $object->phone_1) .'">' . $object->phone_1 . '</a>
-            </div>';
+            $html .= '<div class="contact-card__phone"><a href="tel:+' . preg_replace("/[^0-9]/", '', $object->phone_1) . '">' . $object->phone_1 . '</a></div>';
         }
-
         if ($object->phone_2) {
-            $html .= '<div class="contact-card__phone">
-                <a href="tel:+'. preg_replace("/[^0-9]/", '', $object->phone_2) .'">' . $object->phone_2 . '</a>
-            </div>';
+            $html .= '<div class="contact-card__phone"><a href="tel:+' . preg_replace("/[^0-9]/", '', $object->phone_2) . '">' . $object->phone_2 . '</a></div>';
         }
+        if ($object->phone_3) {
+            $html .= '<div class="contact-card__phone"><a href="tel:+' . preg_replace("/[^0-9]/", '', $object->phone_3) . '">' . $object->phone_3 . '</a></div>';
+        }
+        if ($object->email) {
+            $html .= '<div class="contact-card__email"><a href="mailto:' . $object->email . '">' . $object->email . '</a></div>';
+        }
+        $html .= '</div>';
 
-        $html .= '<div class="contact-card__email">
-                <a href="mailto:' . $object->email . '">' . $object->email . '</a>
-            </div>
-        </div>';
-
-//        return htmlspecialchars($html);
         return $html;
     }
 

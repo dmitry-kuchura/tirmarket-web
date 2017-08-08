@@ -10,11 +10,11 @@ use Modules\Catalog\Models\Items;
 class Widgets
 {
 
-    static $_instance; // Constant that consists self class
+    static $_instance;
 
-    public $_data = []; // Array of called widgets
-    public $_contentMenu = []; // Array of called widgets
-    public $_tree = []; // Only for catalog menus on footer and header. Minus one query
+    public $_data = [];
+    public $_contentMenu = [];
+    public $_tree = [];
 
     static function factory()
     {
@@ -168,7 +168,6 @@ class Widgets
     public function Index_Slider()
     {
         $result = CommonI18n::factory('slider')->getRows(1, 'sort', 'ASC');
-        $url = HOST . HTML::media('images/slider/big/eb2470ea77bf84d8886f79984d2975a1.jpg', false);
 
         $slider = [];
 
@@ -205,7 +204,15 @@ class Widgets
             ->limit(4)
             ->find_all();
 
-        return ['result' => $result];
+        $categories = [];
+
+        foreach ($result as $key => $value) {
+            if (is_file(HOST . HTML::media('images/catalog_tree/popular/' . $value->image, false))) {
+                $categories[] = $value;
+            }
+        }
+
+        return ['result' => $categories];
     }
 
     public function Index_Sale()

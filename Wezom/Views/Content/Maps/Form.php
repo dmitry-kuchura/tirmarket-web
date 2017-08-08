@@ -73,6 +73,14 @@
                     </div>
                     <div class="form-group">
                         <?php echo \Forms\Builder::input([
+                            'name' => 'FORM[email]',
+                            'value' => $obj->email,
+                        ], [
+                            'text' => __('Email'),
+                        ]); ?>
+                    </div>
+                    <div class="form-group">
+                        <?php echo \Forms\Builder::input([
                             'name' => 'FORM[phone_1]',
                             'value' => $obj->phone_1,
                         ], [

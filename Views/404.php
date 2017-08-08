@@ -1,10 +1,15 @@
 <?php
-use Core\Widgets;
+
 use Core\HTML;
+use Core\Widgets;
+
+/* @var $_seo array */
+/* @var $GLOBAL_MESSAGE string */
+/* @var $_breadcrumbs string */
+/* @var $_content string */
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="<?php echo I18n::$lang;?>" dir="ltr">
-<!-- (c) студия Wezom | www.wezom.com.ua -->
 <head>
     <?php echo Widgets::get('Head', $_seo); ?>
     <?php foreach ($_seo['scripts']['head'] as $script): ?>
@@ -12,16 +17,21 @@ use Core\HTML;
     <?php endforeach ?>
     <?php echo $GLOBAL_MESSAGE; ?>
 </head>
-<body>
+<body class="">
 <?php foreach ($_seo['scripts']['body'] as $script): ?>
     <?php echo $script; ?>
 <?php endforeach ?>
-<div class="wWrapper">
-    <div class="page_404">
-        <p>404</p>
-        <p><?php echo __('Страница не найдена. Начните с <a href="/">Главной страницы</a>.'); ?></p>
-        <a href="<?php echo HTML::link('sitemap'); ?>"><?php echo __('Карта сайта'); ?></a>
-    </div>
+<div class="page-wrapper">
+    <?php echo Widgets::get('Header'); ?>
+    <main class="page-main">
+        <div class="page_404">
+            <p>404</p>
+            <p><?php echo __('Страница не найдена. Начните с <a href="/">Главной страницы</a>.'); ?></p>
+            <a href="<?php echo HTML::link('sitemap'); ?>"><?php echo __('Карта сайта'); ?></a>
+        </div>
+    </main>
+    <?php echo Widgets::get('Footer'); ?>
 </div>
+<?php echo Widgets::get('HiddenData'); ?>
 </body>
 </html>

@@ -42,12 +42,18 @@ class Cart extends Base
         $this->_seo['description'] = $this->current->description;
 
         $user = User::info();
-
+        // active delivery
         $delivery = CommonI18n::factory('delivery')->getRows(1, 'sort', 'ASC');
+        // active payments
+        $payments = CommonI18n::factory('payments')->getRows(1, 'sort', 'ASC');
+        // current order
+        $current = Cookie::get('order_id') ? true : false;
 
         $this->_content = View::tpl([
             'user' => $user,
-            'delivery' => $delivery
+            'delivery' => $delivery,
+            'payments' => $payments,
+            'current' => $current,
         ], 'Cart/Index');
     }
 

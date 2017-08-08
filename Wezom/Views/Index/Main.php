@@ -25,12 +25,12 @@
                         <i class="fa fa-comments-o"></i>
                     </div>
                     <div class="title">
-                        <?php echo __('Отзывы к товарам'); ?>
+                        <?php echo __('Новостей'); ?>
                     </div>
                     <div class="value">
                         <?php echo $count_comments; ?>
                     </div>
-                    <a href="/wezom/comments/index" class="more"><?php echo __('Подробнее'); ?> <i class="pull-right fa fa-angle-right"></i></a>
+                    <a href="/wezom/news/index" class="more"><?php echo __('Подробнее'); ?> <i class="pull-right fa fa-angle-right"></i></a>
                 </div>
             </div>
         </div>

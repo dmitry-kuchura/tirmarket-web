@@ -21,4 +21,10 @@ return [
     'wezom/delivery/delete/<id:[0-9]*>' => 'orders/delivery/delete',
     'wezom/delivery/delete_image/<id:[0-9]*>' => 'orders/delivery/deleteImage',
     'wezom/delivery/add' => 'orders/delivery/add',
+    // Delivery
+    'wezom/payments/index' => 'orders/payments/index',
+    'wezom/payments/index/page/<page:[0-9]*>' => 'orders/payments/index',
+    'wezom/payments/edit/<id:[0-9]*>' => 'orders/payments/edit',
+    'wezom/payments/delete/<id:[0-9]*>' => 'orders/payments/delete',
+    'wezom/payments/add' => 'orders/payments/add',
 ];

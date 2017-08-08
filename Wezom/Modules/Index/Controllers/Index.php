@@ -1,29 +1,33 @@
 <?php
-    namespace Wezom\Modules\Index\Controllers;
 
-    use Wezom\Modules\Catalog\Models\Items;
-    use Wezom\Modules\Catalog\Models\Comments;
-    use Wezom\Modules\Orders\Models\Orders;
-    use Wezom\Modules\User\Models\Users;
-    use Core\View;
+namespace Wezom\Modules\Index\Controllers;
 
-    class Index extends \Wezom\Modules\Base {
+use Wezom\Modules\Catalog\Models\Items;
+use Wezom\Modules\Content\Models\News;
+use Wezom\Modules\Orders\Models\Orders;
+use Wezom\Modules\User\Models\Users;
+use Wezom\Modules\Base;
+use Core\View;
 
-        function indexAction () {
-            $this->_seo['h1'] = __('Панель управления');
-            $this->_seo['title'] = __('Панель управления');
+class Index extends \Wezom\Modules\Base
+{
 
-            $count_catalog = Items::countRows();
-            $count_orders = Orders::countRows();
-            $count_comments = Comments::countRows();
-            $count_users = Users::countRows();
+    function indexAction()
+    {
+        $this->_seo['h1'] = __('Панель управления');
+        $this->_seo['title'] = __('Панель управления');
 
-            $this->_content = View::tpl( [
-                'count_catalog' => $count_catalog,
-                'count_orders' => $count_orders,
-                'count_comments' => $count_comments,
-                'count_users' => $count_users,
-            ], 'Index/Main');
-        }
+        $count_catalog = Items::countRows();
+        $count_orders = Orders::countRows();
+        $count_comments = News::countRows();
+        $count_users = Users::countRows();
 
+        $this->_content = View::tpl([
+            'count_catalog' => $count_catalog,
+            'count_orders' => $count_orders,
+            'count_comments' => $count_comments,
+            'count_users' => $count_users,
+        ], 'Index/Main');
     }
+
+}

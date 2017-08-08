@@ -70,7 +70,9 @@ class General extends \Wezom\Modules\Ajax
         $year = date('y');
         $date = strtotime('01.' . Support::addZero($month) . '.' . (date('Y') - 1));
         $result = DB::select(
-            [DB::expr('COUNT(`id`)'), 'count'], [DB::expr('FROM_UNIXTIME(`created_at`, "%c")'), 'month'], [DB::expr('FROM_UNIXTIME(`created_at`, "%Y")'), 'year']
+            [DB::expr('COUNT(`id`)'), 'count'],
+            [DB::expr('FROM_UNIXTIME(`created_at`, "%c")'), 'month'],
+            [DB::expr('FROM_UNIXTIME(`created_at`, "%Y")'), 'year']
         )
             ->from('orders')
             ->where('created_at', '>=', $date)
@@ -80,19 +82,24 @@ class General extends \Wezom\Modules\Ajax
             ->find_all();
 
         $orders = [];
-        foreach ($result AS $obj) {
+
+        foreach ($result as $obj) {
             $orders[$obj->month . '.' . $obj->year] = $obj->count;
         }
+
         $chart = [];
+
         if ($month > 0) {
             for ($i = $month + 1; $i <= 12; $i++) {
                 $chart['months'][] = $months[$i] . ' ' . (date('Y') - 1);
-                $chart['count'][] = (int)Arr::get($orders, $i . '.' . (date('Y') - 1), 0);
+                $chart['count'][] = (int)$orders[$i . '.' . (date('Y') - 1)];
             }
         }
+
+
         for ($i = 1; $i <= $month; $i++) {
             $chart['months'][] = $months[$i] . ' ' . date('Y');
-            $chart['count'][] = (int)Arr::get($orders, $i . '.' . date('Y'), 0);
+            $chart['count'][] = (int)$orders[$i . '.' . date('Y')];
         }
 
         $this->success($chart);

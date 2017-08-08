@@ -14,14 +14,16 @@ use Wezom\Modules\Orders\Models\OrdersItems;
 use Wezom\Modules\User\Models\Users;
 use Wezom\Modules\MailTemplates\Models\MailTemplates;
 
-class Orders extends \Wezom\Modules\Ajax {
+class Orders extends \Wezom\Modules\Ajax
+{
 
     /**
      * Generate associative array from serializeArray data
      * @param $data
      * @return array
      */
-    public function getDataFromSerialize($data) {
+    public function getDataFromSerialize($data)
+    {
         $arr = [];
         foreach ($data AS $el) {
             $arr[$el['name']] = $el['value'];
@@ -34,7 +36,8 @@ class Orders extends \Wezom\Modules\Ajax {
      * $this->post['id'] => order ID
      * $this->post['data'] => incoming serialized data
      */
-    public function orderStatusAction() {
+    public function orderStatusAction()
+    {
         if (!Arr::get($this->post, 'id')) {
             $this->error([
                 'msg' => __('Выберите заказ!'),
@@ -45,7 +48,7 @@ class Orders extends \Wezom\Modules\Ajax {
 
         $post = $this->getDataFromSerialize(Arr::get($this->post, 'data'));
         $statuses = Config::get('order.statuses');
-        if (!isset($statuses[Arr::get($post, 'status')]) OR ! isset($post['status'])) {
+        if (!isset($statuses[Arr::get($post, 'status')]) OR !isset($post['status'])) {
             $this->error([
                 'msg' => __('Укажите статус!'),
             ]);
@@ -54,13 +57,13 @@ class Orders extends \Wezom\Modules\Ajax {
         if (Arr::get($post, 'status') != $__order->status) {
             Common::factory('orders')->update(['status' => Arr::get($post, 'status')], Arr::get($this->post, 'id'));
 
-            if ((int) Arr::get($post, 'sendEmail', 0)) {
+            if ((int)Arr::get($post, 'sendEmail', 0)) {
                 $order = \Wezom\Modules\Orders\Models\Orders::getRow(Arr::get($this->post, 'id'));
                 $mail = false;
                 if (Arr::get($post, 'status') == 1) {
-                    $mail = MailTemplates::getRowSimple(21,'id',1, $__order->user_lang);
+                    $mail = MailTemplates::getRowSimple(21, 'id', 1, $__order->user_lang);
                 } else if (Arr::get($post, 'status') == 3) {
-                    $mail = MailTemplates::getRowSimple(20,'id',1, $__order->user_lang);
+                    $mail = MailTemplates::getRowSimple(20, 'id', 1, $__order->user_lang);
                 }
                 if ($mail && filter_var($order->email, FILTER_VALIDATE_EMAIL)) {
                     $from = ['{{site}}', '{{name}}', '{{last_name}}', '{{middle_name}}', '{{amount}}', '{{id}}'];
@@ -95,7 +98,8 @@ class Orders extends \Wezom\Modules\Ajax {
      * $this->post['id'] => order ID
      * $this->post['data'] => incoming serialized data
      */
-    public function orderDeliveryAction() {
+    public function orderDeliveryAction()
+    {
         if (!Arr::get($this->post, 'id')) {
             $this->error([
                 'msg' => __('Выберите заказ!'),
@@ -103,7 +107,7 @@ class Orders extends \Wezom\Modules\Ajax {
         }
         $post = $this->getDataFromSerialize(Arr::get($this->post, 'data'));
         $delivery = Config::get('order.delivery');
-        if (!isset($delivery[Arr::get($post, 'delivery')]) OR ! isset($post['delivery'])) {
+        if (!isset($delivery[Arr::get($post, 'delivery')]) OR !isset($post['delivery'])) {
             $this->error([
                 'msg' => __('Укажите способ доставки!'),
             ]);
@@ -120,7 +124,8 @@ class Orders extends \Wezom\Modules\Ajax {
      * $this->post['id'] => order ID
      * $this->post['data'] => incoming serialized data
      */
-    public function orderPaymentAction() {
+    public function orderPaymentAction()
+    {
         if (!Arr::get($this->post, 'id')) {
             $this->error([
                 'msg' => __('Выберите заказ!'),
@@ -128,7 +133,7 @@ class Orders extends \Wezom\Modules\Ajax {
         }
         $post = $this->getDataFromSerialize(Arr::get($this->post, 'data'));
         $payment = Config::get('order.payment');
-        if (!isset($payment[Arr::get($post, 'payment')]) OR ! isset($post['payment'])) {
+        if (!isset($payment[Arr::get($post, 'payment')]) OR !isset($post['payment'])) {
             $this->error([
                 'msg' => __('Неверные данные!'),
             ]);
@@ -144,7 +149,8 @@ class Orders extends \Wezom\Modules\Ajax {
      * $this->post['id'] => order ID
      * $this->post['data'] => incoming serialized data
      */
-    public function orderUserAction() {
+    public function orderUserAction()
+    {
         if (!Arr::get($this->post, 'id')) {
             $this->error([
                 'msg' => __('Выберите заказ!'),
@@ -160,7 +166,8 @@ class Orders extends \Wezom\Modules\Ajax {
             $this->error([
                 'msg' => __('Укажите имя!'),
             ]);
-        }if (!Arr::get($post, 'last_name')) {
+        }
+        if (!Arr::get($post, 'last_name')) {
             $this->error([
                 'msg' => __('Укажите фамилию!'),
             ]);
@@ -190,7 +197,8 @@ class Orders extends \Wezom\Modules\Ajax {
      * $this->post['count'] => new item count in order
      * $this->post['size_id'] => item size ID
      */
-    public function orderItemsAction() {
+    public function orderItemsAction()
+    {
         if (!Arr::get($this->post, 'id')) {
             $this->error();
         }
@@ -198,11 +206,11 @@ class Orders extends \Wezom\Modules\Ajax {
             $this->error();
         }
         $res = DB::update('orders_items')->set([
-                    'count' => Arr::get($this->post, 'count'),
+            'count' => Arr::get($this->post, 'count'),
         ])
-                ->where('order_id', '=', Arr::get($this->post, 'id'))
-                ->where('catalog_id', '=', Arr::get($this->post, 'catalog_id'))
-                ->execute();
+            ->where('order_id', '=', Arr::get($this->post, 'id'))
+            ->where('catalog_id', '=', Arr::get($this->post, 'catalog_id'))
+            ->execute();
         if ($res) {
             Common::factory('orders')->update(['changed' => 1], Arr::get($this->post, 'id'));
             $this->success(['email_button' => true]);
@@ -215,7 +223,8 @@ class Orders extends \Wezom\Modules\Ajax {
      * $this->post['order_id'] => order ID
      * $this->post['order_item_id'] => order item ID
      */
-    public function orderPositionDeleteAction() {
+    public function orderPositionDeleteAction()
+    {
         $orderId = Arr::get($this->post, 'order_id');
         if (!$orderId) {
             $this->error();
@@ -232,8 +241,9 @@ class Orders extends \Wezom\Modules\Ajax {
         ]);
     }
 
-    public function sendEmailAction() {
-        $id = (int) Arr::get($this->post, 'id');
+    public function sendEmailAction()
+    {
+        $id = (int)Arr::get($this->post, 'id');
         if (!$id) {
             $this->error(__('Такого заказа не существует!'));
         }
@@ -245,7 +255,7 @@ class Orders extends \Wezom\Modules\Ajax {
         if (!$items) {
             $this->error(__('Невозможно отправить оповещение о пустом заказе!'));
         }
-        
+
         Email::sendTemplate(15, [
             '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
             '{{name}}' => $order->name,

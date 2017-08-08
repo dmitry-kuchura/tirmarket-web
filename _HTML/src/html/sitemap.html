@@ -1,0 +1,66 @@
+{% extends 'layouts/main.html' %}
+{% from 'macros/helpers.html' import breadcrumbs %}
+
+{#{% from 'data/global.json' import data %}#}
+{% set title = "tirmarket | Новости" %}
+{% set bodyClass = "" %}
+
+{% block content %}
+
+    <div class="page-size">
+        {{ breadcrumbs([
+            {"title": "Главная", "link": "/"},
+            {"title": "Новости и статьи"}
+        ]) }}
+
+        <div class="title _mb-3">Карта сайта</div>
+
+        <div class="sitemap">
+            <ul>
+                <li>
+                    <a href="index.html" class="" title="Главная страница">Главная страница</a>
+
+                    <ul>
+                        <li><a href="about.html" class="" title="О компании">О компании</a></li>
+                        <li><a href="catalog.html" class="" title="Каталог товаров">Каталог товаров</a></li>
+                        <li><a href="category.html" class="" title="Категории товаров">Категории товаров</a></li>
+                        <li><a href="comprasion.html" class="" title="Сравнение">Сравнение</a></li>
+                        <li><a href="contacts.html" class="" title="Контакты">Контакты</a></li>
+                        <li><a href="favorite.html" class="" title="Избранное / Желания">Избранное</a></li>
+                        <li><a href="product.html" class="" title="Страница товара">Страница товара</a></li>
+                        <li><a href="product2.html" class="" title="Страница товара 2">Страница товара 2</a></li>
+                        <li><a href="questions.html" class="" title="Вопросы и ответы">Вопросы и ответы</a></li>
+                        <li><a href="reviews.html" class="" title="Отзывы">Отзывы</a></li>
+                        <li><a href="services.html" class="" title="Отзывы">Поиск услуг</a></li>
+                        <li><a href="ordering.html" class="" title="Оформление заказа">Оформление заказа</a></li>
+                        <li><a href="news.html" class="" title="Оформление заказа">Новости</a></li>
+
+                        <li>
+                            <a href="account.html" class="" title="Редактирование пароля">Личный кабинет</a>
+
+                            <ul>
+                                <li><a href="account-edit-password.html" class="" title="Личный кабинет - Редактирование пароля">Личный кабинет - Редактирование пароля</a></li>
+                                <li><a href="account-edit-personal.html" class="" title="Личный кабинет - Редактирование персональных данных">Личный кабинет - Редактирование персональных данных</a></li>
+                                <li><a href="account-favorites.html" class="" title="Избранное">Личный кабинет - Избранное</a></li>
+                                <li><a href="account-history.html" class="" title="История заказов">Личный кабинет - История заказов</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- UI -->
+                        <li>
+                            <a href="ui.html" class="" title="Набор элементов пользовательского интерфейса">UI</a>
+
+                            <ul>
+                                <li><a href="svg.html" class="" title="Набор SVG элементов пользовательского интерфейса">UI svg</a></li>
+                                <li><a href="textpage.html" class="" title="Набор текстовых элементов пользовательского интерфейса">UI typography</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

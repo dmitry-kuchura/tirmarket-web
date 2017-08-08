@@ -8,7 +8,7 @@ export default function () {
 
 	let handler = _debounce(() => {
         let formData = serialize($form[0], {hash: true});
-        let queryString = ``;
+        let queryString = `filter=1`;
 
         for(let key in formData) {
 
@@ -22,7 +22,7 @@ export default function () {
 
 		}
 
-        window.location.href = `${window.location.pathname}/${queryString}`;
+        window.location.href = `${window.location.pathname.split('/filter=1')[0]}/${queryString}${window.location.search}`;
 	}, 1000);
 
     $form.on(`change`, `input, select`, (event) => {
@@ -30,7 +30,7 @@ export default function () {
 	});
 
     $form.on(`reset`, (event) => {
-        window.location.search = '';
+        window.location.href = `${window.location.pathname.split('/filter=1')[0]}${window.location.search}`;
     });
 
 };

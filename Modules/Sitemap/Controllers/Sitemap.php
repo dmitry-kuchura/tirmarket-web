@@ -61,26 +61,6 @@ class Sitemap extends Base
             $links['news_list'] = $list;
         }
 
-        if (isset($map['articles_list'])) {
-            $list = CommonI18n::factory('articles')->getRows(1, 'id', 'DESC');
-            $links['articles_list'] = $list;
-        }
-
-        if (isset($map['blog_rubrics'])) {
-            $list = CommonI18n::factory('blog_rubrics')->getRows(1, 'sort', 'ASC');
-            $links['blog_rubrics'] = $list;
-        }
-
-        if (isset($map['blog_list'])) {
-            $list = CommonI18n::factory('blog')->getRows(1, 'date', 'DESC');
-            $links['blog_list'] = $list;
-        }
-
-        if (isset($map['gallery_list'])) {
-            $list = CommonI18n::factory('gallery')->getRows(1, 'sort', 'ASC');
-            $links['gallery_list'] = $list;
-        }
-
         if (isset($map['catalog_groups'])) {
             $list = Groups::getRows(1, 'sort', 'ASC');
 
@@ -90,6 +70,7 @@ class Sitemap extends Base
             }
             $links['catalog_groups'] = $pages;
         }
+
         if (isset($map['catalog_items'])) {
             $list = CommonI18n::factory('catalog')->getRows(1, 'sort', 'ASC');
             $pages = [];
@@ -103,6 +84,7 @@ class Sitemap extends Base
             $list = Brands::getRows(1, 'brands.sort', 'ASC');
             $links['brands_list'] = $list;
         }
+
         // Render page
         $this->_content = View::tpl(['result' => $arr, 'links' => $links], 'Sitemap/Index');
     }

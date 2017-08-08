@@ -126,9 +126,9 @@ class Base
 
     public function visitors()
     {
-        if (!Config::get('main.visitor')) {
-            return false;
-        }
+//        if (!Config::get('main.visitor')) {
+//            return false;
+//        }
         GeoIP::factory()->save();
     }
 

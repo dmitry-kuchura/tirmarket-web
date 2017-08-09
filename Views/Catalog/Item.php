@@ -6,6 +6,7 @@ use Core\Config;
 
 /* @var $obj object */
 /* @var $images array */
+/* @var $specifications array */
 
 ?>
 <div class="_flex _grid-space-3">

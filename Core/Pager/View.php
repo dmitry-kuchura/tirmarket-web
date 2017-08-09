@@ -49,7 +49,7 @@ for ($i = $n7; $i <= $n8; $i++) {
             <a href="<?php echo HTML::chars($page->url($_previous)) ?>" class="pagination__prev">
                 <svg>
                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                         xlink:href="icons/icons.svg#arrow-prev"></use>
+                         xlink:href="<?php echo HTML::media('icons/icons.svg#arrow-prev'); ?>"></use>
                 </svg>
             </a>
         <?php endif ?>
@@ -68,7 +68,7 @@ for ($i = $n7; $i <= $n8; $i++) {
             <a href="<?php echo HTML::chars($page->url($_next)) ?>" class="pagination__next">
                 <svg>
                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                         xlink:href="icons/icons.svg#arrow-next"></use>
+                         xlink:href="<?php echo HTML::media('icons/icons.svg#arrow-next'); ?>"></use>
                 </svg>
             </a>
         <?php endif ?>

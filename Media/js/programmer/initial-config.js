@@ -5,6 +5,6 @@ window.initialConfig = {
         "basket": "/ajax/addToCart",
         "autocomplete": "/ajax/search",
         "analogue": "/ajax/analogue",
-        "search": "Media/mock-data/search-result.json"
+        "search": "/ajax/result"
     }
 };

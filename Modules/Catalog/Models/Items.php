@@ -18,7 +18,8 @@ class Items extends CommonI18n
     {
         $result = DB::select(
             static::$table . '.*',
-            static::$tableI18n . '.name'
+            static::$tableI18n . '.name',
+            ['brands_i18n.name', 'brand_name']
         )
             ->from(static::$table)
             ->join(static::$tableI18n)->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')

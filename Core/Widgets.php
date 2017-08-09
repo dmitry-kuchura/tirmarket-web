@@ -301,11 +301,14 @@ class Widgets
         $array = Filter::getClickableFilterElements();
         $brands = Filter::getBrandsWidget();
         $specifications = Filter::getSpecificationsWidget();
+
         return [
             'brands' => $brands,
             'specifications' => $specifications,
             'filter' => $array['filter'],
             'min' => $array['min'],
+            'smin' => $array['min'] * 2,
+            'smax' => $array['max'] * 0.9,
             'max' => $array['max'],
             'filter_list' => Widgets::get('Catalog_FilterList'),
         ];

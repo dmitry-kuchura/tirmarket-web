@@ -261,7 +261,7 @@ class General extends Ajax
                 'title' => $obj->name,
                 'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
                 'code' => $obj->artikul,
-                'number' => '559854132546',
+                'number' => $obj->number ? $obj->number : '------',
                 'maker' => [
                     'title' => $obj->brand_name,
                     'link' => HTML::link('brands/' . $obj->brand_alias, false)
@@ -278,6 +278,9 @@ class General extends Ajax
         die(json_encode($array));
     }
 
+    /**
+     * Мобильное меню
+     */
     public function mobileMenuAction()
     {
         $result = [];
@@ -293,5 +296,42 @@ class General extends Ajax
         }
 
         die(json_encode($result));
+    }
+
+    /**
+     * Результаты поиска
+     */
+    public function resultAction()
+    {
+        $post = json_decode(file_get_contents('php://input'), true);
+
+        $queries = Items::getQueries(urldecode($post['params']['query']));
+        $result = Items::searchRows($queries);
+
+        $array = [];
+
+        foreach ($result as $obj) {
+            $array[] = [
+                'id' => $obj->id,
+                'link' => HTML::link($obj->link . '/p' . $obj->id, false),
+                'title' => $obj->name,
+                'image' => is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
+                'code' => $obj->artikul ? $obj->artikul : '------',
+                'number' => $obj->number ? $obj->number : '------',
+                'maker' => [
+                    'title' => $obj->brand_name,
+                    'link' => HTML::link('brands/' . $obj->brand_alias, false)
+                ],
+                'price' => $obj->cost . ' грн.',
+                'exist' => $obj->availeble == 1 ? true : false,
+                'exist-string' => $obj->availeble == 1 ? __('В наличии') : __('Нет в наличии'),
+                'new' => $obj->new == 1 ? true : false,
+                'promo' => $obj->top == 1 ? true : false,
+                'popular' => $obj->sale == 1 ? true : false
+
+            ];
+        }
+
+        die(json_encode($array));
     }
 }

@@ -63,7 +63,7 @@ class Search extends Base
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
         // Render page
-        $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/ItemsList');
+        $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Search/Index');
     }
 
     public function clean_array_to_search($words = [], $max = 0, $min_length)

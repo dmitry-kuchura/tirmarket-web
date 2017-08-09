@@ -22,9 +22,11 @@
 
         beforeCreate() {
             let $this = this;
-
+            let $query = window.location.search.split("=")[1];
             axios.post(window.initialConfig.ajax.search, {
-                params: {}
+                params: {
+                    'query' : $query
+                }
             })
                 .then((response) => {
                     $this.list.push(...response.data);

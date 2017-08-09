@@ -21,15 +21,9 @@ class Filter
         }
         $filter = Config::get('filter_array');
         $result = DB::select(
-            'catalog.id',
-            'catalog.cost',
-            'catalog_i18n.name',
-            'catalog.alias',
-            'catalog.image',
-            'catalog.brand_alias',
-            'catalog.model_alias',
-            'catalog.available',
-            'catalog.specifications'
+            'catalog.*',
+            'catalog_i18n.name'
+
         )
             ->from('catalog')
             ->join('catalog_i18n')->on('catalog.id', '=', 'catalog_i18n.row_id')

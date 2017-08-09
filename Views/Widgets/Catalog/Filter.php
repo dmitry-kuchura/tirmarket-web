@@ -29,7 +29,8 @@ use Modules\Catalog\Models\Filter;
             <div class="sidebar__section">
                 <div class="title title--sm _mb-3"><?php echo __('Цена'); ?></div>
                 <div class="form-element">
-                    <div data-range="[100,10000,2000,8000]" data-ns="price"></div>
+                    <div data-range="[<?php echo $min . ', ' . $max . ', ' . $smin . ', ' . $smax; ?>]"
+                         data-ns="price"></div>
                     <input type="hidden" name="price-from" data-ns="price[0]">
                     <input type="hidden" name="price-to" data-ns="price[1]">
                 </div>

@@ -51,6 +51,12 @@ use Forms\Form;
                     ], __('Артикул')); ?>
                 </div>
                 <div class="form-group">
+                    <?php echo Builder::input([
+                        'name' => 'FORM[number]',
+                        'value' => $obj->number,
+                    ], __('Серийный номер')); ?>
+                </div>
+                <div class="form-group">
                     <?php echo Builder::alias([
                         'name' => 'FORM[alias]',
                         'value' => $obj->alias,

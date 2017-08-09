@@ -27,7 +27,7 @@ class Search extends Base
             return Config::error();
         }
         $this->setBreadcrumbs($this->current->name, $this->current->alias);
-        $this->_template = 'CatalogItemsWithoutFilter';
+        $this->_template = 'Catalog';
         $this->_page = !(int)Route::param('page') ? 1 : (int)Route::param('page');
         $this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
         $this->_offset = ($this->_page - 1) * $this->_limit;

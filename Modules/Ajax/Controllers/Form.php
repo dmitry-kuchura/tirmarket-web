@@ -74,6 +74,9 @@ class Form extends Ajax
         return $ip;
     }
 
+    /**
+     * Login action
+     */
     public function loginAction()
     {
         $email = Arr::get($this->post, 'email');
@@ -116,8 +119,8 @@ class Form extends Ajax
         }
 
         $password = trim(Arr::get($this->post, 'password'));
-        if (mb_strlen($password, 'UTF-8') < 8) {
-            $this->error(__('Пароль не может содержать меньше 8 символов!'));
+        if (mb_strlen($password, 'UTF-8') < 6) {
+            $this->error(__('Пароль не может содержать меньше 6 символов!'));
         }
 
 
@@ -193,12 +196,12 @@ class Form extends Ajax
     public function firstStepOrderAction()
     {
         $name = Arr::get($this->post, 'name');
-        if (!$name or mb_strlen($name, 'UTF-8') < 2) {
+        if (!$name or mb_strlen($name, 'UTF-8') < 6) {
             $this->error(__('Укажите ФИО получателя!'));
         }
 
         $email = Arr::get($this->post, 'email');
-        if (!$email or mb_strlen($name, 'UTF-8') < 2) {
+        if (!$email or mb_strlen($name, 'UTF-8') < 6) {
             $this->error(__('Укажите Email!'));
         }
 
@@ -208,7 +211,7 @@ class Form extends Ajax
         }
 
         $city = Arr::get($this->post, 'city');
-        if (!$city or mb_strlen($city, 'UTF-8') < 2) {
+        if (!$city or mb_strlen($city, 'UTF-8') < 6) {
             $this->error(__('Город указан неверно либо не указан вовсе!'));
         }
 
@@ -369,7 +372,7 @@ class Form extends Ajax
     public function editProfileAction()
     {
         $name = trim(Arr::get($this->post, 'name'));
-        if (!$name or mb_strlen($name, 'UTF-8') < 2) {
+        if (!$name or mb_strlen($name, 'UTF-8') < 6) {
             $this->error(__('Введенное имя слишком короткое!'));
         }
 

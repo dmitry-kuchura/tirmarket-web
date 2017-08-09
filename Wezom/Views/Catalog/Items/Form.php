@@ -288,24 +288,5 @@ use Forms\Form;
                 }
             });
         });
-
-        $('#brand_alias').on('change', function () {
-            var brand_alias = $(this).val();
-            $.ajax({
-                url: '/wezom/ajax/catalog/getModelsByBrandID',
-                type: 'POST',
-                dataType: 'JSON',
-                data: {
-                    brand_alias: brand_alias
-                },
-                success: function (data) {
-                    var html = '<option value="0"><?php echo __('Нет'); ?></option>';
-                    for (var i = 0; i < data.options.length; i++) {
-                        html += '<option value="' + data.options[i].alias + '">' + data.options[i].name + '</option>';
-                    }
-                    $('#model_alias').html(html);
-                }
-            });
-        });
     });
 </script>

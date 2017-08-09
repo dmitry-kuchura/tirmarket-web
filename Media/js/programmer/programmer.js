@@ -40,4 +40,29 @@ jQuery(document).ready(function ($) {
             }
         });
     });
+
+    $('#catalogSort select').on('change', function () {
+        var uri = $('#catalogSort').data('uri');
+        var arr = uri.split('?');
+        uri = arr[0];
+        var old = $('#catalogSort').data('get');
+        var get = [];
+        if (old) {
+            get.push(old);
+        }
+        $('#catalogSort select').each(function () {
+            if ($(this).attr('name') == 'per_page') {
+                get.push('per_page=' + $(this).val());
+            }
+            if ($(this).attr('name') == 'sort' && $(this).val()) {
+                get.push('sort=' + $(this).val());
+                get.push('type=' + $(this).find('option:selected').data('type'));
+            }
+        });
+        if (get.length) {
+            get = get.join('&');
+            uri += '?' + get;
+        }
+        window.location.href = uri;
+    });
 });

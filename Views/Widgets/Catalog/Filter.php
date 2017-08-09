@@ -9,7 +9,7 @@ use Modules\Catalog\Models\Filter;
 ?>
 
 <div class="sidebar">
-    <form class="js-filter" data-form>
+    <form data-form>
         <div class="sidebar__section sidebar__section--header">
             <div class="_flex _items-center _justify-between">
                 <div class="title title--md"><?php echo __('Фильтр товаров'); ?></div>

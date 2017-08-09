@@ -7,7 +7,7 @@ use Core\Route;
 $limit = Config::get('basic.limit');
 
 ?>
-<span id="catalogSort"
+<div id="catalogSort" class="_col-auto _flex _items-center _grid-space-2 _lg-show"
      data-uri="<?php echo str_replace('/page/' . Route::param('page'), '', Arr::get($_SERVER, 'REQUEST_URI')); ?>"
      data-get="<?php echo Route::controller() == 'search' ? 'query=' . Arr::get($_GET, 'query') : ''; ?>">
     <div class="_col-auto _flex _items-center _grid-space-2 _lg-show">
@@ -47,9 +47,9 @@ $limit = Config::get('basic.limit');
         <div class="_col-auto">
             <select name="per_page" class="select">
                 <?php for ($i = $limit; $i < $limit * 5; $i += $limit): ?>
-                    <option value="<?php echo $i; ?>" <?php echo Arr::get($_GET, 'per_page') == $i ? 'selected' : ''; ?>><?php echo $i; ?><?php echo __('товаров'); ?></option>
+                    <option value="<?php echo $i; ?>" <?php echo Arr::get($_GET, 'per_page') == $i ? 'selected' : ''; ?>><?php echo $i; ?> <?php echo __('товаров'); ?></option>
                 <?php endfor; ?>
             </select>
         </div>
     </div>
-</span>
+</div>

@@ -12,7 +12,7 @@
         <?php $attributes['rows'] = 5; ?>
         <?php echo \Forms\Builder::textarea($attributes, __($obj->name)); ?>
     <?php elseif($obj->type == 'tiny'): ?>
-        <?php echo \Forms\Builder::tiny($attributes, __($obj->name)); ?>
+        <?php echo \Forms\Builder::tiny($attributes, __($obj->name), 100); ?>
     <?php elseif($obj->type == 'select'): ?>
         <?php $values = json_decode($obj->values, true); ?>
         <?php echo \Forms\Builder::select(\Core\Support::selectData($values, 'value', 'key'), $obj->zna, $attributes, __($obj->name)); ?>

@@ -127,7 +127,7 @@ class Builder
         return $label . $textarea;
     }
 
-    public static function tiny(array $attributes = null, $labelOptions = false)
+    public static function tiny(array $attributes = null, $labelOptions = false, $height = 400)
     {
         $tinyClass = 'tinymceEditor';
         if (!isset($attributes['class'])) {
@@ -138,7 +138,7 @@ class Builder
             $attributes['class'] = [$attributes['class'], $tinyClass];
         }
         if (!isset($attributes['style'])) {
-            $attributes['style'] = 'height: 400px;';
+            $attributes['style'] = 'height: '. $height .'px;';
         }
         return Builder::textarea($attributes, $labelOptions);
     }

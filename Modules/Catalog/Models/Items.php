@@ -245,7 +245,6 @@ class Items extends CommonI18n
             static::$tableI18n . '.keywords',
             static::$tableI18n . '.description',
             ['brands_i18n.name', 'brand_name'],
-            ['models_i18n.name', 'model_name'],
             ['catalog_tree_i18n.name', 'parent_name']
         )
             ->from(static::$table)
@@ -260,12 +259,6 @@ class Items extends CommonI18n
             ->join('brands_i18n', 'LEFT')
             ->on('brands_i18n.row_id', '=', 'brands.id')
             ->on('brands_i18n.language', '=', DB::expr("'" . \I18n::$lang . "'"))
-            ->join('models', 'LEFT')
-            ->on(static::$table . '.model_alias', '=', 'models.alias')
-            ->on('models.status', '=', DB::expr('1'))
-            ->join('models_i18n', 'LEFT')
-            ->on('models_i18n.row_id', '=', 'models.id')
-            ->on('models_i18n.language', '=', DB::expr("'" . \I18n::$lang . "'"))
             ->where(static::$tableI18n . '.language', '=', \I18n::$lang);
         if ($status !== null) {
             $result = $result->where(static::$table . '.status', '=', 1);

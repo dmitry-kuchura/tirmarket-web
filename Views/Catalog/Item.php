@@ -2,6 +2,7 @@
 
 use Core\HTML;
 use Core\User;
+use Core\Config;
 
 /* @var $obj object */
 /* @var $images array */
@@ -27,7 +28,7 @@ use Core\User;
                     if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
                         $image = HTML::media('images/catalog/main/' . $obj->image, false);
                     } else {
-                        $image = HTML::media('pic/no-image.png');
+                        $image = HTML::media('pic/no-image.png', false);
                     }
                     ?>
                     <div class="product-image__item">
@@ -41,7 +42,7 @@ use Core\User;
                     if (is_file(HOST . HTML::media('images/catalog/thumb/' . $obj->image, false))) {
                         $image = HTML::media('images/catalog/thumb/' . $obj->image, false);
                     } else {
-                        $image = HTML::media('pic/no-image.png');
+                        $image = HTML::media('pic/no-image.png', false);
                     }
                     ?>
                     <div class="product-thumbs__item">
@@ -78,7 +79,7 @@ use Core\User;
                        data-user="<?php echo User::info()->id; ?>">
                         <i class="icon icon--sm icon--blue _mr-2">
                             <svg>
-                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#star'); ?>"></use>
+                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use>
                             </svg>
                         </i><span><?php echo __('В избранное'); ?></span>
                     </a>
@@ -111,7 +112,7 @@ use Core\User;
                                data-param='{"id": "<?php echo $obj->id; ?>"}'>
                                 <i class="icon icon--sm icon--blue _mr-2">
                                     <svg>
-                                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#cursor'); ?>"></use>
+                                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#cursor', false); ?>"></use>
                                     </svg>
                                 </i>
                                 <span><?php echo __('Купить в ОДИН КЛИК'); ?></span>
@@ -122,7 +123,7 @@ use Core\User;
                                     <i>
                                         <svg>
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                 xlink:href="<?php echo HTML::media('icons/icons.svg#cart'); ?>"></use>
+                                                 xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use>
                                         </svg>
                                     </i>
                                     <span><?php echo __('В корзину'); ?></span>
@@ -133,65 +134,57 @@ use Core\User;
                 </div>
             </div>
             <div class="divider divider--white"></div>
-            <div class="_p-3">
+            <?php /* <div class="_p-3">
                 <div class="product-discount">При заказке от <span
                             class="product-discount__count">10 шт</span>: Цена - <span
                             class="product-discount__price">121 000 грн.</span></div>
-            </div>
+            </div> */ ?>
         </div>
     </div>
     <div class="_col-12 _xl-col-3 _flex-grow-0 _mb-3">
         <div class="_p-4" style="background-color: #f8f8f8">
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#delivery'); ?>"></use>
+                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#delivery', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Доставка'); ?></div>
             </div>
-            <div class="wysiwyg _mb-3">
-                <ul>
-                    <li>Доставка “Новой почтой”, “Интайм”, "Delivery", "Гюнсел", "Автолюкс", "САТ"</li>
-                    <li>Cамовывоз в городах: Киев, Луцк, Житомир, Ковель</li>
-                </ul>
-            </div>
+            <div class="wysiwyg _mb-3"><?php echo Config::get('item.text_delivery_' . I18n::$lang); ?></div>
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#payment'); ?>"></use>
+                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#payment', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Оплата'); ?></div>
             </div>
-            <div class="wysiwyg _mb-3">
-                <ul>
-                    <li>Наложенным платежом</li>
-                    <li>Наличными при получении на складе</li>
-                </ul>
-            </div>
+            <div class="wysiwyg _mb-3"><?php echo Config::get('item.text_payment_' . I18n::$lang); ?></div>
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#warranty'); ?>"></use>
+                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#warranty', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Гарантия'); ?></div>
             </div>
             <div class="wysiwyg _mb-3">
-                <p>vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-                    vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+                <p><?php echo Config::get('item.text_garanty_' . I18n::$lang); ?></p>
             </div>
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="icons/icons.svg#refund"></use>
+                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#refund', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Возврат'); ?></div>
             </div>
             <div class="wysiwyg _mb-3">
-                <p>vulputate, felis tellus mollis orci, sed rhoncus sapien nunc
-                    eget.</p>
+                <p><?php echo Config::get('item.text_return_' . I18n::$lang); ?></p>
             </div>
-            <div><a href="#">Подробнее о доставке и оплате</a></div>
-            <div><a href="#">Подробнее о гарантии и возврате</a></div>
+            <div>
+                <a href="<?php echo HTML::link(Config::get('item.link_delivery')); ?>"><?php echo __('Подробнее о доставке и оплате'); ?></a>
+            </div>
+            <div>
+                <a href="<?php echo HTML::link(Config::get('item.link_garanty')); ?>"><?php echo __('Подробнее о гарантии и возврате'); ?></a>
+            </div>
         </div>
     </div>
 </div>

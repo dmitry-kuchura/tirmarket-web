@@ -28,12 +28,13 @@ use Core\Widgets;
             <div class="title _mb-3"><?php echo $_seo['h1']; ?></div>
             <?php echo $_content; ?>
         </div>
-        <?php if ($_seo['text']): ?>
+        <?php if ($_seo['text_left'] || $_seo['text_right']): ?>
             <div class="seo-section">
                 <div class="page-size">
                     <div class="title _mb-3"><?php echo $_seo['h1']; ?></div>
                     <div class="_flex _grid-1 _md-grid-2 _grid-space-4">
-                        <div class="wysiwyg _mb-4"><?php echo $_seo['text']; ?></div>
+                        <div class="wysiwyg _mb-4"><?php echo $_seo['text_left']; ?></div>
+                        <div class="wysiwyg _mb-4"><?php echo $_seo['text_right']; ?></div>
                     </div>
                 </div>
             </div>

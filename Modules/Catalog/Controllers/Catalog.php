@@ -152,7 +152,7 @@ class Catalog extends Base
     {
         $tpl = CommonI18n::factory('seo_templates')->getRowSimple(1);
         $from = ['{{name}}', '{{content}}'];
-        $text = trim(strip_tags($page->text));
+        $text = trim(strip_tags($page->text_left . ' ' . $page->text_right));
         $to = [$page->name, $text];
         $res = preg_match_all('/{{content:[0-9]*}}/', $tpl->description, $matches);
         if ($res) {
@@ -179,7 +179,8 @@ class Catalog extends Base
             . ((Arr::get($_GET, 'sort') == 'name' && Arr::get($_GET, 'type') == 'desc') ? __(', По названию от Я до А') : '');
         $this->_seo['keywords'] = str_replace($from, $to, $keywords);
         $this->_seo['description'] = str_replace($from, $to, $description);
-        $this->_seo['seo_text'] = $page->text;
+        $this->_seo['text_left'] = $page->text_left;
+        $this->_seo['text_right'] = $page->text_right;
         $this->generateParentBreadcrumbs($page->parent_id, 'catalog_tree', 'parent_id', '/products/');
         $this->setBreadcrumbs($page->name);
     }

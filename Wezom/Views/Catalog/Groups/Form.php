@@ -79,9 +79,15 @@ use Core\General;
                                     </div>
                                     <div class="form-group">
                                         <?php echo Builder::tiny([
-                                            'name' => 'FORM[' . $key . '][text]',
-                                            'value' => $public->text,
-                                        ], __('SEO text')); ?>
+                                            'name' => 'FORM[' . $key . '][text_left]',
+                                            'value' => $public->text_left,
+                                        ], __('SEO Текст (слева)')); ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php echo Builder::tiny([
+                                            'name' => 'FORM[' . $key . '][text_right]',
+                                            'value' => $public->text_right,
+                                        ], __('SEO Текст (справа)')); ?>
                                     </div>
                                 </div>
                             </li>

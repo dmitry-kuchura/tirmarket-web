@@ -1,7 +1,7 @@
-<link type="text/css" rel="stylesheet" href="<?php echo Core\HTML::bmedia('css/print.css'); ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo Core\HTML::bmedia('css/print.css'); ?>"/>
 <div style="margin: 50px;">
     <h2><?php echo __('Заказ'); ?> №<?php echo $order->id; ?></h2>
-    <img src="<?php echo Core\HTML::media('pic/logo.png'); ?>" alt="" width="200" class="logo_2" />
+    <img src="<?php echo Core\HTML::media('pic/logo.png'); ?>" alt="" width="200" class="logo_2"/>
 
     <strong><?php echo __('Информация о заказе'); ?></strong>
     <table class="table2" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -18,13 +18,13 @@
             <td><?php echo $statuses[$order->status]; ?></td>
         </tr>
     </table>
-    <br />
-    
+    <br/>
+
     <strong><?php echo __('Информация о плательщике'); ?></strong>
     <table class="table2" width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td width="50%"><?php echo __('Адресат'); ?></td>
-            <td><?php echo $order->last_name.' '.$order->name.' '.$order->middle_name; ?></td>
+            <td><?php echo $order->last_name . ' ' . $order->name . ' ' . $order->middle_name; ?></td>
         </tr>
         <tr>
             <td><?php echo __('E-Mail'); ?></td>
@@ -36,15 +36,15 @@
         </tr>
         <tr>
             <td><?php echo __('Доставка'); ?></td>
-            <td><?php echo $delivery[ $order->delivery ] . ($order->delivery == 2 ? ', '.$order->number : ''); ?></td>
+            <td><?php echo $delivery[$order->delivery] . ($order->delivery == 2 ? ', ' . $order->number : ''); ?></td>
         </tr>
         <tr>
             <td><?php echo __('Способ оплаты'); ?></td>
-            <td><?php echo $payment[ $order->payment ]; ?></td>
+            <td><?php echo $payment[$order->payment]; ?></td>
         </tr>
     </table>
-    <br />
-    
+    <br/>
+
     <strong><?php echo __('Содержание заказа'); ?></strong>
     <table class="table2" width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
@@ -59,20 +59,20 @@
                     <?php echo $item->name; ?>
                 </td>
                 <td>
-                    <?php echo (int) $item->cost; ?> грн
+                    <?php echo (int)$item->cost; ?> грн
                 </td>
                 <td>
-                    <?php echo (int) $item->count; ?> шт
+                    <?php echo (int)$item->count; ?> шт
                 </td>
                 <td>
-                    <?php echo (int) $item->count * (int) $item->cost; ?> грн
+                    <?php echo (int)$item->count * (int)$item->cost; ?> грн
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
-    <br />
-    
+    <br/>
+
     <div align="right">
-        <strong><?php echo __('Итого'); ?>:</strong> <?php echo (int) $order->amount; ?> грн
+        <strong><?php echo __('Итого'); ?>:</strong> <?php echo (int)$order->amount; ?> грн
     </div>
 </div>

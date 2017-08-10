@@ -10,11 +10,12 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach( $cart as $obj ): ?>
+    <?php foreach ($cart as $obj): ?>
         <tr>
             <td>
-                <?php if( is_file(HOST.Core\HTML::media('images/catalog/medium/'.$obj->image, false)) ): ?>
-                    <img src="<?php echo Core\HTML::link('Media/images/catalog/small/'.$obj->image, true); ?>" width="80" />
+                <?php if (is_file(HOST . Core\HTML::media('images/catalog/thumb/' . $obj->image, false))): ?>
+                    <img src="<?php echo Core\HTML::link('Media/images/catalog/thumb/' . $obj->image, true); ?>"
+                         width="80"/>
                 <?php endif; ?>
             </td>
             <td><?php echo $obj->artikul; ?></td>

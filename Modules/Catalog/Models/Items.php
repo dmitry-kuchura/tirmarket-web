@@ -6,10 +6,10 @@ use Core\Config;
 use Core\Cookie;
 use Core\QB\DB;
 use Core\CommonI18n;
+use I18n;
 
 class Items extends CommonI18n
 {
-
     public static $table = 'catalog';
     public static $tableI18n = 'catalog_i18n';
     public static $tableImages = 'catalog_images';
@@ -57,7 +57,6 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-
     public static function countSearchRows($queries)
     {
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
@@ -89,7 +88,6 @@ class Items extends CommonI18n
         return $result->count_all();
     }
 
-
     public static function getQueries($query)
     {
         $spaces = ['-', '_', '/', '\\', '=', '+', '*', '$', '@', '(', ')', '[', ']', '|', ',', '.', ';', ':', '{', '}'];
@@ -97,7 +95,6 @@ class Items extends CommonI18n
         $arr = preg_split("/[\s,]+/", $query);
         return $arr;
     }
-
 
     public static function getBrandItems($brand_alias, $sort = null, $type = null, $limit = null, $offset = null)
     {
@@ -121,7 +118,6 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-
     public static function countBrandItems($brand_alias)
     {
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
@@ -130,7 +126,6 @@ class Items extends CommonI18n
             ->where(static::$table . '.status', '=', 1);
         return $result->count_all();
     }
-
 
     public static function getItemsByFlag($flag, $sort = null, $type = null, $limit = null, $offset = null)
     {
@@ -162,7 +157,6 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-
     public static function countItemsByFlag($flag)
     {
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
@@ -171,7 +165,6 @@ class Items extends CommonI18n
             ->where(static::$table . '.status', '=', 1);
         return $result->count_all();
     }
-
 
     public static function addViewed($id)
     {
@@ -183,13 +176,11 @@ class Items extends CommonI18n
         return;
     }
 
-
     public static function getViewedIDs()
     {
         $ids = Cookie::getArray('viewed', []);
         return $ids;
     }
-
 
     public static function getViewedItems($sort = null, $type = null, $limit = null, $offset = null)
     {
@@ -217,7 +208,6 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-
     public static function countViewedItems()
     {
         $ids = Items::getViewedIDs();
@@ -230,7 +220,6 @@ class Items extends CommonI18n
             ->where(static::$table . '.status', '=', 1);
         return $result->count_all();
     }
-
 
     public static function getRow($value, $field = 'id', $status = null)
     {
@@ -266,7 +255,6 @@ class Items extends CommonI18n
 
         return $result->find();
     }
-
 
     public static function getItemImages($item_id)
     {
@@ -332,6 +320,22 @@ class Items extends CommonI18n
 
     }
 
+    public static function getFavorites($id)
+    {
+        $favorites = DB::select(
+            static::$tableI18n . '.*',
+            static::$table . '.*'
+        )
+            ->from(static::$table)
+            ->join('users_favorites', 'LEFT')->on('users_favorites.product_id', '=', static::$table . '.id')
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+            ->where('users_favorites.ghost_id', 'LIKE', $id)
+            ->find_all();
+
+        return $favorites;
+    }
+
     public static function getRows($status = null, $sort = null, $type = null, $limit = null, $offset = null, $filter = true)
     {
         $result = DB::select(
@@ -366,5 +370,4 @@ class Items extends CommonI18n
         }
         return $result->find_all();
     }
-
 }

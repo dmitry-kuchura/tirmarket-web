@@ -11,7 +11,7 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
 
 ?>
 
-<div class="_col-12 _sm-col-6 _md-col-4 _lg-col-6 _xl-col-4 _mb-3">
+<div class="_col-12 _sm-col-6 _lg-col-3 _mb-3">
     <div class="item-card">
         <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image" style="background-image:url(<?php echo $image; ?>)"></a>
         <div class="item-card__labels">

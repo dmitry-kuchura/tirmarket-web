@@ -4,6 +4,7 @@ namespace Modules\Ajax\Controllers;
 
 use Core\Arr;
 use Core\CommonI18n;
+use Core\Cookie;
 use Core\HTML;
 use Core\QB\DB;
 use Core\Route;
@@ -185,19 +186,20 @@ class General extends Ajax
 
         $user = Arr::get($this->post, 'user');
         if (!$user) {
-            if (isset($_SESSION['user_favorites'])) {
-                $ghost_id = $_SESSION['user_favorites'];
+            $userFavorites = Cookie::get('user_favorites');
+            if (isset($userFavorites)) {
+                $ghost_id = $userFavorites;
             } else {
-                $ghost_id = $_SESSION['user_favorites'] = md5(time());
+                Cookie::set('user_favorites', md5(time()));
+                $ghost_id = Cookie::get('user_favorites');
             }
         } else {
-            unset($_SESSION['user_favorites']);
+            Cookie::delete('user_favorites');
         }
 
         $check = DB::select()
             ->from('users_favorites')
             ->where('user_id', '=', $user)
-            ->or_where('ghost_id', '=', $ghost_id)
             ->and_where('product_id', '=', $product)
             ->find();
         if (is_object($check) && $check->id) {
@@ -208,7 +210,7 @@ class General extends Ajax
             $model['user_id'] = $user;
             $model['product_id'] = $product;
             $model['created_at'] = time();
-            $model['ghost_id'] = $_SESSION['user_favorites'];
+            $model['ghost_id'] = $ghost_id;
 
             $keys = [];
             $values = [];

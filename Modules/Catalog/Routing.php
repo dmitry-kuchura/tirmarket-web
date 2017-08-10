@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'favorites' => 'catalog/favorites/index',
     // Catalog unique aliases routing
     'new' => 'catalog/novelty/index',
     'new/page/<page:[0-9]*>' => 'catalog/novelty/index',

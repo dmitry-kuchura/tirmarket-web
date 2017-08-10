@@ -1,4 +1,4 @@
-<form class="_mb-5" data-form data-ajax="">
+<form class="_mb-5" data-form data-ajax="change_password">
     <div class="form-label"><?php echo __('Ваш старый пароль'); ?></div>
     <div class="form-element _mb-3">
         <input type="password" class="form-element__input"

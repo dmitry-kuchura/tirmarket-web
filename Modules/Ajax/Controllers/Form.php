@@ -52,7 +52,7 @@ class Form extends Ajax
                 ->and_where_close()
                 ->find_all();
             if (sizeof($bans)) {
-                $this->error(__('К сожалению это действие недоступно, т.к. администратор ограничил доступ к сайту с Вашего IP адреса!'));
+                $this->error(__('К сожалению это действие недоступно, т.к. администратор ограничил доступ к сайту с Вашего IP адреса'));
             }
         }
     }
@@ -124,14 +124,12 @@ class Form extends Ajax
         }
 
 
-        // Create user data
         $data = [
             'email' => $email,
             'password' => $password,
             'ip' => System::getRealIP(),
         ];
 
-        // Create user. Then send an email to user with confirmation link or authorize him to site
         $mail = DB::select()
             ->from('mail_templates')
             ->join('mail_templates_i18n')
@@ -141,7 +139,6 @@ class Form extends Ajax
             ->where('mail_templates_i18n.language', '=', \I18n::$lang)
             ->as_object()->execute()->current();
         if ($mail) {
-            // Creating of the new user and set his status to zero. He need to confirm his email
             $data['status'] = 0;
             User::factory()->registration($data);
             $user = DB::select()->from('users')->where('email', '=', $email)->as_object()->execute()->current();
@@ -151,20 +148,18 @@ class Form extends Ajax
             $url = '/wezom/users/edit/' . $user->id;
             Log::add($qName, $url, 1);
 
-            // Sending letter to email
             $from = ['{{site}}', '{{ip}}', '{{date}}', '{{link}}'];
             $to = [
                 Arr::get($_SERVER, 'HTTP_HOST'), Arr::get($data, 'ip'), date('d.m.Y'),
                 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/confirm/hash/' . $user->hash,
             ];
+            // TODO
             $subject = str_replace($from, $to, $mail->subject);
             $text = str_replace($from, $to, $mail->text);
             Email::send($subject, $text, $user->email);
 
-            // Inform user if mail is sended
             $this->success(__('Вам отправлено письмо подтверждения со ссылкой, кликнув по которой, Вы подтвердите свой адрес и будете автоматически авторизованы на сайте.'));
         } else {
-            // Creating of the new user and set his status to 1. He must be redirected to his cabinet
             $data['status'] = 1;
             User::factory()->registration($data);
             $user = DB::select()->from('users')->where('email', '=', $email)->as_object()->execute()->current();
@@ -185,7 +180,7 @@ class Form extends Ajax
 
             // Authorization of the user
             User::factory()->auth($user, 0);
-            Message::GetMessage(1, __('Вы успешно зарегистрировались на сайте! Пожалуйста укажите остальную информацию о себе в личном кабинете для того, что бы мы могли обращаться к Вам по имени'), 5000);
+            Message::GetMessage(1, __('Вы успешно зарегистрировались на сайте! Пожалуйста укажите остальную информацию о себе в личном кабинете'), 5000);
             $this->success(['redirect' => '/account']);
         }
     }

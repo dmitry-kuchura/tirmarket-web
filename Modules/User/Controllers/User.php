@@ -36,7 +36,7 @@ class User extends Base
     }
 
     /**
-     * Index action for User
+     * Страница пользователя
      *
      * @return string
      */
@@ -53,7 +53,7 @@ class User extends Base
     }
 
     /**
-     * Edit personal data
+     * Редактирвоание данных
      */
     public function editAction()
     {
@@ -71,7 +71,7 @@ class User extends Base
     }
 
     /**
-     * Forgot password
+     * Востановление пароля
      */
     public function passwordAction()
     {
@@ -89,7 +89,7 @@ class User extends Base
     }
 
     /**
-     * Favorites list
+     * Список избраного
      *
      * @return string
      */
@@ -111,6 +111,11 @@ class User extends Base
         ], 'User/Favorites');
     }
 
+    /**
+     * Список транспортных средств пользователя
+     *
+     * @return bool
+     */
     public function transportAction()
     {
         $this->_seo['user_title'] = __('Добавить Т/С');
@@ -129,6 +134,9 @@ class User extends Base
         ], 'User/Transport');
     }
 
+    /**
+     * Страница заказов
+     */
     public function ordersAction()
     {
         $this->_seo['user_title'] = __('История заказов');
@@ -149,6 +157,10 @@ class User extends Base
         ], 'User/Orders');
     }
 
+    /**
+     * Авторизация с админки
+     * @return bool
+     */
     public function fastAuthAction()
     {
         if (!array_key_exists('admin', $_SESSION)) {
@@ -175,16 +187,39 @@ class User extends Base
         HTTP::redirect('account');
     }
 
-    public function addMeta($name, $order = false)
+    /**
+     * Подтверждение регистрации
+     *
+     * @return bool
+     */
+    public function confirmAction()
     {
-        Config::set('h1', $name);
-        Config::set('title', $name);
-        Config::set('keywords', $name);
-        Config::set('description', $name);
-        if ($order) {
-            $this->setBreadcrumbs(__('Мои заказы'), 'account/orders');
+        if (U::info()) {
+            return Config::error();
         }
-        $this->setBreadcrumbs($name);
-    }
+        if (!Route::param('hash')) {
+            return Config::error();
+        }
 
+        $user = Model::getRow(Route::param('hash'), 'hash');
+        if (!$user) {
+            return Config::error();
+        }
+        if ($user->status) {
+            Message::GetMessage(0, __('Вы уже подтвердили свой E-Mail!'));
+            HTTP::redirect('/');
+        }
+
+        Model::update(['status' => 1], $user->id);
+
+        Email::sendTemplate(13, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => GeoIP::ip(),
+            '{{date}}' => date('d.m.Y')
+        ], $user->email);
+
+        U::factory()->auth($user, 0);
+        Message::GetMessage(1, __('Вы успешно зарегистрировались на сайте! Пожалуйста укажите остальную информацию о себе в личном кабинете для того, что бы мы могли обращаться к Вам по имени'));
+        HTTP::redirect('account');
+    }
 }

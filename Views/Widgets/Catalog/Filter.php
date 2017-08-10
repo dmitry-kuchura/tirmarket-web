@@ -31,8 +31,8 @@ use Modules\Catalog\Models\Filter;
                 <div class="form-element">
                     <div data-range="[<?php echo $min . ', ' . $max . ', ' . $smin . ', ' . $smax; ?>]"
                          data-ns="price"></div>
-                    <input type="hidden" name="price-from" data-ns="price[0]">
-                    <input type="hidden" name="price-to" data-ns="price[1]">
+                    <input type="hidden" name="mixcost" data-ns="price[0]">
+                    <input type="hidden" name="maxcost" data-ns="price[1]">
                 </div>
             </div>
             <?php if (count($specifications['list'])): ?>

@@ -26,7 +26,7 @@ use Core\Arr;
                     <img src="<?php echo HTML::media('images/catalog/thumb/' . $obj->image, true); ?>"
                          width="80"/>
                 <?php else: ?>
-                    <img src="<?php echo HTML::media('pic/no-photo.png', true); ?>" width="80"/>
+                    <img src="<?php echo HTML::media('pic/no-image.png', true); ?>" width="80"/>
                 <?php endif; ?>
             </td>
             <td><?php echo $obj->name; ?></td>

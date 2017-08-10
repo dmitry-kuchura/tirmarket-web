@@ -420,7 +420,7 @@ class Form extends Ajax
             $this->error(__('Старый пароль введен неверно!'));
         }
 
-        $newpass = trim(Arr::get($this->post, 'password'));
+        $newpass = trim(Arr::get($this->post, 'newpass'));
         if (mb_strlen($newpass, 'UTF-8') < 6) {
             $this->error(__('Пароль не может быть короче 6 символов!'));
         }
@@ -429,7 +429,7 @@ class Form extends Ajax
             $this->error(__('Нельзя поменять пароль на точно такой же!'));
         }
 
-        $repeat = trim(Arr::get($this->post, 'confirm'));
+        $repeat = trim(Arr::get($this->post, 'repeat'));
         if ($newpass != $repeat) {
             $this->error(__('должны совпадать'));
         }

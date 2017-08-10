@@ -10,7 +10,6 @@ use Modules\Catalog\Models\Items;
 
 class Widgets
 {
-
     static $_instance;
 
     public $_data = [];
@@ -307,10 +306,7 @@ class Widgets
             'specifications' => $specifications,
             'filter' => $array['filter'],
             'min' => $array['min'],
-            'smin' => $array['min'] * 2,
-            'smax' => $array['max'] * 0.9,
             'max' => $array['max'],
-            'filter_list' => Widgets::get('Catalog_FilterList'),
         ];
     }
 
@@ -323,5 +319,4 @@ class Widgets
 
         return ['result' => $result];
     }
-
 }

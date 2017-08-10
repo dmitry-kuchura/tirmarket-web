@@ -572,9 +572,23 @@ class Form extends Ajax
         }
 
         $result = DB::insert('picking', $keys)->values($values)->execute();
+        $lastID = Arr::get($result, 0);
         if (!$result) {
             $this->error(__('Произошла ошибка'));
         }
+
+        $qName = __('Сообщение из формы подбора');
+        $url = '/wezom/picking/edit/' . $lastID;
+        Log::add($qName, $url, 2);
+
+        Email::sendTemplate(1, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{name}}' => Arr::get($model, 'name'),
+            '{{phone}}' => Arr::get($model, 'phone'),
+            '{{artikul}}' => Arr::get($model, 'artikul'),
+            '{{ip}}' => Arr::get($model, 'ip'),
+            '{{date}}' => date('d.m.Y H:i')
+        ]);
 
         $this->success(['response' => __('Запрос был сформирован')]);
     }

@@ -22,8 +22,8 @@ use Core\Arr;
         <?php $amount += $amt; ?>
         <tr>
             <td>
-                <?php if (is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false))): ?>
-                    <img src="<?php echo HTML::media('images/catalog/medium/' . $obj->image, true); ?>"
+                <?php if (is_file(HOST . HTML::media('images/catalog/thumb/' . $obj->image, false))): ?>
+                    <img src="<?php echo HTML::media('images/catalog/thumb/' . $obj->image, true); ?>"
                          width="80"/>
                 <?php else: ?>
                     <img src="<?php echo HTML::media('pic/no-photo.png', true); ?>" width="80"/>

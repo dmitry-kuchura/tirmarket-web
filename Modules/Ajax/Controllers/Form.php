@@ -272,39 +272,6 @@ class Form extends Ajax
             }
         }
 
-        $link_user = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/orders/' . $order_id;
-        $link_admin = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/wezom/orders/edit/' . $order_id;
-
-        $qName = 'Новый заказ';
-        $url = '/wezom/orders/edit/' . $order_id;
-        Log::add($qName, $url, 8);
-
-        if (User::info() and User::info()->email) {
-            $email = User::info()->email;
-        }
-
-        Email::sendTemplate(11, [
-            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
-            '{{ip}}' => $ip,
-            '{{date}}' => date('d.m.Y H:i'),
-            '{{name}}' => $name,
-            '{{phone}}' => $phone,
-            '{{link_admin}}' => $link_admin,
-            '{{link_user}}' => $link_user,
-            '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
-        ]);
-
-        Email::sendTemplate(12, [
-            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
-            '{{ip}}' => $ip,
-            '{{date}}' => date('d.m.Y H:i'),
-            '{{name}}' => $name,
-            '{{phone}}' => $phone,
-            '{{link_admin}}' => $link_admin,
-            '{{link_user}}' => $link_user,
-            '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
-        ], $email);
-
         $this->success([
             'success' => true,
             'showNextSteep' => true,
@@ -333,6 +300,7 @@ class Form extends Ajax
             $this->error(__('Вы не выбрали способ оплаты!'));
         }
 
+        $ip = System::getRealIP();
 
         $data = [];
         $data['status'] = 0;
@@ -350,6 +318,59 @@ class Form extends Ajax
         $update = DB::update('orders')->set($data)->where('id', '=', $order_id)->execute();
 
         if ($update) {
+            $cart = Cart::factory()->get_list_for_basket();
+
+            $link_user = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/orders';
+            $link_admin = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/wezom/orders/edit/' . $order_id;
+
+            $qName = 'Новый заказ';
+            $url = '/wezom/orders/edit/' . $order_id;
+            Log::add($qName, $url, 8);
+
+            $order = Common::factory('orders')->getRow($order_id);
+
+            $payments = [];
+
+            $result = CommonI18n::factory('payments')->getRows(1);
+
+            foreach ($result as $obj) {
+                $payments[$obj->id] = $obj->name;
+            }
+
+            $delivery = [];
+
+            $result = CommonI18n::factory('delivery')->getRows(1);
+
+            foreach ($result as $obj) {
+                $delivery[$obj->id] = $obj->name;
+            }
+
+            Email::sendTemplate(11, [
+                '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+                '{{ip}}' => $ip,
+                '{{date}}' => date('d.m.Y H:i'),
+                '{{name}}' => $order->name,
+                '{{phone}}' => $order->phone,
+                '{{payment}}' => $payments[$order->phone],
+                '{{delivery}}' => $delivery[$order->phone],
+                '{{link_admin}}' => $link_admin,
+                '{{link_user}}' => $link_user,
+                '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
+            ]);
+
+            Email::sendTemplate(12, [
+                '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+                '{{ip}}' => $ip,
+                '{{date}}' => date('d.m.Y H:i'),
+                '{{name}}' => $order->name,
+                '{{phone}}' => $order->phone,
+                '{{payment}}' => $payments[$order->phone],
+                '{{delivery}}' => $delivery[$order->phone],
+                '{{link_admin}}' => $link_admin,
+                '{{link_user}}' => $link_user,
+                '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
+            ], $order->email);
+
             Cart::factory()->clear();
         }
 

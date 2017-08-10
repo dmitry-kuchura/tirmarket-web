@@ -214,7 +214,7 @@ use Core\Config;
         <div class="wysiwyg"><?php echo $obj->text; ?></div>
     </div>
     <div data-tab-content="3" data-tab-ns="product">
-        <analogue-list data-vue="true" inline-template>
+        <analogue-list data-vue="true" data-lang="<?php echo I18n::$lang; ?>" inline-template>
             <div>
                 <div class="analogue-table" v-if="width > 1280">
                     <div class="analogue-table__row analogue-table__row--header">

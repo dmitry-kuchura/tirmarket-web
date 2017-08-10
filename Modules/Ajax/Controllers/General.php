@@ -23,7 +23,11 @@ class General extends Ajax
     public function searchAction()
     {
         $post = json_decode(file_get_contents('php://input'), true);
+        $lang = Arr::get($post, 'lang');
+        I18n::$lang = $lang;
+
         $query = Arr::get($post, 'search');
+
         if (!$query) {
             return false;
         }
@@ -34,9 +38,8 @@ class General extends Ajax
         $data = [
             'static' => [
                 'all' => __('Все результаты'),
-                'href' => HTML::link('search?query=' . $query),
+                'href' => HTML::link('search?query=' . $query, false),
                 'buy' => __('Купить'),
-                'placeholder' => __('Поиск'),
             ]
         ];
 
@@ -335,15 +338,26 @@ class General extends Ajax
     {
         $post = json_decode(file_get_contents('php://input'), true);
 
-        $queries = Items::getQueries(urldecode($post['params']['query']));
+        $lang = Arr::get($post, 'lang');
+        I18n::$lang = $lang;
+
+        $queries = Items::getQueries(urldecode($post['query']));
         $result = Items::searchRows($queries);
 
         $array = [];
 
+        $array = [
+            'static' => [
+                'buy' => __('В корзину'),
+                'order' => __('Заказать'),
+                'orderLink' => HTML::link('hidden/order', false)
+            ]
+        ];
+
         foreach ($result as $obj) {
-            $array[] = [
+            $array['result'][] = [
                 'id' => $obj->id,
-                'link' => HTML::link($obj->link . '/p' . $obj->id, false),
+                'link' => HTML::link($obj->alias . '/p' . $obj->id, false),
                 'title' => $obj->name,
                 'image' => is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
                 'code' => $obj->artikul ? $obj->artikul : '------',
@@ -353,8 +367,8 @@ class General extends Ajax
                     'link' => HTML::link('brands/' . $obj->brand_alias, false)
                 ],
                 'price' => $obj->cost . ' грн.',
-                'exist' => $obj->availeble == 1 ? true : false,
-                'exist-string' => $obj->availeble == 1 ? __('В наличии') : __('Нет в наличии'),
+                'exist' => $obj->available == 1 ? true : false,
+                'exist-string' => $obj->available == 1 ? __('В наличии') : __('Нет в наличии'),
                 'new' => $obj->new == 1 ? true : false,
                 'promo' => $obj->top == 1 ? true : false,
                 'popular' => $obj->sale == 1 ? true : false

@@ -28,4 +28,12 @@ class Hidden extends Ajax
         die;
     }
 
+    public function orderAction()
+    {
+        $catalog = Arr::get($this->post, 'id');
+
+        echo View::tpl(['catalog' => $catalog], 'Hidden/Order');
+        die;
+    }
+
 }

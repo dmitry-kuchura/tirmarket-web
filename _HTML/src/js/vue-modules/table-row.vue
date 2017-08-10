@@ -25,17 +25,17 @@
             </div>
 
             <div class="analogue-table__col">
-                <a href="#" class="button" v-if="item.exist">
+                <a href="#" class="button" data-basket-trigger :data-id="item.id" v-if="item.exist">
                     <span>
                         <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
-                        <span>В корзину</span>
+                        <span>{{ static.buy }}</span>
                     </span>
                 </a>
 
-                <a href="#" class="button" data-mfp="/popups/order.php" :data-param='`{"id": "${item.id}"}`' v-else>
+                <a href="#" class="button" :data-mfp="static.orderLink" :data-param='`{"id": "${item.id}"}`' v-else>
                     <span>
                         <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
-                        <span>Заказать</span>
+                        <span>{{ static.order }}</span>
                     </span>
                 </a>
             </div>
@@ -46,7 +46,7 @@
     import Vue from 'vue';
 
     export default {
-        props: ['item'],
+        props: ['item', 'static'],
 
         components: {},
 

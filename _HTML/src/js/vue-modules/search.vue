@@ -5,7 +5,7 @@
                 <input type="text"
                        class="form-element__input form-element__input--round"
                        name="target"
-                       placeholder="Поиск"
+                       :placeholder="dataPlaceholder"
                        v-model="search"
                        @keyup="change" />
 
@@ -37,6 +37,7 @@
                 result: []
             }
         },
+        props:['data-lang', 'data-placeholder'],
 
         methods: {
             change() {
@@ -44,7 +45,8 @@
 
                 if(this.search.length > 2) {
                     axios.post(window.initialConfig.ajax.autocomplete, {
-                        search: $this.search
+                        search: $this.search,
+                        lang: $this.dataLang
                     })
                         .then(function (response) {
                             $this.result.splice(0, $this.result.length);
@@ -62,7 +64,6 @@
         },
 
         mounted() {
-
         },
 
         updated() {

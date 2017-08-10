@@ -377,7 +377,6 @@ $(document).ready(function () {
                         if (data.success && data.email_button) {
                             $('#sendEmail').removeClass('hide');
                         }
-                        preloader();
                     }
                 });
             });

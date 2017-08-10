@@ -33,7 +33,7 @@ class HTML
         }
 
         if ($http) {
-            return '//' . $_SERVER['HTTP_HOST'] . '/' . trim($link, '/');
+            return 'http://' . $_SERVER['HTTP_HOST'] . '/' . trim($link, '/');
         }
 
         return '/' . trim($link, '/');

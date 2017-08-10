@@ -126,12 +126,12 @@ use Core\Arr;
                         <div class="col-md-6">{{name}}</div>
                     </div>
                     <div class="rowSection">
-                        <div class="col-md-6"><strong>E-Mail</strong></div>
-                        <div class="col-md-6">{{email}}</div>
+                        <div class="col-md-6"><strong>Телефон</strong></div>
+                        <div class="col-md-6">{{phone}}</div>
                     </div>
                     <div class="rowSection">
-                        <div class="col-md-6"><strong><?php echo __('Текст сообщения'); ?></strong></div>
-                        <div class="col-md-6">{{text}}</div>
+                        <div class="col-md-6"><strong><?php echo __('Атрикул или название детали'); ?></strong></div>
+                        <div class="col-md-6">{{artikul}}</div>
                     </div>
                 <?php endif ?>
                 <?php if ($obj->id == 2): ?>
@@ -240,6 +240,12 @@ use Core\Arr;
                         </div>
                     <?php endif ?>
                 <?php endif ?>
+                <?php if ($obj->id == 11): ?>
+                    <div class="rowSection">
+                        <div class="col-md-6"><strong><?php echo __('Ссылка на заказ в админ-панели'); ?></strong></div>
+                        <div class="col-md-6">{{link_admin}}</div>
+                    </div>
+                <?php endif ?>
                 <?php if ($obj->id == 11 OR $obj->id == 12): ?>
                     <div class="rowSection">
                         <div class="col-md-6"><strong><?php echo __('Имя'); ?></strong></div>
@@ -281,10 +287,6 @@ use Core\Arr;
                         <div class="col-md-6">
                             <strong><?php echo __('Ссылка на заказ в кабинете пользователя'); ?></strong></div>
                         <div class="col-md-6">{{link_user}}</div>
-                    </div>
-                    <div class="rowSection">
-                        <div class="col-md-6"><strong><?php echo __('Ссылка на заказ в админ-панели'); ?></strong></div>
-                        <div class="col-md-6">{{link_admin}}</div>
                     </div>
                 <?php endif ?>
                 <?php if ($obj->id == 13): ?>

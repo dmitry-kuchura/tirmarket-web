@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 use Core\QB\DB;

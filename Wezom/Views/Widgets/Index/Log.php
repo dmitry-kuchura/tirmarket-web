@@ -18,7 +18,7 @@
                                         <div class="col1">
                                             <div class="content">
                                                 <div class="content-col1"><?php echo Core\Log::icon($obj->type); ?></div>
-                                                <div class="content-col2"><div class="desc"><?php echo \Core\Config::get('log.'.$obj->type) ?: $obj->name; ?></div></div>
+                                                <div class="content-col2"><div class="desc"><?php echo $obj->name; ?></div></div>
                                             </div>
                                         </div>
                                         <div class="col2">

@@ -2,6 +2,7 @@
 
 use Core\HTML;
 
+/* @var $favorites array */
 ?>
 
 <div class="page-size _pt-5 _pb-5">
@@ -59,7 +60,8 @@ use Core\HTML;
                             </div>
                             <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                                 <div class="_col-auto">
-                                    <a href="#" class="icon-button favorite-button">
+                                    <a href="#" class="icon-button favorite-button"
+                                       data-product="<?php echo $obj->id; ?>" <?php echo in_array($obj->id, $favorites) ? 'style="color: #c1001b;"' : ''; ?>>
                                         <i>
                                             <svg>
                                                 <use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use>
@@ -145,7 +147,8 @@ use Core\HTML;
                             </div>
                             <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                                 <div class="_col-auto">
-                                    <a href="#" class="icon-button favorite-button">
+                                    <a href="#" class="icon-button favorite-button"
+                                       data-product="<?php echo $obj->id; ?>" <?php echo in_array($obj->id, $favorites) ? 'style="color: #c1001b;"' : ''; ?>>
                                         <i>
                                             <svg>
                                                 <use xlink:href="Media/icons/icons.svg#star"></use>

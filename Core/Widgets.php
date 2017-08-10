@@ -242,6 +242,8 @@ class Widgets
             ->where($table . '.id', '>=', 'max')
             ->find_all();
 
+        $array['favorites'] = Cookie::getArray('favorites', []);
+
         return $array;
     }
 

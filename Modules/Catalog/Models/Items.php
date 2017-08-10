@@ -320,8 +320,10 @@ class Items extends CommonI18n
 
     }
 
-    public static function getFavorites($id)
+    public static function getFavorites()
     {
+        $ids = Cookie::getArray('favorites', []);
+
         $favorites = DB::select(
             static::$tableI18n . '.*',
             static::$table . '.*'
@@ -330,7 +332,8 @@ class Items extends CommonI18n
             ->join('users_favorites', 'LEFT')->on('users_favorites.product_id', '=', static::$table . '.id')
             ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
             ->where(static::$tableI18n . '.language', '=', I18n::$lang)
-            ->where('users_favorites.ghost_id', 'LIKE', $id)
+            ->where(static::$table.'.id', 'IN', $ids)
+            ->group_by(static::$table.'.id')
             ->find_all();
 
         return $favorites;

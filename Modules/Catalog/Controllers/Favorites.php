@@ -48,9 +48,7 @@ class Favorites extends Base
     // Items list page. Inside group
     public function indexAction()
     {
-        $ghost = Cookie::get('user_favorites');
-
-        $result = Items::getFavorites($ghost);
+        $result = Items::getFavorites();
 
         $this->_seo['title'] = $this->current->title ? $this->current->title : $this->current->name;
         $this->_seo['h1'] = $this->current->h1 ? $this->current->h1 : $this->current->name;

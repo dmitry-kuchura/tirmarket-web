@@ -104,7 +104,7 @@ class User extends Base
             return Config::error();
         }
 
-        $result = Users::getFavorites($user->id);
+        $result = Users::getFavorites();
 
         $this->_content = View::tpl([
             'user' => $user,

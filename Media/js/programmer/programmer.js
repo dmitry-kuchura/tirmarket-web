@@ -20,22 +20,21 @@ jQuery(document).ready(function ($) {
     /**
      * Add to favorites button
      */
-    $('.favorite-button').on('click', function () {
+    $('.favorite-button').on('click', function (event) {
+        event.preventDefault();
 
         var product = $(this).data('product');
-        var user = $(this).data('user');
 
         $.ajax({
             url: '/ajax/addToFavorite',
             type: 'POST',
             dataType: 'JSON',
             data: {
-                product: product,
-                user: user
+                product: product
             },
             success: function (data) {
                 if (data.success == true) {
-
+                    generate(data.response, 'success', 3500);
                 }
             }
         });

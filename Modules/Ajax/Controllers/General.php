@@ -179,50 +179,22 @@ class General extends Ajax
      */
     public function addToFavoriteAction()
     {
-        $product = Arr::get($this->post, 'product');
-        if (!$product) {
-            $this->error(__('Опаньки, а товара то нет!'));
+        $id = Arr::get($this->post, 'product');
+        if (!$id) {
+            $this->error('Опаньки, а товара то нет!');
         }
-
-        $user = Arr::get($this->post, 'user');
-        if (!$user) {
-            $userFavorites = Cookie::get('user_favorites');
-            if (isset($userFavorites)) {
-                $ghost_id = $userFavorites;
-            } else {
-                Cookie::set('user_favorites', md5(time()));
-                $ghost_id = Cookie::get('user_favorites');
-            }
+        $ids = Cookie::getArray('favorites', []);
+        $count = count($ids);
+        if (!in_array($id, $ids)) {
+            $ids[] = $id;
+            Cookie::setArray('favorites', $ids, 60 * 60 * 24 * 30);
+            $count++;
         } else {
-            Cookie::delete('user_favorites');
+            $key = array_search($id, $ids);
+            unset($ids[$key]);
+            Cookie::setArray('favorites', $ids, 60 * 60 * 24 * 30);
+            $count--;
         }
-
-        $check = DB::select()
-            ->from('users_favorites')
-            ->where('user_id', '=', $user)
-            ->and_where('product_id', '=', $product)
-            ->find();
-        if (is_object($check) && $check->id) {
-            DB::delete('users_favorites')->where('id', '=', $check->id)->execute();
-        } else {
-            $model = [];
-
-            $model['user_id'] = $user;
-            $model['product_id'] = $product;
-            $model['created_at'] = time();
-            $model['ghost_id'] = $ghost_id;
-
-            $keys = [];
-            $values = [];
-
-            foreach ($model as $key => $value) {
-                $keys[] = $key;
-                $values[] = $value;
-            }
-
-            DB::insert('users_favorites', $keys)->values($values)->execute();
-        }
-
         $this->success(__('Товар добавлен в избаное!'));
     }
 

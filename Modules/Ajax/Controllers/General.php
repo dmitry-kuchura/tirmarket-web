@@ -36,6 +36,7 @@ class General extends Ajax
                 'all' => __('Все результаты'),
                 'href' => HTML::link('search?query=' . $query),
                 'buy' => __('Купить'),
+                'placeholder' => __('Поиск'),
             ]
         ];
 
@@ -44,8 +45,8 @@ class General extends Ajax
                 'id' => $obj->id,
                 'link' => HTML::link($obj->link . '/p' . $obj->id, false),
                 'image' => is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
-                'price' => $obj->price,
-                'title' => $obj->title,
+                'price' => $obj->cost,
+                'title' => $obj->name,
             ];
         }
 
@@ -285,13 +286,42 @@ class General extends Ajax
     {
         $result = [];
 
-        $menu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
+        $menu = CommonI18n::factory('sitemenu')->getRows(1, 'sort', 'ASC');
+
+        $catalog = CommonI18n::factory('catalog_tree')->getRows(1, 'sort', 'ASC');
+
+        $tree = [];
+        $category = [];
+        $children = [];
+
+        foreach ($catalog as $obj) {
+            $tree[$obj->parent_id][] = $obj;
+        }
+
+        foreach ($tree[0] as $obj) {
+
+            if (isset($tree[$obj->id])) {
+                foreach ($tree[$obj->id] as $child) {
+                    $children[] = [
+                        'link' => HTML::link($child->alias, false),
+                        'alias' => $child->name,
+                        'children' => false,
+                    ];
+                }
+            }
+
+            $category[] = [
+                'link' => HTML::link($obj->alias, false),
+                'alias' => $obj->name,
+                'children' => $children,
+            ];
+        }
 
         foreach ($menu as $obj) {
             $result['menu'][] = [
                 'link' => HTML::link($obj->url, false),
                 'alias' => $obj->name,
-                'children' => false,
+                'children' => $obj->url == '/products' ? $category : false,
             ];
         }
 

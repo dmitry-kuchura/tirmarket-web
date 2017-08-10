@@ -153,7 +153,6 @@ class Form extends Ajax
                 Arr::get($_SERVER, 'HTTP_HOST'), Arr::get($data, 'ip'), date('d.m.Y'),
                 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/confirm/hash/' . $user->hash,
             ];
-            // TODO
             $subject = str_replace($from, $to, $mail->subject);
             $text = str_replace($from, $to, $mail->text);
             Email::send($subject, $text, $user->email);

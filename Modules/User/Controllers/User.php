@@ -4,6 +4,7 @@ namespace Modules\User\Controllers;
 
 use Core\Arr;
 use Core\Common;
+use Core\CommonI18n;
 use Core\Email;
 use Core\Encrypt;
 use Core\GeoIP;
@@ -23,7 +24,6 @@ use Modules\User\Models\Users;
 
 class User extends Base
 {
-
     public function before()
     {
         parent::before();
@@ -143,6 +143,14 @@ class User extends Base
 
         $orders = Orders::getUserOrders(U::info()->id);
 
+        $result = CommonI18n::factory('payments')->getRows(1, 'sort', 'ASC');
+
+        $payments = [];
+
+        foreach ($result as $obj) {
+            $payments[$obj->id] = $obj->name;
+        }
+
         if (count($orders)) {
             $orders_items = Orders::getUserOrdersItems(U::info()->id);
         } else {
@@ -152,6 +160,7 @@ class User extends Base
         $this->_content = View::tpl([
             'orders' => $orders,
             'orders_items' => $orders_items,
+            'payments' => $payments,
             'statuses' => Config::get('order.statuses'),
             'stClasses' => Config::get('order.st_classes'),
         ], 'User/Orders');
@@ -221,5 +230,19 @@ class User extends Base
         U::factory()->auth($user, 0);
         Message::GetMessage(1, __('Вы успешно зарегистрировались на сайте! Пожалуйста укажите остальную информацию о себе в личном кабинете для того, что бы мы могли обращаться к Вам по имени'));
         HTTP::redirect('account');
+    }
+
+    /**
+     * Разлогин пользователя
+     * @return bool
+     */
+    public function logoutAction()
+    {
+        if (!U::info()) {
+            return Config::error();
+        }
+        U::factory()->logout();
+        Message::GetMessage(1, __('Возвращайтесь еще!'));
+        HTTP::redirect('/');
     }
 }

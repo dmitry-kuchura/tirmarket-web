@@ -131,7 +131,7 @@ class Widgets
             HTML::media('js/bundle.js', false),
             HTML::media('js/programmer/formValidationOnSubmit.js', false),
             HTML::media('js/programmer/programmer.js', false),
-            HTML::media('js/programmer/translate-ru.js', false),
+            HTML::media('js/programmer/translate-' . I18n::$lang . '.js', false),
             HTML::media('js/noty/packaged/jquery.noty.packaged.js', false),
         ];
 

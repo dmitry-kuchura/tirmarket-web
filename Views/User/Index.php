@@ -11,19 +11,19 @@ use Core\Widgets;
                 <table class="table-zebra table-wrapp__table js-table-wrapper__table">
                     <tbody>
                     <tr>
-                        <td><b>Имя и фамилия:</b></td>
+                        <td><b><?php echo __('Имя и фамилия'); ?>:</b></td>
                         <td><?php echo $user->name ? $user->name : '-----'; ?></td>
                     </tr>
                     <tr>
-                        <td><b>Телефон:</b></td>
+                        <td><b><?php echo __('Телефон'); ?>:</b></td>
                         <td><?php echo $user->phone ? $user->phone : '-----'; ?></td>
                     </tr>
                     <tr>
-                        <td><b>Адрес:</b></td>
+                        <td><b><?php echo __('Адрес'); ?>:</b></td>
                         <td><?php echo $user->address ? $user->address : '-----'; ?></td>
                     </tr>
                     <tr>
-                        <td><b>Email:</b></td>
+                        <td><b><?php echo __('Email'); ?>:</b></td>
                         <td><?php echo $user->email ? $user->email : '-----'; ?></td>
                     </tr>
                     </tbody>

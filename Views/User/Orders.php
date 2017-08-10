@@ -6,6 +6,7 @@ use Core\HTML;
 /* @var $orders_items array */
 /* @var $statuses array */
 /* @var $stClasses array */
+/* @var $payments array */
 
 ?>
 
@@ -29,7 +30,7 @@ use Core\HTML;
                 <td><?php echo $obj->id; ?></td>
                 <td><?php echo date('d/m/Y', $obj->created_at); ?></td>
                 <td><?php echo count($orders_items[$obj->id]); ?></td>
-                <td>Наличный</td>
+                <td><?php echo $payments[$obj->payment]; ?></td>
                 <td><b><?php echo number_format($obj->amount); ?>грн.</b></td>
                 <td>
                     <span class="status <?php echo $stClasses[$obj->status]; ?>"><?php echo $statuses[$obj->status]; ?></span>

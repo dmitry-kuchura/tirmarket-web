@@ -154,7 +154,7 @@ class Form extends Ajax
             $from = ['{{site}}', '{{ip}}', '{{date}}', '{{link}}'];
             $to = [
                 Arr::get($_SERVER, 'HTTP_HOST'), Arr::get($data, 'ip'), date('d.m.Y'),
-                'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/confirm/hash/' . $user->hash,
+                HTML::link('/account/confirm/hash/' . $user->hash, true)
             ];
             $subject = str_replace($from, $to, $mail->subject);
             $text = str_replace($from, $to, $mail->text);

@@ -351,8 +351,8 @@ class Form extends Ajax
                 '{{date}}' => date('d.m.Y H:i'),
                 '{{name}}' => $order->name,
                 '{{phone}}' => $order->phone,
-                '{{payment}}' => $payments[$order->phone],
-                '{{delivery}}' => $delivery[$order->phone],
+                '{{payment}}' => $payments[$order->payment],
+                '{{delivery}}' => $delivery[$order->delivery],
                 '{{link_admin}}' => $link_admin,
                 '{{link_user}}' => $link_user,
                 '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
@@ -364,8 +364,8 @@ class Form extends Ajax
                 '{{date}}' => date('d.m.Y H:i'),
                 '{{name}}' => $order->name,
                 '{{phone}}' => $order->phone,
-                '{{payment}}' => $payments[$order->phone],
-                '{{delivery}}' => $delivery[$order->phone],
+                '{{payment}}' => $payments[$order->payment],
+                '{{delivery}}' => $delivery[$order->delivery],
                 '{{link_admin}}' => $link_admin,
                 '{{link_user}}' => $link_user,
                 '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')

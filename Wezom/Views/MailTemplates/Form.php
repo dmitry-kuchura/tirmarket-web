@@ -287,6 +287,12 @@ use Core\Arr;
                         <div class="col-md-6">{{link_admin}}</div>
                     </div>
                 <?php endif ?>
+                <?php if ($obj->id == 13): ?>
+                    <div class="rowSection">
+                        <div class="col-md-6"><strong><?php echo __('Email'); ?></strong></div>
+                        <div class="col-md-6">{{email}}</div>
+                    </div>
+                <?php endif ?>
                 <?php if ($obj->id == 15): ?>
                     <div class="rowSection">
                         <div class="col-md-6"><strong><?php echo __('Номер заказа'); ?></strong></div>

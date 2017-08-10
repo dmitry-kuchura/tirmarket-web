@@ -224,7 +224,8 @@ class User extends Base
         Email::sendTemplate(13, [
             '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
             '{{ip}}' => GeoIP::ip(),
-            '{{date}}' => date('d.m.Y')
+            '{{date}}' => date('d.m.Y'),
+            '{{email}}' => $user->email,
         ], $user->email);
 
         U::factory()->auth($user, 0);

@@ -5,6 +5,7 @@ namespace Modules\Ajax\Controllers;
 use Core\CommonI18n;
 use Core\Cookie;
 use Core\GeoIP;
+use Core\HTML;
 use Core\QB\DB;
 use Core\Arr;
 use Core\User;
@@ -75,7 +76,7 @@ class Form extends Ajax
     }
 
     /**
-     * Login action
+     * Авторизация пользователя
      */
     public function loginAction()
     {
@@ -101,7 +102,7 @@ class Form extends Ajax
     }
 
     /**
-     * User registration
+     * Регистрация пользователя
      */
     public function registrationAction()
     {
@@ -185,7 +186,7 @@ class Form extends Ajax
     }
 
     /**
-     * First step order
+     * Первый шаг оформления заказа
      */
     public function firstStepOrderAction()
     {
@@ -307,12 +308,12 @@ class Form extends Ajax
         $this->success([
             'success' => true,
             'showNextSteep' => true,
-            'msg' => 'Success'
+            'msg' => __('Успешно')
         ]);
     }
 
     /**
-     * Second step order
+     * Второй шаг оформление заказа
      */
     public function secondStepOrderAction()
     {
@@ -354,14 +355,14 @@ class Form extends Ajax
 
         $this->success([
             'success' => true,
-            'redirect' => '/cart/thank',
-            'msg' => 'Success'
+            'redirect' => HTML::link('cart/thank'),
+            'msg' => __('Заказ был сформирован')
         ]);
 
     }
 
     /**
-     * Edit profile action
+     * Редактирование профиля пользователя
      */
     public function editProfileAction()
     {
@@ -410,7 +411,7 @@ class Form extends Ajax
     }
 
     /**
-     * Change password action
+     * Замена пароля пользователя
      */
     public function change_passwordAction()
     {
@@ -430,7 +431,7 @@ class Form extends Ajax
 
         $repeat = trim(Arr::get($this->post, 'confirm'));
         if ($newpass != $repeat) {
-            $this->error(__('Поля "Новый пароль" и "Подтвердите новый пароль" должны совпадать!'));
+            $this->error(__('должны совпадать'));
         }
 
         User::factory()->update_password(User::info()->id, $newpass);
@@ -446,7 +447,7 @@ class Form extends Ajax
     }
 
     /**
-     * Forgot password action
+     * Востановление пароля пользователя
      */
     public function forgot_passwordAction()
     {
@@ -476,29 +477,29 @@ class Form extends Ajax
     }
 
     /**
-     * Add transport to user
+     * Добавление Т/С пользователя
      */
     public function addTransportAction()
     {
         $gos_number = Arr::get($this->post, 'gos_number');
         if (!$gos_number) {
-            $this->error(__('Не указан ГОС номер!'));
+            $this->error(__('Не указан ГОС номер'));
         }
         $mark = Arr::get($this->post, 'mark');
         if (!$mark) {
-            $this->error(__('Не указана марка машины!'));
+            $this->error(__('Не указана марка машины'));
         }
         $mod = Arr::get($this->post, 'model');
         if (!$mod) {
-            $this->error(__('Нет модели транспортного средства!'));
+            $this->error(__('Нет модели транспортного средства'));
         }
         $year = Arr::get($this->post, 'year');
         if (!$year) {
-            $this->error(__('Не указан год выпуска!'));
+            $this->error(__('Не указан год выпуска'));
         }
         $vin = Arr::get($this->post, 'vin');
         if (!$vin) {
-            $this->error(__('Укажите VIN!'));
+            $this->error(__('Укажите VIN'));
         }
 
         $model = [];
@@ -521,11 +522,11 @@ class Form extends Ajax
 
         DB::insert('users_transport', $keys)->values($values)->execute();
 
-        $this->success(['response' => __('Транспортное средство добавлено!'), 'redirect' => '/account']);
+        $this->success(['response' => __('Транспортное средство добавлено'), 'redirect' => '/account']);
     }
 
     /**
-     * Picking form action
+     * Форма подбора
      */
     public function pickingAction()
     {
@@ -562,14 +563,14 @@ class Form extends Ajax
 
         $result = DB::insert('picking', $keys)->values($values)->execute();
         if (!$result) {
-            $this->error(__('Произошла ошибка!'));
+            $this->error(__('Произошла ошибка'));
         }
 
         $this->success(['response' => __('Запрос был сформирован')]);
     }
 
     /**
-     * buy One Click
+     * Заказ в Один-клик
      */
     public function simpleAction()
     {
@@ -621,6 +622,61 @@ class Form extends Ajax
         ]);
 
         $this->success(__('Вы успешно оформили заказ в один клик! Оператор свяжется с Вами в скором времени'));
+    }
+
+    /**
+     * Оформление заказа отсутсвующего товара
+     */
+    public function emptyOrderAction()
+    {
+        $id = Arr::get($this->post, 'catalog');
+        if (!$id) {
+            $this->error(__('Такой товар не существует!'));
+        }
+        $item = CommonI18n::factory('catalog')->getRow($id);
+        $item = $item['obj'];
+        if (!$item) {
+            $this->error(__('Такой товар не существует!'));
+        }
+        $phone = trim(Arr::get($this->post, 'phone'));
+        if (!$phone) {
+            $this->error(__('Номер телефона введен неверно!'));
+        }
+
+        $ip = System::getRealIP();
+        $check = DB::select([DB::expr('orders_simple.id'), 'count'])
+            ->from('orders_empty')
+            ->where('ip', '=', $ip)
+            ->where('catalog_id', '=', $id)
+            ->where('created_at', '>', time() - 60)
+            ->as_object()->execute()->current();
+        if (is_object($check) and $check->count) {
+            $this->error(__('Вы только что заказали этот товар! Пожалуйста, повторите попытку через минуту'));
+        }
+
+        $keys = ['ip', 'phone', 'catalog_id', 'user_id', 'created_at'];
+        $values = [$ip, $phone, $item->id, User::info() ? User::info()->id : 0, time()];
+        $lastID = DB::insert('orders_empty', $keys)->values($values)->execute();
+        $lastID = Arr::get($lastID, 0);
+
+        $link = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/' . $item->alias . '/p' . $item->id;
+        $link_admin = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/wezom/catalog/edit/' . $item->id;
+
+        $qName = 'Заказ в один клик';
+        $url = '/wezom/simple/edit/' . $lastID;
+        Log::add($qName, $url, 7);
+
+        Email::sendTemplate(8, [
+            '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+            '{{ip}}' => $ip,
+            '{{date}}' => date('d.m.Y H:i'),
+            '{{phone}}' => $phone,
+            '{{link}}' => $link,
+            '{{admin_link}}' => $link_admin,
+            '{{item_name}}' => $item->name
+        ]);
+
+        $this->success(__('Оператор свяжется с Вами в скором времени'));
     }
 
 }

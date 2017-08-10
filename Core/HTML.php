@@ -107,7 +107,7 @@ class HTML
             $v = '?v=' . filemtime('Media/' . trim($file, '/'));
         }
         if ($absolute) {
-            return '//' . $_SERVER['HTTP_HOST'] . '/Media/' . trim($file, '/') . $v;
+            return 'http://' . $_SERVER['HTTP_HOST'] . '/Media/' . trim($file, '/') . $v;
         }
         return '/Media/' . trim($file, '/') . $v;
     }

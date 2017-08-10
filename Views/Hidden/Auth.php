@@ -34,6 +34,7 @@
             </div>
 
             <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
+            <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">
 
             <div class="_flex _justify-between _items-center">
                 <div class="_col-auto">
@@ -41,7 +42,8 @@
                 </div>
 
                 <div class="_col-auto">
-                    <a href="#" data-tab-trigger="sing-up" data-tab-ns="auth"><?php echo __('Зарегистрироваться'); ?></a>
+                    <a href="#" data-tab-trigger="sing-up"
+                       data-tab-ns="auth"><?php echo __('Зарегистрироваться'); ?></a>
                 </div>
             </div>
         </form>
@@ -53,12 +55,14 @@
         <form class="" data-form data-ajax="registration">
             <div class="form-label"><?php echo __('Укажите свой Email'); ?> <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="email" class="form-element__input" name="mail" data-name="email" data-rule-email="true" required/>
+                <input type="email" class="form-element__input" name="mail" data-name="email" data-rule-email="true"
+                       required/>
             </div>
 
             <div class="form-label"><?php echo __('Пароль'); ?> <i>*</i></div>
             <div class="form-element _mb-2">
-                <input type="password" class="form-element__input" name="pass" data-name="password" data-rule-password="true" required/>
+                <input type="password" class="form-element__input" name="pass" data-name="password"
+                       data-rule-password="true" required/>
             </div>
 
             <div class="_flex _justify-between _items-center _mb-3">
@@ -72,10 +76,12 @@
             </div>
 
             <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
+            <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">
 
             <div class="_flex _justify-between _items-center">
                 <div class="_col-auto">
-                    <button class="button _pl-5 _pr-5" type="submit"><span><?php echo __('Зарегистрироваться'); ?></span></button>
+                    <button class="button _pl-5 _pr-5" type="submit">
+                        <span><?php echo __('Зарегистрироваться'); ?></span></button>
                 </div>
             </div>
         </form>
@@ -96,13 +102,15 @@
                 </div>
 
                 <div class="_col-auto">
-                    <a href="#" data-tab-trigger="sing-up" data-tab-ns="auth"><?php echo __('Зарегистрироваться'); ?></a>
+                    <a href="#" data-tab-trigger="sing-up"
+                       data-tab-ns="auth"><?php echo __('Зарегистрироваться'); ?></a>
                 </div>
             </div>
 
             <div class="_flex _justify-between _items-center">
                 <div class="_col-auto">
-                    <button class="button _pl-5 _pr-5" type="submit"><span><?php echo __('Отправить'); ?></span></button>
+                    <button class="button _pl-5 _pr-5" type="submit"><span><?php echo __('Отправить'); ?></span>
+                    </button>
                 </div>
             </div>
         </form>

@@ -6,6 +6,7 @@
                    placeholder="<?php echo __('Контактный телефон'); ?>"/>
         </span>
         <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
+        <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">
         <input type="hidden" data-name="catalog" value="<?php echo $catalog; ?>"/>
         <div class="_flex">
             <button class="button _m-auto _pl-5 _pr-5" type="submit">

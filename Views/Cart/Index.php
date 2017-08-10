@@ -35,6 +35,7 @@ use Core\HTML;
                        required>
             </div>
             <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
+            <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">
             <button class="button _pl-5 _pr-5" type="submit">
                 <span><?php echo __('Продолжить'); ?></span>
             </button>
@@ -114,6 +115,7 @@ use Core\HTML;
                 </div>
             </div>
             <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
+            <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">
             <button class="button _pl-5 _pr-5" type="submit"><span><?php echo __('Подтверждаю'); ?></span></button>
         </form>
     </div>

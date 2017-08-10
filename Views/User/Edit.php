@@ -27,6 +27,7 @@
                value="<?php echo $user->address ? $user->address : ''; ?>" placeholder="">
     </div>
     <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
+    <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">
     <button class="button _pl-5 _pr-5" type="submit">
         <span><?php echo __('Сохранить'); ?></span>
     </button>

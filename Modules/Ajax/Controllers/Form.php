@@ -18,6 +18,8 @@ use Core\Email;
 use Core\Message;
 use Core\Common;
 use Modules\Ajax;
+use Modules\Cart\Models\Delivery;
+use Modules\Cart\Models\Payments;
 use Modules\Catalog\Models\Items;
 
 class Form extends Ajax
@@ -329,21 +331,8 @@ class Form extends Ajax
 
             $order = Common::factory('orders')->getRow($order_id);
 
-            $payments = [];
-
-            $result = CommonI18n::factory('payments')->getRows(1);
-
-            foreach ($result as $obj) {
-                $payments[$obj->id] = $obj->name;
-            }
-
-            $delivery = [];
-
-            $result = CommonI18n::factory('delivery')->getRows(1);
-
-            foreach ($result as $obj) {
-                $delivery[$obj->id] = $obj->name;
-            }
+            $payments = Payments::getPayments();
+            $delivery = Delivery::getDelivery();
 
             Email::sendTemplate(11, [
                 '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),

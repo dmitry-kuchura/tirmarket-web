@@ -19,6 +19,7 @@ use Core\HTTP;
 use Core\Message;
 use Modules\Base;
 use Modules\Cart\Models\Orders;
+use Modules\Cart\Models\Payments;
 use Modules\User\Models\Users AS Model;
 use Modules\User\Models\Users;
 
@@ -143,15 +144,9 @@ class User extends Base
 
         $orders = Orders::getUserOrders(U::info()->id);
 
-        $result = CommonI18n::factory('payments')->getRows(1, 'sort', 'ASC');
+        $payments = Payments::getPayments();
 
-        $payments = [];
-
-        foreach ($result as $obj) {
-            $payments[$obj->id] = $obj->name;
-        }
-
-        if (count($orders)) {
+        if ($orders) {
             $orders_items = Orders::getUserOrdersItems(U::info()->id);
         } else {
             $orders_items = [];

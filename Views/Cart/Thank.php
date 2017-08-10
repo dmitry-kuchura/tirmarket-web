@@ -1,7 +1,7 @@
 <?php use Core\HTML; ?>
 <div class="_flex _items-center _grid-space-3 _justify-center">
     <div class="_col-6 _text-center">
-        <img src="<?php echo HTML::media('pic/order-success.jpg'); ?>" alt="">
+        <img src="<?php echo HTML::media('pic/order-success.jpg', false); ?>" alt="">
     </div>
     <div class="_col-12 _md-col-6 _text-center _md-text-left">
         <div class="title _mb-2">

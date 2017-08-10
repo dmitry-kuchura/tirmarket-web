@@ -59,9 +59,7 @@ class Cart extends Base
 
     public function thankAction()
     {
-        if (Config::get('error')) {
-            return false;
-        }
+        $this->current = Control::getRowSimple('cart/thank', 'alias', 1);
 
         $this->_seo['h1'] = $this->current->h1;
         $this->_seo['title'] = $this->current->title;

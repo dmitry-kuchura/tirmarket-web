@@ -73,11 +73,6 @@ use Core\HTML;
                 <div class="_col-auto _flex-grow-1">
                     <div class="_mb-2"><?php echo __('Мы в социальных сетях'); ?>:</div>
                     <div class="social _mb-3">
-                        <a href="<?php echo Config::get('socials.ok'); ?>" class="social__item social__item--ok">
-                            <svg>
-                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#odnoklassniki', false); ?>"></use>
-                            </svg>
-                        </a>
                         <a href="<?php echo Config::get('socials.fb'); ?>" class="social__item social__item--fb">
                             <svg>
                                 <use xlink:href="<?php echo HTML::media('icons/icons.svg#facebook', false); ?>"></use>

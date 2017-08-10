@@ -15,8 +15,8 @@ use Core\HTML;
             <div data-slider="promo" class="catalog-slider">
                 <?php foreach ($sale as $obj): ?>
                     <?php
-                    if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
-                        $image = HTML::media('images/catalog/main/' . $obj->image, false);
+                    if (is_file(HOST . HTML::media('images/catalog/item/' . $obj->image, false))) {
+                        $image = HTML::media('images/catalog/item/' . $obj->image, false);
                     } else {
                         $image = HTML::media('pic/no-image.png');
                     }

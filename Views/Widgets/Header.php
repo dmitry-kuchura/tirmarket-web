@@ -91,21 +91,21 @@ use Core\Config;
                 <div class="_col-auto _flex-shrink-0">
                     <div class="_flex _items-center">
                         <?php if ($user): ?>
-                            <a href="<?php echo HTML::link('account/favorites'); ?>" class="header-icon">
+                            <a href="<?php echo HTML::link('account/favorites', false); ?>" class="header-icon">
                                 <span class="header-icon__caption"><?php echo __('Избранное'); ?></span>
                                 <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
                             </span>
                             </a>
                         <?php else: ?>
-                            <a href="<?php echo HTML::link('favorites'); ?>" class="header-icon">
+                            <a href="<?php echo HTML::link('favorites', false); ?>" class="header-icon">
                                 <span class="header-icon__caption"><?php echo __('Избранное'); ?></span>
                                 <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
                             </span>
                             </a>
                         <?php endif; ?>
-                        <a href="#" class="header-icon" data-mfp="<?php echo HTML::link('hidden/basket'); ?>">
+                        <a href="#" class="header-icon" data-mfp="<?php echo HTML::link('hidden/basket', false); ?>">
                             <span class="header-icon__caption"><?php echo __('Корзина'); ?></span>
                             <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>

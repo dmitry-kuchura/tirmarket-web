@@ -189,13 +189,14 @@ class General extends Ajax
             $ids[] = $id;
             Cookie::setArray('favorites', $ids, 60 * 60 * 24 * 30);
             $count++;
+            $this->success(['favorite' => true]);
         } else {
             $key = array_search($id, $ids);
             unset($ids[$key]);
             Cookie::setArray('favorites', $ids, 60 * 60 * 24 * 30);
             $count--;
+            $this->success(['favorite' => false]);
         }
-        $this->success(__('Товар добавлен в избаное!'));
     }
 
     /**

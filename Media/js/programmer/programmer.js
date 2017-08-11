@@ -33,8 +33,14 @@ jQuery(document).ready(function ($) {
                 product: product
             },
             success: function (data) {
-                if (data.success == true) {
-                    generate(data.response, 'success', 3500);
+                if (data.success === true) {
+
+                    if (data.favorite) {
+                        $(event.currentTarget).addClass('in-favorite-now');
+                    } else {
+                        $(event.currentTarget).removeClass('in-favorite-now');
+                    }
+
                 }
             }
         });
@@ -50,10 +56,10 @@ jQuery(document).ready(function ($) {
             get.push(old);
         }
         $('#catalogSort select').each(function () {
-            if ($(this).attr('name') == 'per_page') {
+            if ($(this).attr('name') === 'per_page') {
                 get.push('per_page=' + $(this).val());
             }
-            if ($(this).attr('name') == 'sort' && $(this).val()) {
+            if ($(this).attr('name') === 'sort' && $(this).val()) {
                 get.push('sort=' + $(this).val());
                 get.push('type=' + $(this).find('option:selected').data('type'));
             }

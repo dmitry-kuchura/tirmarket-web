@@ -82,6 +82,12 @@
 	outline: none;
 }
 
+.in-favorite-now {
+	svg {
+		fill: $color-orange !important;
+	}
+}
+
 .product-maker {
 	color: #666666;
 	font-size: 16px;

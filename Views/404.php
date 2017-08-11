@@ -24,11 +24,31 @@ use Core\Widgets;
 <div class="page-wrapper">
     <?php echo Widgets::get('Header'); ?>
     <main class="page-main">
-        <div class="page_404">
-            <p>404</p>
-            <p><?php echo __('Страница не найдена. Начните с <a href="/">Главной страницы</a>.'); ?></p>
-            <a href="<?php echo HTML::link('sitemap'); ?>"><?php echo __('Карта сайта'); ?></a>
+
+        <div class="page-size">
+            <div class="page-404">
+                <div class="page-404__title">404</div>
+
+                <div class="page-404__body">
+                    <div class="wysiwyg">
+                        <p>Страница не найдена. К сожалению, страница, которую Вы запросили, не была найдена</p>
+
+                        <p>Возможные причины такой "ошибки":</p>
+
+                        <ul>
+                            <li>Неверный URL-адресс страницы - проверьте его на наличие ошибок</li>
+                            <li>Страница не существует</li>
+                            <li>Страница временно недоступна или удалена</li>
+                        </ul>
+
+                        <p>Вы можете перейти на Главную страницу или ознакомиться с нашим каталогом товаров.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+
     </main>
     <?php echo Widgets::get('Footer'); ?>
 </div>

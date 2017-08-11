@@ -4,7 +4,7 @@ module.exports = function (context = `body`) {
 
     $(context).on(`click`, `[data-basket-trigger]`, function (event) {
         event.preventDefault();
-        
+
         let ID = $(event.currentTarget).data('id');
         let count = $(event.currentTarget).data('count');
 

@@ -55,10 +55,9 @@ class Brands extends Base
         $this->_seo['description'] = $this->current->description;
         $this->_seo['text'] = $this->current->text;
         // Get brands list
-        $result = Model::getRows(1, 'brands_i18n.name');
+        $result = CommonI18n::factory('brands')->getRows(1);
         // Get alphabet
-        $alphabet = Text::get_alphabet($result);
-        $this->_content = View::tpl(['alphabet' => $alphabet], 'Brands/List');
+        $this->_content = View::tpl(['result' => $result], 'Brands/Index');
     }
 
     // Items page
@@ -82,17 +81,10 @@ class Brands extends Base
         $this->setSeoForBrand($brand);
         // Get popular items
         $result = Items::getBrandItems($brand->alias, $this->sort, $this->type, $this->_limit, $this->_offset);
-        // Set description of the brand to show it above the sort part
-        Config::set('brand_description', View::tpl(['brand' => $brand], 'Brands/Inner'));
         // Count of parent groups
         $count = Items::countBrandItems($brand->alias);
-        // Generate pagination
-        $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
-        //canonicals settings
-        $this->_use_canonical = 1;
-        $this->_canonical = 'brands/' . Route::param('alias');
         // Render template
-        $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Brands/List');
+        $this->_content = View::tpl(['result' => $result], 'Brands/List');
     }
 
     // Set seo tags from template for brands

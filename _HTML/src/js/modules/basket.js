@@ -3,24 +3,25 @@
 module.exports = function (context = `body`) {
 
     $(context).on(`click`, `[data-basket-trigger]`, function (event) {
-
+        event.preventDefault();
+        
         let ID = $(event.currentTarget).data('id');
         let count = $(event.currentTarget).data('count');
 
         console.log(ID);
 
         $.ajax({
-          url: window.initialConfig.ajax.basket,
-          method: "POST",
-          data: {
-              "action": "add",
-              "id": ID,
-              "count": count || 1
-          },
-          dataType: "json"
+            url: window.initialConfig.ajax.basket,
+            method: "POST",
+            data: {
+                "action": "add",
+                "id": ID,
+                "count": count || 1
+            },
+            dataType: "json"
         }).done(function (response) {
 
-            if(response.success) {
+            if (response.success) {
 
                 $.magnificPopup.open({
                     items: {
@@ -31,13 +32,13 @@ module.exports = function (context = `body`) {
                     removalDelay: 300,
                     mainClass: `zoom-in`,
                     callbacks: {
-                        ajaxContentAdded () {
+                        ajaxContentAdded() {
                             let $content = this.content;
 
                             let $vue = $(`[data-vue]`, $content);
 
-                            for(let item of $vue) {
-                                if($(item).data('vue-init') !== true) {
+                            for (let item of $vue) {
+                                if ($(item).data('vue-init') !== true) {
                                     new Vue().$mount(item);
                                     $(item).data('vue-init', true);
                                 }

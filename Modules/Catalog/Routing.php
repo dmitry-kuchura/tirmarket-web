@@ -2,15 +2,6 @@
 
 return [
     'favorites' => 'catalog/favorites/index',
-    // Catalog unique aliases routing
-    'new' => 'catalog/novelty/index',
-    'new/page/<page:[0-9]*>' => 'catalog/novelty/index',
-    'popular' => 'catalog/popular/index',
-    'popular/page/<page:[0-9]*>' => 'catalog/popular/index',
-    'sale' => 'catalog/sale/index',
-    'sale/page/<page:[0-9]*>' => 'catalog/sale/index',
-    'viewed' => 'catalog/viewed/index',
-    'viewed/page/<page:[0-9]*>' => 'catalog/viewed/index',
     // Catalog groups routing
     'products' => 'catalog/catalog/index',
     'products/page/<page:[0-9]*>' => 'catalog/catalog/index',

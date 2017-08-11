@@ -61,7 +61,6 @@ class Brands extends Base
         $this->_content = View::tpl(['alphabet' => $alphabet], 'Brands/List');
     }
 
-
     // Items page
     public function innerAction()
     {
@@ -93,7 +92,7 @@ class Brands extends Base
         $this->_use_canonical = 1;
         $this->_canonical = 'brands/' . Route::param('alias');
         // Render template
-        $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/ItemsList');
+        $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Brands/List');
     }
 
     // Set seo tags from template for brands

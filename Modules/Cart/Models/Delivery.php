@@ -9,6 +9,11 @@ class Delivery extends CommonI18n
 
     public static $table = 'delivery';
 
+    /**
+     * Получения списка доставок в виде массива
+     *
+     * @return array
+     */
     public static function getDelivery()
     {
         $delivery = [];

@@ -134,10 +134,7 @@ class Widgets
             HTML::media('js/noty/packaged/jquery.noty.packaged.js', false),
         ];
 
-        $scripts_no_minify = [
-            HTML::media('js/programmer/ulogin.js', false),
-        ];
-        return ['scripts' => $scripts, 'scripts_no_minify' => $scripts_no_minify];
+        return ['scripts' => $scripts];
     }
 
     public function Footer()

@@ -668,7 +668,7 @@ class Form extends Ajax
         }
 
         $ip = System::getRealIP();
-        $check = DB::select([DB::expr('orders_simple.id'), 'count'])
+        $check = DB::select([DB::expr('orders_empty.id'), 'count'])
             ->from('orders_empty')
             ->where('ip', '=', $ip)
             ->where('catalog_id', '=', $id)
@@ -686,7 +686,7 @@ class Form extends Ajax
         $link = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/' . $item->alias . '/p' . $item->id;
         $link_admin = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/wezom/catalog/edit/' . $item->id;
 
-        $qName = 'Заказ в один клик';
+        $qName = 'Заказ в отстутсвующего товара';
         $url = '/wezom/simple/edit/' . $lastID;
         Log::add($qName, $url, 7);
 

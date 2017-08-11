@@ -9,6 +9,11 @@ class Payments extends CommonI18n
 
     public static $table = 'payments';
 
+    /**
+     * Получение списка способов оплаты в виде массива
+     *
+     * @return array
+     */
     public static function getPayments()
     {
         $payments = [];

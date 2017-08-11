@@ -69,6 +69,7 @@ class WidgetsBackend
         $counts['all_emails'] = $counts['contacts'] + $counts['callbacks'] + $counts['picking'];
         $counts['orders'] = (int)Common::factory('orders')->countRows(0);
         $counts['simple_orders'] = (int)Common::factory('orders_simple')->countRows(0);
+        $counts['empty_orders'] = (int)Common::factory('orders_empty')->countRows(0);
         $counts['all_orders'] = $counts['orders'] + $counts['simple_orders'];
         $counts['reviews'] = (int)DB::select([DB::expr('COUNT(id)'), 'count'])->from('reviews')->where('status', '=', 0)->count_all();
 

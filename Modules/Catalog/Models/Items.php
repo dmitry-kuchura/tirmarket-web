@@ -98,9 +98,11 @@ class Items extends CommonI18n
 
     public static function getBrandItems($brand_alias, $sort = null, $type = null, $limit = null, $offset = null)
     {
-        $result = DB::select(static::$table . '.*')
+        $result = DB::select(static::$table . '.*', static::$tableI18n . '.name')
             ->from(static::$table)
+            ->join(static::$tableI18n)->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
             ->where(static::$table . '.brand_alias', '=', $brand_alias)
+            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
             ->where(static::$table . '.status', '=', 1);
         if ($sort !== null) {
             if ($type !== null) {
@@ -332,8 +334,8 @@ class Items extends CommonI18n
             ->join('users_favorites', 'LEFT')->on('users_favorites.product_id', '=', static::$table . '.id')
             ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
             ->where(static::$tableI18n . '.language', '=', I18n::$lang)
-            ->where(static::$table.'.id', 'IN', $ids)
-            ->group_by(static::$table.'.id')
+            ->where(static::$table . '.id', 'IN', $ids)
+            ->group_by(static::$table . '.id')
             ->find_all();
 
         return $favorites;

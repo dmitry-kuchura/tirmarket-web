@@ -14,6 +14,11 @@ return [
     'wezom/simple/index/page/<page:[0-9]*>' => 'orders/simple/index',
     'wezom/simple/edit/<id:[0-9]*>' => 'orders/simple/edit',
     'wezom/simple/delete/<id:[0-9]*>' => 'orders/simple/delete',
+    // Simple orders
+    'wezom/no/index' => 'orders/no/index',
+    'wezom/no/index/page/<page:[0-9]*>' => 'orders/no/index',
+    'wezom/no/edit/<id:[0-9]*>' => 'orders/no/edit',
+    'wezom/no/delete/<id:[0-9]*>' => 'orders/no/delete',
     // Delivery
     'wezom/delivery/index' => 'orders/delivery/index',
     'wezom/delivery/index/page/<page:[0-9]*>' => 'orders/delivery/index',

@@ -24,32 +24,40 @@ use Core\Config;
                 <?php endif; ?>
             </div>
             <div class="product-image" data-slider="product">
-                <?php foreach ($images as $im): ?>
-                    <?php
-                    if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
-                        $image = HTML::media('images/catalog/main/' . $obj->image, false);
-                    } else {
-                        $image = HTML::media('pic/no-image.png', false);
-                    }
-                    ?>
+                <?php if (count($images)): ?>
+                    <?php foreach ($images as $im): ?>
+                        <?php
+                        if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
+                            $image = HTML::media('images/catalog/main/' . $obj->image, false);
+                        } else {
+                            $image = HTML::media('pic/no-image.png', false);
+                        }
+                        ?>
+                        <div class="product-image__item">
+                            <img src="<?php echo $image; ?>" alt="">
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <div class="product-image__item">
-                        <img src="<?php echo $image; ?>" alt="">
+                        <img src="<?php echo HTML::media('pic/no-image.png', false); ?>" alt="">
                     </div>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </div>
             <div class="product-thumbs" data-slider="product-thumb">
-                <?php foreach ($images as $im): ?>
-                    <?php
-                    if (is_file(HOST . HTML::media('images/catalog/thumb/' . $obj->image, false))) {
-                        $image = HTML::media('images/catalog/thumb/' . $obj->image, false);
-                    } else {
-                        $image = HTML::media('pic/no-image.png', false);
-                    }
-                    ?>
-                    <div class="product-thumbs__item">
-                        <img src="<?php echo $image; ?>" alt="">
-                    </div>
-                <?php endforeach; ?>
+                <?php if (count($images)): ?>
+                    <?php foreach ($images as $im): ?>
+                        <?php
+                        if (is_file(HOST . HTML::media('images/catalog/thumb/' . $obj->image, false))) {
+                            $image = HTML::media('images/catalog/thumb/' . $obj->image, false);
+                        } else {
+                            $image = HTML::media('pic/no-image.png', false);
+                        }
+                        ?>
+                        <div class="product-thumbs__item">
+                            <img src="<?php echo $image; ?>" alt="">
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -118,18 +126,32 @@ use Core\Config;
                                 </i>
                                 <span><?php echo __('Купить в ОДИН КЛИК'); ?></span>
                             </a>
-                            <a href="#" class="button" data-basket-trigger data-id="<?php echo $obj->id; ?>"
-                               data-binding="product">
-                                <span>
-                                    <i>
-                                        <svg>
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                 xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use>
-                                        </svg>
-                                    </i>
-                                    <span><?php echo __('В корзину'); ?></span>
-                                </span>
-                            </a>
+                            <?php if ($obj->available == 1): ?>
+                                <a href="#" class="button" data-basket-trigger data-id="<?php echo $obj->id; ?>"
+                                   data-binding="product">
+                                    <span>
+                                        <i>
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                     xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use>
+                                            </svg>
+                                        </i>
+                                        <span><?php echo __('В корзину'); ?></span>
+                                    </span>
+                                </a>
+                            <?php else: ?>
+                                <a href="#" class="button" data-mfp="<?php echo HTML::link('hidden/order'); ?>"
+                                   data-param='<?php echo json_encode(['id' => $obj->id]); ?>'
+                                   v-else>
+                                    <span>
+                                        <i>
+                                            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                      xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
+                                        </i>
+                                        <span><?php echo __('Заказать'); ?></span>
+                                    </span>
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 .idea
 
+/Plugins/I18n/*
 Config/database.php
 Media/images

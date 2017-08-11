@@ -18,3 +18,4 @@
         </div>
     <?php endforeach; ?>
 </div>
+<?php echo $pager; ?>

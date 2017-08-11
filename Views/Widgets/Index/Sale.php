@@ -179,7 +179,7 @@ use Core\HTML;
                                            data-binding="product">
                                             <span>
                                                 <i>
-                                                    <svg><use xlink:href="Media/icons/icons.svg#cart"></use></svg>
+                                                    <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
                                                 </i>
                                                 <span><?php echo __('Купить'); ?></span>
                                             </span>

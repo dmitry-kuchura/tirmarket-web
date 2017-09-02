@@ -187,8 +187,22 @@ use Core\Arr;
                         <div class="col-md-6"><strong><?php echo __('Оценка'); ?></strong></div>
                         <div class="col-md-6">{{mark}}</div>
                     </div>
-                <?php endif ?>
-                <?php if ($obj->id == 8 || $obj->id == 9): ?>
+                <?php endif; ?>
+                <?php if ($obj->id == 8): ?>
+                    <div class="rowSection">
+                        <div class="col-md-6"><strong><?php echo __('Телефон'); ?></strong></div>
+                        <div class="col-md-6">{{phone}}</div>
+                    </div>
+                    <div class="rowSection">
+                        <div class="col-md-6"><strong><?php echo __('Ссылка на товар'); ?></strong></div>
+                        <div class="col-md-6">{{link}}</div>
+                    </div>
+                    <div class="rowSection">
+                        <div class="col-md-6"><strong><?php echo __('Название товара'); ?></strong></div>
+                        <div class="col-md-6">{{item_name}}</div>
+                    </div>
+                <?php endif; ?>
+                <?php if ($obj->id == 9): ?>
                     <div class="rowSection">
                         <div class="col-md-6"><strong><?php echo __('Имя'); ?></strong></div>
                         <div class="col-md-6">{{name}}</div>

@@ -13,7 +13,7 @@
                         <?php $options = [
                             'head' => __('Вставить перед </head>'),
                             'body' => __('Вставить после <body>'),
-                            'counter' => __('Счетчик (в футере)'),
+//                            'counter' => __('Счетчик (в футере)'),
                         ]; ?>
                         <?php echo \Forms\Builder::select($options,
                             $obj->place, [

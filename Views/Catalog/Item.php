@@ -27,8 +27,8 @@ use Core\Config;
                 <?php if (count($images)): ?>
                     <?php foreach ($images as $im): ?>
                         <?php
-                        if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
-                            $image = HTML::media('images/catalog/main/' . $obj->image, false);
+                        if (is_file(HOST . HTML::media('images/catalog/main/' . $im->image, false))) {
+                            $image = HTML::media('images/catalog/main/' . $im->image, false);
                         } else {
                             $image = HTML::media('pic/no-image.png', false);
                         }
@@ -47,8 +47,8 @@ use Core\Config;
                 <?php if (count($images)): ?>
                     <?php foreach ($images as $im): ?>
                         <?php
-                        if (is_file(HOST . HTML::media('images/catalog/thumb/' . $obj->image, false))) {
-                            $image = HTML::media('images/catalog/thumb/' . $obj->image, false);
+                        if (is_file(HOST . HTML::media('images/catalog/main/' . $im->image, false))) {
+                            $image = HTML::media('images/catalog/main/' . $im->image, false);
                         } else {
                             $image = HTML::media('pic/no-image.png', false);
                         }
@@ -62,7 +62,7 @@ use Core\Config;
         </div>
     </div>
     <div class="_col-12 _lg-col-7 _xl-col-5 _flex-grow-0 _flex-shrink-0 _mb-3">
-        <div class="title _mb-3"><?php echo $obj->name; ?></div>
+        <div class="title _mb-3"><?php echo $seo['h1'] ? $seo['h1'] : $obj->name; ?></div>
         <div class="product-meta _mb-4">
             <div class="_flex">
                 <div class="_col-6">

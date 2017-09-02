@@ -53,17 +53,34 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
                     </i>
                 </a>
             </div>
-            <div class="_col-auto _flex-grow-1">
-                <a href="#" class="button button--full" data-basket-trigger="" data-id="<?php echo $obj->id; ?>">
-                    <span><i>
-                            <svg>
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use>
-                            </svg>
-                        </i><span>В корзину</span>
-                    </span>
-                </a>
-            </div>
+            <?php if ($obj->available == 1): ?>
+                <div class="_col-auto _flex-grow-1">
+                    <a href="#" class="button button--full" data-basket-trigger
+                       data-id="<?php echo $obj->id; ?>"
+                       data-binding="product">
+                        <span>
+                            <i>
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
+                            </i>
+                            <span><?php echo __('Купить'); ?></span>
+                        </span>
+                    </a>
+                </div>
+            <?php else: ?>
+                <div class="_col-auto _flex-grow-1">
+                    <a href="#" class="button button--full" data-mfp="<?php echo HTML::link('hidden/order'); ?>"
+                       data-param='<?php echo json_encode(['id' => $obj->id]); ?>'
+                       v-else>
+                        <span>
+                            <i>
+                                <svg><use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
+                            </i>
+                            <span><?php echo __('Заказать'); ?></span>
+                        </span>
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

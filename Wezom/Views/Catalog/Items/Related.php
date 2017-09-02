@@ -5,7 +5,7 @@
                 <div class="widgetHeader myWidgetHeader">
                     <div class="widgetTitle">
                         <i class="fa fa-plus"></i>
-                        <?php echo __('Добавить сопутствующий товар'); ?>
+                        <?php echo __('Добавить аналогичный товар'); ?>
                     </div>
                 </div>
                 <div class="widgetContent" id="relatedItemsBlock">
@@ -35,7 +35,7 @@
                 <div class="widgetHeader myWidgetHeader">
                     <div class="widgetTitle">
                         <i class="fa fa-file"></i>
-                        <?php echo __('Сопутствующие товары'); ?>
+                        <?php echo __('Аналогичные товары'); ?>
                     </div>
                 </div>
                 <div class="widgetContent" id="relatedItemsBlock">
@@ -46,7 +46,9 @@
                                     <div class="relatedItem active" data-id="<?php echo $item->id; ?>">
                                         <?php if (is_file(HOST.\Core\HTML::media('images/catalog/medium/'.$item->image, false))): ?>
                                             <img src="<?php echo \Core\HTML::media('images/catalog/medium/'.$item->image); ?>" />
-                                        <?php endif ?>
+                                        <?php else: ?>
+                                            <img src="<?php echo \Core\HTML::media('pic/no-catalog.png'); ?>" />
+                                        <?php endif; ?>
                                         <div class="relatedName"><?php echo $item->name; ?><br><?php echo $item->cost; ?> грн</div>
                                     </div>
                                 <?php endforeach; ?>
@@ -64,7 +66,7 @@
                 <div class="widgetHeader myWidgetHeader">
                     <div class="widgetTitle">
                         <i class="fa fa-file"></i>
-                        <?php echo __('Сопутствующие товары'); ?>
+                        <?php echo __('Аналогичные товары'); ?>
                     </div>
                 </div>
                 <div class="widgetContent">
@@ -75,7 +77,9 @@
                                     <div class="relatedItem2 active" data-id="<?php echo $item->id; ?>">
                                         <?php if (is_file(HOST.\Core\HTML::media('images/catalog/medium/'.$item->image, false))): ?>
                                             <img src="<?php echo \Core\HTML::media('images/catalog/medium/'.$item->image); ?>" />
-                                        <?php endif ?>
+                                        <?php else: ?>
+                                            <img src="<?php echo \Core\HTML::media('pic/no-catalog.png'); ?>" />
+                                        <?php endif; ?>
                                         <div class="relatedName"><?php echo $item->name; ?><br><?php echo $item->cost; ?> грн</div>
                                     </div>
                                 <?php endforeach; ?>

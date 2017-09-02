@@ -139,7 +139,7 @@ use Core\General;
                         <label class="control-label">
                             <?php echo __('Изображение для популярных категорий'); ?>
                             <i class="fa fa-info-circle text-info bs-tooltip nav-hint liTipLink" title=""
-                               data-title="<b>Изоброжение</b> выводимое в виджете 'Популярные категории' на главной странице сайта"
+                               data-title="<b>Изоброжение</b> выводимое в виджете 'Популярные категории' <b>в оригинальном размере</b> на главной странице сайта"
                                style="white-space: nowrap;"></i>
                         </label>
                         <div class="contentImage">
@@ -155,12 +155,6 @@ use Core\General;
                                        href="/wezom/<?php echo Route::controller(); ?>/delete_image_popular/<?php echo $obj->id; ?>">
                                         <i class="fa fa-remove"></i>
                                         <?php echo __('Удалить изображение'); ?>
-                                    </a>
-                                    <br>
-                                    <a class="btn btn-warning"
-                                       href="<?php echo General::crop('catalog_tree', 'popular', $obj->image_popular); ?>">
-                                        <i class="fa fa-pencil"></i>
-                                        <?php echo __('Редактировать'); ?>
                                     </a>
                                 </div>
                             <?php else: ?>

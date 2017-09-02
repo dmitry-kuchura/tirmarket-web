@@ -112,7 +112,7 @@
                         <?php echo \Forms\Builder::input([
                             'name' => 'FORM[date]',
                             'value' => $obj->date ? date('d.m.Y', $obj->date) : NULL,
-                            'class' => 'myPicker',
+                            'class' => 'myPicker valid',
                         ], __('Дата')); ?>
                     </div>
                 </div>

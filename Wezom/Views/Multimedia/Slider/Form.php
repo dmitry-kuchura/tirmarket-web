@@ -77,6 +77,16 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label"
+                       for="f_name"><?php echo __('URL'); ?></label>
+                <div class="">
+                    <input id="f_name"
+                           class="form-control"
+                           name="FORM[url]" type="text"
+                           value="<?php echo $obj->url; ?>"/>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label"><?php echo __('Опубликовано'); ?></label>
                 <div class="">
                     <label class="checkerWrap-inline">
@@ -115,7 +125,7 @@
                                         <?php echo __('Удалить изображение'); ?>
                                     </a>
                                     <a class="btn btn-info otherBtn"
-                                       href="<?php echo \Core\General::crop('slider', 'main', $obj->image); ?>">
+                                       href="<?php echo \Core\General::crop('slider', 'big', $obj->image); ?>">
                                         <i class="fa fa-edit"></i>
                                         <?php echo __('Редактировать изображение'); ?>
                                     </a>

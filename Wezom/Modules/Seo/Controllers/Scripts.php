@@ -16,9 +16,9 @@
 
         function before() {
             parent::before();
-            $this->_seo['h1'] = __('Метрика и счетчики');
-            $this->_seo['title'] = __('Метрика и счетчики');
-            $this->setBreadcrumbs(__('Метрика и счетчики'), 'wezom/seo_scripts/index');
+            $this->_seo['h1'] = __('Метрика');
+            $this->_seo['title'] = __('Метрика');
+            $this->setBreadcrumbs(__('Метрика'), 'wezom/seo_scripts/index');
         }
 
         function indexAction () {

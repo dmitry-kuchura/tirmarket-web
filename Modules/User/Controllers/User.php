@@ -127,11 +127,8 @@ class User extends Base
             return Config::error();
         }
 
-        $result = Users::getUserTransport($user->id);
-
         $this->_content = View::tpl([
             'user' => $user,
-            'result' => $result,
         ], 'User/Transport');
     }
 

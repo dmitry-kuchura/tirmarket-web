@@ -17,7 +17,7 @@ use Core\Config;
                     <ul class="site-menu">
                         <?php foreach ($menu as $obj): ?>
                             <li class="site-menu__item">
-                                <a href="<?php echo $obj->url; ?>" class="site-menu__link"><?php echo $obj->name; ?></a>
+                                <a href="<?php echo HTML::link($obj->url); ?>" class="site-menu__link"><?php echo $obj->name; ?></a>
                             </li>
                         <?php endforeach; ?>
                     </ul>

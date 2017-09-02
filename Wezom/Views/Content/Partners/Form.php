@@ -83,12 +83,6 @@
                                     <i class="fa fa-remove"></i>
                                     <?php echo __('Удалить изображение'); ?>
                                 </a>
-                                <br>
-                                <a class="btn btn-warning"
-                                   href="<?php echo \Core\General::crop('news', 'small', $obj->image); ?>">
-                                    <i class="fa fa-pencil"></i>
-                                    <?php echo __('Редактировать'); ?>
-                                </a>
                             </div>
                         <?php else: ?>
                             <input type="file" name="file"/>

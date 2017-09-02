@@ -251,29 +251,6 @@ class Form extends Ajax
         Cookie::delete('order_id');
         Cookie::set('order_id', (int)$order_id, 60 * 60 * 24 * 365);
 
-        $cart = Cart::factory()->get_list_for_basket();
-
-        foreach ($cart as $item) {
-            $obj = Arr::get($item, 'obj');
-            $count = (int)Arr::get($item, 'count');
-            $size_id = (int)Arr::get($item, 'size');
-            if ($obj and $count) {
-                $data = [];
-                $data['order_id'] = $order_id;
-                $data['catalog_id'] = $obj->id;
-                $data['size_id'] = $size_id;
-                $data['count'] = $count;
-                $data['cost'] = $obj->cost;
-                $keys = [];
-                $values = [];
-                foreach ($data as $key => $value) {
-                    $keys[] = $key;
-                    $values[] = $value;
-                }
-                DB::insert('orders_items', $keys)->values($values)->execute();
-            }
-        }
-
         $this->success([
             'success' => true,
             'showNextSteep' => true,
@@ -311,6 +288,30 @@ class Form extends Ajax
 
         $keys = [];
         $values = [];
+
+        /* Обновление корзины */
+        $cart = Cart::factory()->get_list_for_basket();
+
+        foreach ($cart as $item) {
+            $obj = Arr::get($item, 'obj');
+            $count = (int)Arr::get($item, 'count');
+            $size_id = (int)Arr::get($item, 'size');
+            if ($obj and $count) {
+                $data = [];
+                $data['order_id'] = $order_id;
+                $data['catalog_id'] = $obj->id;
+                $data['size_id'] = $size_id;
+                $data['count'] = $count;
+                $data['cost'] = $obj->cost;
+                $keys = [];
+                $values = [];
+                foreach ($data as $key => $value) {
+                    $keys[] = $key;
+                    $values[] = $value;
+                }
+                DB::insert('orders_items', $keys)->values($values)->execute();
+            }
+        }
 
         foreach ($data as $key => $value) {
             $keys[] = $key;

@@ -281,7 +281,7 @@ class General extends Ajax
             if (isset($tree[$obj->id])) {
                 foreach ($tree[$obj->id] as $child) {
                     $children[] = [
-                        'link' => HTML::link($child->alias, false),
+                        'link' => HTML::link('products/' . $child->alias, false),
                         'alias' => $child->name,
                         'children' => false,
                     ];
@@ -289,7 +289,7 @@ class General extends Ajax
             }
 
             $category[] = [
-                'link' => HTML::link($obj->alias, false),
+                'link' => HTML::link('products/' . $obj->alias, false),
                 'alias' => $obj->name,
                 'children' => $children,
             ];

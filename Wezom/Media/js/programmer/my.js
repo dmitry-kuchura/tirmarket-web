@@ -549,6 +549,8 @@ $(function () {
                         html += '<div class="relatedItem" data-id="' + resp.items[i].id + '">';
                         if (resp.items[i].image) {
                             html += '<img src="' + resp.items[i].image + '" alt="">';
+                        } else {
+                            html += '<img src="' + '/Media/pic/no-catalog.png' + '" alt="">';
                         }
                         html += '<div class="relatedName">' + resp.items[i].name + '<br>' + resp.items[i].cost + ' грн</div>';
                         html += '</div>';
@@ -693,6 +695,8 @@ $(function () {
                             }
                             if (resp.items[i].image) {
                                 html += '<img src="' + resp.items[i].image + '" alt="">';
+                            } else {
+                                html += '<img src="' + '/Media/pic/no-catalog.png' + '" alt="">';
                             }
                             if (resp.items[i].cost) {
                                 html += '<div class="relatedName">' + resp.items[i].name + '<br>' + resp.items[i].cost + ' грн</div>';

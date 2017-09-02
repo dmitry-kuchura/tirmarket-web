@@ -58,7 +58,7 @@ use Modules\Catalog\Models\Filter;
                         <i>
                             <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cancel', false); ?>"></use></svg>
                         </i>
-                        <span>Очистить фильтр</span>
+                        <span><?php echo __('Очистить фильтр'); ?></span>
                     </span>
                 </button>
             </div>

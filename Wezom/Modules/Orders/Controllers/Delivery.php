@@ -27,7 +27,7 @@ class Delivery extends Base
         $this->_seo['title'] = __('Способы доставки');
         $this->setBreadcrumbs(__('Способы доставки'), 'wezom/' . Route::controller() . '/index');
         $this->page = (int)Route::param('page') ? (int)Route::param('page') : 1;
-        $this->limit = Config::get('basic.limit_backend');
+        $this->limit = 99;
         $this->offset = ($this->page - 1) * $this->limit;
     }
 

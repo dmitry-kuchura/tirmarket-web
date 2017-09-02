@@ -81,38 +81,19 @@ use Core\HTML;
             <div class="notification _mb-5"><?php echo __('Товар может быть на разных складах'); ?></div>
             <div class="title title--md _mb-2"><?php echo __('Оплата'); ?></div>
             <div class="_flex _grid-space-4 _mb-4">
-                <div class="form-element form-element--radio">
-                    <label>
-                        <input type="radio" name="payment" data-name="payment" value="1" required><i>
-                            <svg>
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     xlink:href="<?php echo HTML::media('icons/icons.svg#check', false); ?>"></use>
-                            </svg>
-                        </i>
-                        <span><?php echo __('Наличными'); ?></span>
-                    </label>
-                </div>
-                <div class="form-element form-element--radio">
-                    <label>
-                        <input type="radio" name="payment" data-name="payment" value="2" required><i>
-                            <svg>
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     xlink:href="<?php echo HTML::media('icons/icons.svg#check', false); ?>"></use>
-                            </svg>
-                        </i>
-                        <span><?php echo __('Банковской картой'); ?></span>
-                    </label>
-                </div>
-                <div class="form-element form-element--radio">
-                    <label>
-                        <input type="radio" name="payment" data-name="payment" value="3" required><i>
-                            <svg>
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     xlink:href="<?php echo HTML::media('icons/icons.svg#check', false); ?>"></use>
-                            </svg>
-                        </i><span><?php echo __('Безналичный расчёт'); ?></span>
-                    </label>
-                </div>
+                <?php foreach ($payments as $obj): ?>
+                    <div class="form-element form-element--radio">
+                        <label>
+                            <input type="radio" name="payment" data-name="payment" value="<?php echo $obj->id; ?>" required><i>
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         xlink:href="<?php echo HTML::media('icons/icons.svg#check', false); ?>"></use>
+                                </svg>
+                            </i>
+                            <span><?php echo $obj->name; ?></span>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
             </div>
             <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
             <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">

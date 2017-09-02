@@ -6,7 +6,7 @@
                     <div class="col-md-2">
                         <?php echo \Forms\Builder::input([
                             'name' => 'name',
-                            'value' => Core\Arr::get($_GET, 'item_name', NULL),
+                            'value' => Core\Arr::get($_GET, 'name', NULL),
                         ], __('Название')); ?>
                     </div>
                     <div class="col-md-2">

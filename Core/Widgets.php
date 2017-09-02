@@ -287,6 +287,7 @@ class Widgets
             ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
             ->where($tableI18n . '.language', '=', I18n::$lang)
             ->where('catalog.id', 'IN', $ids)
+            ->where('catalog.id', '!=', Route::param('id'))
             ->where($table . '.status', '=', 1)
             ->order_by(DB::expr('RAND ()'))
             ->limit(5)

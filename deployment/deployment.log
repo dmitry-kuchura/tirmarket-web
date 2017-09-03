@@ -1,0 +1,37 @@
+Started at [2017/08/31 15:21]
+Config file is C:\OpenServer\domains\skladshin.loc\deployment\deployment.ini
+
+Deploying my site
+Live mode
+Connecting to server
+Loaded remote .deployment file
+Scanning files in C:\OpenServer\domains\skladshin.loc
+Ignoring ./.git                         
+Ignoring ./.gitignore                   
+Ignoring ./.gitmodules                  
+Ignoring ./Backend/Media/js/lightbox/img/demopage/.DS_Store
+Ignoring ./cache                        
+Ignoring ./Config/database.php          
+Ignoring ./Config/mail.php.backup.bak   
+Ignoring ./deployment                   
+Ignoring ./gulpfile.js                  
+Ignoring ./Media/files                  
+Ignoring ./nbproject                    
+Ignoring ./robots.txt                   
+Ignoring ./sitemap.xml                  
+Ignoring ./Views/Callback/hunter.php.backup.bak
+Ignoring ./Views/Callback/hunterV1.php.backup.bak
+Ignoring ./xml                          
+Creating remote file .deployment.running
+
+Uploading:
+(1 of 2) /index.php
+(2 of 2) /.deployment
+
+Renaming:
+(1 of 2) Renaming /index.php
+(2 of 2) Renaming /.deployment
+
+Deleting remote file .deployment.running
+
+Finished at [2017/08/31 15:21] (in 2 seconds)

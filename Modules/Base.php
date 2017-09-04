@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules;
 
 use Core\Arr;
@@ -24,17 +25,17 @@ class Base
     protected $_seo = [];
     protected $_breadcrumbs = [];
     protected $_method;
-	protected $_page = 1;
+    protected $_page = 1;
     protected $_limit;
     protected $_offset;
-	protected $_pager;
-	protected $_canonical;
-	protected $_use_canonical=0;
+    protected $_pager;
+    protected $_canonical;
+    protected $_use_canonical = 0;
 
     public function before()
     {
         $this->setLanguage();
-        $this->_languages = Config::get('languages') ? Config::get('languages') : array();
+        $this->_languages = Config::get('languages') ? Config::get('languages') : [];
         $_POST = Arr::clearArray($_POST);
         $_GET = Arr::clearArray($_GET);
         $this->CSRF();
@@ -47,8 +48,9 @@ class Base
         $cron = new Cron;
         $cron->check();
     }
-    
-    private function setLanguage() {
+
+    private function setLanguage()
+    {
         if (Route::param('lang')) {
             \I18n::lang(Route::param('lang'));
         } else {
@@ -59,22 +61,23 @@ class Base
 
     public function after()
     {
-		$this->set_canonicals();
+        $this->set_canonicals();
         $this->seo();
         $this->visitors();
         $this->render();
     }
 
-    private function ssl(){
-        if(Config::get('security.ssl')){
-            if(!$_SERVER['HTTPS']){
+    private function ssl()
+    {
+        if (Config::get('security.ssl')) {
+            if (!$_SERVER['HTTPS']) {
                 header("HTTP/1.1 301 Moved Permanently");
-                header("Location: https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             }
         } else {
-            if($_SERVER['HTTPS']){
+            if ($_SERVER['HTTPS']) {
                 header("HTTP/1.1 301 Moved Permanently");
-                header("Location: http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                header("Location: http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             }
         }
     }
@@ -179,10 +182,10 @@ class Base
             $this->_seo['description'] = 'Ошибка 404! Страница не найдена';
             $this->_seo['seo_text'] = null;
         }
-		
-		$this->_seo['title'] = str_replace('"','\'',$this->_seo['title']);
-		$this->_seo['keywords'] = str_replace('"','\'',$this->_seo['keywords']);
-		$this->_seo['description'] = str_replace('"','\'',$this->_seo['description']);
+
+        $this->_seo['title'] = str_replace('"', '\'', $this->_seo['title']);
+        $this->_seo['keywords'] = str_replace('"', '\'', $this->_seo['keywords']);
+        $this->_seo['description'] = str_replace('"', '\'', $this->_seo['description']);
     }
 
 
@@ -221,24 +224,24 @@ class Base
 
     protected function generateParentBreadcrumbsElement($id, $table, $parentAlias, $bread)
     {
-        $tableI18n = $table.'_i18n';
+        $tableI18n = $table . '_i18n';
         $checkMiltilangTable = Common::checkTable($tableI18n);
         $page = null;
-        if(!$checkMiltilangTable) {
-            $page = DB::select('id', $parentAlias, 'alias', 'status', 'name')->from($table)->where($table.'.id', '=', $id)->as_object()->execute()->current();
+        if (!$checkMiltilangTable) {
+            $page = DB::select('id', $parentAlias, 'alias', 'status', 'name')->from($table)->where($table . '.id', '=', $id)->as_object()->execute()->current();
         } else {
             $page = DB::select(
-                $table.'.id',
-                $table.'.'.$parentAlias,
-                $table.'.alias',
-                $table.'.status',
-                $tableI18n.'.name'
+                $table . '.id',
+                $table . '.' . $parentAlias,
+                $table . '.alias',
+                $table . '.status',
+                $tableI18n . '.name'
             )
                 ->from($table)
                 ->join($tableI18n)
-                    ->on($tableI18n.'.row_id', '=', $table.'.id')
-                ->where($tableI18n.'.language', '=', \I18n::$lang)
-                ->where($table.'.id', '=', $id)
+                ->on($tableI18n . '.row_id', '=', $table . '.id')
+                ->where($tableI18n . '.language', '=', \I18n::$lang)
+                ->where($table . '.id', '=', $id)
                 ->as_object()->execute()->current();
 
         }
@@ -250,39 +253,40 @@ class Base
         }
         return $bread;
     }
-	
-	protected function set_canonicals() {
-		
-		if ($this->_use_canonical and $this->_canonical!='' and $this->_pager) {
-			
-			if ($this->_page>1) {
-				$this->_seo['hide_meta']=1;
-				$this->_seo['seo_text'] = '';
-				$this->_seo['canonical'] = $this->_canonical;
-				$this->_seo['title'] = $this->_seo['title'].', '.__('Страница').' '.$this->_page;
-				if ($this->_page==2) {
-					$this->_seo['prev'] = $this->_canonical;
-				} else {
-					$this->_seo['prev'] =$this->_canonical.'/page/'.($this->_page-1);
-				}
-				if ($this->_pager->_next>1) {
-					$this->_seo['next'] =$this->_canonical.'/page/'.$this->_pager->_next;
-				}
-			} else {
-				if ($this->_pager->_next>1) {
-					$this->_seo['next'] = $this->_canonical.'/page/'.$this->_pager->_next;
-				}
-			}
-			
-		}
-		if (isset($_GET['sort']) or isset($_GET['filter']) or Route::param('filter')) {
-			
-				$this->_seo['hide_meta']=1;
-				$this->_seo['seo_text'] = '';
-				$this->_seo['canonical'] = $this->_canonical;
-				
-		}
-		
-	}
+
+    protected function set_canonicals()
+    {
+
+        if ($this->_use_canonical and $this->_canonical != '' and $this->_pager) {
+
+            if ($this->_page > 1) {
+                $this->_seo['hide_meta'] = 1;
+                $this->_seo['seo_text'] = '';
+                $this->_seo['canonical'] = $this->_canonical;
+                $this->_seo['title'] = $this->_seo['title'] . ', ' . __('Страница') . ' ' . $this->_page;
+                if ($this->_page == 2) {
+                    $this->_seo['prev'] = $this->_canonical;
+                } else {
+                    $this->_seo['prev'] = $this->_canonical . '/page/' . ($this->_page - 1);
+                }
+                if ($this->_pager->_next > 1) {
+                    $this->_seo['next'] = $this->_canonical . '/page/' . $this->_pager->_next;
+                }
+            } else {
+                if ($this->_pager->_next > 1) {
+                    $this->_seo['next'] = $this->_canonical . '/page/' . $this->_pager->_next;
+                }
+            }
+
+        }
+        if (isset($_GET['sort']) or isset($_GET['filter']) or Route::param('filter')) {
+
+            $this->_seo['hide_meta'] = 1;
+            $this->_seo['seo_text'] = '';
+            $this->_seo['canonical'] = $this->_canonical;
+
+        }
+
+    }
 
 }

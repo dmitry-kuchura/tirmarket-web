@@ -51,7 +51,7 @@ class Form extends Ajax
                 ->where('ip', 'IN', $ips)
                 ->and_where_open()
                 ->or_where('date', '>', time())
-                ->or_where('date', '=', NULL)
+                ->or_where('date', '=', null)
                 ->and_where_close()
                 ->find_all();
             if (sizeof($bans)) {
@@ -154,7 +154,7 @@ class Form extends Ajax
             $from = ['{{site}}', '{{ip}}', '{{date}}', '{{link}}'];
             $to = [
                 Arr::get($_SERVER, 'HTTP_HOST'), Arr::get($data, 'ip'), date('d.m.Y'),
-                HTML::link('/account/confirm/hash/' . $user->hash, true)
+                HTML::link('/account/confirm/hash/' . $user->hash, true),
             ];
             $subject = str_replace($from, $to, $mail->subject);
             $text = str_replace($from, $to, $mail->text);
@@ -177,7 +177,7 @@ class Form extends Ajax
                 '{{date}}' => date('d.m.Y'),
                 '{{email}}' => $user->email,
                 '{{password}}' => $password,
-                '{{name}}' => $user->name
+                '{{name}}' => $user->name,
             ], Arr::get($data, 'email'));
 
             // Authorization of the user
@@ -254,7 +254,7 @@ class Form extends Ajax
         $this->success([
             'success' => true,
             'showNextSteep' => true,
-            'msg' => __('Успешно')
+            'msg' => __('Успешно'),
         ]);
     }
 
@@ -345,7 +345,7 @@ class Form extends Ajax
                 '{{delivery}}' => $delivery[$order->delivery],
                 '{{link_admin}}' => $link_admin,
                 '{{link_user}}' => $link_user,
-                '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
+                '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail'),
             ]);
 
             Email::sendTemplate(12, [
@@ -358,7 +358,7 @@ class Form extends Ajax
                 '{{delivery}}' => $delivery[$order->delivery],
                 '{{link_admin}}' => $link_admin,
                 '{{link_user}}' => $link_user,
-                '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail')
+                '{{items}}' => View::tpl(['cart' => $cart], 'Cart/ItemsMail'),
             ], $order->email);
 
             Cart::factory()->clear();
@@ -367,7 +367,7 @@ class Form extends Ajax
         $this->success([
             'success' => true,
             'redirect' => HTML::link('cart/thank'),
-            'msg' => __('Заказ был сформирован')
+            'msg' => __('Заказ был сформирован'),
         ]);
 
     }
@@ -451,7 +451,7 @@ class Form extends Ajax
             '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
             '{{ip}}' => System::getRealIP(),
             '{{date}}' => date('d.m.Y H:i'),
-            '{{password}}' => $newpass
+            '{{password}}' => $newpass,
         ], User::info()->email);
 
         $this->success(__('На указанный E-Mail адрес высланы новые данные для входа'));
@@ -481,7 +481,7 @@ class Form extends Ajax
             '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
             '{{ip}}' => System::getRealIP(),
             '{{date}}' => date('d.m.Y H:i'),
-            '{{password}}' => $password
+            '{{password}}' => $password,
         ], $user->email);
 
         $this->success(__('На указанный E-Mail адрес выслан новый пароль для входа'));
@@ -588,7 +588,7 @@ class Form extends Ajax
             '{{phone}}' => Arr::get($model, 'phone'),
             '{{artikul}}' => Arr::get($model, 'artikul'),
             '{{ip}}' => Arr::get($model, 'ip'),
-            '{{date}}' => date('d.m.Y H:i')
+            '{{date}}' => date('d.m.Y H:i'),
         ]);
 
         $this->success(['response' => __('Запрос был сформирован')]);
@@ -643,7 +643,7 @@ class Form extends Ajax
             '{{phone}}' => $phone,
             '{{link}}' => $link,
             '{{admin_link}}' => $link_admin,
-            '{{item_name}}' => $item->name
+            '{{item_name}}' => $item->name,
         ]);
 
         $this->success(__('Вы успешно оформили заказ в один клик! Оператор свяжется с Вами в скором времени'));
@@ -698,7 +698,7 @@ class Form extends Ajax
             '{{phone}}' => $phone,
             '{{link}}' => $link,
             '{{admin_link}}' => $link_admin,
-            '{{item_name}}' => $item->name
+            '{{item_name}}' => $item->name,
         ]);
 
         $this->success(__('Оператор свяжется с Вами в скором времени'));

@@ -18,7 +18,7 @@ class Widgets
 
     static function factory()
     {
-        if (self::$_instance == NULL) {
+        if (self::$_instance == null) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -38,7 +38,7 @@ class Widgets
         $_cache = Cache::instance();
         if ($cache) {
             if (!$_cache->get($name)) {
-                $data = NULL;
+                $data = null;
                 if ($save && isset($w->_data[$name])) {
                     $data = $w->_data[$name];
                 } else {
@@ -179,7 +179,7 @@ class Widgets
 
     public function Index_News()
     {
-        $result = CommonI18n::factory('news')->getRows(NULL, 'id', 'DESC', 2);
+        $result = CommonI18n::factory('news')->getRows(null, 'id', 'DESC', 2);
 
         return ['result' => $result];
     }

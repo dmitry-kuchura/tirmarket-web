@@ -16,18 +16,16 @@ use Modules\Catalog\Models\Items;
 
 class General extends Ajax
 {
-
     /**
      * Аякс поиск на главной
      * @return bool
      */
     public function searchAction()
     {
-        $post = json_decode(file_get_contents('php://input'), true);
-        $lang = Arr::get($post, 'lang');
+        $lang = Arr::get($this->raw, 'lang');
         I18n::$lang = $lang;
 
-        $query = Arr::get($post, 'search');
+        $query = Arr::get($this->raw, 'search');
 
         if (!$query) {
             return false;
@@ -41,7 +39,7 @@ class General extends Ajax
                 'all' => __('Все результаты'),
                 'href' => HTML::link('search?query=' . $query, false),
                 'buy' => __('Купить'),
-            ]
+            ],
         ];
 
         foreach ($result as $obj) {
@@ -91,7 +89,7 @@ class General extends Ajax
             'success' => true,
             'list' => $list,
             'totalCount' => $total_quantity,
-            'totalPrice' => $total_price
+            'totalPrice' => $total_price,
         ]);
     }
 
@@ -100,9 +98,9 @@ class General extends Ajax
      */
     public function addToCartAction()
     {
-        $action = json_decode(file_get_contents('php://input'), true);
+        $action = Arr::get($this->raw, 'action');;
 
-        switch ($action['action']) {
+        switch ($action) {
             case 'decrement':
                 $this->decrementItemAction($action['id']);
                 break;
@@ -243,14 +241,14 @@ class General extends Ajax
                 'number' => $obj->number ? $obj->number : '------',
                 'maker' => [
                     'title' => $obj->brand_name,
-                    'link' => HTML::link('brands/' . $obj->brand_alias, false)
+                    'link' => HTML::link('brands/' . $obj->brand_alias, false),
                 ],
                 'price' => $obj->cost . ' грн.',
                 'exist' => $obj->availeble == 1 ? true : false,
                 'exist-string' => $obj->availeble == 1 ? __('В наличии') : __('Нет в наличии'),
                 'new' => $obj->new == 1 ? true : false,
                 'promo' => $obj->top == 1 ? true : false,
-                'popular' => $obj->sale == 1 ? true : false
+                'popular' => $obj->sale == 1 ? true : false,
             ];
         }
 
@@ -311,22 +309,18 @@ class General extends Ajax
      */
     public function resultAction()
     {
-        $post = json_decode(file_get_contents('php://input'), true);
-
-        $lang = Arr::get($post, 'lang');
+        $lang = Arr::get($this->raw, 'lang');
         I18n::$lang = $lang;
 
-        $queries = Items::getQueries(urldecode($post['query']));
+        $queries = Items::getQueries(urldecode(Arr::get($this->raw, 'query')));
         $result = Items::searchRows($queries);
-
-        $array = [];
 
         $array = [
             'static' => [
                 'buy' => __('В корзину'),
                 'order' => __('Заказать'),
-                'orderLink' => HTML::link('hidden/order', false)
-            ]
+                'orderLink' => HTML::link('hidden/order', false),
+            ],
         ];
 
         foreach ($result as $obj) {
@@ -339,14 +333,14 @@ class General extends Ajax
                 'number' => $obj->number ? $obj->number : '------',
                 'maker' => [
                     'title' => $obj->brand_name,
-                    'link' => HTML::link('brands/' . $obj->brand_alias, false)
+                    'link' => HTML::link('brands/' . $obj->brand_alias, false),
                 ],
                 'price' => $obj->cost . ' грн.',
                 'exist' => $obj->available == 1 ? true : false,
                 'exist-string' => $obj->available == 1 ? __('В наличии') : __('Нет в наличии'),
                 'new' => $obj->new == 1 ? true : false,
                 'promo' => $obj->top == 1 ? true : false,
-                'popular' => $obj->sale == 1 ? true : false
+                'popular' => $obj->sale == 1 ? true : false,
 
             ];
         }

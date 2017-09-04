@@ -1,12 +1,15 @@
 <?php
+
 namespace Core;
 
 class Arr
 {
 
     /**
-     *      Convert an array to an object
-     * @param array $array - array with data
+     * Convert an array to an object
+     *
+     * @param $array
+     * @return mixed
      */
     public static function to_object($array)
     {
@@ -36,7 +39,7 @@ class Arr
     public static function get($array, $key, $default = null)
     {
         $key = explode('.', $key);
-        foreach($key as $k) {
+        foreach ($key as $k) {
             if (is_array($array)) {
                 if (isset($array[$k])) {
                     $default = $array[$k];

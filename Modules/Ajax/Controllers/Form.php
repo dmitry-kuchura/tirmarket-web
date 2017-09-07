@@ -281,13 +281,12 @@ class Form extends Ajax
 
         $ip = System::getRealIP();
 
-        $data = [];
-        $data['status'] = 0;
-        $data['delivery'] = $delivery;
-        $data['payment'] = $payment;
+        $order = [];
+        $order['status'] = 0;
+        $order['delivery'] = $delivery;
+        $order['payment'] = $payment;
 
-        $keys = [];
-        $values = [];
+        $update = DB::update('orders')->set($order)->where('id', '=', $order_id)->execute();
 
         /* Обновление корзины */
         $cart = Cart::factory()->get_list_for_basket();
@@ -312,13 +311,6 @@ class Form extends Ajax
                 DB::insert('orders_items', $keys)->values($values)->execute();
             }
         }
-
-        foreach ($data as $key => $value) {
-            $keys[] = $key;
-            $values[] = $value;
-        }
-
-        $update = DB::update('orders')->set($data)->where('id', '=', $order_id)->execute();
 
         if ($update) {
             $cart = Cart::factory()->get_list_for_basket();
@@ -369,7 +361,6 @@ class Form extends Ajax
             'redirect' => HTML::link('cart/thank'),
             'msg' => __('Заказ был сформирован'),
         ]);
-
     }
 
     /**

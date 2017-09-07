@@ -98,17 +98,17 @@ class General extends Ajax
      */
     public function addToCartAction()
     {
-        $action = Arr::get($this->raw, 'action');;
+        $action = Arr::get($this->raw, 'action');
 
         switch ($action) {
             case 'decrement':
-                $this->decrementItemAction($action['id']);
+                $this->decrementItemAction(Arr::get($this->raw, 'id'));
                 break;
             case 'increment':
-                $this->incrementAction($action['id']);
+                $this->incrementAction(Arr::get($this->raw, 'id'));
                 break;
             case 'remove':
-                $this->deleteItemAction($action['id']);
+                $this->deleteItemAction(Arr::get($this->raw, 'id'));
                 break;
             case 'default':
                 $this->showCartAction();

@@ -269,6 +269,7 @@ class General extends Ajax
         $tree = [];
         $category = [];
         $children = [];
+        $account = [];
 
         foreach ($catalog as $obj) {
             $tree[$obj->parent_id][] = $obj;
@@ -300,6 +301,51 @@ class General extends Ajax
                 'children' => $obj->url == '/products' ? $category : false,
             ];
         }
+
+        $account = [
+            [
+                'link' => HTML::link('account', false),
+                'alias' => __('Личные данные'),
+                'children' => false,
+            ],
+            [
+                'link' => HTML::link('account/edit', false),
+                'alias' => __('Редактировать профиль'),
+                'children' => false,
+            ],
+            [
+                'link' => HTML::link('account/password', false),
+                'alias' => __('Напомнить/сменить пароль'),
+                'children' => false,
+            ],
+            [
+                'link' => HTML::link('account/favorites', false),
+                'alias' => __('Избранное'),
+                'children' => false,
+            ],
+            [
+                'link' => HTML::link('account/orders', false),
+                'alias' => __('История заказов'),
+                'children' => false,
+            ],
+            [
+                'link' => HTML::link('account/transport', false),
+                'alias' => __('Добавить Т/С'),
+                'children' => false,
+            ],
+            [
+                'link' => HTML::link('account/logout', false),
+                'alias' => __('Выход'),
+                'children' => false,
+            ],
+        ];
+
+        $result['menu'][] = [
+            'link' => User::info() ? HTML::link('account') : '#',
+            'alias' => User::info() ? __('Личный кабинет') : __('Авторизация/Регистрация'),
+            'data-mfp' => User::info() ? '' : HTML::link('hidden/auth', false),
+            'children' => User::info() ? $account : false,
+        ];
 
         die(json_encode($result));
     }

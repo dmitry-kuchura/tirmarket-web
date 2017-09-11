@@ -193,12 +193,12 @@ class Form extends Ajax
     public function firstStepOrderAction()
     {
         $name = Arr::get($this->post, 'name');
-        if (!$name or mb_strlen($name, 'UTF-8') < 6) {
+        if (!$name) {
             $this->error(__('Укажите ФИО получателя!'));
         }
 
         $email = Arr::get($this->post, 'email');
-        if (!$email or mb_strlen($name, 'UTF-8') < 6) {
+        if (!$email) {
             $this->error(__('Укажите Email!'));
         }
 
@@ -208,7 +208,7 @@ class Form extends Ajax
         }
 
         $city = Arr::get($this->post, 'city');
-        if (!$city or mb_strlen($city, 'UTF-8') < 6) {
+        if (!$city) {
             $this->error(__('Город указан неверно либо не указан вовсе!'));
         }
 

@@ -7,7 +7,7 @@ function generate(message, type, time) {
     noty({
         text: message,
         type: type,
-        timeout: 30000 || false,
+        timeout: time || false,
         animation: {
             open: 'animated flipInX',
             close: 'animated flipOutX'

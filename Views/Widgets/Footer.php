@@ -33,6 +33,7 @@ use Core\HTML;
                     <?php endforeach; ?>
                 </ul>
             </div>
+
             <div class="_col-auto _flex-shrink-0 _md-show">
                 <ul class="footer-menu">
                     <?php foreach ($right as $r): ?>
@@ -43,32 +44,36 @@ use Core\HTML;
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <div class="_col-auto _flex _flex-column _xl-show">
-                <div class="_flex-grow-1">
-                    <div class="_flex _justify-between _mb-3">
-                        <div class="_col-auto">
-                            <div class="footer-phone">
-                                <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_1')); ?>"><?php echo Config::get('static.phone_1'); ?></a>
+
+            <div class="_col-auto _flex _xl-show">
+                <div class="_flex-column">
+                    <div class="_flex-grow-1">
+                        <div class="_flex _justify-between _mb-3">
+                            <div class="_col-auto">
+                                <div class="footer-phone">
+                                    <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_1')); ?>"><?php echo Config::get('static.phone_1'); ?></a>
+                                </div>
+                                <?php if (Config::get('static.phone_2')) : ?>
+                                    <div class="footer-phone">
+                                        <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_2')); ?>"><?php echo Config::get('static.phone_2'); ?></a>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (Config::get('static.phone_3')) : ?>
+                                    <div class="footer-phone">
+                                        <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_3')); ?>"><?php echo Config::get('static.phone_3'); ?></a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <?php if (Config::get('static.phone_2')) : ?>
-                                <div class="footer-phone">
-                                    <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_2')); ?>"><?php echo Config::get('static.phone_2'); ?></a>
-                                </div>
-                            <?php endif; ?>
-                            <?php if (Config::get('static.phone_3')) : ?>
-                                <div class="footer-phone">
-                                    <a href="tel:<?php echo preg_replace("/[^0-9]/", '', Config::get('static.phone_3')); ?>"><?php echo Config::get('static.phone_3'); ?></a>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="_col-auto">
-                            <div><?php echo Config::get('static.weekdays_' . I18n::$lang); ?></div>
-                            <div><?php echo Config::get('static.weekends_' . I18n::$lang); ?></div>
+                            <div class="_col-auto">
+                                <div><?php echo Config::get('static.weekdays_' . I18n::$lang); ?></div>
+                                <div><?php echo Config::get('static.weekends_' . I18n::$lang); ?></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="_col-auto"><?php echo Config::get('footer.text_contacts_' . I18n::$lang); ?></div>
                 </div>
-                <div class="_col-auto"><?php echo Config::get('footer.text_contacts_' . I18n::$lang); ?></div>
             </div>
+
             <div class="_col-12 _md-col-auto _flex-shrink-0 _flex _flex-column _md-ml-4">
                 <div class="_col-auto _flex-grow-1">
                     <div class="_mb-2"><?php echo __('Мы в социальных сетях'); ?>:</div>

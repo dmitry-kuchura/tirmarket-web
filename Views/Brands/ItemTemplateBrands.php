@@ -16,7 +16,10 @@ $favorites = Cookie::getArray('favorites', []);
 
 <div class="_col-12 _sm-col-6 _lg-col-3 _mb-3">
     <div class="item-card">
-        <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image" style="background-image:url(<?php echo $image; ?>)"></a>
+        <div>
+            <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image" style="background-image:url(<?php echo $image; ?>)"></a>
+        </div>
+
         <div class="item-card__labels">
             <?php if ($obj->sale == 1): ?>
                 <div class="label label--orange"><span><?php echo __('акция'); ?></span></div>

@@ -1,5 +1,6 @@
-import { Promise } from 'es6-promise-polyfill';
-window.Promise = window.Promise || Promise;
+// import { Promise } from 'es6-promise-polyfill';
+// window.Promise = window.Promise || Promise;
+import "babel-polyfill";
 window.jQuery = window.$ = require('jquery');
 window.wHTML = window.wHTML || {};
 import filterHandle from './modules/filter';
@@ -29,8 +30,6 @@ window.jQuery(function ($) {
 
     // basket
     require("./modules/basket")();
-
-
 
     // magnific
     if ($('[data-mfp], [data-gallery-root]').length) {

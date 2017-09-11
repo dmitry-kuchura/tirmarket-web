@@ -38,6 +38,7 @@
 	flex-direction: column;
 	transform: translate(-100% , 0);
 	transition: transform .25s;
+	overflow: auto;
 
 	@include media($sm) {
 		width: 320px;
@@ -70,7 +71,7 @@
 	&__body {
 		flex-grow: 1;
 		position: relative;
-		overflow: auto;
+		//overflow: auto;
 	}
 
 	&__footer {

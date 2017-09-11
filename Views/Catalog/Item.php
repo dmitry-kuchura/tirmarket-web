@@ -11,8 +11,8 @@ use Core\Config;
 ?>
 <div class="_flex _grid-space-3">
     <div class="_col-12 _lg-col-5 _xl-col-4 _flex-grow-0 _mb-3">
-        <div class="product-gallery">
-            <div class="product-labels">
+        <div class="product-gallery" <?php if (count($images)): ?>style="margin-left: 80px;"<?php endif; ?>>
+            <div class="product-labels _mt-3">
                 <?php if ($obj->sale == 1): ?>
                     <div class="label label--orange"><span><?php echo __('акция'); ?></span></div>
                 <?php endif; ?>
@@ -23,6 +23,24 @@ use Core\Config;
                     <div class="label label--green"><span><?php echo __('новинка'); ?></span></div>
                 <?php endif; ?>
             </div>
+
+            <?php if (count($images)): ?>
+                <div class="product-thumbs" data-slider="product-thumb">
+                    <?php foreach ($images as $im): ?>
+                        <?php
+                        if (is_file(HOST . HTML::media('images/catalog/main/' . $im->image, false))) {
+                            $image = HTML::media('images/catalog/main/' . $im->image, false);
+                        } else {
+                            $image = HTML::media('pic/no-image.png', false);
+                        }
+                        ?>
+                        <div class="product-thumbs__item">
+                            <img src="<?php echo $image; ?>" alt="">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
             <div class="product-image" data-slider="product">
                 <?php if (count($images)): ?>
                     <?php foreach ($images as $im): ?>
@@ -43,22 +61,7 @@ use Core\Config;
                     </div>
                 <?php endif; ?>
             </div>
-            <div class="product-thumbs" data-slider="product-thumb">
-                <?php if (count($images)): ?>
-                    <?php foreach ($images as $im): ?>
-                        <?php
-                        if (is_file(HOST . HTML::media('images/catalog/main/' . $im->image, false))) {
-                            $image = HTML::media('images/catalog/main/' . $im->image, false);
-                        } else {
-                            $image = HTML::media('pic/no-image.png', false);
-                        }
-                        ?>
-                        <div class="product-thumbs__item">
-                            <img src="<?php echo $image; ?>" alt="">
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
+
         </div>
     </div>
     <div class="_col-12 _lg-col-7 _xl-col-5 _flex-grow-0 _flex-shrink-0 _mb-3">
@@ -104,7 +107,7 @@ use Core\Config;
                                 грн.
                             </div>
                         <?php endif; ?>
-                        <div class="price"><?php echo number_format($obj->cost); ?> грн.</div>
+                        <div class="product-price"><?php echo number_format($obj->cost); ?> грн.</div>
                     </div>
                     <div class="_col-auto _mb-2">
                         <div class="product-counter" data-counter data-binding="product">

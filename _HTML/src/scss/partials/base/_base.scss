@@ -21,6 +21,19 @@ body {
 	font-family: $font-primary;
 }
 
+.noty_message {
+	font-size: 16px !important;
+	line-height: 1.4 !important;
+}
+
+#noty_bottomRight_layout_container {
+	width: 300px !important;
+}
+
+#noty_bottomRight_layout_container li {
+	max-width: 100% !important;
+}
+
 *,
 :after,
 :before {

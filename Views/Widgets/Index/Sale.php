@@ -24,8 +24,10 @@ use Core\HTML;
                     ?>
                     <div class="catalog-slider__slide">
                         <div class="item-card">
-                            <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image"
-                               style="background-image:url(<?php echo $image; ?>)"></a>
+                            <div>
+                                <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image"
+                                   style="background-image:url(<?php echo $image; ?>)"></a>
+                            </div>
                             <div class="item-card__labels">
                                 <?php if ($obj->sale == 1): ?>
                                     <div class="label label--orange"><span><?php echo __('акция'); ?></span></div>
@@ -127,8 +129,11 @@ use Core\HTML;
                     ?>
                     <div class="catalog-slider__slide">
                         <div class="item-card">
-                            <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image"
-                               style="background-image:url(<?php echo $image; ?>)"></a>
+                            <div>
+                                <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image"
+                                   style="background-image:url(<?php echo $image; ?>)"></a>
+                            </div>
+
                             <div class="item-card__labels">
                                 <?php if ($obj->sale == 1): ?>
                                     <div class="label label--orange"><span><?php echo __('акция'); ?></span></div>

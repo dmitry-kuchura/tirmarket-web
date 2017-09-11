@@ -87,15 +87,16 @@
 
 		&::before {
 			content: '“';
+			font-family: Arial, sans-serif;
 			z-index: 0;
 			position: absolute;
-			top: 0;
+			top: 10px;
 			left: 0;
-			line-height: 1;
-			font-size: rem(250);
+			line-height: rem(150);
+			font-size: rem(150);
 			color: #bdc6dc;
 			font-weight: 100;
-			transform: translate(0, -45px);
+			transform: translate(0, -40px);
 		}
 
 		&::after {

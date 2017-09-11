@@ -117,7 +117,7 @@ use Core\HTML;
                     <div class="_flex _flex-column">
                         <div class="_col-auto"><?php echo __('Итого'); ?>: <span v-html="totalCount"></span> товара на
                             сумму
-                            <span class="basket__total"><span v-html="totalPrice"></span></span></div>
+                            <span class="basket__total"><span v-html="totalPrice"></span> грн</span></div>
                     </div>
                 </div>
             </div>

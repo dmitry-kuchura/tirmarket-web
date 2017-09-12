@@ -193,7 +193,7 @@ class Items extends CommonI18n
         }
 
         $array['result'] = DB::select(
-            $tableI18n . '.*', $table . '.*'
+            static::$tableI18n . '.*', static::$table . '.*'
         )
             ->from(static::$table)
             ->join(static::$tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')

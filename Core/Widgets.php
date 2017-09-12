@@ -8,6 +8,7 @@ use Modules\Cart\Models\Cart;
 use Modules\Catalog\Models\Filter;
 use Modules\Catalog\Models\Items;
 use Modules\Content\Models\Menu;
+use Modules\Content\Models\Slider;
 
 class Widgets
 {
@@ -141,17 +142,9 @@ class Widgets
 
     public function Index_Slider()
     {
-        $result = CommonI18n::factory('slider')->getRows(1, 'sort', 'ASC');
+        $result = Slider::getSlider();
 
-        $slider = [];
-
-        foreach ($result as $key => $value) {
-            if (is_file(HOST . HTML::media('images/slider/big/' . $value->image, false))) {
-                $slider[] = $value;
-            }
-        }
-
-        return ['slider' => $slider];
+        return ['slider' => $result];
     }
 
     public function Index_News()

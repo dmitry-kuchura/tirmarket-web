@@ -6,6 +6,7 @@ module.exports = function (context = `body`) {
         event.preventDefault();
 
         let ID = $(event.currentTarget).data('id');
+        let alias = $(event.currentTarget).data('alias');
         let count = $(event.currentTarget).data('count');
 
         console.log(ID);
@@ -25,7 +26,7 @@ module.exports = function (context = `body`) {
 
                 $.magnificPopup.open({
                     items: {
-                        src: '/hidden/basket'
+                        src: alias
                     },
                     type: 'ajax',
                     fixedContentPos: true,

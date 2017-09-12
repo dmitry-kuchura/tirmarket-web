@@ -649,8 +649,7 @@ class Form extends Ajax
         if (!$id) {
             $this->error(__('Такой товар не существует!'));
         }
-        $item = CommonI18n::factory('catalog')->getRow($id);
-        $item = $item['obj'];
+        $item = Items::getRow($id);
         if (!$item) {
             $this->error(__('Такой товар не существует!'));
         }
@@ -669,6 +668,7 @@ class Form extends Ajax
         if (is_object($check) and $check->count) {
             $this->error(__('Вы только что заказали этот товар! Пожалуйста, повторите попытку через минуту'));
         }
+
 
         $keys = ['ip', 'phone', 'catalog_id', 'user_id', 'created_at'];
         $values = [$ip, $phone, $item->id, User::info() ? User::info()->id : 0, time()];

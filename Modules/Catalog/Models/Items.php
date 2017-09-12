@@ -351,11 +351,11 @@ class Items extends CommonI18n
             static::$tableI18n . '.*', static::$table . '.*'
         )
             ->from(static::$table)
-            ->join(static::$tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
             ->where(static::$tableI18n . '.language', '=', I18n::$lang)
             ->where('catalog.id', 'IN', $ids)
             ->where('catalog.id', '!=', Route::param('id'))
-            ->where($table . '.status', '=', 1)
+            ->where(static::$table . '.status', '=', 1)
             ->order_by(DB::expr('RAND ()'))
             ->limit($limit)
             ->find_all();

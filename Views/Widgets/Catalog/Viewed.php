@@ -62,6 +62,7 @@
                                 <div class="_col-auto _flex-grow-1">
                                     <a href="#" class="button button--full" data-basket-trigger
                                        data-id="<?php echo $obj->id; ?>"
+                                       data-alias="<?php echo HTML::link('hidden/basket'); ?>"
                                        data-binding="product">
                                             <span>
                                                 <i>

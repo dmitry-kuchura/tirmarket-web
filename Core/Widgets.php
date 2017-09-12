@@ -6,6 +6,7 @@ use I18n;
 use Core\QB\DB;
 use Modules\Cart\Models\Cart;
 use Modules\Catalog\Models\Filter;
+use Modules\Catalog\Models\Groups;
 use Modules\Catalog\Models\Items;
 use Modules\Content\Models\Menu;
 use Modules\Content\Models\Slider;
@@ -156,30 +157,9 @@ class Widgets
 
     public function Index_Categories()
     {
-        $lang = I18n::$lang;
-        $table = 'catalog_tree';
-        $tableI18n = $table . '_i18n';
+        $result = Groups::getPopularCategories(4);
 
-        $result = DB::select(
-            $tableI18n . '.*',
-            $table . '.*'
-        )
-            ->from($table)
-            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
-            ->where($tableI18n . '.language', '=', $lang)
-            ->where($table . '.popular', '=', 1)
-            ->limit(4)
-            ->find_all();
-
-        $categories = [];
-
-        foreach ($result as $key => $value) {
-            if (is_file(HOST . HTML::media('images/catalog_tree/popular/' . $value->image, false))) {
-                $categories[] = $value;
-            }
-        }
-
-        return ['result' => $categories];
+        return ['result' => $result];
     }
 
     public function Index_Sale()

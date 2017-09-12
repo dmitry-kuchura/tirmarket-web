@@ -25,7 +25,12 @@
 
             <div class="mobile-menu__body">
                 <div class="mobile-menu__item" v-for="(item, index) in view" :key="item.alias">
-                    <a :href="item.link" class="mobile-menu__link">{{ item.alias }}</a>
+                    <a :href="item.link"
+                       class="mobile-menu__link"
+                       :data-mfp="item['data-mfp']"
+                       v-if="item['data-mfp']">{{ item.alias }}</a>
+
+                    <a :href="item.link" class="mobile-menu__link" v-else>{{ item.alias }}</a>
 
                     <div class="mobile-menu__icon" v-if="item.children" @click="showSubmenu(item, index)">
                         <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#arrow-next"></use></svg>
@@ -101,6 +106,10 @@
             open() {
                 this.enable = true;
                 document.querySelector(`body`).style.overflow = 'hidden';
+
+                require.ensure([], function (require) {
+                    require('../modules/mfp')();
+                }, 'magnific');
             }
         },
 

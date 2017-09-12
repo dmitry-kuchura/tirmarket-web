@@ -7,6 +7,7 @@ use Core\QB\DB;
 use Modules\Cart\Models\Cart;
 use Modules\Catalog\Models\Filter;
 use Modules\Catalog\Models\Items;
+use Modules\Content\Models\Menu;
 
 class Widgets
 {
@@ -102,24 +103,11 @@ class Widgets
 
     public function Header()
     {
-        $table = 'catalog_tree';
-        $tableI18n = $table . '_i18n';
-
-        $array['top_menu'] = DB::select(
-            $tableI18n . '.*', $table . '.*'
-        )
-            ->from($table)
-            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
-            ->where($tableI18n . '.language', '=', I18n::$lang)
-            ->where($table . '.top_menu', '=', 1)
-            ->find_all();
-
-        if (!$this->_contentMenu) {
-            $this->_contentMenu = CommonI18n::factory('sitemenu')->getRows(1, 'sort');
-        }
         $array['user'] = User::info();
-        $array['menu'] = $this->_contentMenu;
+        $array['top_menu'] = Menu::getTopMenu();
+        $array['menu'] = Menu::contentMenu();
         $array['cart'] = Cart::factory()->_count_goods;
+
         return $array;
     }
 
@@ -139,20 +127,9 @@ class Widgets
 
     public function Footer()
     {
-        $left = [];
-        $right = [];
+        $result = Menu::getFooterMenu();
 
-        $result = CommonI18n::factory('footermenu')->getRows(1, 'sort');
-
-        foreach ($result as $obj) {
-            if ($obj->parent_id == 1) {
-                $right[] = $obj;
-            } else {
-                $left[] = $obj;
-            }
-        }
-
-        return ['left' => $left, 'right' => $right];
+        return ['left' => $result['left'], 'right' => $result['right']];
     }
 
     public function Index_Manufactures()
@@ -272,27 +249,9 @@ class Widgets
 
     public function Catalog_Viewed()
     {
-        $ids = Items::getViewedIDs();
-        if (!$ids) {
-            return false;
-        }
+        $result = Items::getViewedItems(null, null, 5);
 
-        $table = 'catalog';
-        $tableI18n = $table . '_i18n';
-
-        $array['result'] = DB::select(
-            $tableI18n . '.*', $table . '.*'
-        )
-            ->from($table)
-            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
-            ->where($tableI18n . '.language', '=', I18n::$lang)
-            ->where('catalog.id', 'IN', $ids)
-            ->where('catalog.id', '!=', Route::param('id'))
-            ->where($table . '.status', '=', 1)
-            ->order_by(DB::expr('RAND ()'))
-            ->limit(5)
-            ->find_all();
-        return $array;
+        return $result;
     }
 
     public function Catalog_Filter()

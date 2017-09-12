@@ -6,6 +6,7 @@ use Core\Config;
 use Core\Cookie;
 use Core\QB\DB;
 use Core\CommonI18n;
+use Core\Route;
 use I18n;
 
 class Items extends CommonI18n
@@ -188,26 +189,22 @@ class Items extends CommonI18n
     {
         $ids = Items::getViewedIDs();
         if (!$ids) {
-            return [];
+            return false;
         }
-        $result = DB::select(static::$table . '.*')
+
+        $array['result'] = DB::select(
+            $tableI18n . '.*', $table . '.*'
+        )
             ->from(static::$table)
-            ->where(static::$table . '.id', 'IN', $ids)
-            ->where(static::$table . '.status', '=', 1);
-        if ($sort !== null) {
-            if ($type !== null) {
-                $result->order_by(static::$table . '.' . $sort, $type);
-            } else {
-                $result->order_by(static::$table . '.' . $sort);
-            }
-        }
-        if ($limit !== null) {
-            $result->limit($limit);
-            if ($offset !== null) {
-                $result->offset($offset);
-            }
-        }
-        return $result->find_all();
+            ->join(static::$tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
+            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+            ->where('catalog.id', 'IN', $ids)
+            ->where('catalog.id', '!=', Route::param('id'))
+            ->where($table . '.status', '=', 1)
+            ->order_by(DB::expr('RAND ()'))
+            ->limit($limit)
+            ->find_all();
+        return $array;
     }
 
     public static function countViewedItems()

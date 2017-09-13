@@ -231,7 +231,7 @@ class General extends Ajax
                     'buy' => __('В корзину'),
                     'order' => __('Заказать'),
                     'orderLink' => HTML::link('hidden/order', false),
-                ]
+                ],
             ];
         }
 
@@ -344,13 +344,7 @@ class General extends Ajax
         $queries = Items::getQueries(urldecode(Arr::get($this->raw, 'query')));
         $result = Items::searchRows($queries);
 
-        $array = [
-            'static' => [
-                'buy' => __('В корзину'),
-                'order' => __('Заказать'),
-                'orderLink' => HTML::link('hidden/order', false),
-            ],
-        ];
+        $array = [];
 
         foreach ($result as $obj) {
             $array['result'][] = [
@@ -370,7 +364,11 @@ class General extends Ajax
                 'new' => $obj->new == 1 ? true : false,
                 'promo' => $obj->top == 1 ? true : false,
                 'popular' => $obj->sale == 1 ? true : false,
-
+                'text' => [
+                    'buy' => __('В корзину'),
+                    'order' => __('Заказать'),
+                    'orderLink' => HTML::link('hidden/order', false),
+                ],
             ];
         }
 

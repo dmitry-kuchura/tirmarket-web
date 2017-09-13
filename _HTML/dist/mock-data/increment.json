@@ -1,0 +1,44 @@
+{
+  "totalCount": "3",
+  "totalPrice": "255 871",
+  "list": [
+    {
+      "id": 25,
+      "link": "product.html",
+      "title": "Моторное масло Total Quartz INEO MC3 5W-30 5 л (9106)",
+      "image": "pic/item-image-2.jpg",
+      "price": "100 530 грн.",
+      "oldPrice": "150 530 грн.",
+      "count": 2,
+      "maxCount": "10"
+    },
+    {
+      "id": 56,
+      "link": "product.html",
+      "title": "Моторное масло Total Quartz INEO MC3 5W-30 5 л (9106)",
+      "image": "pic/item-image-2.jpg",
+      "price": "100 530 грн.",
+      "count": 4,
+      "maxCount": "10"
+    },
+    {
+      "id": 13,
+      "link": "product.html",
+      "title": "Моторное масло Total Quartz INEO MC3 5W-30 5 л (9106)",
+      "image": "pic/item-image-2.jpg",
+      "price": "100 530 грн.",
+      "oldPrice": "150 530 грн.",
+      "count": 1,
+      "maxCount": "10"
+    },
+    {
+      "id": 47,
+      "link": "product.html",
+      "title": "Моторное масло Total Quartz INEO MC3 5W-30 5 л (9106)",
+      "image": "pic/item-image-2.jpg",
+      "price": "100 530 грн.",
+      "count": 2,
+      "maxCount": "10"
+    }
+  ]
+}

@@ -1,8 +1,18 @@
 module.exports = {
-    html: false,
-    images: false,
-    fonts: false,
-    static: false,
+    // html: false,
+    // images: false,
+    // fonts: false,
+    // static: false,
+    // svgSprite: true,
+    // ghPages: false,
+    // stylesheets: true,
+
+    html: {
+        htmlmin: false
+    },
+    images: true,
+    fonts: true,
+    static: true,
     svgSprite: true,
     ghPages: false,
     stylesheets: true,

@@ -1,7 +1,7 @@
 <?php
 return [
     // Watermark path
-    'watermark' => 'pic/logo.png',
+    'watermark' => 'pic/watermark.png',
     // Image types
     'types' => [
         'jpg', 'jpeg', 'png', 'gif',
@@ -51,6 +51,7 @@ return [
             'height' => 554,
             'resize' => 1,
             'crop' => 1,
+            'watermark' => 1,
         ],
         [
             'path' => 'inner',
@@ -108,6 +109,7 @@ return [
             'height' => 195,
             'resize' => 1,
             'crop' => 1,
+            'watermark' => 1,
         ],
         [
             'path' => 'main',
@@ -115,6 +117,7 @@ return [
             'height' => 410,
             'resize' => 1,
             'crop' => 1,
+            'watermark' => 1,
         ],
         [
             'path' => 'search',
@@ -129,6 +132,7 @@ return [
             'height' => 250,
             'resize' => 1,
             'crop' => 1,
+            'watermark' => 1,
         ],
         [
             'path' => 'original',

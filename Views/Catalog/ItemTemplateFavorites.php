@@ -3,8 +3,8 @@
 use Core\Cookie;
 use Core\HTML;
 
-if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))) {
-    $image = HTML::media('images/catalog/original/' . $obj->image, false);
+if (is_file(HOST . HTML::media('images/catalog/main/' . $obj->image, false))) {
+    $image = HTML::media('images/catalog/main/' . $obj->image, false);
 } else {
     $image = HTML::media('pic/no-image.png');
 }

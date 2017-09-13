@@ -209,12 +209,6 @@ class General extends Ajax
 
         $result = Items::getAnalogueItems($refer);
 
-        $array['static'] = [
-            'buy' => __('В корзину'),
-            'order' => __('Заказать'),
-            'orderLink' => HTML::link('hidden/order', false),
-        ];
-
         foreach ($result as $obj) {
             $array['result'][] = [
                 'id' => $obj->id,
@@ -233,6 +227,11 @@ class General extends Ajax
                 'new' => $obj->new == 1 ? true : false,
                 'promo' => $obj->top == 1 ? true : false,
                 'popular' => $obj->sale == 1 ? true : false,
+                'text' => [
+                    'buy' => __('В корзину'),
+                    'order' => __('Заказать'),
+                    'orderLink' => HTML::link('hidden/order', false),
+                ]
             ];
         }
 

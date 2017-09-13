@@ -30,6 +30,7 @@ class Base
     protected $_offset;
     protected $_pager;
     protected $_canonical;
+    protected $_hide_filter;
     protected $_use_canonical = 0;
 
     public function before()

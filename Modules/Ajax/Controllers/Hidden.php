@@ -4,6 +4,7 @@ namespace Modules\Ajax\Controllers;
 
 use Core\Arr;
 use Core\View;
+use I18n;
 use Modules\Ajax;
 
 class Hidden extends Ajax

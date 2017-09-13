@@ -105,7 +105,6 @@ class Catalog extends Base
     // Items list page. Inside group
     public function listAction()
     {
-
         if (Config::get('error')) {
             return false;
         }
@@ -143,6 +142,13 @@ class Catalog extends Base
         //canonicals settings
         $this->_use_canonical = 1;
         $this->_canonical = 'products/' . Route::param('alias');
+
+        if ($result['items']) {
+            $this->_hide_filter = false;
+        } else {
+            $this->_hide_filter = true;
+        }
+
         // Render page
         $this->_content = View::tpl(['result' => $result['items'], 'pager' => $this->_pager->create()], 'Catalog/ItemsList');
     }

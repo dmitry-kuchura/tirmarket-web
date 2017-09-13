@@ -205,34 +205,12 @@ class General extends Ajax
         $refer = explode('/p', $_SERVER["HTTP_REFERER"]);
         $refer = $refer[1];
 
-        $table = 'catalog';
-        $tableI18n = $table . '_i18n';
         $array = [];
 
-        $result = DB::select(
-            $tableI18n . '.*',
-            $table . '.*',
-            ['brands_i18n.name', 'brand_name']
-        )
-            ->from($table)
-            ->join($tableI18n, 'LEFT')->on($tableI18n . '.row_id', '=', $table . '.id')
-            ->join($table . '_related')
-            ->on($table . '_related.with_id', '=', $table . '.id')
-            ->join('brands', 'LEFT')
-            ->on($table . '.brand_alias', '=', 'brands.alias')
-            ->on('brands.status', '=', DB::expr('1'))
-            ->join('brands_i18n', 'LEFT')
-            ->on('brands_i18n.row_id', '=', 'brands.id')
-            ->on('brands_i18n.language', '=', DB::expr("'" . \I18n::$lang . "'"))
-            ->where($table . '_related.who_id', '=', $refer)
-            ->where($tableI18n . '.language', '=', I18n::$lang)
-            ->where($table . '.status', '=', 1)
-            ->order_by(DB::expr('RAND ()'))
-            ->limit(5)
-            ->find_all();
+        $result = Items::getAnalogueItems($refer);
 
         foreach ($result as $obj) {
-            $array[] = [
+            $array['result'][] = [
                 'id' => $obj->id,
                 'link' => HTML::link($obj->alias . '/p' . $obj->id, false),
                 'title' => $obj->name,
@@ -249,6 +227,11 @@ class General extends Ajax
                 'new' => $obj->new == 1 ? true : false,
                 'promo' => $obj->top == 1 ? true : false,
                 'popular' => $obj->sale == 1 ? true : false,
+                'text' => [
+                    'buy' => __('В корзину'),
+                    'order' => __('Заказать'),
+                    'orderLink' => HTML::link('hidden/order', false),
+                ],
             ];
         }
 
@@ -361,13 +344,7 @@ class General extends Ajax
         $queries = Items::getQueries(urldecode(Arr::get($this->raw, 'query')));
         $result = Items::searchRows($queries);
 
-        $array = [
-            'static' => [
-                'buy' => __('В корзину'),
-                'order' => __('Заказать'),
-                'orderLink' => HTML::link('hidden/order', false),
-            ],
-        ];
+        $array = [];
 
         foreach ($result as $obj) {
             $array['result'][] = [
@@ -387,7 +364,11 @@ class General extends Ajax
                 'new' => $obj->new == 1 ? true : false,
                 'promo' => $obj->top == 1 ? true : false,
                 'popular' => $obj->sale == 1 ? true : false,
-
+                'text' => [
+                    'buy' => __('В корзину'),
+                    'order' => __('Заказать'),
+                    'orderLink' => HTML::link('hidden/order', false),
+                ],
             ];
         }
 

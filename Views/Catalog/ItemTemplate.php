@@ -3,8 +3,8 @@
 use Core\HTML;
 use Core\User;
 
-if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))) {
-    $image = HTML::media('images/catalog/original/' . $obj->image, false);
+if (is_file(HOST . HTML::media('images/catalog/item/' . $obj->image, false))) {
+    $image = HTML::media('images/catalog/item/' . $obj->image, false);
 } else {
     $image = HTML::media('pic/no-image.png');
 }
@@ -60,6 +60,7 @@ if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))
                 <div class="_col-auto _flex-grow-1">
                     <a href="#" class="button button--full" data-basket-trigger
                        data-id="<?php echo $obj->id; ?>"
+                       data-alias="<?php echo HTML::link('hidden/basket'); ?>"
                        data-binding="product">
                         <span>
                             <i>

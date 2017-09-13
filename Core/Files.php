@@ -48,7 +48,7 @@ class Files
             if (Arr::get($one, 'watermark')) {
                 $watermark = SimpleImage::factory(HOST . HTML::media(str_replace(HOST, '', Config::get('images.watermark')), false));
                 $watermark->fit_to_width($image->get_width() * 0.4);
-                $image->overlay($watermark, 'bottom right', 1, 20, 20);
+                $image->overlay($watermark, 'bottom right', 0.6, 0, 0);
             }
             $image->save($file, Arr::get($one, 'quality', 80));
         }

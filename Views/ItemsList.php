@@ -6,9 +6,11 @@ use Core\Widgets;
 /* @var $GLOBAL_MESSAGE string */
 /* @var $_breadcrumbs string */
 /* @var $_content string */
+/* @var $hide bool */
+
 ?>
 <!doctype html>
-<html lang="<?php echo I18n::$lang;?>" dir="ltr">
+<html lang="<?php echo I18n::$lang; ?>" dir="ltr">
 <head>
     <?php echo Widgets::get('Head', $_seo); ?>
     <?php foreach ($_seo['scripts']['head'] as $script): ?>
@@ -26,11 +28,11 @@ use Core\Widgets;
         <div class="page-size">
             <?php echo $_breadcrumbs; ?>
             <div class="_flex _lg-flex-nowrap">
-                <?php echo Widgets::get('Catalog_Filter'); ?>
+                <?php echo Widgets::get('Catalog_Filter', ['hide' => $_hide_filter]); ?>
                 <div class="content">
                     <div class="_flex _grid-space-4 _items-center _mb-3">
                         <div class="title _flex-grow-1"><?php echo $_seo['h1']; ?></div>
-                        <?php echo Widgets::get('Catalog_Sort'); ?>
+                        <?php echo Widgets::get('Catalog_Sort', ['hide' => $_hide_filter]); ?>
                     </div>
                     <?php echo $_content; ?>
                 </div>

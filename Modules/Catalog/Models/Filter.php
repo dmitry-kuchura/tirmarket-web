@@ -74,7 +74,7 @@ class Filter
             $sortTable = 'catalog_i18n';
         }
         $result = $result->group_by('catalog.id')
-            ->order_by('catalog.available', 'ASC')
+            ->order_by('catalog.available', 'DESC')
             ->order_by($sortTable . '.' . $sort, $type)
             ->find_all();
 

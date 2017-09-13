@@ -28,14 +28,14 @@
                 <a href="#" class="button" data-basket-trigger :data-id="item.id" v-if="item.exist">
                     <span>
                         <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
-                        <span>{{ static.buy }}</span>
+                        <span>{{ item.text.buy }}</span>
                     </span>
                 </a>
 
-                <a href="#" class="button" :data-mfp="static.orderLink" :data-param='`{"id": "${item.id}"}`' v-else>
+                <a href="#" class="button" :data-mfp="item.text.orderLink" :data-param='`{"id": "${item.id}"}`' v-else>
                     <span>
                         <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
-                        <span>{{ static.order }}</span>
+                        <span>{{ item.text.order }}</span>
                     </span>
                 </a>
             </div>
@@ -46,7 +46,7 @@
     import Vue from 'vue';
 
     export default {
-        props: ['item', 'static'],
+        props: ['item', 'text'],
 
         components: {},
 

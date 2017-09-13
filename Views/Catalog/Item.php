@@ -130,9 +130,11 @@ use Core\Config;
                                 <span><?php echo __('Купить в ОДИН КЛИК'); ?></span>
                             </a>
                             <?php if ($obj->available == 1): ?>
-                                <a href="#" class="button" data-basket-trigger data-id="<?php echo $obj->id; ?>"
+                                <a href="#" class="button" data-basket-trigger
+                                   data-id="<?php echo $obj->id; ?>"
+                                   data-alias="<?php echo HTML::link('hidden/basket'); ?>"
                                    data-binding="product">
-                                    <span>
+                                <span>
                                         <i>
                                             <svg>
                                                 <use xmlns:xlink="http://www.w3.org/1999/xlink"

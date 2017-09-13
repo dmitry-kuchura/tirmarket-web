@@ -28,7 +28,7 @@
                 params: {}
             })
                 .then((response) => {
-                    $this.list.push(...response.data);
+                    $this.list.push(...response.data.result);
                 })
                 .catch((error) => {
                     console.log(error);

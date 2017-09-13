@@ -287,12 +287,17 @@ class Items extends CommonI18n
 
     public static function getItemsByFlag($flag, $sort = null, $type = null, $limit = null, $offset = null)
     {
-        $result = DB::select(static::$table . '.*', static::$tableI18n . '.name')
+        $result = DB::select(
+            static::$table . '.*',
+            static::$tableI18n . '.name',
+            DB::expr('( SELECT RAND() * (SELECT MAX(`catalog`.`id`) FROM `catalog`) AS `max_id`) AS `max`')
+        )
             ->from(static::$table)
             ->join(static::$tableI18n)
             ->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
-            ->where(static::$tableI18n . '.language', '=', \I18n::$lang)
+            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
             ->where(static::$table . '.' . $flag, '=', 1)
+            ->where(static::$table . '.id', '>=', 'max')
             ->where(static::$table . '.status', '=', 1);
 
         if ($sort !== null) {

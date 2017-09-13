@@ -374,4 +374,31 @@ class Items extends CommonI18n
             ->where(static::$table . '.status', '=', 1);
         return $result->count_all();
     }
+
+    public static function getAnalogueItems($refer = null)
+    {
+        $result = DB::select(
+            static::$tableI18n . '.*',
+            static::$table . '.*',
+            ['brands_i18n.name', 'brand_name']
+        )
+            ->from(static::$table)
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->join(static::$table . '_related')
+            ->on(static::$table . '_related.with_id', '=', static::$table . '.id')
+            ->join('brands', 'LEFT')
+            ->on(static::$table . '.brand_alias', '=', 'brands.alias')
+            ->on('brands.status', '=', DB::expr('1'))
+            ->join('brands_i18n', 'LEFT')
+            ->on('brands_i18n.row_id', '=', 'brands.id')
+            ->on('brands_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
+            ->where(static::$table . '_related.who_id', '=', $refer)
+            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+            ->where(static::$table . '.status', '=', 1)
+            ->order_by(DB::expr('RAND ()'))
+            ->limit(5)
+            ->find_all();
+
+        return $result;
+    }
 }

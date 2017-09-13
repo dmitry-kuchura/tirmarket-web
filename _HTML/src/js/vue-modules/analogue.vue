@@ -13,6 +13,7 @@
         data() {
             return {
                 list: [],
+                text: {},
                 width: 0
             }
         },
@@ -28,7 +29,8 @@
                 params: {}
             })
                 .then((response) => {
-                    $this.list.push(...response.data);
+                    $this.list.push(...response.data.result);
+                    $this.text.push(...response.data.static);
                 })
                 .catch((error) => {
                     console.log(error);

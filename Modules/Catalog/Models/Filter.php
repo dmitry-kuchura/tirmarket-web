@@ -560,11 +560,11 @@ class Filter
                 break;
             default:
                 $input .= '<a href="' . Filter::generateLinkWithFilter($alias, $obj->alias) . '" class="form-element form-element--check _mb-2">';
-                $input .= '<label>';
+                $input .= '<div>';
                 $input .= '<input type="checkbox" name="' . $alias . '" value="' . $obj->alias . '" ' . $checked . '><i>';
                 $input .= '<svg><use xlink:href="' . HTML::media('icons/icons.svg#check', false) . '"></use></svg>';
                 $input .= '</i><span>' . $obj->name . '</span>';
-                $input .= '</label>';
+                $input .= '</div>';
                 $input .= '</a>';
                 break;
 //            default:

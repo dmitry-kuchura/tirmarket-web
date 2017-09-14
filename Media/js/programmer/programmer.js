@@ -17,6 +17,17 @@ function generate(message, type, time) {
 
 jQuery(document).ready(function ($) {
 
+    $('.js-apply-price').on('click', function (e) {
+        e.preventDefault();
+
+        var mincost = $('input[name="mincost"]').val();
+        var maxcost = $('input[name="maxcost"]').val();
+
+        var priceURL = '/mincost-' + mincost + '/maxcost-' + maxcost;
+
+        window.location.href = window.location.href.replace(/mincost-[0-9]+\//g, '').replace(/maxcost-[0-9]+\//g, '') + priceURL;
+    });
+
     /**
      * Add to favorites button
      */

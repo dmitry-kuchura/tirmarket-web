@@ -11,7 +11,7 @@ use Modules\Catalog\Models\Filter;
 
 <?php if ($hide == false): ?>
     <div class="sidebar">
-        <form data-form>
+        <div>
             <div class="sidebar__section sidebar__section--header">
                 <div class="_flex _items-center _justify-between">
                     <div class="title title--md"><?php echo __('Фильтр товаров'); ?></div>
@@ -28,15 +28,24 @@ use Modules\Catalog\Models\Filter;
                         } ?>
                     </div>
                 <?php endif; ?>
-                <div class="sidebar__section">
-                    <div class="title title--sm _mb-3"><?php echo __('Цена'); ?></div>
-                    <div class="form-element">
-                        <div data-range="[<?php echo $min . ', ' . $max . ', ' . $min . ', ' . $max; ?>]"
-                             data-ns="price"></div>
-                        <input type="hidden" name="mixcost" data-ns="price[0]">
-                        <input type="hidden" name="maxcost" data-ns="price[1]">
+
+                <?php if ($min != $max): ?>
+                    <div class="sidebar__section">
+                        <div class="title title--sm _mb-3"><?php echo __('Цена'); ?></div>
+
+                        <div class="form-element">
+                            <div data-range="[<?php echo $min . ', ' . $max . ', ' . $min . ', ' . $max; ?>]"
+                                 data-ns="price"></div>
+                            <input type="hidden" name="mincost" data-ns="price[0]">
+                            <input type="hidden" name="maxcost" data-ns="price[1]">
+                        </div>
+
+                        <button class="button button--full _mt-4 js-apply-price">
+                            <span>Применить</span>
+                        </button>
                     </div>
-                </div>
+                <?php endif; ?>
+
                 <?php if (count($specifications['list'])): ?>
                     <?php foreach ($specifications['list'] as $specification_alias => $specification_name): ?>
                         <?php if (isset($specifications['values'][$specification_alias]) and count($specifications['values'][$specification_alias])): ?>
@@ -54,17 +63,17 @@ use Modules\Catalog\Models\Filter;
                 <?php endif; ?>
 
                 <div class="sidebar__section _text-center _p-4">
-                    <button type="reset" href="<?php echo HTML::link('products/' . Route::param('alias')); ?>"
+                    <a href="<?php echo HTML::link('products/' . Route::param('alias')); ?>"
                             class="reset-trigger">
-                    <span>
-                        <i>
-                            <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cancel', false); ?>"></use></svg>
-                        </i>
-                        <span><?php echo __('Очистить фильтр'); ?></span>
-                    </span>
-                    </button>
+                        <span>
+                            <i>
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cancel', false); ?>"></use></svg>
+                            </i>
+                            <span><?php echo __('Очистить фильтр'); ?></span>
+                        </span>
+                    </a>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 <?php endif; ?>

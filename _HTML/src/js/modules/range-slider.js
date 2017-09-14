@@ -18,7 +18,7 @@ module.exports = function () {
             tooltips: true,
             range: {
                 'min': data[0],
-                'max': data[1]
+                'max': data[1] > data[0] ? data[1] : data[1] + 1
             },
             format: {
                 to: function ( value ) {

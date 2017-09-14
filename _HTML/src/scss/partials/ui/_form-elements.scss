@@ -274,6 +274,23 @@
 	}
 }
 
+a.form-element--check {
+	& > div {
+		display: flex;
+		flex-wrap: nowrap;
+		width: 100%;
+		max-width: 100%;
+		align-items: center;
+
+		& > span {
+			flex-shrink: 1;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+	}
+}
+
 .select {
 	height: rem(42);
 	width: 100%;
@@ -298,6 +315,7 @@
 }
 
 .reset-trigger {
+	display: inline-block;
 	background: none;
 	border: none;
 	padding: 0;
@@ -315,6 +333,7 @@
 
 		i {
 			display: block;
+			position: relative;
 			width: 14px;
 			height: 14px;
 			margin: 0 10px 0 0;
@@ -324,6 +343,11 @@
 				max-height: 100%;
 				fill: #113da9;
 				transition: fill .25s;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
 			}
 		}
 	}

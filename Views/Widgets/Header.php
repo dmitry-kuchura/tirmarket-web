@@ -148,7 +148,7 @@ use Core\Config;
 
 <!---->
 
-<header class="page-header page-header--fixed">
+<header class="page-header page-header--fixed _md-show!">
     <div class="page-header__below" style="display: block !important;">
         <div class="page-size">
 

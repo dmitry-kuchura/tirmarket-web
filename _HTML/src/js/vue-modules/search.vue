@@ -15,7 +15,7 @@
             </span>
         </form>
 
-        <search-result v-if="result.length" :data="result" :static="text"></search-result>
+        <search-result v-if="this.search.length > 2" :data="result" :static="text"></search-result>
     </div>
 </template>
 

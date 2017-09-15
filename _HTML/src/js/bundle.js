@@ -113,4 +113,24 @@ window.jQuery(function ($) {
         });
     }
 
+    //
+
+    (function () {
+        let $header = $('.page-header--fixed');
+
+        let headerHandler = (target) => {
+            let scrollTop = $(target).scrollTop();
+            let $mainHeader = $('.page-header').not('.page-header--fixed');
+
+            if(scrollTop > $mainHeader.outerHeight()) {
+                $header.addClass('page-header--visible');
+            } else {
+                $header.removeClass('page-header--visible');
+            }
+        };
+
+        $(window).on('scroll load', (event) => headerHandler(event.currentTarget));
+
+    }());
+
 });

@@ -9,6 +9,7 @@ use Core\Config;
 /* @var $top_menu array */
 
 ?>
+
 <header class="page-header">
     <div class="page-header__above">
         <div class="page-size">
@@ -17,7 +18,8 @@ use Core\Config;
                     <ul class="site-menu">
                         <?php foreach ($menu as $obj): ?>
                             <li class="site-menu__item">
-                                <a href="<?php echo HTML::link($obj->url); ?>" class="site-menu__link"><?php echo $obj->name; ?></a>
+                                <a href="<?php echo HTML::link($obj->url); ?>"
+                                   class="site-menu__link"><?php echo $obj->name; ?></a>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -66,7 +68,8 @@ use Core\Config;
                 </div>
                 <div class="_col-auto _flex-grow-1 _lg-show">
                     <div class="title title--sm _mb-2"><?php echo Config::get('static.text_header_' . I18n::$lang); ?></div>
-                    <search-form data-vue="true" data-placeholder="<?php echo __('Поиск'); ?>" data-lang="<?php echo I18n::$lang; ?>"></search-form>
+                    <search-form data-vue="true" data-placeholder="<?php echo __('Поиск'); ?>"
+                                 data-lang="<?php echo I18n::$lang; ?>"></search-form>
                 </div>
                 <div class="_col-auto _xl-show">
                     <div class="_flex _flex-nowrap">
@@ -139,6 +142,65 @@ use Core\Config;
                        class="catalog-menu__link"><?php echo __('Все категории'); ?></a>
                 </li>
             </ul>
+        </div>
+    </div>
+</header>
+
+<!---->
+
+<header class="page-header page-header--fixed">
+    <div class="page-header__below" style="display: block !important;">
+        <div class="page-size">
+
+            <div class="_flex _items-center _justify-between _grid-space-4">
+                <div class="_col-auto">
+                    <ul class="catalog-menu" style="overflow: visible;">
+                        <div class="catalog-menu__item" data-dropdown>
+                            <a href="#" class="catalog-menu__link" data-dropdown-trigger>Каталог</a>
+
+                            <ul class="dropdown-menu dropdown-menu--fixed">
+                                <?php foreach ($top_menu as $obj): ?>
+                                    <li class="catalog-menu__item">
+                                        <a href="<?php echo HTML::link('products/' . $obj->alias); ?>"
+                                           class="catalog-menu__link"><?php echo $obj->name; ?></a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+
+                <div class="_col-auto _flex-grow-1 _md-show">
+                    <search-form data-vue="true" data-placeholder="<?php echo __('Поиск'); ?>"
+                                 data-lang="<?php echo I18n::$lang; ?>"></search-form>
+                </div>
+
+                <div class="_col-auto">
+                    <div class="_flex _items-center">
+                        <?php if ($user): ?>
+                            <a href="<?php echo HTML::link('account/favorites', false); ?>" class="header-icon header-icon--light">
+                                <span class="header-icon__image">
+                                    <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
+                                </span>
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php echo HTML::link('favorites', false); ?>" class="header-icon header-icon--light">
+                                <span class="header-icon__image">
+                                    <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
+                                </span>
+                            </a>
+                        <?php endif; ?>
+                        <a href="#" class="header-icon header-icon--light" data-mfp="<?php echo HTML::link('hidden/basket', false); ?>">
+                            <span class="header-icon__image">
+                                <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
+                                <span class="header-icon__count" data-cart-count><?php echo $cart; ?></span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </header>

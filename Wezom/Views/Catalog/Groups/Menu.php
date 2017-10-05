@@ -1,7 +1,7 @@
 <?php if ( isset($result[$cur]) AND count($result[$cur]) ): ?>
-    <?php if ($cur > 0): ?>
-        <ol>
-    <?php endif ?>
+    <?php if ($cur > '00000000-0000-0000-0'): ?>
+    <ol>
+<?php endif ?>
     <?php foreach ($result[$cur] as $obj): ?>
         <li class="dd-item dd3-item" data-id="<?php echo $obj->id; ?>">
             <div title="<?php echo __('Переместить строку'); ?>" class="dd-handle dd3-handle">Drag</div>
@@ -52,7 +52,7 @@
             <?php echo Core\View::tpl(['result' => $result, 'tpl_folder' => $tpl_folder, 'cur' => $obj->id], $tpl_folder.'/Menu'); ?>
         </li>
     <?php endforeach; ?>
-    <?php if ($cur > 0): ?>
+    <?php if ($cur > '00000000-0000-0000-0'): ?>
         </ol>
     <?php endif ?>
 <?php endif ?>

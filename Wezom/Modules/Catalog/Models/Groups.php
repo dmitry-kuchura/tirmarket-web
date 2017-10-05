@@ -2,23 +2,20 @@
 
 namespace Wezom\Modules\Catalog\Models;
 
-use Core\Common;
 use Core\Files;
 use Core\QB\DB;
-use Core\Message;
-use Core\Arr;
+use Core\Common;
+use Core\CommonI18n;
 
 use Wezom\Modules\Catalog\Models\CatalogTreeBrands AS CTB;
 use Wezom\Modules\Catalog\Models\CatalogTreeSpecifications AS CTS;
 
-class Groups extends \Core\CommonI18n
+class Groups extends CommonI18n
 {
-
     public static $table = 'catalog_tree';
     public static $tableI18n = 'catalog_tree_i18n';
     public static $image = 'catalog_tree';
     public static $rules = [];
-
 
     public static function countKids($id)
     {
@@ -36,12 +33,6 @@ class Groups extends \Core\CommonI18n
         return $result->count_all();
     }
 
-    /**
-     * Add communications brands - groups
-     * @param mixed $groupBrands - integer brand id | array brand ids
-     * @param integer $id - group id from catalog_tree table
-     * @return bool
-     */
     public static function changeBrandsCommunications($groupBrands, $id)
     {
         CTB::delete($id, 'catalog_tree_id');
@@ -60,12 +51,6 @@ class Groups extends \Core\CommonI18n
         return true;
     }
 
-    /**
-     * Add communications specifications - groups
-     * @param mixed $groupSpec - integer specification id | array specification ids
-     * @param
-     * @return bool
-     */
     public static function changeSpecificationsCommunications($groupSpec, $id)
     {
         CTS::delete($id, 'catalog_tree_id');
@@ -84,11 +69,6 @@ class Groups extends \Core\CommonI18n
         return true;
     }
 
-    /**
-     * Get brands ids that belongs to group with ID = $id
-     * @param integer $id - group id from catalog_tree table
-     * @return array
-     */
     public static function getGroupBrandsIDS($id)
     {
         $groupBrands = [];
@@ -99,11 +79,6 @@ class Groups extends \Core\CommonI18n
         return $groupBrands;
     }
 
-    /**
-     * Get specifications ids that belongs to group with ID = $id
-     * @param integer $id - group id from catalog_tree table
-     * @return array
-     */
     public static function getGroupSpecificationsIDS($id)
     {
         $groupSpec = [];
@@ -140,13 +115,45 @@ class Groups extends \Core\CommonI18n
         return parent::valid($data);
     }
 
-    /**
-     * Upload images for current type
-     * @param integer $id - ID in the table for this image
-     * @param string $name - name of the input in form for uploaded image
-     * @param string $field - field name in the table to save new image name
-     * @return bool|object
-     */
+    public static function getRows($status = null, $sort = null, $type = null, $limit = null, $offset = null, $filter = true)
+    {
+        $lang = 'ua';
+        static::$tableI18n = static::$table . '_i18n';
+        if ($sort) {
+            $arr = explode('.', $sort);
+            if (count($arr) < 2) {
+                $sort = static::$table . '.' . $sort;
+            }
+        }
+        $result = DB::select(
+            static::$tableI18n . '.*', static::$table . '.*'
+        )
+            ->from(static::$table)
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->where(static::$tableI18n . '.language', '=', $lang);
+        if ($filter) {
+            $result = static::setFilter($result);
+        }
+        if ($status <> null) {
+            $result->where(static::$table . '.status', '=', $status);
+        }
+        if ($sort <> null) {
+            if ($type <> null) {
+                $result->order_by($sort, $type);
+            } else {
+                $result->order_by($sort);
+            }
+        }
+        $result->order_by(static::$table . '.id', 'DESC');
+        if ($limit <> null) {
+            $result->limit($limit);
+            if ($offset <> null) {
+                $result->offset($offset);
+            }
+        }
+        return $result->find_all();
+    }
+
     public static function uploadImagePopular($id, $name = 'popular', $field = 'image_popular')
     {
         if (!static::$image OR !$id) {
@@ -162,13 +169,6 @@ class Groups extends \Core\CommonI18n
         return DB::update(static::$table)->set([$field => $filename])->where(static::$table . '.id', '=', $id)->execute();
     }
 
-    /**
-     * Delete images for current type
-     * @param string $filename - file name
-     * @param null|integer $id - ID in the table for this image
-     * @param string $field - field name in the table to save new image name
-     * @return bool
-     */
     public static function deleteImagePopular($filename, $id = null, $field = 'image_popular')
     {
         if (!static::$image OR !$filename) {
@@ -186,5 +186,4 @@ class Groups extends \Core\CommonI18n
         }
         return true;
     }
-
 }

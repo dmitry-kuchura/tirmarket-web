@@ -14,12 +14,12 @@ use Core\QB\DB;
 use Core\Support;
 use Core\Files;
 use Core\User;
+use Wezom\Modules\Ajax;
 use Wezom\Modules\Ajax\Helpers\Translates;
 use Wezom\Modules\Seo\Models\Sitemap;
 
-class General extends \Wezom\Modules\Ajax
+class General extends Ajax
 {
-
     public function sendNewPasswordAction()
     {
         $password = trim(Arr::get($_POST, 'password'));
@@ -37,13 +37,13 @@ class General extends \Wezom\Modules\Ajax
         Email::sendTemplate(26, [
             '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
             '{{date}}' => date('d.m.Y'),
-            '{{password}}' => $password
+            '{{password}}' => $password,
         ], $user->email);
 
         $r = Email::sendTemplate(26, [
             '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
             '{{date}}' => date('d.m.Y'),
-            '{{password}}' => $password
+            '{{password}}' => $password,
         ], $user->email);
 
         if (!$r) {
@@ -60,12 +60,9 @@ class General extends \Wezom\Modules\Ajax
         ]);
     }
 
-    /**
-     * Get count of orders for last 12 months
-     */
     public function ordersChartAction()
     {
-        $months = [NULL, 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+        $months = [null, 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
         $month = date('n');
         $year = date('y');
         $date = strtotime('01.' . Support::addZero($month) . '.' . (date('Y') - 1));
@@ -105,9 +102,6 @@ class General extends \Wezom\Modules\Ajax
         $this->success($chart);
     }
 
-    /**
-     * Get data for visitors chart on main page
-     */
     public function visitorsMainDataAction()
     {
         $days = 14;
@@ -196,19 +190,12 @@ class General extends \Wezom\Modules\Ajax
         $this->success($chart);
     }
 
-    /**
-     * Remove ALL minified files from /Media/cache folder
-     */
     public function clearMinifyCacheAction()
     {
         \Minify_Core::clearCache();
         $this->success();
     }
 
-    /**
-     * Transliterate incoming string
-     * $this->post['source'] => incoming string
-     */
     public function translitAction()
     {
         $this->success([
@@ -216,12 +203,6 @@ class General extends \Wezom\Modules\Ajax
         ]);
     }
 
-    /**
-     * Set status to chosen row
-     * $this->post['id'] => row ID
-     * $this->post['table'] => table where status will be change
-     * $this->post['current'] => current status 0/1
-     */
     public function setStatusAction()
     {
         if (!isset($this->post['id'])) {
@@ -237,15 +218,10 @@ class General extends \Wezom\Modules\Ajax
         $table = Arr::get($this->post, 'table', 0);
         DB::update($table)->set(['status' => $status])->where('id', '=', $id)->execute();
         $this->success([
-            'status' => $status
+            'status' => $status,
         ]);
     }
 
-    /**
-     * Delete rows from table
-     * $this->post['ids'] => array with IDs of rows we want to delete
-     * $this->post['table'] => table where we want to delete rows
-     */
     public function deleteMassAction()
     {
         if (!isset($this->post['ids'])) {
@@ -282,12 +258,6 @@ class General extends \Wezom\Modules\Ajax
         $this->success();
     }
 
-    /**
-     * Set status to chosen rows
-     * $this->post['ids'] => array with IDs of rows where we want to update status
-     * $this->post['table'] => table where status will be change
-     * $this->post['status'] => status we want
-     */
     public function setStatusMassAction()
     {
         if (!isset($this->post['ids'])) {
@@ -303,12 +273,6 @@ class General extends \Wezom\Modules\Ajax
         $this->success();
     }
 
-    /**
-     * Method to get uri with date parameters (filter widget in some lists)
-     * $this->post["uri"] => current URL
-     * $this->post["from"] => date from
-     * $this->post["to"] => date to
-     */
     public function getURIAction()
     {
         $uri = Arr::get($this->post, "uri");
@@ -321,11 +285,6 @@ class General extends \Wezom\Modules\Ajax
         ]);
     }
 
-    /**
-     * Set sortable in some table
-     * $this->post['table'] => table where we want to sort rows
-     * $this->post['json'] => tree with IDs in right order and depth in JSON format
-     */
     public function sortableAction()
     {
         $table = Arr::get($this->post, 'table');
@@ -362,9 +321,6 @@ class General extends \Wezom\Modules\Ajax
         $this->success();
     }
 
-    /**
-     * Simple sortable without depth
-     */
     public function sortableSimpleAction()
     {
         $sort = Arr::get($this->post, 'sort');
@@ -379,12 +335,6 @@ class General extends \Wezom\Modules\Ajax
         $this->success();
     }
 
-    /**
-     * Authorization to admin panel
-     * $this->post['login'] => user login
-     * $this->post['password'] => user password
-     * $this->post['remember'] => does user want to remember his password
-     */
     public function loginAction()
     {
         $login = Arr::get($this->post, 'login');
@@ -401,12 +351,6 @@ class General extends \Wezom\Modules\Ajax
         $this->success();
     }
 
-    /**
-     * Switch any field between 0 & 1
-     * $this->post['id'] => row ID
-     * $this->post['table'] => table where field will be change
-     * $this->post['field'] => field to change
-     */
     public function change_fieldAction()
     {
         $id = (int)Arr::get($this->post, 'id');
@@ -425,7 +369,7 @@ class General extends \Wezom\Modules\Ajax
         $data[$field] = $new;
         Common::factory($table)->update($data, $id);
         $this->success([
-            'current' => $new
+            'current' => $new,
         ]);
     }
 
@@ -532,53 +476,4 @@ class General extends \Wezom\Modules\Ajax
             'ids' => $ids,
         ]);
     }
-
-    // Get items by parent_id
-//        public function getItemsAction() {
-//            $id = Arr::get($this->post, 'parent_id');
-//            $result = DB::select('catalog.*', 'catalog_images.image')->from('catalog')
-//                ->join('catalog_images')
-//                ->on('catalog_images.catalog_id', '=', 'catalog.id')
-//                ->on('catalog_images.main', '=', DB::expr(1))
-//                ->where('parent_id', '=', $id)
-//                ->order_by('created_at', 'DESC')
-//                ->find_all();
-//            $data = array();
-//            foreach( $result AS $obj ) {
-//                $data[] = array(
-//                    // 'url' => '/catalog/'.$obj->alias,
-//                    'image' => is_file(HOST.HTML::media('images/catalog/medium/'.$obj->image)) ? HTML::media('images/catalog/medium/'.$obj->image) : '',
-//                    'name' => $obj->name,
-//                    'cost' => $obj->cost,
-//                    'id' => $obj->id,
-//                );
-//            }
-//            die(json_encode(array(
-//                'success' => true,
-//                'result' => $data,
-//            )));
-//        }
-    // Get sizes by catalog_id
-//        public function getItemSizesAction() {
-//            $catalog_id = (int) Arr::get($this->post, 'catalog_id');
-//            $result = DB::select('sizes.*')->from('sizes')
-//                ->join('catalog_sizes')
-//                ->on('catalog_sizes.size_id', '=', 'sizes.id')
-//                ->on('catalog_sizes.catalog_id', '=', DB::expr($catalog_id))
-//                ->order_by('name')
-//                ->find_all();
-//            $data = array();
-//            foreach( $result AS $obj ) {
-//                if( (int) $obj->id ) {
-//                    $data[] = array(
-//                        'id' => $obj->id,
-//                        'name' => $obj->name,
-//                    );
-//                }
-//            }
-//            die(json_encode(array(
-//                'success' => true,
-//                'result' => $data,
-//            )));
-//        }
 }

@@ -29,7 +29,8 @@ class Groups extends Base
 
     function indexAction()
     {
-        $result = Model::getRows(NULL, 'catalog_tree.sort', 'ASC');
+        $result = Model::getRows(null, 'catalog_tree.sort', 'ASC');
+
         $arr = [];
         foreach ($result AS $obj) {
             $arr[$obj->parent_id][] = $obj;
@@ -90,8 +91,8 @@ class Groups extends Base
             [
                 'obj' => $obj,
                 'tree' => Support::getSelectOptions('Catalog/Groups/Select', 'catalog_tree', $result->parent_id, $result->id),
-                'brands' => Brands::getRows(NULL, 'brands_i18n.name', 'ASC'),
-                'specifications' => Specifications::getRows(NULL, 'sort', 'ASC'),
+                'brands' => Brands::getRows(null, 'brands_i18n.name', 'ASC'),
+                'specifications' => Specifications::getRows(null, 'sort', 'ASC'),
                 'groupBrands' => $groupBrands,
                 'groupSpec' => $groupSpec,
                 'langs' => $langs,
@@ -135,8 +136,8 @@ class Groups extends Base
                 'obj' => $result,
                 'tpl_folder' => $this->tpl_folder,
                 'tree' => Support::getSelectOptions('Catalog/Groups/Select', 'catalog_tree', $result->parent_id, $result->id),
-                'brands' => Brands::getRows(NULL, 'brands_i18n.name', 'ASC'),
-                'specifications' => Specifications::getRows(NULL, 'sort', 'ASC'),
+                'brands' => Brands::getRows(null, 'brands_i18n.name', 'ASC'),
+                'specifications' => Specifications::getRows(null, 'sort', 'ASC'),
                 'groupBrands' => $groupBrands,
                 'groupSpec' => $groupSpec,
                 'languages' => $this->_languages,

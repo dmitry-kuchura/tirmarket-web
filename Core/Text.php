@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class Text
@@ -58,27 +59,26 @@ class Text
     /**
      * Transliterate phrase from russian to en
      *
-     *     $text = Text::translit($phrase);
-     *
-     * @param   string $phrase - phrase to translit
-     * @return  string
+     * @param $phrase
+     * @param null $rules
+     * @return mixed|string
      */
-    public static function translit($phrase, $rules = NULL)
+    public static function translit($phrase, $rules = null)
     {
         $ru = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', 'і', 'є', 'ї', 'ґ', ' ', '"', "'", "`", ':', '«', '»', '.', ',', '’', '„', '”', '(', ')', '[', ']', '*', '@', '#', '“', '№', '%'];
         $en = ['a', 'b', 'v', 'g', 'd', 'e', 'e', 'zh', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', 'h', 'ts', 'ch', 'sh', 'sch', '', 'y', '', 'e', 'ju', 'ja', 'i', 'je', 'ji', 'g', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'N', ''];
         $phrase = mb_strtolower($phrase, "UTF-8");
         $phrase = str_replace($ru, $en, $phrase);
-		if ($rules !== NULL) {
-			if ($rules == 'only_chars_and_numbers') {
-				$phrase = preg_replace('/[^a-z0-9]/', '', $phrase);
-			} else {
-				$phrase = preg_replace('/[^a-z0-9_-]/', '', $phrase);
-			}
-		} else {
-			$phrase = preg_replace('/[^a-z0-9_-]/', '', $phrase);
-		}
-        
+        if ($rules !== null) {
+            if ($rules == 'only_chars_and_numbers') {
+                $phrase = preg_replace('/[^a-z0-9]/', '', $phrase);
+            } else {
+                $phrase = preg_replace('/[^a-z0-9_-]/', '', $phrase);
+            }
+        } else {
+            $phrase = preg_replace('/[^a-z0-9_-]/', '', $phrase);
+        }
+
         return $phrase;
     }
 
@@ -92,7 +92,7 @@ class Text
      * @param   string $end_char end character or entity
      * @return  string
      */
-    public static function limit_words($str, $limit = 100, $end_char = NULL)
+    public static function limit_words($str, $limit = 100, $end_char = null)
     {
         $string = strip_tags($str);
 

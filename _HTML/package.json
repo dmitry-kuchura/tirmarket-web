@@ -29,7 +29,6 @@
     "vue-template-compiler": "^2.3.4",
     "vuex": "^2.3.1"
   },
-
   "scripts": {
     "start": "yarn run blendid",
     "build": "./node_modules/.bin/blendid build"

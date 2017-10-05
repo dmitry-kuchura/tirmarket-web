@@ -6,10 +6,10 @@ return [
     // Groups
     'wezom/groups/index' => 'catalog/groups/index',
     'wezom/groups/index/page/<page:[0-9]*>' => 'catalog/groups/index',
-    'wezom/groups/edit/<id:[0-9]*>' => 'catalog/groups/edit',
-    'wezom/groups/delete/<id:[0-9]*>' => 'catalog/groups/delete',
-    'wezom/groups/delete_image/<id:[0-9]*>' => 'catalog/groups/deleteImage',
-    'wezom/groups/delete_image_popular/<id:[0-9]*>' => 'catalog/groups/deleteImagePopular',
+    'wezom/groups/edit/<id>' => 'catalog/groups/edit',
+    'wezom/groups/delete/<id>' => 'catalog/groups/delete',
+    'wezom/groups/delete_image/<id>' => 'catalog/groups/deleteImage',
+    'wezom/groups/delete_image_popular/<id>' => 'catalog/groups/deleteImagePopular',
     'wezom/groups/add' => 'catalog/groups/add',
     // Items
     'wezom/items/index' => 'catalog/items/index',

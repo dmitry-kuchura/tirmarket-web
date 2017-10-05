@@ -2,7 +2,7 @@
 
 return [
     'frontend' => [
-        'Ajax', 'Index', 'Articles', 'News', 'Cart', 'User', 'Catalog', 'Unsubscribe',
+        'Ajax', 'Index', 'Articles', 'News', 'Api', 'Cart', 'User', 'Catalog', 'Unsubscribe',
         'Search', 'Sitemap', 'Contact', 'Reviews', 'Content',
     ],
     'backend' => [

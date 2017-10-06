@@ -33,12 +33,17 @@ class Api extends Base
 
     public function getProductsAction()
     {
-        $result = SOAP::createSoapClient('getProducts');
+        $params = ['limit' => 500, 'offset' => 0];
+
+        $result = SOAP::createSoapClient('getProducts', $params);
 
         var_dump($result);
         die;
     }
 
+    /**
+     * Список брендов
+     */
     public function getBrandsAction()
     {
         $result = SOAP::createSoapClient('getBrands');

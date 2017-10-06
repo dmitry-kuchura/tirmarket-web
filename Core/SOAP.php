@@ -9,7 +9,7 @@ class SOAP
 {
     static $wsdl = 'http://tir.maccen.com:8081/webservice/ws/Exchange.1cws?wsdl';
 
-    public static function createSoapClient($function)
+    public static function createSoapClient($function, $params = [])
     {
         $client = new SoapClient(self::$wsdl, [
             'exception' => 1,
@@ -17,6 +17,6 @@ class SOAP
             'trace' => true,
         ]);
 
-        return $client->__soapCall($function, []);
+        return $client->__soapCall($function, $params);
     }
 }

@@ -43,7 +43,7 @@ class Categories extends CommonI18n
         $data['status'] = $obj->status;
         $data['image'] = $obj->image;
         $data['top_menu'] = $obj->inMainPage;
-        $data['popular'] = $obj->id;
+        $data['popular'] = $obj->popular;
         $data['parent_id'] = $obj->parentID;
         $data['created_at'] = time();
         $data['updated_at'] = time();
@@ -57,15 +57,30 @@ class Categories extends CommonI18n
 
         DB::insert(static::$table, $keys)->values($values)->execute();
 
-        $i18n = [];
+        $ua = [];
 
-        $i18n['name'] = $obj->name;
-        $i18n['language'] = 'ua';
-        $i18n['row_id'] = $obj->id;
+        $ua['name'] = $obj->name;
+        $ua['language'] = 'ua';
+        $ua['row_id'] = $obj->id;
 
         $keys = [];
         $values = [];
-        foreach ($i18n as $key => $value) {
+        foreach ($ua as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::insert(static::$tableI18n, $keys)->values($values)->execute();
+
+        $ru = [];
+
+        $ru['name'] = $obj->name;
+        $ru['language'] = 'ru';
+        $ru['row_id'] = $obj->id;
+
+        $keys = [];
+        $values = [];
+        foreach ($ru as $key => $value) {
             $keys[] = $key;
             $values[] = $value;
         }

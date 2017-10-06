@@ -15,7 +15,6 @@ class Api extends Base
 
     public function getCategoriesAction()
     {
-
         $result = SOAP::createSoapClient('getCategories');
 
         foreach ($result->return->categories->category as $obj) {
@@ -23,5 +22,35 @@ class Api extends Base
                 Categories::insertRows($obj);
             }
         }
+    }
+
+    public function getProductsAction()
+    {
+
+        $result = SOAP::createSoapClient('getProducts');
+
+        var_dump($result);
+        die;
+
+//        foreach ($result->return->categories->category as $obj) {
+//            if (Categories::checkCategory($obj)) {
+//                Categories::insertRows($obj);
+//            }
+//        }
+    }
+
+    public function getBrandsAction()
+    {
+
+        $result = SOAP::createSoapClient('getBrands');
+
+        var_dump($result);
+        die;
+
+//        foreach ($result->return->categories->category as $obj) {
+//            if (Categories::checkCategory($obj)) {
+//                Categories::insertRows($obj);
+//            }
+//        }
     }
 }

@@ -18,7 +18,6 @@ use Core\User;
 
 class Base
 {
-
     protected $_template = 'Text';
     protected $_content;
     protected $_config = [];
@@ -59,7 +58,6 @@ class Base
         }
     }
 
-
     public function after()
     {
         $this->set_canonicals();
@@ -83,7 +81,6 @@ class Base
         }
     }
 
-
     private function CSRF()
     {
         $_SESSION['token'] = Encrypt::instance()->encode(hash('sha256', Config::get('main.token')));
@@ -101,7 +98,6 @@ class Base
         }
     }
 
-
     private function access()
     {
         if (!Config::get('security.auth') || !Config::get('security.username') || !Config::get('security.password')) {
@@ -118,7 +114,6 @@ class Base
         }
     }
 
-
     public function redirects()
     {
         $row = DB::select('link_to', 'type')->from('seo_redirects')->where('link_from', '=', strip_tags($_SERVER['REQUEST_URI']))->where('status', '=', 1)->find();
@@ -127,15 +122,10 @@ class Base
         }
     }
 
-
     public function visitors()
     {
-//        if (!Config::get('main.visitor')) {
-//            return false;
-//        }
         GeoIP::factory()->save();
     }
-
 
     private function config()
     {
@@ -159,7 +149,6 @@ class Base
         }
         $this->setBreadcrumbs(__('Главная'), '');
     }
-
 
     private function seo()
     {
@@ -189,7 +178,6 @@ class Base
         $this->_seo['description'] = str_replace('"', '\'', $this->_seo['description']);
     }
 
-
     private function render()
     {
         if (Config::get('error')) {
@@ -204,12 +192,10 @@ class Base
         echo HTML::compress(View::tpl($data, $this->_template));
     }
 
-
     protected function setBreadcrumbs($name, $link = null)
     {
         $this->_breadcrumbs[] = ['name' => $name, 'link' => $link];
     }
-
 
     protected function generateParentBreadcrumbs($id, $table, $parentAlias, $pre = '/')
     {
@@ -221,7 +207,6 @@ class Base
             $this->setBreadcrumbs($obj->name, $pre . $obj->alias);
         }
     }
-
 
     protected function generateParentBreadcrumbsElement($id, $table, $parentAlias, $bread)
     {
@@ -289,5 +274,4 @@ class Base
         }
 
     }
-
 }

@@ -20,9 +20,9 @@ return [
     // Brands
     'wezom/brands/index' => 'catalog/brands/index',
     'wezom/brands/index/page/<page:[0-9]*>' => 'catalog/brands/index',
-    'wezom/brands/edit/<id:[0-9]*>' => 'catalog/brands/edit',
-    'wezom/brands/delete/<id:[0-9]*>' => 'catalog/brands/delete',
-    'wezom/brands/delete_image/<id:[0-9]*>' => 'catalog/brands/deleteImage',
+    'wezom/brands/edit/<id>' => 'catalog/brands/edit',
+    'wezom/brands/delete/<id>' => 'catalog/brands/delete',
+    'wezom/brands/delete_image/<id>' => 'catalog/brands/deleteImage',
     'wezom/brands/add' => 'catalog/brands/add',
     // Models
     'wezom/models/index' => 'catalog/models/index',

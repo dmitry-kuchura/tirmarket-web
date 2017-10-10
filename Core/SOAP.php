@@ -17,6 +17,19 @@ class SOAP
             'trace' => true,
         ]);
 
-        return $client->__soapCall($function, $params);
+        return $client->__soapCall($function, [], $params);
+    }
+
+    public static function createSoapClientProducts($params = [])
+    {
+        $client = new SoapClient(self::$wsdl, [
+            'exception' => 1,
+            'cache_wsdl' => WSDL_CACHE_MEMORY,
+            'trace' => true,
+        ]);
+
+        $result = $client->getProducts($params);
+
+        return $result->return->products->product;
     }
 }

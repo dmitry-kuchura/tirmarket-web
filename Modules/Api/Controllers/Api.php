@@ -44,6 +44,8 @@ class Api extends Base
                 foreach ($result as $obj) {
                     if (Products::checkItem($obj)) {
                         Products::insertRows($obj);
+                    } else {
+//                        Products::updateRows($obj);
                     }
                 }
             }

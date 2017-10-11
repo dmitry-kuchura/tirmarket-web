@@ -54,14 +54,14 @@ class Products extends CommonI18n
             $values[] = $value;
         }
 
-        DB::insert(static::$table, $keys)->values($values)->execute();
+        $result = DB::insert(static::$table, $keys)->values($values)->execute();
+        $lastID = $result[0];
 
         /* i18n */
         $ua = [];
-
         $ua['name'] = $obj->name;
         $ua['language'] = 'ua';
-        $ua['row_id'] = $obj->id;
+        $ua['row_id'] = $lastID;
 
         $keys = [];
         $values = [];
@@ -73,10 +73,9 @@ class Products extends CommonI18n
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
 
         $ru = [];
-
         $ru['name'] = $obj->name;
         $ru['language'] = 'ru';
-        $ru['row_id'] = $obj->id;
+        $ru['row_id'] = $lastID;
 
         $keys = [];
         $values = [];
@@ -86,6 +85,36 @@ class Products extends CommonI18n
         }
 
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
+    }
+
+    public static function updateRows($obj)
+    {
+        $data = [];
+        $data['code_1с'] = $obj->code1C;
+        $data['alias'] = self::unique(trim($obj->name));
+        $data['sort'] = $obj->position;
+        $data['status'] = $obj->status;
+        $data['artikul'] = trim($obj->article);
+        $data['parent_id'] = $obj->parentID;
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
+        $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find();
+
+        /* i18n */
+        $ua = [];
+        $ua['name'] = $obj->name;
+        $ua['language'] = 'ua';
+
+        DB::update(static::$table)->set($ua)->where('row_id', '=', $itemID->id)->execute();
+
+        $ru = [];
+        $ru['name'] = $obj->name;
+        $ru['language'] = 'ru';
+        $ru['row_id'] = $itemID->id;
+
+        DB::update(static::$table)->set($ru)->where('row_id', '=', $itemID->id)->execute();
     }
 
     /**

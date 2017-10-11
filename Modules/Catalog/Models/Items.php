@@ -193,7 +193,7 @@ class Items extends CommonI18n
             }
         }
 
-        var_dump($result);
+        var_dump($result->find_all());
         die;
 
         return $result->find_all();

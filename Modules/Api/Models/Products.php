@@ -19,7 +19,7 @@ class Products extends CommonI18n
      */
     public static function checkItem($obj)
     {
-        $check = DB::select()->from(static::$table)->where('id', '=', $obj->id)->find();
+        $check = DB::select()->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
         if (count($check)) {
             return false;
@@ -37,8 +37,8 @@ class Products extends CommonI18n
     {
         $data = [];
 
-        $data['id'] = $obj->id;
-//        $data['code_1с'] = (int)$obj->code1C;
+        $data['import_id'] = $obj->id;
+        $data['code_1с'] = $obj->code1C;
         $data['alias'] = self::unique(trim($obj->name));
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
@@ -98,7 +98,7 @@ class Products extends CommonI18n
     {
         $value = Text::translit($value);
         $count = DB::select([DB::expr('COUNT(id)'), 'count'])
-            ->from('catalog_tree')
+            ->from('catalog')
             ->where('alias', '=', $value);
         $count = $count->count_all();
         if ($count) {

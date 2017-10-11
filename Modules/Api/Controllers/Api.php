@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Controllers;
 
+use Core\QB\DB;
 use Core\SOAP;
 use Modules\Base;
 use Modules\Api\Models\Brands;
@@ -38,8 +39,8 @@ class Api extends Base
      */
     public function getProductsAction()
     {
-        for ($i = 1; $i <= 400; $i++) {
-            $offset = $i >= 2 ? 500 * $i : 0;
+        for ($i = 1; $i <= 500; $i++) {
+            $offset = $i >= 2 ? 150 * $i : 0;
             $params = ['limit' => 500, 'offset' => $offset];
 
             $result = SOAP::createSoapClientProducts($params);
@@ -67,6 +68,21 @@ class Api extends Base
             if (Brands::checkBrand($obj)) {
                 Brands::insertRows($obj);
             }
+        }
+    }
+
+    public function updateParentAction()
+    {
+        $result = DB::select()->from('catalog')->where('status', '=', 1)->find_all();
+
+        foreach ($result as $obj) {
+            $parent = DB::select()->from('catalog_tree')->where('import_id', '=', $obj->parent_id)->find();
+
+
+            $model = [];
+            $model['parent_id'] = $parent->id;
+
+            DB::update('catalog')->set($model)->where('id', '=', $obj->id)->execute();
         }
     }
 }

@@ -35,6 +35,7 @@ class Products extends CommonI18n
      */
     public static function insertRows($obj)
     {
+        $parent = DB::select()->from('catalog_tree')->where('import_id', 'LIKE', $obj->parentID)->find();
         $data = [];
 
         $data['import_id'] = $obj->id;
@@ -43,7 +44,7 @@ class Products extends CommonI18n
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
         $data['artikul'] = trim($obj->article);
-        $data['parent_id'] = $obj->parentID;
+        $data['parent_id'] = $parent->id;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -89,13 +90,15 @@ class Products extends CommonI18n
 
     public static function updateRows($obj)
     {
+        $parent = DB::select()->from('catalog_tree')->where('id', '=', $obj->parentID)->find();
+
         $data = [];
         $data['code_1с'] = $obj->code1C;
         $data['alias'] = self::unique(trim($obj->name));
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
         $data['artikul'] = trim($obj->article);
-        $data['parent_id'] = $obj->parentID;
+        $data['parent_id'] = $parent->id;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -107,14 +110,14 @@ class Products extends CommonI18n
         $ua['name'] = $obj->name;
         $ua['language'] = 'ua';
 
-        DB::update(static::$table)->set($ua)->where('row_id', '=', $itemID->id)->execute();
+        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->execute();
 
         $ru = [];
         $ru['name'] = $obj->name;
         $ru['language'] = 'ru';
         $ru['row_id'] = $itemID->id;
 
-        DB::update(static::$table)->set($ru)->where('row_id', '=', $itemID->id)->execute();
+        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->execute();
     }
 
     /**

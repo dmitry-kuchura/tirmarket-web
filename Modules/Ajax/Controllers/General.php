@@ -22,6 +22,8 @@ class General extends Ajax
      */
     public function searchAction()
     {
+        header('Content-type:application/json');
+
         $lang = Arr::get($this->raw, 'lang');
         I18n::$lang = $lang;
 

@@ -22,9 +22,13 @@ class Api extends Base
     {
         $result = SOAP::createSoapClient('getCategories');
 
-        foreach ($result->return->categories->category as $obj) {
-            if (Categories::checkCategory($obj)) {
-                Categories::insertRows($obj);
+        if (count($result->return->categories->category)) {
+            foreach ($result->return->categories->category as $obj) {
+                if (Categories::checkCategory($obj)) {
+                    Categories::insertRows($obj);
+                } else {
+                    Categories::updateRows($obj);
+                }
             }
         }
     }
@@ -45,7 +49,7 @@ class Api extends Base
                     if (Products::checkItem($obj)) {
                         Products::insertRows($obj);
                     } else {
-//                        Products::updateRows($obj);
+                        Products::updateRows($obj);
                     }
                 }
             }

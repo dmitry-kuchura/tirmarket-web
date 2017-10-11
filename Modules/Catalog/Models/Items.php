@@ -170,7 +170,7 @@ class Items extends CommonI18n
 //            ->join('brands', 'LEFT OUTER')->on('brands.alias', '=', static::$table . '.brand_alias')
 //            ->join('brands_i18n')
 //            ->on('brands_i18n.row_id', '=', 'brands.id')
-            ->where('brands_i18n.language', '=', \I18n::$lang)
+//            ->where('brands_i18n.language', '=', \I18n::$lang)
             ->where(static::$table . '.status', '=', 1);
         $result->and_where_open();
         $result->or_where_open();

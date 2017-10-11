@@ -162,14 +162,14 @@ class Items extends CommonI18n
     public static function searchRows($queries, $limit = null, $offset = null)
     {
         $result = DB::select(
-            static::$table . '.*', static::$tableI18n . '.name', ['brands_i18n.name', 'brand_name']
+            static::$table . '.*', static::$tableI18n . '.name'
         )
             ->from(static::$table)
-            ->join(static::$tableI18n)->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
+            ->join(static::$tableI18n, 'LEFT')->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
             ->where(static::$tableI18n . '.language', '=', \I18n::$lang)
-            ->join('brands', 'LEFT OUTER')->on('brands.alias', '=', static::$table . '.brand_alias')
-            ->join('brands_i18n')
-            ->on('brands_i18n.row_id', '=', 'brands.id')
+//            ->join('brands', 'LEFT OUTER')->on('brands.alias', '=', static::$table . '.brand_alias')
+//            ->join('brands_i18n')
+//            ->on('brands_i18n.row_id', '=', 'brands.id')
             ->where('brands_i18n.language', '=', \I18n::$lang)
             ->where(static::$table . '.status', '=', 1);
         $result->and_where_open();

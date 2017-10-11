@@ -36,9 +36,6 @@ class General extends Ajax
 
         $result = Items::searchRows($queries, $this->_limit, $this->_offset);
 
-        var_dump($result);
-        die;
-
         $data = [
             'static' => [
                 'all' => __('Все результаты'),

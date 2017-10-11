@@ -34,10 +34,7 @@ class General extends Ajax
         }
         $queries = Items::getQueries($query);
 
-
         $result = Items::searchRows($queries, $this->_limit, $this->_offset);
-        var_dump($result);
-        die;
 
         $data = [
             'static' => [

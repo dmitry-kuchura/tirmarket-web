@@ -29,15 +29,15 @@ class General extends Ajax
 
         $query = Arr::get($this->raw, 'search');
 
-        var_dump($query);
-        die;
-
         if (!$query) {
             return false;
         }
         $queries = Items::getQueries($query);
 
+
         $result = Items::searchRows($queries, $this->_limit, $this->_offset);
+        var_dump($result);
+        die;
 
         $data = [
             'static' => [

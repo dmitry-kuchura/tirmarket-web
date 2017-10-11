@@ -186,15 +186,13 @@ class Items extends CommonI18n
         $result->and_where_close();
         $result->order_by(static::$table . '.sort', 'ASC');
         $result->order_by(static::$table . '.id', 'DESC');
+        $result->group_by(static::$tableI18n . '.lang', 'DESC');
         if ($limit !== null) {
             $result->limit($limit);
             if ($offset !== null) {
                 $result->offset($offset);
             }
         }
-
-        var_dump($result->find_all());
-        die;
 
         return $result->find_all();
     }

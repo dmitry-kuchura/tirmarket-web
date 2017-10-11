@@ -29,6 +29,9 @@ class General extends Ajax
 
         $query = Arr::get($this->raw, 'search');
 
+        var_dump($query);
+        die;
+
         if (!$query) {
             return false;
         }

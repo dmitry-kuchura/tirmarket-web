@@ -14,8 +14,8 @@ return [
     // Items
     'wezom/items/index' => 'catalog/items/index',
     'wezom/items/index/page/<page:[0-9]*>' => 'catalog/items/index',
-    'wezom/items/edit/<id:[0-9]*>' => 'catalog/items/edit',
-    'wezom/items/delete/<id:[0-9]*>' => 'catalog/items/delete',
+    'wezom/items/edit/<id>' => 'catalog/items/edit',
+    'wezom/items/delete/<id>' => 'catalog/items/delete',
     'wezom/items/add' => 'catalog/items/add',
     // Brands
     'wezom/brands/index' => 'catalog/brands/index',

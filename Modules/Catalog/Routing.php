@@ -11,7 +11,7 @@ return [
     'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>' => 'catalog/catalog/groups',
     'products/<alias:[0-9a-z_-]*>/<filter:[\w\W]*>/page/<page:[0-9]*>' => 'catalog/catalog/groups',
     // Products routing
-    '<alias>/p<id:[0-9]*>' => 'catalog/product/index',
+    '<alias>/p<id>' => 'catalog/product/index',
     // Brands routing
     'brands' => 'catalog/brands/index',
     'brands/<alias>' => 'catalog/brands/inner',

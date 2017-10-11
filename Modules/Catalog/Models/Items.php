@@ -172,23 +172,18 @@ class Items extends CommonI18n
             ->on('brands_i18n.row_id', '=', 'brands.id')
             ->where('brands_i18n.language', '=', \I18n::$lang)
             ->where(static::$table . '.status', '=', 1);
-//        $result->and_where_open();
-//        $result->or_where_open();
+        $result->and_where_open();
+        $result->or_where_open();
         foreach ($queries as $query) {
             $result->where(static::$tableI18n . '.name', 'LIKE', '%' . $query . '%');
         }
-//        $result->or_where_close();
-//        $result->or_where_open();
-//        foreach ($queries as $query) {
-//            $result->where(static::$table . '.artikul', 'LIKE', '%' . $query . '%');
-//        }
-//        $result->or_where_close();
-//        $result->or_where_open();
-//        foreach ($queries as $query) {
-//            $result->where('brands_i18n.name', 'LIKE', '%' . $query . '%');
-//        }
-//        $result->or_where_close();
-//        $result->and_where_close();
+        $result->or_where_close();
+        $result->or_where_open();
+        foreach ($queries as $query) {
+            $result->where(static::$table . '.artikul', 'LIKE', '%' . $query . '%');
+        }
+        $result->or_where_close();
+        $result->and_where_close();
         $result->order_by(static::$table . '.sort', 'ASC');
         $result->order_by(static::$table . '.id', 'DESC');
         if ($limit !== null) {

@@ -192,6 +192,10 @@ class Items extends CommonI18n
                 $result->offset($offset);
             }
         }
+
+        var_dump($result);
+        die;
+
         return $result->find_all();
     }
 

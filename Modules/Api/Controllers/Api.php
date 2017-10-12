@@ -39,12 +39,11 @@ class Api extends Base
      */
     public function getProductsAction()
     {
-        for ($i = 1; $i <= 500; $i++) {
+        for ($i = 1; $i <= 1500; $i++) {
             $offset = $i >= 2 ? 350 * $i : 0;
-            $params = ['limit' => 350, 'offset' => $offset];
+            $params = ['limit' => 10, 'offset' => $offset];
 
             $result = SOAP::createSoapClientProducts($params);
-
             if (count($result)) {
                 foreach ($result as $obj) {
                     if (Products::checkItem($obj)) {

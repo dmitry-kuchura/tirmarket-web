@@ -88,6 +88,24 @@ class Products extends CommonI18n
         }
 
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
+
+        if (isset($obj->analogs->analog)) {
+            if (is_array($obj->analogs->analog)) {
+                DB::delete('catalog_related')->where('who_id', '=', $lastID)->execute();
+                foreach ($obj->analogs->analog as $key => $analog) {
+                    $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $analog)->find()->id;
+                    if ($item) {
+                        DB::insert('catalog_related', ['who_id', 'with_id'])->values([$lastID, $item])->execute();
+                    }
+                }
+            } else {
+                DB::delete('catalog_related')->where('who_id', '=', $lastID)->execute();
+                $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->analogs->analog)->find()->id;
+                if ($item) {
+                    DB::insert('catalog_related', ['who_id', 'with_id'])->values([$lastID, $item])->execute();
+                }
+            }
+        }
     }
 
     /**
@@ -105,7 +123,6 @@ class Products extends CommonI18n
         $data['alias'] = self::unique(trim($obj->name));
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
-        $data['artikul'] = trim($obj->article);
         $data['artikul'] = trim($obj->article);
         $data['parent_id'] = $parent->id;
         $data['brand_alias'] = $brand->alias;
@@ -125,9 +142,28 @@ class Products extends CommonI18n
         $ru = [];
         $ru['name'] = $obj->name;
         $ru['language'] = 'ru';
-        $ru['row_id'] = $itemID->id;
 
         DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->execute();
+
+        if (isset($obj->analogs->analog)) {
+            if (is_array($obj->analogs->analog)) {
+                DB::delete('catalog_related')->where('who_id', '=', $itemID->id)->execute();
+
+                foreach ($obj->analogs->analog as $key => $analog) {
+                    $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $analog)->find()->id;
+                    if ($item) {
+                        DB::insert('catalog_related', ['who_id', 'with_id'])->values([$itemID, $item])->execute();
+                    }
+                }
+            } else {
+                DB::delete('catalog_related')->where('who_id', '=', $itemID->id)->execute();
+                $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->analogs->analog)->find()->id;
+                var_dump($item);
+                if ($item) {
+                    DB::insert('catalog_related', ['who_id', 'with_id'])->values([$itemID, $item])->execute();
+                }
+            }
+        }
     }
 
     /**
@@ -136,7 +172,8 @@ class Products extends CommonI18n
      * @param $value
      * @return mixed|string
      */
-    public static function unique($value)
+    public
+    static function unique($value)
     {
         $value = Text::translit($value);
         $count = DB::select([DB::expr('COUNT(id)'), 'count'])

@@ -36,8 +36,9 @@ class Products extends CommonI18n
     public static function insertRows($obj)
     {
         $parent = DB::select()->from('catalog_tree')->where('import_id', 'LIKE', $obj->parentID)->find();
-        $data = [];
+        $brand = DB::select()->from('brands')->where('id', '=', $obj->brandID)->find();
 
+        $data = [];
         $data['import_id'] = $obj->id;
         $data['code_1с'] = $obj->code1C;
         $data['alias'] = self::unique(trim($obj->name));
@@ -45,6 +46,7 @@ class Products extends CommonI18n
         $data['status'] = $obj->status;
         $data['artikul'] = trim($obj->article);
         $data['parent_id'] = $parent->id;
+        $data['brand_alias'] = $brand->alias;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -88,9 +90,15 @@ class Products extends CommonI18n
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
     }
 
+    /**
+     * Обновление товаров из 1С
+     *
+     * @param $obj
+     */
     public static function updateRows($obj)
     {
         $parent = DB::select()->from('catalog_tree')->where('id', '=', $obj->parentID)->find();
+        $brand = DB::select()->from('brands')->where('id', '=', $obj->brandID)->find();
 
         $data = [];
         $data['code_1с'] = $obj->code1C;
@@ -98,7 +106,9 @@ class Products extends CommonI18n
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
         $data['artikul'] = trim($obj->article);
+        $data['artikul'] = trim($obj->article);
         $data['parent_id'] = $parent->id;
+        $data['brand_alias'] = $brand->alias;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 

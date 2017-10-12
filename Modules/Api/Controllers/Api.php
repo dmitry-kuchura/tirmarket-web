@@ -40,8 +40,8 @@ class Api extends Base
     public function getProductsAction()
     {
         for ($i = 1; $i <= 500; $i++) {
-            $offset = $i >= 2 ? 150 * $i : 0;
-            $params = ['limit' => 500, 'offset' => $offset];
+            $offset = $i >= 2 ? 350 * $i : 0;
+            $params = ['limit' => 350, 'offset' => $offset];
 
             $result = SOAP::createSoapClientProducts($params);
 

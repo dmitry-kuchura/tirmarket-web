@@ -158,7 +158,6 @@ class Products extends CommonI18n
             } else {
                 DB::delete('catalog_related')->where('who_id', '=', $itemID->id)->execute();
                 $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->analogs->analog)->find()->id;
-                var_dump($item);
                 if ($item) {
                     DB::insert('catalog_related', ['who_id', 'with_id'])->values([$itemID, $item])->execute();
                 }

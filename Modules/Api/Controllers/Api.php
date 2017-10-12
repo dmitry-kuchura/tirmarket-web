@@ -41,7 +41,7 @@ class Api extends Base
     {
         for ($i = 1; $i <= 1500; $i++) {
             $offset = $i >= 2 ? 350 * $i : 0;
-            $params = ['limit' => 10, 'offset' => $offset];
+            $params = ['limit' => 350, 'offset' => $offset];
 
             $result = SOAP::createSoapClientProducts($params);
             if (count($result)) {

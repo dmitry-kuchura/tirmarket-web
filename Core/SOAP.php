@@ -32,4 +32,17 @@ class SOAP
 
         return $result->return->products->product;
     }
+
+    public static function createSoapClientStock($params = [])
+    {
+        $client = new SoapClient(self::$wsdl, [
+            'exception' => 1,
+            'cache_wsdl' => WSDL_CACHE_MEMORY,
+            'trace' => true,
+        ]);
+
+        $result = $client->getStock($params);
+
+        return $result->return->products->product;
+    }
 }

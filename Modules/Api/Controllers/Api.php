@@ -70,6 +70,19 @@ class Api extends Base
         }
     }
 
+    /**
+     * Получение кол-ва остатков
+     */
+    public function getStocksAction()
+    {
+        $params = ['id' => '540c9145-a66c-11e2-8be9-1c7ee51fe239'];
+
+        $result = SOAP::createSoapClient('getStocks');
+
+        var_dump($result);
+        die;
+    }
+
     public function updateParentAction()
     {
         $result = DB::select()->from('catalog')->where('status', '=', 1)->find_all();

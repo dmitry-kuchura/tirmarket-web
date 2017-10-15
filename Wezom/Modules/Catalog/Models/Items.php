@@ -58,7 +58,7 @@ class Items extends \Core\CommonI18n {
             ->join('catalog_tree', 'LEFT')->on('catalog_tree.id', '=', static::$table . '.parent_id')
             ->join('catalog_tree_i18n')->on('catalog_tree_i18n.row_id', '=', 'catalog_tree.id')
             ->where(static::$tableI18n . '.language', '=', $lang)
-            ->where('catalog_tree_i18n.language', '=', \I18n::$lang);
+            ->where('catalog_tree_i18n.language', '=', 'ua');
         if ($filter) {
             $result = static::setFilter($result);
         }

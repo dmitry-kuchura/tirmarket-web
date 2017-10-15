@@ -19,7 +19,7 @@ class Brands extends CommonI18n
      */
     public static function checkBrand($obj)
     {
-        $check = DB::select()->from(static::$table)->where('id', '=', $obj->id)->find();
+        $check = DB::select()->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
         if (count($check)) {
             return false;
@@ -37,7 +37,7 @@ class Brands extends CommonI18n
     {
         $data = [];
 
-        $data['id'] = $obj->id;
+        $data['import_id'] = $obj->id;
         $data['alias'] = self::unique($obj->name);
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
@@ -51,13 +51,14 @@ class Brands extends CommonI18n
             $values[] = $value;
         }
 
-        DB::insert(static::$table, $keys)->values($values)->execute();
+        $result = DB::insert(static::$table, $keys)->values($values)->execute();
+        $lastID = $result[0];
 
         $ua = [];
 
         $ua['name'] = $obj->name;
         $ua['language'] = 'ua';
-        $ua['row_id'] = $obj->id;
+        $ua['row_id'] = $lastID;
 
         $keys = [];
         $values = [];
@@ -72,7 +73,7 @@ class Brands extends CommonI18n
 
         $ru['name'] = $obj->name;
         $ru['language'] = 'ru';
-        $ru['row_id'] = $obj->id;
+        $ru['row_id'] = $lastID;
 
         $keys = [];
         $values = [];

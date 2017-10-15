@@ -67,6 +67,7 @@
 		top: 0;
 		width: 42px;
 		height: 42px;
+		cursor: pointer;
 
 		svg {
 			position: absolute;
@@ -78,6 +79,13 @@
 			bottom: 0;
 			margin: auto;
 			fill: #d4dfee;
+			transition: fill .25s;
+		}
+
+		&:hover {
+			svg {
+				fill: darken(#d4dfee, 10%);
+			}
 		}
 	}
 	

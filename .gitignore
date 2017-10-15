@@ -3,4 +3,5 @@
 /Plugins/I18n/*
 Config/database.php
 Media/images
-/nbproject*
+nbproject
+deployment/deployment.log

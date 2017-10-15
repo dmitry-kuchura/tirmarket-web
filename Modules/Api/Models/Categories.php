@@ -19,7 +19,7 @@ class Categories extends CommonI18n
      */
     public static function checkCategory($obj)
     {
-        $check = DB::select()->from(static::$table)->where('id', '=', $obj->id)->find();
+        $check = DB::select()->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
         if (count($check)) {
             return false;
@@ -36,15 +36,13 @@ class Categories extends CommonI18n
     public static function insertRows($obj)
     {
         $data = [];
-
-        $data['id'] = $obj->id;
+        $data['import_id'] = $obj->id;
         $data['alias'] = self::unique($obj->name);
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
         $data['image'] = $obj->image;
         $data['top_menu'] = $obj->inMainPage;
         $data['popular'] = $obj->popular;
-        $data['parent_id'] = $obj->parentID;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -55,13 +53,13 @@ class Categories extends CommonI18n
             $values[] = $value;
         }
 
-        DB::insert(static::$table, $keys)->values($values)->execute();
+        $result = DB::insert(static::$table, $keys)->values($values)->execute();
+        $lastID = $result[0];
 
         $ua = [];
-
         $ua['name'] = $obj->name;
         $ua['language'] = 'ua';
-        $ua['row_id'] = $obj->id;
+        $ua['row_id'] = $lastID;
 
         $keys = [];
         $values = [];
@@ -73,10 +71,9 @@ class Categories extends CommonI18n
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
 
         $ru = [];
-
         $ru['name'] = $obj->name;
         $ru['language'] = 'ru';
-        $ru['row_id'] = $obj->id;
+        $ru['row_id'] = $lastID;
 
         $keys = [];
         $values = [];
@@ -86,6 +83,52 @@ class Categories extends CommonI18n
         }
 
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
+    }
+
+    /**
+     * Обновление категорий из 1C
+     *
+     * @param $obj
+     */
+    public static function updateRows($obj)
+    {
+        if ($obj->parentID) {
+            $parent = DB::select()->from(static::$table)->where('import_id', '=', $obj->parentID)->find();
+        }
+
+        $data = [];
+        $data['import_id'] = $obj->id;
+        $data['sort'] = $obj->position;
+        $data['status'] = $obj->status;
+        $data['image'] = $obj->image;
+        $data['top_menu'] = $obj->inMainPage;
+        $data['parent_id'] = $parent ? $parent->id : null;
+        $data['popular'] = $obj->popular;
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        $keys = [];
+        $values = [];
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
+        $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find();
+
+
+        $ua = [];
+        $ua['name'] = $obj->name;
+        $ua['language'] = 'ua';
+
+        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->execute();
+
+        $ru = [];
+        $ru['name'] = $obj->name;
+        $ru['language'] = 'ru';
+
+        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->execute();
     }
 
     /**

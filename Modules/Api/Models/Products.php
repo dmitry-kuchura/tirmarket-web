@@ -19,7 +19,7 @@ class Products extends CommonI18n
      */
     public static function checkItem($obj)
     {
-        $check = DB::select()->from(static::$table)->where('id', '=', $obj->id)->find();
+        $check = DB::select()->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
         if (count($check)) {
             return false;
@@ -35,15 +35,18 @@ class Products extends CommonI18n
      */
     public static function insertRows($obj)
     {
-        $data = [];
+        $parent = DB::select()->from('catalog_tree')->where('import_id', 'LIKE', $obj->parentID)->find();
+        $brand = DB::select()->from('brands')->where('id', '=', $obj->brandID)->find();
 
-        $data['id'] = $obj->id;
-//        $data['code_1с'] = (int)$obj->code1C;
+        $data = [];
+        $data['import_id'] = $obj->id;
+        $data['code_1с'] = $obj->code1C;
         $data['alias'] = self::unique(trim($obj->name));
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
         $data['artikul'] = trim($obj->article);
-        $data['parent_id'] = $obj->parentID;
+        $data['parent_id'] = $parent->id;
+        $data['brand_alias'] = $brand->alias;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -54,14 +57,14 @@ class Products extends CommonI18n
             $values[] = $value;
         }
 
-        DB::insert(static::$table, $keys)->values($values)->execute();
+        $result = DB::insert(static::$table, $keys)->values($values)->execute();
+        $lastID = $result[0];
 
         /* i18n */
         $ua = [];
-
         $ua['name'] = $obj->name;
         $ua['language'] = 'ua';
-        $ua['row_id'] = $obj->id;
+        $ua['row_id'] = $lastID;
 
         $keys = [];
         $values = [];
@@ -73,10 +76,9 @@ class Products extends CommonI18n
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
 
         $ru = [];
-
         $ru['name'] = $obj->name;
         $ru['language'] = 'ru';
-        $ru['row_id'] = $obj->id;
+        $ru['row_id'] = $lastID;
 
         $keys = [];
         $values = [];
@@ -86,6 +88,81 @@ class Products extends CommonI18n
         }
 
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
+
+        if (isset($obj->analogs->analog)) {
+            if (is_array($obj->analogs->analog)) {
+                DB::delete('catalog_related')->where('who_id', '=', $lastID)->execute();
+                foreach ($obj->analogs->analog as $key => $analog) {
+                    $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $analog)->find()->id;
+                    if ($item) {
+                        DB::insert('catalog_related', ['who_id', 'with_id'])->values([$lastID, $item])->execute();
+                    }
+                }
+            } else {
+                DB::delete('catalog_related')->where('who_id', '=', $lastID)->execute();
+                $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->analogs->analog)->find()->id;
+                if ($item) {
+                    DB::insert('catalog_related', ['who_id', 'with_id'])->values([$lastID, $item])->execute();
+                }
+            }
+        }
+    }
+
+    /**
+     * Обновление товаров из 1С
+     *
+     * @param $obj
+     */
+    public static function updateRows($obj)
+    {
+        $parent = DB::select()->from('catalog_tree')->where('id', '=', $obj->parentID)->find();
+        $brand = DB::select()->from('brands')->where('id', '=', $obj->brandID)->find();
+
+        $data = [];
+        $data['code_1с'] = $obj->code1C;
+        $data['alias'] = self::unique(trim($obj->name));
+        $data['sort'] = $obj->position;
+        $data['status'] = $obj->status;
+        $data['artikul'] = trim($obj->article);
+        $data['parent_id'] = $parent->id;
+        $data['brand_alias'] = $brand->alias;
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
+        $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find();
+
+        /* i18n */
+        $ua = [];
+        $ua['name'] = $obj->name;
+        $ua['language'] = 'ua';
+
+        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->execute();
+
+        $ru = [];
+        $ru['name'] = $obj->name;
+        $ru['language'] = 'ru';
+
+        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->execute();
+
+        if (isset($obj->analogs->analog)) {
+            if (is_array($obj->analogs->analog)) {
+                DB::delete('catalog_related')->where('who_id', '=', $itemID->id)->execute();
+
+                foreach ($obj->analogs->analog as $key => $analog) {
+                    $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $analog)->find()->id;
+                    if ($item) {
+                        DB::insert('catalog_related', ['who_id', 'with_id'])->values([$itemID, $item])->execute();
+                    }
+                }
+            } else {
+                DB::delete('catalog_related')->where('who_id', '=', $itemID->id)->execute();
+                $item = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->analogs->analog)->find()->id;
+                if ($item) {
+                    DB::insert('catalog_related', ['who_id', 'with_id'])->values([$itemID, $item])->execute();
+                }
+            }
+        }
     }
 
     /**
@@ -94,11 +171,12 @@ class Products extends CommonI18n
      * @param $value
      * @return mixed|string
      */
-    public static function unique($value)
+    public
+    static function unique($value)
     {
         $value = Text::translit($value);
         $count = DB::select([DB::expr('COUNT(id)'), 'count'])
-            ->from('catalog_tree')
+            ->from('catalog')
             ->where('alias', '=', $value);
         $count = $count->count_all();
         if ($count) {

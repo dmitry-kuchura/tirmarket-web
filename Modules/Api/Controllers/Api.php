@@ -4,6 +4,7 @@ namespace Modules\Api\Controllers;
 
 use Core\QB\DB;
 use Core\SOAP;
+use Modules\Api\Models\Stocks;
 use Modules\Base;
 use Modules\Api\Models\Brands;
 use Modules\Api\Models\Products;
@@ -71,16 +72,19 @@ class Api extends Base
     }
 
     /**
-     * Получение кол-ва остатков
+     * Получение складов
      */
     public function getStocksAction()
     {
-        $params = ['id' => '540c9145-a66c-11e2-8be9-1c7ee51fe239'];
-
         $result = SOAP::createSoapClient('getStocks');
 
-        var_dump($result);
-        die;
+        if (count($result->return->stocks->stock)) {
+            foreach ($result->return->stocks->stock as $obj) {
+                if (Stocks::check($obj)) {
+                    Stocks::insertRows($obj);
+                }
+            }
+        }
     }
 
     public function updateParentAction()

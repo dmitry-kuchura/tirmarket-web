@@ -10,7 +10,7 @@ use Core\CommonI18n;
 use Wezom\Modules\Catalog\Models\CatalogTreeBrands AS CTB;
 use Wezom\Modules\Catalog\Models\CatalogTreeSpecifications AS CTS;
 
-class Groups extends CommonI18n
+class Groups extends CommonI18n                                        
 {
     public static $table = 'catalog_tree';
     public static $tableI18n = 'catalog_tree_i18n';

@@ -33,7 +33,7 @@ class SOAP
         return $result->return->products->product;
     }
 
-    public static function createSoapClientStock($params = [])
+    public static function createSoapClientPrices($params = [])
     {
         $client = new SoapClient(self::$wsdl, [
             'exception' => 1,
@@ -41,8 +41,8 @@ class SOAP
             'trace' => true,
         ]);
 
-        $result = $client->getStock($params);
+        $result = $client->getPrices($params);
 
-        return $result->return->products->product;
+        return $result;
     }
 }

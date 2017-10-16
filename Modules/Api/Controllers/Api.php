@@ -2,11 +2,12 @@
 
 namespace Modules\Api\Controllers;
 
-use Core\QB\DB;
 use Core\SOAP;
-use Modules\Api\Models\Stocks;
+use Core\QB\DB;
+use Modules\Api\Models\Price;
 use Modules\Base;
 use Modules\Api\Models\Brands;
+use Modules\Api\Models\Stocks;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
 
@@ -82,6 +83,30 @@ class Api extends Base
             foreach ($result->return->stocks->stock as $obj) {
                 if (Stocks::check($obj)) {
                     Stocks::insertRows($obj);
+                }
+            }
+        }
+    }
+
+    public function getPricesAction()
+    {
+        $params = ['limit' => 350, 'offset' => 0];
+        $result = SOAP::createSoapClientPrices($params);
+
+        var_dump($result);
+        die;
+    }
+
+    public function getPricesTypesAction()
+    {
+        $result = SOAP::createSoapClient('getPricesTypes');
+
+        if (count($result->return->pricetypes->pricetype)) {
+            foreach ($result->return->pricetypes->pricetype as $obj) {
+                if (Price::check($obj)) {
+                    Price::insertRows($obj);
+                } else {
+                    Price::updateRows($obj);
                 }
             }
         }

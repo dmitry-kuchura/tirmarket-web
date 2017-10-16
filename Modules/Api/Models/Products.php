@@ -135,15 +135,13 @@ class Products extends CommonI18n
         /* i18n */
         $ua = [];
         $ua['name'] = $obj->name;
-        $ua['language'] = 'ua';
 
-        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->execute();
+        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->where('language', '=', 'ua')->execute();
 
         $ru = [];
         $ru['name'] = $obj->name;
-        $ru['language'] = 'ru';
 
-        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->execute();
+        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->where('language', '=', 'ru')->execute();
 
         if (isset($obj->analogs->analog)) {
             if (is_array($obj->analogs->analog)) {

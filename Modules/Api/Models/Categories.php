@@ -117,18 +117,15 @@ class Categories extends CommonI18n
         DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
         $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
-
         $ua = [];
         $ua['name'] = $obj->name;
-        $ua['language'] = 'ua';
 
-        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->execute();
+        DB::update(static::$tableI18n)->set($ua)->where('language', '=', 'ua')->where('row_id', '=', $itemID->id)->execute();
 
         $ru = [];
         $ru['name'] = $obj->name;
-        $ru['language'] = 'ru';
 
-        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->execute();
+        DB::update(static::$tableI18n)->set($ua)->where('language', '=', 'ru')->where('row_id', '=', $itemID->id)->execute();
     }
 
     /**

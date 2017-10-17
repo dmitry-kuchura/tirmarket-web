@@ -193,12 +193,16 @@ class Items extends CommonI18n
 
     public static function getStockAsArray()
     {
-        $result = DB::select()->from('warehouses')
+        $result = DB::select(
+            ['warehouses.id', 'id'],
+            ['warehouses_i18n.name', 'name']
+        )
+            ->from('warehouses')
             ->join('warehouses_i18n', 'LEFT')->on('warehouses_i18n.row_id', '=', 'warehouses.id')
             ->where('warehouses_i18n.language', '=', I18n::$default_lang_backend)
             ->find_all();
 
-        $array = [];
+        $array = ['' => __('Не выбран')];
 
         foreach ($result as $obj) {
             $array[$obj->id] = $obj->name;

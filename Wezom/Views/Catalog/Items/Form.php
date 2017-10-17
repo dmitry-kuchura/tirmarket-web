@@ -48,7 +48,7 @@ use Forms\Form;
                 <div class="form-group">
                     <div class="rowSection">
                         <div class="col-md-6 form-group">
-                            <?php echo Builder::select('<option value="">' . __('Не выбран') . '</option>' . $stocks, $obj->stock_id, [
+                            <?php echo Builder::select($stocks, (int)$obj->stock_id, [
                                 'id' => 'stock_id',
                                 'name' => 'FORM[stock_id]',
                                 'disabled' => '',

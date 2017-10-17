@@ -24,7 +24,7 @@ use Forms\Form;
                     <div class="rowSection">
                         <div class="col-md-6 form-group">
                             <?php echo Builder::select('<option value="0">' . __('Не выбрано') . '</option>' . $tree,
-                                NULL, [
+                                null, [
                                     'id' => 'parent_id',
                                     'name' => 'FORM[parent_id]',
                                     'class' => 'valid',
@@ -44,6 +44,32 @@ use Forms\Form;
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="rowSection">
+                        <div class="col-md-6 form-group">
+                            <?php echo Builder::select('<option value="">' . __('Не выбран') . '</option>' . $stocks, $obj->stock_id, [
+                                'id' => 'stock_id',
+                                'name' => 'FORM[stock_id]',
+                                'disabled' => '',
+                            ], [
+                                'text' => __('Склад'),
+                                'tooltip' => '<b>' . __('Склад на котором находится товар!') . '</b>',
+                            ]); ?>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <?php echo Builder::input([
+                                'name' => 'FORM[stock_count]',
+                                'value' => $obj->stock_count,
+                                'disabled' => '',
+                            ], [
+                                'text' => __('Остаток'),
+                                'tooltip' => '<b>' . __('Остаток товара в базе 1С') . '</b>',
+                            ]); ?>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <?php echo Builder::input([
                         'name' => 'FORM[artikul]',
@@ -195,7 +221,7 @@ use Forms\Form;
             <div class="form-vertical row-border" id="specGroup">
                 <?php foreach ($specifications as $spec): ?>
                     <?php if (count($specValues[$spec->id])): ?>
-                        <div class="form-group <?php echo $spec->type_id == 3 ? 'multiSelectBlock' : NULL; ?>">
+                        <div class="form-group <?php echo $spec->type_id == 3 ? 'multiSelectBlock' : null; ?>">
                             <?php if ($spec->type_id == 3): ?>
                                 <?php echo Builder::select(\Core\Support::selectData($specValues[$spec->id], 'alias', 'name'),
                                     \Core\Arr::get($specArray, $spec->alias, []), [

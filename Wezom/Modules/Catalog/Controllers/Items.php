@@ -3,8 +3,6 @@
 namespace Wezom\Modules\Catalog\Controllers;
 
 use Core\Config;
-use Core\HTML;
-use Core\Image\Image;
 use Core\QB\DB;
 use Core\Route;
 use Core\Widgets;
@@ -19,9 +17,9 @@ use Wezom\Modules\Catalog\Models\CatalogImages AS Images;
 use Wezom\Modules\Catalog\Models\Brands;
 use Wezom\Modules\Catalog\Models\Specifications;
 use Wezom\Modules\Catalog\Models\SpecificationsValues;
-use Wezom\Modules\Catalog\Models\Models;
+use Wezom\Modules\Base;
 
-class Items extends \Wezom\Modules\Base
+class Items extends Base
 {
 
     public $tpl_folder = 'Catalog/Items';
@@ -42,7 +40,7 @@ class Items extends \Wezom\Modules\Base
 
     function indexAction()
     {
-        $status = NULL;
+        $status = null;
         if (isset($_GET['status']) && $_GET['status'] != '') {
             $status = Arr::get($_GET, 'status', 1);
         }
@@ -118,7 +116,7 @@ class Items extends \Wezom\Modules\Base
                 'obj' => $item,
                 'langs' => $langs,
                 'tpl_folder' => $this->tpl_folder,
-                'tree' => Support::getSelectOptions('Catalog/Items/Select', 'catalog_tree', $item->parent_id),
+                'stocks' => Model::getStockAsArray(),
                 'brands' => $brands,
                 'specifications' => $specifications,
                 'specValues' => $arr,
@@ -179,8 +177,8 @@ class Items extends \Wezom\Modules\Base
                 'specifications' => $specifications,
                 'specValues' => $arr,
                 'specArray' => $specArray,
-                'uploader' => NULL,
-                'related' => NULL,
+                'uploader' => null,
+                'related' => null,
                 'languages' => $this->_languages,
             ], $this->tpl_folder . '/Form');
     }
@@ -213,8 +211,8 @@ class Items extends \Wezom\Modules\Base
         $post['available'] = Arr::get($_POST, 'available', 0);
         $post['cost'] = (int)Arr::get($post, 'cost', 0);
         $post['cost_old'] = (int)Arr::get($post, 'cost_old', 0);
-        $post['brand_alias'] = Arr::get($post, 'brand_alias') ?: NULL;
-        $post['model_alias'] = Arr::get($post, 'model_alias') ?: NULL;
+        $post['brand_alias'] = Arr::get($post, 'brand_alias') ?: null;
+        $post['model_alias'] = Arr::get($post, 'model_alias') ?: null;
         $post['sort'] = (int)Arr::get($post, 'sort');
 
         return $post;

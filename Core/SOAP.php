@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Exception;
 use SoapClient;
 
 
@@ -11,13 +12,17 @@ class SOAP
 
     public static function createSoapClient($function, $params = [])
     {
-        $client = new SoapClient(self::$wsdl, [
-            'exception' => 1,
-            'cache_wsdl' => WSDL_CACHE_MEMORY,
-            'trace' => true,
-        ]);
+        try {
+            $client = new SoapClient(self::$wsdl, [
+                'exception' => 1,
+                'cache_wsdl' => WSDL_CACHE_MEMORY,
+                'trace' => true,
+            ]);
 
-        return $client->__soapCall($function, [], $params);
+            return $client->__soapCall($function, [], $params);
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
+        }
     }
 
     public static function createSoapClientProducts($params = [])

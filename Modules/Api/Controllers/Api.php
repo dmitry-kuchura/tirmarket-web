@@ -4,12 +4,14 @@ namespace Modules\Api\Controllers;
 
 use Core\SOAP;
 use Core\QB\DB;
-use Modules\Api\Models\Price;
+use Exception;
 use Modules\Base;
+use Modules\Api\Models\Price;
 use Modules\Api\Models\Brands;
 use Modules\Api\Models\Stocks;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
+use Modules\Api\Models\StocksCount;
 
 class Api extends Base
 {
@@ -88,6 +90,24 @@ class Api extends Base
         }
     }
 
+    /**
+     * Обновление остатков
+     */
+    public function getStockCountAction()
+    {
+        $result = SOAP::createSoapClient('getStockCount');
+
+        try {
+            foreach ($result->return->stockcount as $obj) {
+                if (StocksCount::check($obj)) {
+                    StocksCount::insertRows($obj);
+                }
+            }
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
+        }
+    }
+
     public function getPricesAction()
     {
         $params = ['limit' => 350, 'offset' => 0];
@@ -97,6 +117,9 @@ class Api extends Base
         die;
     }
 
+    /**
+     * Список типов цен
+     */
     public function getPricesTypesAction()
     {
         $result = SOAP::createSoapClient('getPricesTypes');

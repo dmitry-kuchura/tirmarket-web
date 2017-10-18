@@ -17,7 +17,7 @@ class Models extends CommonI18n
      * @param $obj
      * @return bool
      */
-    public static function checkBrand($obj)
+    public static function check($obj)
     {
         $check = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->id)->find();
 
@@ -38,9 +38,6 @@ class Models extends CommonI18n
         $data = [];
 
         $data['import_id'] = $obj->id;
-        $data['alias'] = self::unique($obj->name);
-        $data['sort'] = $obj->position;
-        $data['status'] = $obj->status;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -56,7 +53,7 @@ class Models extends CommonI18n
 
         $ua = [];
 
-        $ua['name'] = $obj->name;
+        $ua['name'] = trim($obj->name);
         $ua['language'] = 'ua';
         $ua['row_id'] = $lastID;
 
@@ -71,7 +68,7 @@ class Models extends CommonI18n
 
         $ru = [];
 
-        $ru['name'] = $obj->name;
+        $ru['name'] = trim($obj->name);
         $ru['language'] = 'ru';
         $ru['row_id'] = $lastID;
 
@@ -83,24 +80,5 @@ class Models extends CommonI18n
         }
 
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
-    }
-
-    /**
-     * Проверка на уникальный alias
-     *
-     * @param $value
-     * @return mixed|string
-     */
-    public static function unique($value)
-    {
-        $value = Text::translit($value);
-        $count = DB::select([DB::expr('COUNT(id)'), 'count'])
-            ->from('catalog_tree')
-            ->where('alias', '=', $value);
-        $count = $count->count_all();
-        if ($count) {
-            return $value . rand(1000, 9999);
-        }
-        return $value;
     }
 }

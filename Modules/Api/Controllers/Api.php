@@ -6,6 +6,7 @@ use Core\Route;
 use Core\SOAP;
 use Core\QB\DB;
 use Exception;
+use Modules\Api\Models\Models;
 use Modules\Base;
 use Modules\Api\Models\Price;
 use Modules\Api\Models\Brands;
@@ -133,8 +134,13 @@ class Api extends Base
     {
         $result = SOAP::createSoapClient('getModels');
 
-        var_dump($result);
-        die;
+        if (count($result->return->models)) {
+            foreach ($result->return->models as $obj) {
+                if (Models::check($obj)) {
+                    Models::insertRows($obj);
+                }
+            }
+        }
     }
 
     /**

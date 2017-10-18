@@ -134,12 +134,18 @@ class Api extends Base
     {
         $result = SOAP::createSoapClient('getModels');
 
-        if (count($result->return->models)) {
-            foreach ($result->return->models as $obj) {
-                if (Models::check($obj)) {
-                    Models::insertRows($obj);
+        try {
+            if (count($result->return->models)) {
+                foreach ($result->return->models as $obj) {
+                    if (Models::check($obj)) {
+                        Models::insertRows($obj);
+                    } else {
+                        Models::updateRows($obj);
+                    }
                 }
             }
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
         }
     }
 

@@ -2,9 +2,9 @@
 
 namespace Modules\Api\Models;
 
+use Exception;
 use Core\QB\DB;
 use Core\CommonI18n;
-use Core\Text;
 
 class Models extends CommonI18n
 {
@@ -29,56 +29,99 @@ class Models extends CommonI18n
     }
 
     /**
-     * Добавление производителей из 1С
+     * Добавление из 1С
      *
      * @param $obj
+     * @throws Exception
      */
     public static function insertRows($obj)
     {
-        $data = [];
+        try {
+            $data = [];
 
-        $data['import_id'] = $obj->id;
-        $data['created_at'] = time();
-        $data['updated_at'] = time();
+            $data['import_id'] = $obj->id;
+            $data['created_at'] = time();
+            $data['updated_at'] = time();
 
-        $keys = [];
-        $values = [];
-        foreach ($data as $key => $value) {
-            $keys[] = $key;
-            $values[] = $value;
+            $keys = [];
+            $values = [];
+            foreach ($data as $key => $value) {
+                $keys[] = $key;
+                $values[] = $value;
+            }
+
+            $result = DB::insert(static::$table, $keys)->values($values)->execute();
+            $lastID = $result[0];
+
+            $ua = [];
+
+            $ua['name'] = trim($obj->name);
+            $ua['language'] = 'ua';
+            $ua['row_id'] = $lastID;
+
+            $keys = [];
+            $values = [];
+            foreach ($ua as $key => $value) {
+                $keys[] = $key;
+                $values[] = $value;
+            }
+
+            DB::insert(static::$tableI18n, $keys)->values($values)->execute();
+
+            $ru = [];
+
+            $ru['name'] = trim($obj->name);
+            $ru['language'] = 'ru';
+            $ru['row_id'] = $lastID;
+
+            $keys = [];
+            $values = [];
+            foreach ($ru as $key => $value) {
+                $keys[] = $key;
+                $values[] = $value;
+            }
+
+            DB::insert(static::$tableI18n, $keys)->values($values)->execute();
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
         }
+    }
 
-        $result = DB::insert(static::$table, $keys)->values($values)->execute();
-        $lastID = $result[0];
+    /**
+     * Обновление из 1С
+     *
+     * @param $obj
+     * @throws Exception
+     */
+    public static function updateRows($obj)
+    {
+        try {
+            $data = [];
+            $data['import_id'] = $obj->id;
+            $data['created_at'] = time();
+            $data['updated_at'] = time();
 
-        $ua = [];
+            $keys = [];
+            $values = [];
+            foreach ($data as $key => $value) {
+                $keys[] = $key;
+                $values[] = $value;
+            }
 
-        $ua['name'] = trim($obj->name);
-        $ua['language'] = 'ua';
-        $ua['row_id'] = $lastID;
+            DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
+            $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
-        $keys = [];
-        $values = [];
-        foreach ($ua as $key => $value) {
-            $keys[] = $key;
-            $values[] = $value;
+            $ua = [];
+            $ua['name'] = trim($obj->name);
+
+            DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->where('language', '=', 'ua')->execute();
+
+            $ru = [];
+            $ru['name'] = trim($obj->name);
+
+            DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->where('language', '=', 'ru')->execute();
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
         }
-
-        DB::insert(static::$tableI18n, $keys)->values($values)->execute();
-
-        $ru = [];
-
-        $ru['name'] = trim($obj->name);
-        $ru['language'] = 'ru';
-        $ru['row_id'] = $lastID;
-
-        $keys = [];
-        $values = [];
-        foreach ($ru as $key => $value) {
-            $keys[] = $key;
-            $values[] = $value;
-        }
-
-        DB::insert(static::$tableI18n, $keys)->values($values)->execute();
     }
 }

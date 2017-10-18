@@ -169,8 +169,7 @@ class Products extends CommonI18n
      * @param $value
      * @return mixed|string
      */
-    public
-    static function unique($value)
+    public static function unique($value)
     {
         $value = Text::translit($value);
         $count = DB::select([DB::expr('COUNT(id)'), 'count'])

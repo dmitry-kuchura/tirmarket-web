@@ -14,11 +14,13 @@ use Modules\Api\Models\Stocks;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
 use Modules\Api\Models\StocksCount;
+use Wezom\Modules\Ajax;
 
-class Api extends Base
+class Api extends Ajax
 {
     public function before()
     {
+        header('Content-Type: application/json');
         set_time_limit(9999999999999);
     }
 
@@ -38,6 +40,8 @@ class Api extends Base
                 }
             }
         }
+
+        $this->success(['success' => true]);
     }
 
     /**
@@ -60,8 +64,15 @@ class Api extends Base
                 }
             }
         }
+
+        $this->success(['success' => true]);
     }
 
+    /**
+     * Определенный товар
+     *
+     * @throws Exception
+     */
     public function getCurrentProductAction()
     {
         $params = ['id' => Route::param('id')];
@@ -121,6 +132,9 @@ class Api extends Base
         }
     }
 
+    /**
+     * Список цен
+     */
     public function getPricesAction()
     {
         $params = ['limit' => 350, 'offset' => 0];
@@ -130,6 +144,11 @@ class Api extends Base
         die;
     }
 
+    /**
+     * Список моделей автомобилей
+     *
+     * @throws Exception
+     */
     public function getModelsAction()
     {
         $result = SOAP::createSoapClient('getModels');
@@ -147,6 +166,8 @@ class Api extends Base
         } catch (Exception $err) {
             throw new Exception($err->getMessage());
         }
+
+        $this->success(['success' => true]);
     }
 
     /**

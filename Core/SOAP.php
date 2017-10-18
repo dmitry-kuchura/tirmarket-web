@@ -25,7 +25,7 @@ class SOAP
         }
     }
 
-    public static function createSoapClientProducts($params = [])
+    public static function soapProductsList($params = [])
     {
         $client = new SoapClient(self::$wsdl, [
             'exception' => 1,

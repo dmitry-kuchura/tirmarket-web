@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Controllers;
 
+use Core\Route;
 use Core\SOAP;
 use Core\QB\DB;
 use Exception;
@@ -47,7 +48,7 @@ class Api extends Base
             $offset = $i >= 2 ? 350 * $i : 0;
             $params = ['limit' => 350, 'offset' => $offset];
 
-            $result = SOAP::createSoapClientProducts($params);
+            $result = SOAP::soapProductsList($params);
             if (count($result)) {
                 foreach ($result as $obj) {
                     if (Products::checkItem($obj)) {
@@ -57,6 +58,17 @@ class Api extends Base
                     }
                 }
             }
+        }
+    }
+
+    public function getCurrentProductAction()
+    {
+        $params = ['id' => Route::param('id')];
+
+        try {
+            $result = SOAP::soapProductsList($params);
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
         }
     }
 
@@ -112,6 +124,14 @@ class Api extends Base
     {
         $params = ['limit' => 350, 'offset' => 0];
         $result = SOAP::createSoapClientPrices($params);
+
+        var_dump($result);
+        die;
+    }
+
+    public function getModelsAction()
+    {
+        $result = SOAP::createSoapClient('getModels');
 
         var_dump($result);
         die;

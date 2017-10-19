@@ -259,19 +259,4 @@ class Api extends Ajax
             }
         }
     }
-
-    public function updateParentAction()
-    {
-        $result = DB::select()->from('catalog')->where('status', '=', 1)->find_all();
-
-        foreach ($result as $obj) {
-            $parent = DB::select()->from('catalog_tree')->where('import_id', '=', $obj->parent_id)->find();
-
-
-            $model = [];
-            $model['parent_id'] = $parent->id;
-
-            DB::update('catalog')->set($model)->where('id', '=', $obj->id)->execute();
-        }
-    }
 }

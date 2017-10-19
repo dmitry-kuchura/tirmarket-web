@@ -204,14 +204,13 @@ class Api extends Ajax
      */
     public function getPricesAction()
     {
-        $params = ['limit' => 350, 'offset' => 0];
-        $result = SOAP::createSoapClientPrices($params);
+        $params = ['update' => '2017-09-01'];
+        $result = SOAP::soapPrices($params);
 
-        if (count($result->return->prices)) {
-            foreach ($result->return->prices as $obj) {
-                $check = DB::select()->from('catalog')->where('import_id', 'LIKE', $obj->productID)->find();
-                if (!count($check)) {
-                    DB::update('catalog')->set(['cost' => $obj->price])->where('import_id', 'LIKE', $obj->productID)->execute();
+        if (count($result)) {
+            foreach ($result as $obj) {
+                if (Price::checkItem($obj)) {
+                    DB::update('catalog')->set(['cost' => $obj->price, 'updated_at' => time()])->where('import_id', 'LIKE', $obj->productID)->execute();
                 }
             }
         }

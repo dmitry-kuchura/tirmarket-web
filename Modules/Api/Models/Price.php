@@ -28,6 +28,17 @@ class Price extends CommonI18n
         }
     }
 
+    public static function checkItem($obj)
+    {
+        $check = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->productID)->find();
+
+        if (count($check)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Добавление из 1С
      *

@@ -5,7 +5,6 @@ namespace Core;
 use Exception;
 use SoapClient;
 
-
 class SOAP
 {
     static $wsdl = 'http://tir.maccen.com:8081/webservice/ws/Exchange.1cws?wsdl';
@@ -116,7 +115,7 @@ class SOAP
         return $result->return;
     }
 
-    public static function createSoapClientPrices($params = [])
+    public static function soapPrices($params = [])
     {
         $client = new SoapClient(self::$wsdl, [
             'exception' => 1,
@@ -126,6 +125,6 @@ class SOAP
 
         $result = $client->getPrices($params);
 
-        return $result;
+        return $result->return->prices;
     }
 }

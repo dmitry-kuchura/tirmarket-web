@@ -6,6 +6,9 @@ return [
     'api/products' => 'api/api/getProducts',
     'api/product/<id>' => 'api/api/getCurrentProduct',
     'api/brands' => 'api/api/getBrands',
+    'api/brand/<id>' => 'api/api/getBrand',
+    'api/stock/<id>' => 'api/api/getStock',
+
     'api/stocks' => 'api/api/getStocks',
     'api/prices' => 'api/api/getPrices',
     'api/prices-types' => 'api/api/getPricesTypes',

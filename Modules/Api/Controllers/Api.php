@@ -64,6 +64,7 @@ class Api extends Ajax
         $this->success(['success' => true]);
     }
 
+
     /**
      * Список товаров
      */
@@ -105,6 +106,26 @@ class Api extends Ajax
     }
 
     /**
+     * Метод getStock
+     *
+     * @throws Exception
+     */
+    public function getStockAction()
+    {
+        $params = ['id' => Route::param('id')];
+
+        try {
+            $result = SOAP::getStock($params);
+
+            var_dump($result);
+            die;
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
+        }
+    }
+
+
+    /**
      * Список брендов
      */
     public function getBrandsAction()
@@ -114,9 +135,32 @@ class Api extends Ajax
         foreach ($result->return->brands->brand as $obj) {
             if (Brands::checkBrand($obj)) {
                 Brands::insertRows($obj);
+            } else {
+                Brands::updateRows($obj);
             }
         }
     }
+
+    /**
+     * Отдельный бренд
+     *
+     * @throws Exception
+     */
+    public function getBrandAction()
+    {
+        $result = SOAP::getBrand(['id' => Route::param('id')]);
+
+        if (isset($result)) {
+            try {
+                Brands::updateRows($result);
+            } catch (Exception $err) {
+                throw new Exception($err->getMessage());
+            }
+        }
+
+        $this->success(['success' => true]);
+    }
+
 
     /**
      * Получение складов

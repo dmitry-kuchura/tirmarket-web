@@ -85,6 +85,26 @@ class Brands extends CommonI18n
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
     }
 
+    public static function updateRows($obj)
+    {
+        $data = [];
+        $data['sort'] = $obj->position;
+        $data['updated_at'] = time();
+
+        DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
+        $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find()->id;
+
+        $ua = [];
+        $ua['name'] = $obj->name;
+
+        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID)->where('language', '=', 'ua')->execute();
+
+        $ru = [];
+        $ru['name'] = $obj->name;
+
+        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID)->where('language', '=', 'ru')->execute();
+    }
+
     /**
      * Проверка на уникальный alias
      *

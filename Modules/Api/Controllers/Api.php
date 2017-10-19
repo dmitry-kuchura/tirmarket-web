@@ -45,6 +45,26 @@ class Api extends Ajax
     }
 
     /**
+     * Конкретная категория
+     *
+     * @throws Exception
+     */
+    public function getCategoryAction()
+    {
+        $result = SOAP::getCategory(['id' => Route::param('id')]);
+
+        if (count($result)) {
+            try {
+                Categories::updateRows($result);
+            } catch (Exception $err) {
+                throw new Exception($err->getMessage());
+            }
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    /**
      * Список товаров
      */
     public function getProductsAction()
@@ -140,8 +160,16 @@ class Api extends Ajax
         $params = ['limit' => 350, 'offset' => 0];
         $result = SOAP::createSoapClientPrices($params);
 
-        var_dump($result);
-        die;
+        if (count($result->return->prices)) {
+            foreach ($result->return->prices as $obj) {
+                $check = DB::select()->from('catalog')->where('import_1c', 'LIKE', $obj->id)->find();
+                if (!count($check)) {
+                    DB::update('catalog')->set(['cost' => $obj->price])->where('import_1c', 'LIKE', $obj->id)->execute();
+                }
+            }
+        }
+
+        $this->success(['success' => true]);
     }
 
     /**

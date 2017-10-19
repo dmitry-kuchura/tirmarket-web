@@ -71,8 +71,9 @@ class Api extends Ajax
     public function getProductsAction()
     {
         for ($i = 1; $i <= 1500; $i++) {
-            $offset = $i >= 2 ? 350 * $i : 0;
-            $params = ['limit' => 350, 'offset' => $offset];
+            $limit = 150;
+            $offset = ($i - 1) * 150;
+            $params = ['limit' => $limit, 'offset' => $offset];
 
             $result = SOAP::soapProductsList($params);
             if (count($result)) {

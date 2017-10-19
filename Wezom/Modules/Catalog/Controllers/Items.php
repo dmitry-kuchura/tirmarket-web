@@ -47,6 +47,9 @@ class Items extends Base
         $page = (int)Route::param('page') ? (int)Route::param('page') : 1;
         $count = Model::countRows($status);
         $result = Model::getRows($status, 'sort', 'ASC', $this->limit, ($page - 1) * $this->limit);
+
+        var_dump($count);
+        die;
         $pager = Pager::factory($page, $count, $this->limit)->create();
         $this->_toolbar = Widgets::get('Toolbar_List', ['add' => 1, 'delete' => 1]);
         $this->_content = View::tpl(

@@ -205,14 +205,18 @@ class Api extends Ajax
     public function getPricesAction()
     {
         $params = ['update' => '2017-09-01'];
-        $result = SOAP::soapPrices($params);
+        try {
+            $result = SOAP::soapPrices($params);
 
-        if (count($result)) {
-            foreach ($result as $obj) {
-                if (Price::checkItem($obj)) {
-                    DB::update('catalog')->set(['cost' => $obj->price, 'updated_at' => time()])->where('import_id', 'LIKE', $obj->productID)->execute();
+            if (count($result)) {
+                foreach ($result as $obj) {
+                    if (Price::checkItem($obj)) {
+                        Price::updatePrice($obj);
+                    }
                 }
             }
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
         }
 
         $this->success(['success' => true]);

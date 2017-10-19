@@ -33,8 +33,6 @@ class Price extends CommonI18n
         $check = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->productID)->find();
 
         if (count($check)) {
-            return false;
-        } else {
             return true;
         }
     }
@@ -121,5 +119,10 @@ class Price extends CommonI18n
         $ru['name'] = $obj->name;
 
         DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->where('language', '=', 'ru')->execute();
+    }
+
+    public static function updatePrice($obj)
+    {
+        DB::update('catalog')->set(['cost' => $obj->price, 'updated_at' => time()])->where('import_id', 'LIKE', $obj->productID)->execute();
     }
 }

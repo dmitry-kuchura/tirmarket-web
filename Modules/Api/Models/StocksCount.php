@@ -25,8 +25,6 @@ class StocksCount extends CommonI18n
         $catalog = DB::select()->from(static::$catalogTable)->where('import_id', 'LIKE', $obj->productID)->find();
 
         if (count($stock) && count($catalog)) {
-            return false;
-        } else {
             return true;
         }
     }
@@ -45,13 +43,6 @@ class StocksCount extends CommonI18n
         $data['stock_id'] = $stock->id;
         $data['updated_at'] = time();
 
-        $keys = [];
-        $values = [];
-        foreach ($data as $key => $value) {
-            $keys[] = $key;
-            $values[] = $value;
-        }
-
-        DB::insert(static::$catalogTable, $keys)->values($values)->execute();
+        DB::update('catalog')->set($data)->where('import_id', 'LIKE', $obj->productID)->execute();
     }
 }

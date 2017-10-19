@@ -82,9 +82,9 @@ class Api extends Ajax
                     foreach ($result as $obj) {
                         if (Products::checkItem($obj)) {
                             Products::insertRows($obj);
-                        } else {
+                        }/* else {
                             Products::updateRows($obj);
-                        }
+                        }*/
                     }
                 }
             } catch (Exception $err) {

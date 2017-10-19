@@ -53,6 +53,27 @@ function preloader() {
 }
 
 $(document).ready(function () {
+    // IMPORT 1C
+    $('.import1C').on('click', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var button = $(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/product/' + id,
+            success: function (data) {
+                if (data.success) {
+                    button.removeClass("dropdownMenuOpen");
+                    generate('Обновлено!', 'success', 3500);
+                }
+            },
+            error: function () {
+                generate('Возникла ошибка при импорте из 1С!', 'error', 3500);
+            }
+        });
+    });
+
     $('body').on('click', '#fPopUp div.content', function () {
         closePopup($(this));
     });
@@ -69,7 +90,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.changeBackendLanguage').on('click', function(e) {
+    $('.changeBackendLanguage').on('click', function (e) {
         e.preventDefault();
         var lang = $(this).data('lang');
         $.ajax({
@@ -79,14 +100,14 @@ $(document).ready(function () {
             data: {
                 lang: lang
             },
-            success: function(data) {
-                if(data.success) {
+            success: function (data) {
+                if (data.success) {
                     window.location.reload();
                 } else {
                     generate('Error! Please try later', 'warning', 3500);
                 }
             },
-            error: function() {
+            error: function () {
                 generate('Server error! Please try later', 'error', 3500);
             }
         });
@@ -127,7 +148,7 @@ $(document).ready(function () {
     $('body').on('click', '.translitAction', function () {
         var it = $(this);
         var trans = it.data('trans');
-		var rules = it.data('rules');
+        var rules = it.data('rules');
         var source;
         if (trans) {
             source = $('.translitSource[data-trans="' + trans + '"]').val();
@@ -139,8 +160,8 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'JSON',
             data: {
-                source: source, 
-				rules: rules
+                source: source,
+                rules: rules
             },
             success: function (data) {
                 if (!it.data('trans')) {
@@ -382,7 +403,7 @@ $(document).ready(function () {
             });
             setAmount();
         });
-        
+
         $('.orderPositionDelete').on('click', function (e) {
             e.preventDefault();
             preloader();
@@ -408,7 +429,7 @@ $(document).ready(function () {
                 }
             });
         });
-        
+
         $('#sendEmail').on('click', function () {
             $.ajax({
                 url: '/wezom/ajax/orders/sendEmail',
@@ -485,8 +506,8 @@ $(function () {
 
         $('.dropDownload').on('click', '.loadedCover .btn.btn-success', function () {
             var it = $(this),
-                    itP = it.closest('.loadedBlock'),
-                    id = itP.data('image');
+                itP = it.closest('.loadedBlock'),
+                id = itP.data('image');
             $.ajax({
                 url: '/wezom/ajax/' + def,
                 type: 'POST',
@@ -847,8 +868,10 @@ $(function () {
         var header = 'Отправить пароль на E-Mail пользователя';
         $(document).alert2({
             message: message,
-            openCallback: function () {},
-            closeCallback: function () {},
+            openCallback: function () {
+            },
+            closeCallback: function () {
+            },
             headerCOntent: header,
             footerContent: footer,
             closeOnBgClick: false,
@@ -940,7 +963,7 @@ $(function () {
             }
         }
     });
-    
+
     var change_status_sitemap = function (it, id) {
         var current = it.attr('data-status');
         var table = $('#parameters').data('table');
@@ -957,8 +980,8 @@ $(function () {
                 it.data('status', data.status);
                 var html;
                 if (data.ids) {
-                    for(i=0; i<data.ids.length; i++) {
-                        it = $('.status-column [data-id = "'+data.ids[i]+'"] ');
+                    for (i = 0; i < data.ids.length; i++) {
+                        it = $('.status-column [data-id = "' + data.ids[i] + '"] ');
                         if (data.status == 1) {
                             html = '<i class="fa fa-check"></i>';
                             it.removeClass('btn-danger');
@@ -969,16 +992,16 @@ $(function () {
                             it.addClass('btn-danger');
                         }
                         it.html(html);
-                        it.attr('data-status',data.status);
+                        it.attr('data-status', data.status);
                     }
-                    
+
                 }
 
                 $('.liTipContent').remove();
                 $('.bs-tooltip').each(function () {
                     $(this).liTip();
                 });
-                
+
             }
         });
     };
@@ -993,5 +1016,5 @@ $(function () {
         }
         change_status_sitemap(it, id);
     });
-	
+
 });

@@ -103,6 +103,19 @@ class SOAP
         return $result->return->products->product;
     }
 
+    public static function soapProduct($params = [])
+    {
+        $client = new SoapClient(self::$wsdl, [
+            'exception' => 1,
+            'cache_wsdl' => WSDL_CACHE_MEMORY,
+            'trace' => true,
+        ]);
+
+        $result = $client->getProduct($params);
+
+        return $result->return;
+    }
+
     public static function createSoapClientPrices($params = [])
     {
         $client = new SoapClient(self::$wsdl, [

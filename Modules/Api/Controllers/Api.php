@@ -97,12 +97,15 @@ class Api extends Ajax
     public function getCurrentProductAction()
     {
         $params = ['id' => Route::param('id')];
+        $result = SOAP::soapProduct($params);
 
         try {
-            $result = SOAP::soapProductsList($params);
+            Products::updateRows($result);
         } catch (Exception $err) {
             throw new Exception($err->getMessage());
         }
+
+        $this->success(['success' => true]);
     }
 
     /**

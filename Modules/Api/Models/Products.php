@@ -120,13 +120,11 @@ class Products extends CommonI18n
 
         $data = [];
         $data['code_1с'] = $obj->code1C;
-        $data['alias'] = self::unique(trim($obj->name));
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
         $data['artikul'] = trim($obj->article);
         $data['parent_id'] = $parent->id;
         $data['brand_alias'] = $brand->alias;
-        $data['created_at'] = time();
         $data['updated_at'] = time();
 
         DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();

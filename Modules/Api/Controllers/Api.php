@@ -162,7 +162,7 @@ class Api extends Ajax
 
         if (count($result->return->prices)) {
             foreach ($result->return->prices as $obj) {
-                $check = DB::select()->from('catalog')->where('import_1c', 'LIKE', $obj->productID)->find();
+                $check = DB::select()->from('catalog')->where('import_id', 'LIKE', $obj->productID)->find();
                 if (!count($check)) {
                     DB::update('catalog')->set(['cost' => $obj->price])->where('import_1c', 'LIKE', $obj->id)->execute();
                 }

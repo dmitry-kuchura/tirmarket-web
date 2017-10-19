@@ -164,7 +164,7 @@ class Api extends Ajax
             foreach ($result->return->prices as $obj) {
                 $check = DB::select()->from('catalog')->where('import_id', 'LIKE', $obj->productID)->find();
                 if (!count($check)) {
-                    DB::update('catalog')->set(['cost' => $obj->price])->where('import_1c', 'LIKE', $obj->id)->execute();
+                    DB::update('catalog')->set(['cost' => $obj->price])->where('import_id', 'LIKE', $obj->productID)->execute();
                 }
             }
         }

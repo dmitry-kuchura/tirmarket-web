@@ -204,7 +204,7 @@ class Api extends Ajax
      */
     public function getPricesAction()
     {
-        $params = ['update' => '2017-09-01'];
+        $params = ['update' => '2017-05-01'];
         try {
             $result = SOAP::soapPrices($params);
 

@@ -122,12 +122,12 @@ class Api extends Ajax
     public function getStockAction()
     {
         $params = ['id' => Route::param('id')];
+        $result = SOAP::getStock($params);
 
+        var_dump($result);
+        die;
         try {
-            $result = SOAP::getStock($params);
 
-            var_dump($result);
-            die;
         } catch (Exception $err) {
             throw new Exception($err->getMessage());
         }

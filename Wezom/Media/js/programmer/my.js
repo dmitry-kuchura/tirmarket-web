@@ -56,15 +56,14 @@ $(document).ready(function () {
     // IMPORT 1C
     $('.import1C').on('click', function (e) {
         e.preventDefault();
-        var id = $(this).data('id');
         var button = $(this);
+        var url = $(this).data('alias');
 
         $.ajax({
             type: 'POST',
-            url: '/api/product/' + id,
+            url: url,
             success: function (data) {
                 if (data.success) {
-                    button.removeClass("dropdownMenuOpen");
                     generate('Обновлено!', 'success', 3500);
                 }
             },

@@ -28,7 +28,7 @@
                         </td>
                         <td class="hidden-xs" valign="middle">
                             <div>
-                                <?php echo Core\Text::limit_words(strip_tags($obj->text), 25); ?>
+                                <?php echo 'Обновлено: ' . date('Y-m-d H:i:s', $obj->updated_at); ?>
                             </div>
                         </td>
                         <td width="45" valign="top" class="icon-column status-column">
@@ -44,6 +44,9 @@
                                             <a title="<?php echo __('Редактировать'); ?>"
                                                href="<?php echo '/wezom/' . Core\Route::controller() . '/edit/' . $obj->id; ?>"><i
                                                         class="fa fa-pencil"></i> <?php echo __('Редактировать'); ?></a>
+                                        </li>
+                                        <li>
+                                            <a title="<?php echo __('Импрот из 1С'); ?>" class="import1C" data-alias="<?php echo '/api/category/' . $obj->import_id; ?>" href="javascript:void(0);"><i class="fa fa-download"></i> <?php echo __('Импрот из 1С'); ?></a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>

@@ -210,10 +210,13 @@ class Api extends Ajax
      */
     public function getPricesAction()
     {
-        $params = ['update' => '2017-07-01'];
-        try {
-            $result = SOAP::soapPrices($params);
+        $params = ['update' => '2017-06-01'];
+        $result = SOAP::soapPrices($params);
 
+        var_dump($result);
+        die;
+
+        try {
             if (count($result)) {
                 foreach ($result as $obj) {
                     if (Price::checkItem($obj)) {

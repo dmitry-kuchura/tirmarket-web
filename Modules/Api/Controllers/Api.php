@@ -7,6 +7,7 @@ use Core\SOAP;
 use Core\QB\DB;
 use Exception;
 use Modules\Api\Models\Models;
+use Modules\Api\Models\Users;
 use Modules\Base;
 use Modules\Api\Models\Price;
 use Modules\Api\Models\Brands;
@@ -273,5 +274,24 @@ class Api extends Ajax
                 }
             }
         }
+    }
+
+    public function getUsersAction()
+    {
+        $result = SOAP::createSoapClient('getUsers');
+
+        if (count($result->return->users) > 1) {
+            foreach ($result->return->users as $obj) {
+                if (Users::check($obj)) {
+                    Users::insertRows($obj);
+                } else {
+                    Users::updateRows($obj);
+                }
+            }
+        } else {
+            Users::insertRows($result->return->users);
+        }
+
+        $this->success(['success' => true]);
     }
 }

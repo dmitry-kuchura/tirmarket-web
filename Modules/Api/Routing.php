@@ -34,4 +34,6 @@ return [
     'api/count' => 'api/api/getStockCount',
 
     'api/models' => 'api/api/getModels',
+
+    'api/users' => 'api/api/getUsers',
 ];

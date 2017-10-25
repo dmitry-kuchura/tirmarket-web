@@ -30,6 +30,18 @@ class Items extends CommonI18n
     ];
     public static $rules = [];
 
+
+    public static function getParent($parendID)
+    {
+        $result = DB::select('catalog_tree_i18n.name')
+            ->from('catalog_tree')->where('catalog_tree.id', '=', $parendID)
+            ->join('catalog_tree_i18n', 'LEFT')->on('catalog_tree_i18n.row_id', '=', 'catalog_tree.id')
+            ->where('catalog_tree_i18n.language', '=', I18n::$default_lang_backend)
+            ->find()->name;
+
+        return $result ? $result : null;
+    }
+
     /**
      * @param null /integer $status - 0 or 1
      * @param null /string $sort
@@ -53,14 +65,12 @@ class Items extends CommonI18n
             }
         }
         $result = DB::select(
-            static::$tableI18n . '.*', static::$table . '.*', ['catalog_tree_i18n.name', 'catalog_tree_name']
+            static::$tableI18n . '.*',
+            static::$table . '.*'
         )
             ->from(static::$table)
             ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-            ->join('catalog_tree', 'LEFT')->on('catalog_tree.id', '=', static::$table . '.parent_id')
-            ->join('catalog_tree_i18n')->on('catalog_tree_i18n.row_id', '=', 'catalog_tree.id')
-            ->where(static::$tableI18n . '.language', '=', $lang)
-            ->where('catalog_tree_i18n.language', '=', 'ua');
+            ->where(static::$tableI18n . '.language', '=', $lang);
         if ($filter) {
             $result = static::setFilter($result);
         }

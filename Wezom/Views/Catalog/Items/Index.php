@@ -1,3 +1,5 @@
+<?php use Wezom\Modules\Catalog\Models\Items; ?>
+
 <div class="rowSection">
     <div class="col-md-12">
         <div class="widget">
@@ -97,8 +99,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <?php if($obj->parent_id): ?>
-                                            <a href="/wezom/groups/edit/<?php echo $obj->parent_id; ?>" target="_blank"><?php echo $obj->catalog_tree_name; ?></a>
+                                        <?php $parent = Items::getParent($obj->parent_id); ?>
+                                        <?php if($parent): ?>
+                                            <a href="/wezom/groups/edit/<?php echo $obj->parent_id; ?>" target="_blank"><?php echo $parent; ?></a>
                                         <?php else: ?>
                                             <?php echo __('Удалена'); ?>
                                         <?php endif; ?>

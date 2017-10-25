@@ -52,4 +52,9 @@ return [
     'wezom/questions/index/page/<page:[0-9]*>' => 'catalog/questions/index',
     'wezom/questions/edit/<id:[0-9]*>' => 'catalog/questions/edit',
     'wezom/questions/delete/<id:[0-9]*>' => 'catalog/questions/delete',
+    // Currencies
+    'wezom/currencies/index' => 'catalog/currencies/index',
+    'wezom/currencies/index/page/<page:[0-9]*>' => 'catalog/currencies/index',
+    'wezom/currencies/edit/<id:[0-9]*>' => 'catalog/currencies/edit',
+    'wezom/currencies/delete/<id:[0-9]*>' => 'catalog/currencies/delete',
 ];

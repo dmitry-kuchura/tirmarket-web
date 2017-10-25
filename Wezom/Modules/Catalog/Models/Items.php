@@ -30,6 +30,24 @@ class Items extends CommonI18n
     ];
     public static $rules = [];
 
+    /**
+     * Получение оригиналов товаров
+     *
+     * @param $id
+     * @return array
+     */
+    public static function getOriginal($id)
+    {
+        $result = DB::select()->from('catalog_original')->where('catalog_id', '=', $id)->find_all();
+
+        $originals = [];
+
+        foreach ($result as $obj) {
+            $originals[$obj->code] = $obj->brand;
+        }
+
+        return $originals;
+    }
 
     public static function getParent($parendID)
     {

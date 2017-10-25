@@ -114,6 +114,8 @@ class Items extends Base
         $this->_content = View::tpl(
             [
                 'obj' => $item,
+                'original' => Model::getOriginal(Route::param('id')),
+                'tree' => Support::getSelectOptions('Catalog/Items/Select', 'catalog_tree', $item->parent_id),
                 'langs' => $langs,
                 'tpl_folder' => $this->tpl_folder,
                 'stocks' => Model::getStockAsArray(),

@@ -242,6 +242,35 @@ use Forms\Form;
         </div>
     </div>
 </div>
+
+<?php if (count($original)): ?>
+    <div class="col-md-6">
+        <div class="widget box">
+            <div class="widgetHeader">
+                <div class="widgetTitle">
+                    <i class="fa fa-list-alt"></i>
+                    <?php echo __('Оригиналы'); ?>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($original as $key => $value): ?>
+                    <tr>
+                        <td><?php echo $value; ?></td>
+                        <td><?php echo $key; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
 <?php echo Form::close(); ?>
 
 <?php echo $uploader; ?>

@@ -2,19 +2,17 @@
 
 namespace Modules\Catalog\Controllers;
 
-use Core\Common;
-use Core\CommonI18n;
 use Core\HTTP;
 use Core\Route;
 use Core\View;
 use Core\Config;
+use Core\CommonI18n;
+use Modules\Base;
 use Modules\Catalog\Models\Items;
 use Modules\Catalog\Models\Groups;
-use Modules\Base;
 
 class Product extends Base
 {
-
     public function before()
     {
         parent::before();
@@ -45,6 +43,8 @@ class Product extends Base
         Route::factory()->setParam('group', $item->parent_id);
         // Add to cookie viewed list
         Items::addViewed($item->id);
+        // Add to cookie viewed list
+        $originals = Items::getOriginal($item->id);
         // Add plus one to views
         $item = Items::addView($item);
         // Seo
@@ -54,9 +54,18 @@ class Product extends Base
         // Get current item specifications list
         $spec = Items::getItemSpecifications($item->id, $item->parent_id);
         // Render template
-        $this->_content = View::tpl(['obj' => $item, 'seo' => $this->_seo, 'images' => $images, 'specifications' => $spec], 'Catalog/Item');
+        $this->_content = View::tpl([
+            'obj' => $item,
+            'seo' => $this->_seo,
+            'images' => $images,
+            'specifications' => $spec,
+            'originals' => $originals,
+        ], 'Catalog/Item');
         $reviews = Items::getReviews($item->id);
-        $this->_content .= View::tpl(['obj' => $item, 'reviews' => $reviews], 'Catalog/MicroData');
+        $this->_content .= View::tpl([
+            'obj' => $item,
+            'reviews' => $reviews,
+        ], 'Catalog/MicroData');
     }
 
     // Set seo tags from template for items
@@ -73,5 +82,4 @@ class Product extends Base
         $this->generateParentBreadcrumbs($page->parent_id, 'catalog_tree', 'parent_id', '/products/');
         $this->setBreadcrumbs($page->name);
     }
-
 }

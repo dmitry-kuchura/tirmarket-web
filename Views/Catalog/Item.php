@@ -6,6 +6,7 @@ use Core\Config;
 
 /* @var $obj object */
 /* @var $images array */
+/* @var $originals array */
 /* @var $specifications array */
 
 ?>
@@ -223,6 +224,7 @@ use Core\Config;
         <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
     <?php endif; ?>
     <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
+    <a href="#" class="tab-link" data-tab-trigger="4" data-tab-ns="originals"><?php echo __('Оригиналы'); ?></a>
 </div>
 <div class="_mb-5">
     <div class="is-active" data-tab-content="1" data-tab-ns="product">
@@ -232,6 +234,18 @@ use Core\Config;
                     <tr>
                         <td><b><?php echo $key; ?></b></td>
                         <td><?php echo $value; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+    <div data-tab-content="4" data-tab-ns="originals">
+        <div class="wysiwyg">
+            <table class="table-zebra">
+                <?php foreach ($originals as $key => $value): ?>
+                    <tr>
+                        <td><?php echo $value; ?></td>
+                        <td><b><?php echo $key; ?></b></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

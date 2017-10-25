@@ -6,6 +6,7 @@ use Core\Route;
 use Core\SOAP;
 use Core\QB\DB;
 use Exception;
+use Modules\Api\Models\Currencies;
 use Modules\Api\Models\Models;
 use Modules\Api\Models\Users;
 use Modules\Base;
@@ -282,6 +283,9 @@ class Api extends Ajax
     {
         $result = SOAP::createSoapClient('getUsers');
 
+        var_dump($result);
+        die;
+
         if (count($result->return->users) > 1) {
             foreach ($result->return->users as $obj) {
                 if (Users::check($obj)) {
@@ -292,6 +296,26 @@ class Api extends Ajax
             }
         } else {
             Users::insertRows($result->return->users);
+        }
+
+        $this->success(['success' => true]);
+    }
+
+
+    public function getCurrenciesAction()
+    {
+        $result = SOAP::createSoapClient('getCurrencies');
+
+        if (count($result->return->currency) > 1) {
+            foreach ($result->return->currency as $obj) {
+                if (Currencies::check($obj)) {
+                    Currencies::insertRows($obj);
+                } else {
+                    Currencies::updateRows($obj);
+                }
+            }
+        } else {
+            Currencies::insertRows($result->return->users);
         }
 
         $this->success(['success' => true]);

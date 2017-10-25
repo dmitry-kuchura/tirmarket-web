@@ -36,4 +36,6 @@ return [
     'api/models' => 'api/api/getModels',
 
     'api/users' => 'api/api/getUsers',
+
+    'api/currencies' => 'api/api/getCurrencies',
 ];

@@ -17,12 +17,22 @@
                     ]); ?>
                 </div>
                 <div class="col-md-1">
+                    <label class="control-label" style="height:16px;"></label>
+                    <div class="">
+                        <div class="controls">
+                            <a href="/wezom/<?php echo Core\Route::controller(); ?>/index" class="btn btn-default">
+                                <span class="hidden-xx"><?php echo __('Сбросить'); ?></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
                     <label class="control-label" style="height:22px;"></label>
                     <div class="">
                         <div class="controls">
-                            <a href="/wezom/<?php echo Core\Route::controller(); ?>/index">
+                            <a class="import1C" data-alias="/api/currencies" href="javascript:void(0);">
                                 <i class="fa fa-refresh"></i>
-                                <span class="hidden-xx"><?php echo __('Сбросить'); ?></span>
+                                <span class="hidden-xx"><?php echo __('Обновить 1С'); ?></span>
                             </a>
                         </div>
                     </div>

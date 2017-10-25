@@ -74,26 +74,28 @@ class Api extends Ajax
         for ($i = 1; $i <= 1500; $i++) {
             $limit = 150;
             $offset = ($i - 1) * 150;
-            $params = ['limit' => $limit, 'offset' => $offset];
+            $update = '2015-01-01';
+            $params = ['limit' => $limit, 'offset' => $offset, 'update' => $update];
 
             try {
                 $result = SOAP::soapProductsList($params);
-
                 if (count($result)) {
                     foreach ($result as $obj) {
                         if (Products::checkItem($obj)) {
                             Products::insertRows($obj);
-                        }/* else {
+                        } else {
                             Products::updateRows($obj);
-                        }*/
+                        }
                     }
+                } else {
+                    $i = 1500;
                 }
             } catch (Exception $err) {
                 throw new Exception($err->getMessage());
             }
         }
 
-        $this->success(['success' => true, 'count' => $i]);
+        $this->success(['success' => true]);
     }
 
     /**

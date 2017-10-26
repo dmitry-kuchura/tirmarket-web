@@ -283,19 +283,16 @@ class Api extends Ajax
     {
         $result = SOAP::createSoapClient('getUsers');
 
-        var_dump($result);
-        die;
-
-        if (count($result->return->users) > 1) {
+        if (is_array($result->return->users)) {
             foreach ($result->return->users as $obj) {
                 if (Users::check($obj)) {
                     Users::insertRows($obj);
-                } else {
-                    Users::updateRows($obj);
                 }
             }
         } else {
-            Users::insertRows($result->return->users);
+            if (Users::check($result->return->users)) {
+                Users::insertRows($result->return->users);
+            }
         }
 
         $this->success(['success' => true]);

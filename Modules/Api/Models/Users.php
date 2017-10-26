@@ -2,6 +2,8 @@
 
 namespace Modules\Api\Models;
 
+use Core\Arr;
+use Core\Email;
 use Core\QB\DB;
 use Core\CommonI18n;
 use Core\Text;
@@ -35,16 +37,31 @@ class Users extends CommonI18n
      */
     public static function insertRows($obj)
     {
+        $password = User::generate_random_password();
         $data = [];
 
         $data['import_id'] = $obj->id;
         $data['name'] = $obj->name;
-        $data['contract'] = $obj->contract;
+        $data['email'] = $obj->email;
+        $data['contract'] = $obj->contractID;
+        $data['currency_id'] = $obj->currencyID;
         $data['created_at'] = time();
         $data['updated_at'] = time();
-        $data['password'] = User::generate_random_password();
+        $data['password'] = $password;
 
-        User::factory()->registration($data);
+        $make = User::factory()->registration($data);
+
+        if ($make) {
+            Email::sendTemplate(13, [
+                '{{site}}' => Arr::get($_SERVER, 'HTTP_HOST'),
+                '{{ip}}' => Arr::get($data, 'ip'),
+                '{{date}}' => date('d.m.Y'),
+                '{{email}}' => $obj->email,
+                '{{password}}' => $password,
+                '{{name}}' => $obj->name,
+            ], $obj->email);
+        }
+
     }
 
     /**

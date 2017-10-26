@@ -298,7 +298,9 @@ class Api extends Ajax
         $this->success(['success' => true]);
     }
 
-
+    /**
+     * Обновление валют из 1С
+     */
     public function getCurrenciesAction()
     {
         $result = SOAP::createSoapClient('getCurrencies');

@@ -4,19 +4,18 @@ namespace Modules\Api\Controllers;
 
 use Core\Route;
 use Core\SOAP;
-use Core\QB\DB;
 use Exception;
-use Modules\Api\Models\Currencies;
+use Modules\Ajax;
 use Modules\Api\Models\Models;
 use Modules\Api\Models\Users;
-use Modules\Base;
 use Modules\Api\Models\Price;
 use Modules\Api\Models\Brands;
 use Modules\Api\Models\Stocks;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
+use Modules\Api\Models\Currencies;
+use Modules\Api\Models\Orders;
 use Modules\Api\Models\StocksCount;
-use Wezom\Modules\Ajax;
 
 class Api extends Ajax
 {
@@ -315,6 +314,19 @@ class Api extends Ajax
             }
         } else {
             Currencies::insertRows($result->return->users);
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    public function getOrdersAction()
+    {
+        $result = SOAP::createSoapClient('getOrders');
+
+        foreach ($result->return->orders->order as $obj) {
+            if (Orders::check($obj)) {
+                Orders::insertRows($obj);
+            }
         }
 
         $this->success(['success' => true]);

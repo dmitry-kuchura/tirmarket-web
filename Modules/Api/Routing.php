@@ -38,4 +38,6 @@ return [
     'api/users' => 'api/api/getUsers',
 
     'api/currencies' => 'api/api/getCurrencies',
+
+    'api/orders' => 'api/api/getOrders',
 ];

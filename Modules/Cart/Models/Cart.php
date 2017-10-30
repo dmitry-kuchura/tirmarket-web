@@ -2,12 +2,12 @@
 
 namespace Modules\Cart\Models;
 
-use Core\Common;
-use Core\QB\Database;
-use Core\QB\DB;
-use Core\Cookie;
 use Core\Arr;
 use Core\Text;
+use Core\Cookie;
+use Core\Common;
+use Core\QB\DB;
+use Core\QB\Database;
 
 class Cart
 {

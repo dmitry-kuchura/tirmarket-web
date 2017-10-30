@@ -3,6 +3,7 @@
 use Core\HTML;
 use Core\User;
 use Core\Config;
+use Modules\Catalog\Models\Price;
 
 /* @var $obj object */
 /* @var $images array */
@@ -104,11 +105,11 @@ use Core\Config;
                 <div class="_flex _justify-between _grid-space-3 _items-end">
                     <div class="_col-auto _mb-2">
                         <?php if ($obj->sale == 1): ?>
-                            <div class="product-price product-price--disable"><?php echo number_format($obj->cost_old); ?>
-                                грн.
+                            <div class="product-price product-price--disable"><?php echo Price::getCurrentPrice($obj->cost_old); ?>
                             </div>
                         <?php endif; ?>
-                        <div class="product-price"><?php echo number_format($obj->cost); ?> грн.</div>
+                        <div class="product-price"><?php echo Price::getCurrentPrice($obj->cost); ?>
+                        </div>
                     </div>
                     <div class="_col-auto _mb-2">
                         <div class="product-counter" data-counter data-binding="product">

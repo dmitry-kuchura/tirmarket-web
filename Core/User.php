@@ -1,8 +1,33 @@
 <?php
+
 namespace Core;
 
 use Core\QB\DB;
 
+/**
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $login
+ * @property string $password
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property string $hash
+ * @property string $email
+ * @property integer $status
+ * @property integer $role_id
+ * @property string $ip
+ * @property string $phone
+ * @property integer $last_login
+ * @property integer $logins
+ * @property string $last_name
+ * @property string $address
+ * @property string $import_id
+ * @property string $currency_id
+ *
+ * Class User
+ * @package Core
+ */
 class User
 {
 

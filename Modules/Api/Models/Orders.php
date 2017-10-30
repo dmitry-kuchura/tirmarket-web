@@ -46,6 +46,7 @@ class Orders extends CommonI18n
         $data['user_id'] = $user->id;
         $data['email'] = $user->email;
         $data['done'] = strtotime($obj->date);
+        $data['status'] = 1;
         $data['created_at'] = strtotime($obj->date);
         $data['updated_at'] = time();
 

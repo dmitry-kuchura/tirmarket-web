@@ -71,6 +71,7 @@ class Price extends Common
 
         if ($currency) {
             $cost = $price * $currency->exchange;
+            $cost = number_format($cost, 2, ',', ' ');
             return $cost . ' ' . $currency->view;
         } else {
             return $price . ' грн.';

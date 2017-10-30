@@ -15,7 +15,7 @@
                 <div class="_flex _flex-column">
                     <div class="_col-auto"><?php echo __('Итого'); ?>: <span
                                 v-html="totalCount"></span> <?php echo __('товара на сумму'); ?> <span
-                                class="basket__total"> <span v-html="totalPrice"></span> грн.</span></div>
+                                class="basket__total"> <span v-html="totalPrice"></span> </span></div>
                 </div>
 
                 <div class="_flex _justify-center _mt-3">

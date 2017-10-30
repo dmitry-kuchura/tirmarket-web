@@ -81,7 +81,7 @@ class General extends Ajax
                 'title' => $obj->name,
                 'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
                 'count' => (int)$item['count'],
-                'price' => Price::getCurrencyForCart($obj->cost),
+                'price' => number_format(Price::getCurrencyForCart($obj->cost), 2, ',', ' '),
                 'maxcount' => 50,
             ];
         }
@@ -90,7 +90,7 @@ class General extends Ajax
             'success' => true,
             'list' => $list,
             'totalCount' => $total_quantity,
-            'totalPrice' => $total_price,
+            'totalPrice' => Price::getCurrentPrice($total_price),
         ]);
     }
 

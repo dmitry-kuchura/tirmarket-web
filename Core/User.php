@@ -4,30 +4,6 @@ namespace Core;
 
 use Core\QB\DB;
 
-/**
- *
- * @property integer $id
- * @property string $name
- * @property string $login
- * @property string $password
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $hash
- * @property string $email
- * @property integer $status
- * @property integer $role_id
- * @property string $ip
- * @property string $phone
- * @property integer $last_login
- * @property integer $logins
- * @property string $last_name
- * @property string $address
- * @property string $import_id
- * @property string $currency_id
- *
- * Class User
- * @package Core
- */
 class User
 {
 
@@ -72,7 +48,6 @@ class User
     {
     }
 
-
     /**
      * Factory method for return instance of current class
      * @return User
@@ -85,7 +60,6 @@ class User
         return self::$_instance;
     }
 
-
     /**
      * Get user info
      * @return bool|object|NULL
@@ -94,7 +68,6 @@ class User
     {
         return User::factory()->_info;
     }
-
 
     /**
      * Check is logged user admin
@@ -105,7 +78,6 @@ class User
         return User::factory()->_admin;
     }
 
-
     /**
      * Get access for user
      * @return bool
@@ -114,7 +86,6 @@ class User
     {
         return User::factory()->_access;
     }
-
 
     /**
      * Get is full access for user
@@ -125,7 +96,6 @@ class User
         return User::factory()->_full_access;
     }
 
-
     /**
      * @return bool
      */
@@ -133,7 +103,6 @@ class User
     {
         return User::factory()->_current_access;
     }
-
 
     /**
      *      If the user logged in, it will return his information, otherwise - return false
@@ -157,7 +126,6 @@ class User
         return $info->where($this->_tbl . '.id', '=', (int)$_SESSION[$this->_session])->where($this->_tbl . '.status', '=', 1)->find();
     }
 
-
     /**
      * Get array with access for current user role
      * @param $role_id - Role ID
@@ -178,7 +146,6 @@ class User
         }
         return $arr;
     }
-
 
     /**
      * @return string
@@ -204,7 +171,6 @@ class User
         return $this->_current_access = $access[Route::controller()];
     }
 
-
     /**
      * @param $controller
      * @return string
@@ -220,7 +186,6 @@ class User
         }
         return $access[$controller];
     }
-
 
     /**
      *      Get user by login, password and status if exists
@@ -520,4 +485,8 @@ class User
         return Common::factory($this->_tbl)->insert($data);
     }
 
+    public static function infoById($id)
+    {
+        return DB::select()->from('users')->where('id', '=', $id)->find();
+    }
 }

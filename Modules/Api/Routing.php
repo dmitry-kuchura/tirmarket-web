@@ -40,4 +40,6 @@ return [
     'api/currencies' => 'api/api/getCurrencies',
 
     'api/orders' => 'api/api/getOrders',
+
+    'api/put-orders' => 'api/api/putOrders',
 ];

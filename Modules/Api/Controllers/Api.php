@@ -2,8 +2,10 @@
 
 namespace Modules\Api\Controllers;
 
+use Core\QB\DB;
 use Core\Route;
 use Core\SOAP;
+use Core\User;
 use Exception;
 use Modules\Ajax;
 use Modules\Api\Models\Models;
@@ -327,6 +329,29 @@ class Api extends Ajax
             if (Orders::check($obj)) {
                 Orders::insertRows($obj);
             }
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    public function putOrdersAction()
+    {
+        $result = DB::select()->from('orders')->where('import_id', 'IS', null)->find_all();
+
+        foreach ($result as $obj) {
+            $items = Orders::itemsToArray($obj->id);
+            $user = User::infoById($obj->user_id);
+
+            $params['data'] = [
+                'id' => $obj->id,
+                'code1C' => $obj->id,
+                'date' => date('Y-m-d', $obj->created_at),
+                'userID' => $obj->user_id,
+                'contract' => $user->contract,
+                'products' => $items,
+            ];
+
+            SOAP::sendOrders($params);
         }
 
         $this->success(['success' => true]);

@@ -72,6 +72,13 @@ class SOAP
         return $result->return;
     }
 
+    /**
+     * Список складов
+     *
+     * @param array $params
+     * @return mixed
+     * @throws Exception
+     */
     public static function getStock($params = [])
     {
         try {
@@ -89,6 +96,12 @@ class SOAP
         return $result->return;
     }
 
+    /**
+     * Список товаров
+     *
+     * @param array $params
+     * @return mixed
+     */
     public static function soapProductsList($params = [])
     {
         $client = new SoapClient(self::$wsdl, [
@@ -102,6 +115,12 @@ class SOAP
         return $result->return->products->product;
     }
 
+    /**
+     * Получение конкретного товара
+     *
+     * @param array $params
+     * @return mixed
+     */
     public static function soapProduct($params = [])
     {
         $client = new SoapClient(self::$wsdl, [
@@ -115,6 +134,12 @@ class SOAP
         return $result->return;
     }
 
+    /**
+     * Список цен
+     *
+     * @param array $params
+     * @return mixed
+     */
     public static function soapPrices($params = [])
     {
         $client = new SoapClient(self::$wsdl, [
@@ -126,5 +151,25 @@ class SOAP
         $result = $client->getPrices($params);
 
         return $result->return->prices;
+    }
+
+    /**
+     * send Orders
+     *
+     * @param array $params
+     * @throws Exception
+     */
+    public static function sendOrders($params = [])
+    {
+        try {
+            $client = new SoapClient(self::$wsdl, [
+                'exception' => 1,
+                'cache_wsdl' => WSDL_CACHE_MEMORY,
+                'trace' => true,
+            ]);
+            $client->putOrders($params);
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
+        }
     }
 }

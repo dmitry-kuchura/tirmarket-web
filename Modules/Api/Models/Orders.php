@@ -146,4 +146,47 @@ class Orders extends CommonI18n
 
         return true;
     }
+
+    /**
+     * Список товаров заказа в массиве
+     *
+     * @param $orderID
+     * @return array
+     */
+    public static function itemsToArray($orderID)
+    {
+        $result = DB::select()->from(static::$tableItems)->where('order_id', '=', $orderID)->find_all();
+
+        $ids = [];
+
+        foreach ($result as $obj) {
+            $ids[] = $obj->catalog_id;
+        }
+
+        $items = DB::select(
+            'catalog.import_id',
+            'catalog.cost',
+            'orders_items.count',
+            ['orders_items.cost', 'order_cost']
+        )
+            ->from('catalog')
+            ->join('orders_items', 'LEFT')->on('catalog.id', '=', 'orders_items.catalog_id')
+            ->where('catalog.id', 'IN', $ids)
+            ->and_where('orders_items.order_id', '=', $orderID)
+            ->find_all();
+
+        $arr = [];
+
+        foreach ($items as $obj) {
+            $arr[] = [
+                'productID' => $obj->import_id,
+                'party' => 0,
+                'count' => $obj->count,
+                'price' => $obj->cost,
+                'summa' => $obj->order_cost,
+            ];
+        }
+
+        return $arr;
+    }
 }

@@ -346,12 +346,13 @@ class Api extends Ajax
                 'id' => $obj->id,
                 'code1C' => $obj->id,
                 'date' => date('Y-m-d', $obj->created_at),
-                'userID' => $obj->user_id,
-                'contract' => $user->contract,
+                'clientId' => $user->import_id? $user->import_id : $user->id,
+                'currencyId' => $user->currency_id,
+                'contractID' => $user->contract,
                 'products' => $items,
             ];
 
-            SOAP::sendOrders($params);
+            SOAP::sendOrder($params);
         }
 
         $this->success(['success' => true]);

@@ -167,7 +167,7 @@ class SOAP
                 'cache_wsdl' => WSDL_CACHE_MEMORY,
                 'trace' => true,
             ]);
-            $client->putOrders($params);
+            $client->putOrder($params);
         } catch (Exception $err) {
             throw new Exception($err->getMessage());
         }

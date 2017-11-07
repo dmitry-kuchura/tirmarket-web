@@ -5,12 +5,11 @@ namespace Core;
 use Exception;
 use SoapClient;
 
-class SOAP
-{
+class SOAP {
+
     static $wsdl = 'http://tir.maccen.com:8081/webservice/ws/Exchange.1cws?wsdl';
 
-    public static function createSoapClient($function, $params = [])
-    {
+    public static function createSoapClient($function, $params = []) {
         try {
             $client = new SoapClient(self::$wsdl, [
                 'exception' => 1,
@@ -31,8 +30,7 @@ class SOAP
      * @return mixed
      * @throws Exception
      */
-    public static function getCategory($params = [])
-    {
+    public static function getCategory($params = []) {
         try {
             $client = new SoapClient(self::$wsdl, [
                 'exception' => 1,
@@ -55,8 +53,7 @@ class SOAP
      * @return mixed
      * @throws Exception
      */
-    public static function getBrand($params = [])
-    {
+    public static function getBrand($params = []) {
         try {
             $client = new SoapClient(self::$wsdl, [
                 'exception' => 1,
@@ -79,8 +76,7 @@ class SOAP
      * @return mixed
      * @throws Exception
      */
-    public static function getStock($params = [])
-    {
+    public static function getStock($params = []) {
         try {
             $client = new SoapClient(self::$wsdl, [
                 'exception' => 1,
@@ -102,8 +98,7 @@ class SOAP
      * @param array $params
      * @return mixed
      */
-    public static function soapProductsList($params = [])
-    {
+    public static function soapProductsList($params = []) {
         $client = new SoapClient(self::$wsdl, [
             'exception' => 1,
             'cache_wsdl' => WSDL_CACHE_MEMORY,
@@ -121,8 +116,7 @@ class SOAP
      * @param array $params
      * @return mixed
      */
-    public static function soapProduct($params = [])
-    {
+    public static function soapProduct($params = []) {
         $client = new SoapClient(self::$wsdl, [
             'exception' => 1,
             'cache_wsdl' => WSDL_CACHE_MEMORY,
@@ -140,8 +134,7 @@ class SOAP
      * @param array $params
      * @return mixed
      */
-    public static function soapPrices($params = [])
-    {
+    public static function soapPrices($params = []) {
         $client = new SoapClient(self::$wsdl, [
             'exception' => 1,
             'cache_wsdl' => WSDL_CACHE_MEMORY,
@@ -159,17 +152,18 @@ class SOAP
      * @param array $params
      * @throws Exception
      */
-    public static function sendOrders($params = [])
-    {
+    public static function sendOrders($params = []) {
         try {
             $client = new SoapClient(self::$wsdl, [
                 'exception' => 1,
                 'cache_wsdl' => WSDL_CACHE_MEMORY,
                 'trace' => true,
             ]);
-            $client->putOrder($params);
+            $data = $client->putOrder($params);
+            print_r($data);
         } catch (Exception $err) {
             throw new Exception($err->getMessage());
         }
     }
+
 }

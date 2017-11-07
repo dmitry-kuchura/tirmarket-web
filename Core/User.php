@@ -4,29 +4,22 @@ namespace Core;
 
 use Core\QB\DB;
 
-class User
-{
+class User {
 
     static $_instance;
-
     protected $_tbl = 'users';  // Users table name
     protected $_tbl_roles = 'users_roles';  // Roles table name
-
     protected $_session = 'user';
-
     private $_salt = 'xQ1=\G(8E=1A~)?8;7]]E/U*,kbm=aII'; // Salt
     private $_hash_type = 'sha256'; // Hash type
-
     public $_info;
     public $_admin = false;
-
     // Для распределения прав пользователей TODO
     public $_access = [];
     public $_full_access = false;
     public $_current_access = 'no';
 
-    function __construct()
-    {
+    function __construct() {
         if (APPLICATION == 'backend') {
             $this->_session = 'admin';
         }
@@ -44,16 +37,15 @@ class User
         }
     }
 
-    function __destruct()
-    {
+    function __destruct() {
+
     }
 
     /**
      * Factory method for return instance of current class
      * @return User
      */
-    static function factory()
-    {
+    static function factory() {
         if (self::$_instance == null) {
             self::$_instance = new user();
         }
@@ -64,8 +56,7 @@ class User
      * Get user info
      * @return bool|object|NULL
      */
-    static function info()
-    {
+    static function info() {
         return User::factory()->_info;
     }
 
@@ -73,8 +64,7 @@ class User
      * Check is logged user admin
      * @return bool
      */
-    static function admin()
-    {
+    static function admin() {
         return User::factory()->_admin;
     }
 
@@ -82,8 +72,7 @@ class User
      * Get access for user
      * @return bool
      */
-    static function access()
-    {
+    static function access() {
         return User::factory()->_access;
     }
 
@@ -91,39 +80,36 @@ class User
      * Get is full access for user
      * @return bool
      */
-    static function god()
-    {
+    static function god() {
         return User::factory()->_full_access;
     }
 
     /**
      * @return bool
      */
-    static function caccess()
-    {
+    static function caccess() {
         return User::factory()->_current_access;
     }
 
     /**
      *      If the user logged in, it will return his information, otherwise - return false
      */
-    public function get_logged_user_information()
-    {
+    public function get_logged_user_information() {
         if (!isset($_SESSION[$this->_session])) {
             return false;
         }
-        if ((int)$_SESSION[$this->_session] == 0) {
+        if ((int) $_SESSION[$this->_session] == 0) {
             return false;
         }
         $info = DB::select($this->_tbl . '.*', [$this->_tbl_roles . '.alias', 'role'])
-            ->from($this->_tbl)
-            ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
+                        ->from($this->_tbl)
+                        ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
         if (APPLICATION == 'backend') {
             $info->where($this->_tbl_roles . '.alias', '!=', 'user');
         } else {
             $info->where($this->_tbl_roles . '.alias', '=', 'user');
         }
-        return $info->where($this->_tbl . '.id', '=', (int)$_SESSION[$this->_session])->where($this->_tbl . '.status', '=', 1)->find();
+        return $info->where($this->_tbl . '.id', '=', (int) $_SESSION[$this->_session])->where($this->_tbl . '.status', '=', 1)->find();
     }
 
     /**
@@ -131,8 +117,7 @@ class User
      * @param $role_id - Role ID
      * @return array
      */
-    public function get_access($role_id)
-    {
+    public function get_access($role_id) {
         $result = DB::select()->from('access')->where('role_id', '=', $role_id)->find_all();
         $arr = [];
         foreach ($result AS $obj) {
@@ -150,8 +135,7 @@ class User
     /**
      * @return string
      */
-    public function get_current_access()
-    {
+    public function get_current_access() {
         if (!$this->_info) {
             return 'no';
         }
@@ -175,8 +159,7 @@ class User
      * @param $controller
      * @return string
      */
-    public static function get_access_for_controller($controller)
-    {
+    public static function get_access_for_controller($controller) {
         $access = User::access();
         if (User::god() || $controller == 'auth' || $controller == 'ajax') {
             return 'edit';
@@ -193,14 +176,13 @@ class User
      * @param $password - user password
      * @param $status - user status
      */
-    public function get_user_if_isset($login = null, $password = null, $status = null)
-    {
+    public function get_user_if_isset($login = null, $password = null, $status = null) {
         if ($login == null) {
             return false;
         }
         $result = DB::select($this->_tbl . '.*', [$this->_tbl_roles . '.alias', 'role'])
-            ->from($this->_tbl)
-            ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
+                        ->from($this->_tbl)
+                        ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
         if (APPLICATION == 'backend') {
             $result->where($this->_tbl_roles . '.alias', '!=', 'user');
         } else {
@@ -223,14 +205,13 @@ class User
      * @param $password - user password
      * @param $status - user status
      */
-    public function get_user_by_email($email = null, $password = null, $status = null)
-    {
+    public function get_user_by_email($email = null, $password = null, $status = null) {
         if ($email == null) {
             return false;
         }
         $result = DB::select($this->_tbl . '.*', [$this->_tbl_roles . '.alias', 'role'])
-            ->from($this->_tbl)
-            ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
+                        ->from($this->_tbl)
+                        ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
         if (APPLICATION == 'backend') {
             $result->where($this->_tbl_roles . '.alias', '!=', 'user');
         } else {
@@ -252,14 +233,13 @@ class User
      * @param $hash - user hash
      * @param $status - user status
      */
-    public function get_user_by_hash($hash = null, $status = null)
-    {
+    public function get_user_by_hash($hash = null, $status = null) {
         if ($hash == null) {
             return false;
         }
         $result = DB::select($this->_tbl . '.*', [$this->_tbl_roles . '.alias', 'role'])
-            ->from($this->_tbl)
-            ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
+                        ->from($this->_tbl)
+                        ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id');
         if (APPLICATION == 'backend') {
             $result->where($this->_tbl_roles . '.alias', '!=', 'user');
         } else {
@@ -276,8 +256,7 @@ class User
     /**
      *      Generate a random password
      */
-    public static function generate_random_password()
-    {
+    public static function generate_random_password() {
         return Text::random('alnum', 8);
     }
 
@@ -286,8 +265,7 @@ class User
      * @param $password - desired password
      * @param $salt - Salt for hash. If empty - use salt default
      */
-    public function hash_password($password = null, $salt = null)
-    {
+    public function hash_password($password = null, $salt = null) {
         if ($password == null) {
             return false;
         }
@@ -303,8 +281,7 @@ class User
      * @param $password - desired password
      * @param $salt - Salt for hash. If empty - use salt default
      */
-    public function update_password($id = null, $password = null, $salt = null)
-    {
+    public function update_password($id = null, $password = null, $salt = null) {
         if ($id == null) {
             return false;
         }
@@ -320,8 +297,7 @@ class User
      * @param $hash_from_db - Hash from the database
      * @param $salt - Salt for hash. If empty - use salt default
      */
-    public function check_password($password = null, $hash_from_db = null, $salt = null)
-    {
+    public function check_password($password = null, $hash_from_db = null, $salt = null) {
         if ($password == null) {
             return false;
         }
@@ -344,8 +320,7 @@ class User
      * @param $password - user password
      * @param $salt - Salt for hash. If empty - use salt default
      */
-    public function hash_user($login = null, $password = null, $salt = null)
-    {
+    public function hash_user($login = null, $password = null, $salt = null) {
         if ($password == null) {
             return false;
         }
@@ -366,8 +341,7 @@ class User
      * @param $password - user password
      * @param $salt - Salt for hash. If empty - use salt default
      */
-    public function check_hash($checked_hash = null, $login = null, $password = null, $salt = null)
-    {
+    public function check_hash($checked_hash = null, $login = null, $password = null, $salt = null) {
         if ($checked_hash == null) {
             return false;
         }
@@ -392,14 +366,13 @@ class User
      * @param object $user - user information
      * @param boolean $remember - remember user ?
      */
-    public function auth($user, $remember = false)
-    {
+    public function auth($user, $remember = false) {
         if (!$user) {
             return false;
         }
         $_SESSION[$this->_session] = $user->id;
         $json = json_encode([
-            'remember' => (int)$remember,
+            'remember' => (int) $remember,
             'exit' => 0,
             'id' => $user->id,
         ]);
@@ -410,18 +383,17 @@ class User
     /**
      *      Logout from user private panel
      */
-    public function logout()
-    {
+    public function logout() {
         if (!isset($_SESSION[$this->_session])) {
             return false;
         }
         unset($_SESSION[$this->_session]);
         $cookie = Cookie::getArray($this->_session);
         Cookie::setArray($this->_session, [
-            'remember' => (int)$cookie['remember'],
+            'remember' => (int) $cookie['remember'],
             'exit' => 1,
             'id' => $cookie['id'],
-        ], 60 * 60 * 24 * 7);
+                ], 60 * 60 * 24 * 7);
         return true;
     }
 
@@ -429,8 +401,7 @@ class User
      *      Check if user want to remember his password
      *      If true - auth him
      */
-    public function is_remember()
-    {
+    public function is_remember() {
         if (User::info()) {
             return false;
         }
@@ -438,27 +409,27 @@ class User
             return false;
         }
         $cookie = Cookie::getArray($this->_session);
-        if (!isset($cookie['remember']) || (int)$cookie['remember'] == 0) {
+        if (!isset($cookie['remember']) || (int) $cookie['remember'] == 0) {
             return false;
         }
-        if (!isset($cookie['id']) || (int)$cookie['id'] == 0) {
+        if (!isset($cookie['id']) || (int) $cookie['id'] == 0) {
             return false;
         }
-        if (isset($cookie['exit']) && (int)$cookie['exit'] == 1) {
+        if (isset($cookie['exit']) && (int) $cookie['exit'] == 1) {
             return false;
         }
         if (!isset($cookie['exit'])) {
             Cookie::set($this->_session, [
-                'remember' => (int)$cookie['remember'],
+                'remember' => (int) $cookie['remember'],
                 'exit' => 0,
                 'id' => $cookie['id'],
-            ], 60 * 60 * 24 * 7);
+                    ], 60 * 60 * 24 * 7);
         }
         $user = DB::select($this->_tbl . '.*', [$this->_tbl_roles . '.alias', 'role'])
-            ->from($this->_tbl)
-            ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id')
-            ->where($this->_tbl . '.status', '=', 1)
-            ->where($this->_tbl . '.id', '=', $cookie['id']);
+                ->from($this->_tbl)
+                ->join($this->_tbl_roles)->on($this->_tbl . '.role_id', '=', $this->_tbl_roles . '.id')
+                ->where($this->_tbl . '.status', '=', 1)
+                ->where($this->_tbl . '.id', '=', $cookie['id']);
         if (APPLICATION == 'backend') {
             $user->where($this->_tbl_roles . '.alias', '!=', 'user');
         } else {
@@ -478,15 +449,14 @@ class User
      *      User registration
      * @param array $data - user data from POST
      */
-    public function registration($data = [])
-    {
+    public function registration($data = []) {
         $data['hash'] = $this->hash_user($data['email'], $data['password']);
         $data['password'] = $this->hash_password($data['password']);
         return Common::factory($this->_tbl)->insert($data);
     }
 
-    public static function infoById($id)
-    {
+    public static function infoById($id) {
         return DB::select()->from('users')->where('id', '=', $id)->find();
     }
+
 }

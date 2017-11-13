@@ -19,19 +19,11 @@
                                         <div><a class="pageLinkEdit"
                                                 href="<?php echo '/wezom/' . Core\Route::controller() . '/edit/' . $obj->id; ?>"><?php echo $obj->name; ?></a>
                                         </div>
-                                        <div class="size11 nowrap">(<span class="gray"><?php echo __('Алиас'); ?>
-                                                :</span> <?php echo $obj->alias; ?>)
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td class="hidden-xs" valign="middle">
-                            <div>
-                                <?php echo 'Обновлено: ' . date('Y-m-d H:i:s', $obj->updated_at); ?>
-                            </div>
-                        </td>
-                        <td width="45" valign="top" class="icon-column status-column">
+                        <td width="5" valign="top" class="icon-column status-column">
                             <?php echo Core\View::widget(['status' => $obj->status, 'id' => $obj->id], 'StatusList'); ?>
                         </td>
                         <td class="nav-column icon-column" valign="top">
@@ -44,9 +36,6 @@
                                             <a title="<?php echo __('Редактировать'); ?>"
                                                href="<?php echo '/wezom/' . Core\Route::controller() . '/edit/' . $obj->id; ?>"><i
                                                         class="fa fa-pencil"></i> <?php echo __('Редактировать'); ?></a>
-                                        </li>
-                                        <li>
-                                            <a title="<?php echo __('Импрот из 1С'); ?>" class="import1C" data-alias="<?php echo '/api/category/' . $obj->import_id; ?>" href="javascript:void(0);"><i class="fa fa-download"></i> <?php echo __('Импрот из 1С'); ?></a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>

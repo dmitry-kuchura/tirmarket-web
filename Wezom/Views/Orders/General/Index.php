@@ -1,3 +1,5 @@
+<?php use Wezom\Modules\Catalog\Models\Price; ?>
+
 <div class="rowSection">
     <div class="col-md-12">
         <div class="widget">
@@ -98,7 +100,7 @@
                                         <?php endif; ?>
                                     </td>
                                     <td><?php echo (int) $obj->count; ?> <?php echo __('товаров'); ?></td>
-                                    <td class="sum-column"><?php echo (int) $obj->amount; ?> грн</td>
+                                    <td class="sum-column"><?php echo Price::getCurrencies($obj->currencies, $obj->amount); ?> <?php echo Price::getCurrency($obj->currencies)?></td>
                                     <td><?php echo date( 'd.m.Y H:i', $obj->created_at ); ?></td>
                                     <td>
                                         <?php if( $obj->status == 3 ): ?>

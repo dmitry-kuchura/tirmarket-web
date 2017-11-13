@@ -10,29 +10,26 @@ use Core\Arr;
 use Core\HTTP;
 use Core\View;
 use Wezom\Modules\Base;
-use Wezom\Modules\Catalog\Models\Groups AS Model;
-use Wezom\Modules\Catalog\Models\Brands;
-use Wezom\Modules\Catalog\Models\Specifications;
+use Wezom\Modules\Catalog\Models\Warehouses AS Model;
 
-class Groups extends Base
+class Warehouses extends Base
 {
-
-    public $tpl_folder = 'Catalog/Groups';
+    public $tpl_folder = 'Catalog/Warehouses';
 
     function before()
     {
         parent::before();
-        $this->_seo['h1'] = __('Группы товаров');
-        $this->_seo['title'] = __('Группы товаров');
-        $this->setBreadcrumbs(__('Группы товаров'), 'wezom/' . Route::controller() . '/index');
+        $this->_seo['h1'] = __('Склады');
+        $this->_seo['title'] = __('Склады');
+        $this->setBreadcrumbs(__('Склады'), 'wezom/' . Route::controller() . '/index');
     }
 
     function indexAction()
     {
-        $result = Model::getRows(NULL, 'catalog_tree.sort', 'ASC');
+        $result = Model::getRows();
         $arr = [];
         foreach ($result AS $obj) {
-            $arr[$obj->parent_id][] = $obj;
+            $arr[0][] = $obj;
         }
         $this->_filter = Widgets::get('Filter_Pages', ['open' => 1]);
         $this->_toolbar = Widgets::get('Toolbar_List', ['add' => 1]);
@@ -49,19 +46,11 @@ class Groups extends Base
     {
         if ($_POST) {
             $post = $_POST['FORM'];
-            $groupBrands = Arr::get($_POST, 'BRANDS', []);
-            $groupSpec = Arr::get($_POST, 'SPEC', []);
             $post['status'] = Arr::get($_POST, 'status', 0);
-            $post['popular'] = Arr::get($_POST, 'popular', 0);
-            $post['top_menu'] = Arr::get($_POST, 'top_menu', 0);
             if (Model::valid($post)) {
                 $post['alias'] = Model::getUniqueAlias(Arr::get($post, 'alias'), Route::param('id'));
                 $res = Model::update($post, Route::param('id'));
                 if ($res) {
-                    Model::uploadImage(Route::param('id'));
-                    Model::uploadImagePopular(Route::param('id'));
-                    Model::changeBrandsCommunications($groupBrands, Route::param('id'));
-                    Model::changeSpecificationsCommunications($groupSpec, Route::param('id'));
                     Message::GetMessage(1, __('Вы успешно изменили данные!'));
                 } else {
                     Message::GetMessage(0, __('Не удалось изменить данные!'));
@@ -90,10 +79,7 @@ class Groups extends Base
             [
                 'obj' => $obj,
                 'tree' => Support::getSelectOptions('Catalog/Groups/Select', 'catalog_tree', $result->parent_id, $result->id),
-                'brands' => Brands::getRows(null, 'brands_i18n.name', 'ASC'),
                 'specifications' => Specifications::getRows(null, 'sort', 'ASC'),
-                'groupBrands' => $groupBrands,
-                'groupSpec' => $groupSpec,
                 'langs' => $langs,
                 'languages' => $this->_languages,
             ], $this->tpl_folder . '/Form');
@@ -101,21 +87,13 @@ class Groups extends Base
 
     function addAction()
     {
-        $groupBrands = Arr::get($_POST, 'BRANDS', []);
-        $groupSpec = Arr::get($_POST, 'SPEC', []);
         if ($_POST) {
             $post = $_POST['FORM'];
             $post['status'] = Arr::get($_POST, 'status', 0);
-            $post['popular'] = Arr::get($_POST, 'popular', 0);
-            $post['top_menu'] = Arr::get($_POST, 'top_menu', 0);
             if (Model::valid($post)) {
                 $post['alias'] = Model::getUniqueAlias(Arr::get($post, 'alias'));
                 $res = Model::insert($post);
                 if ($res) {
-                    Model::uploadImage($res);
-                    Model::uploadImagePopular($res);
-                    Model::changeBrandsCommunications($groupBrands, $res);
-                    Model::changeSpecificationsCommunications($groupSpec, $res);
                     Message::GetMessage(1, __('Вы успешно добавили данные!'));
                     $this->redirectAfterSave($res);
                 } else {
@@ -135,10 +113,6 @@ class Groups extends Base
                 'obj' => $result,
                 'tpl_folder' => $this->tpl_folder,
                 'tree' => Support::getSelectOptions('Catalog/Groups/Select', 'catalog_tree', $result->parent_id, $result->id),
-                'brands' => Brands::getRows(null, 'brands_i18n.name', 'ASC'),
-                'specifications' => Specifications::getRows(null, 'sort', 'ASC'),
-                'groupBrands' => $groupBrands,
-                'groupSpec' => $groupSpec,
                 'languages' => $this->_languages,
             ], $this->tpl_folder . '/Form');
     }

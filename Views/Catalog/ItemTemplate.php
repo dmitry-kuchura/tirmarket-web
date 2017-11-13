@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Catalog\Models\Price;
 use Core\HTML;
 use Core\User;
 
@@ -33,9 +34,9 @@ if (is_file(HOST . HTML::media('images/catalog/item/' . $obj->image, false))) {
         <div class="_flex _mb-3 _justify-between">
             <div class="_col-auto">
                 <?php if ($obj->sale == 1): ?>
-                    <div class="item-card__price item-card__price--past"><?php echo number_format($obj->cost_old); ?> грн.</div>
+                    <div class="item-card__price item-card__price--past"><?php echo Price::getCurrentPrice($obj->cost_old); ?></div>
                 <?php endif; ?>
-                <div class="item-card__price"><?php echo number_format($obj->cost); ?> грн.</div>
+                <div class="item-card__price"><?php echo Price::getCurrentPrice($obj->cost); ?></div>
             </div>
             <div class="_col-auto">
                 <?php if ($obj->available == 1): ?>

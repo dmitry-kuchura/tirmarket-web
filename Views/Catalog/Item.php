@@ -3,9 +3,11 @@
 use Core\HTML;
 use Core\User;
 use Core\Config;
+use Modules\Catalog\Models\Price;
 
 /* @var $obj object */
 /* @var $images array */
+/* @var $originals array */
 /* @var $specifications array */
 
 ?>
@@ -103,11 +105,11 @@ use Core\Config;
                 <div class="_flex _justify-between _grid-space-3 _items-end">
                     <div class="_col-auto _mb-2">
                         <?php if ($obj->sale == 1): ?>
-                            <div class="product-price product-price--disable"><?php echo number_format($obj->cost_old); ?>
-                                грн.
+                            <div class="product-price product-price--disable"><?php echo Price::getCurrentPrice($obj->cost_old); ?>
                             </div>
                         <?php endif; ?>
-                        <div class="product-price"><?php echo number_format($obj->cost); ?> грн.</div>
+                        <div class="product-price"><?php echo Price::getCurrentPrice($obj->cost); ?>
+                        </div>
                     </div>
                     <div class="_col-auto _mb-2">
                         <div class="product-counter" data-counter data-binding="product">
@@ -223,6 +225,7 @@ use Core\Config;
         <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
     <?php endif; ?>
     <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
+    <a href="#" class="tab-link" data-tab-trigger="4" data-tab-ns="originals"><?php echo __('Оригиналы'); ?></a>
 </div>
 <div class="_mb-5">
     <div class="is-active" data-tab-content="1" data-tab-ns="product">
@@ -232,6 +235,18 @@ use Core\Config;
                     <tr>
                         <td><b><?php echo $key; ?></b></td>
                         <td><?php echo $value; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+    <div data-tab-content="4" data-tab-ns="originals">
+        <div class="wysiwyg">
+            <table class="table-zebra">
+                <?php foreach ($originals as $key => $value): ?>
+                    <tr>
+                        <td><?php echo $value; ?></td>
+                        <td><b><?php echo $key; ?></b></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

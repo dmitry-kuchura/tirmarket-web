@@ -1,3 +1,5 @@
+<?php use Wezom\Modules\Catalog\Models\Items; ?>
+
 <div class="rowSection">
     <div class="col-md-12">
         <div class="widget">
@@ -71,6 +73,7 @@
                                 <th><?php echo __('Название'); ?></th>
                                 <th><?php echo __('Группа'); ?></th>
                                 <th><?php echo __('Позиция'); ?></th>
+                                <th><?php echo __('Обновлено'); ?></th>
                                 <th><?php echo __('Статус'); ?></th>
                                 <th class="nav-column textcenter">&nbsp;</th>
                             </tr>
@@ -96,8 +99,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <?php if($obj->parent_id): ?>
-                                            <a href="/wezom/groups/edit/<?php echo $obj->parent_id; ?>" target="_blank"><?php echo $obj->catalog_tree_name; ?></a>
+                                        <?php $parent = Items::getParent($obj->parent_id); ?>
+                                        <?php if($parent): ?>
+                                            <a href="/wezom/groups/edit/<?php echo $obj->parent_id; ?>" target="_blank"><?php echo $parent; ?></a>
                                         <?php else: ?>
                                             <?php echo __('Удалена'); ?>
                                         <?php endif; ?>
@@ -105,6 +109,9 @@
                                     <td style="width: 100px;">
                                         <input style="width: 50px; display: inline-block;" type="text" class="form-control" value="<?php echo (int) $obj->sort; ?>" />
                                         <button style="display: inline-block;" class="setPosition btn btn-primary">OK</button>
+                                    </td>
+                                    <td style="width: 100px;">
+                                        <?php echo date('Y-m-d H:i:s', $obj->updated_at); ?>
                                     </td>
                                     <td width="45" valign="top" class="icon-column status-column">
                                         <?php echo Core\View::widget(['status' => $obj->status, 'id' => $obj->id], 'StatusList'); ?>
@@ -119,6 +126,9 @@
                                                     </li>
                                                     <li>
                                                         <a title="<?php echo __('Редактировать'); ?>" href="/wezom/<?php echo Core\Route::controller(); ?>/edit/<?php echo $obj->id; ?>"><i class="fa fa-pencil"></i> <?php echo __('Редактировать'); ?></a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="<?php echo __('Импрот из 1С'); ?>" class="import1C" data-alias="<?php echo '/api/category/' . $obj->import_id; ?>" href="javascript:void(0);"><i class="fa fa-download"></i> <?php echo __('Импрот из 1С'); ?></a>
                                                     </li>
                                                     <li class="divider"></li>
                                                     <li>

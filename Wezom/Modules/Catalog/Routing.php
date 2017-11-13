@@ -6,23 +6,28 @@ return [
     // Groups
     'wezom/groups/index' => 'catalog/groups/index',
     'wezom/groups/index/page/<page:[0-9]*>' => 'catalog/groups/index',
-    'wezom/groups/edit/<id>' => 'catalog/groups/edit',
-    'wezom/groups/delete/<id>' => 'catalog/groups/delete',
-    'wezom/groups/delete_image/<id>' => 'catalog/groups/deleteImage',
-    'wezom/groups/delete_image_popular/<id>' => 'catalog/groups/deleteImagePopular',
+    'wezom/groups/edit/<id:[0-9]*>' => 'catalog/groups/edit',
+    'wezom/groups/delete/<id:[0-9]*>' => 'catalog/groups/delete',
+    'wezom/groups/delete_image/<id:[0-9]*>' => 'catalog/groups/deleteImage',
+    'wezom/groups/delete_image_popular/<id:[0-9]*>' => 'catalog/groups/deleteImagePopular',
     'wezom/groups/add' => 'catalog/groups/add',
+    // Warehouses
+    'wezom/warehouses/index' => 'catalog/warehouses/index',
+    'wezom/warehouses/edit/<id:[0-9]*>' => 'catalog/warehouses/edit',
+    'wezom/warehouses/delete/<id:[0-9]*>' => 'catalog/warehouses/delete',
+    'wezom/warehouses/add' => 'catalog/warehouses/add',
     // Items
     'wezom/items/index' => 'catalog/items/index',
     'wezom/items/index/page/<page:[0-9]*>' => 'catalog/items/index',
-    'wezom/items/edit/<id>' => 'catalog/items/edit',
-    'wezom/items/delete/<id>' => 'catalog/items/delete',
+    'wezom/items/edit/<id:[0-9]*>' => 'catalog/items/edit',
+    'wezom/items/delete/<id:[0-9]*>' => 'catalog/items/delete',
     'wezom/items/add' => 'catalog/items/add',
     // Brands
     'wezom/brands/index' => 'catalog/brands/index',
     'wezom/brands/index/page/<page:[0-9]*>' => 'catalog/brands/index',
-    'wezom/brands/edit/<id>' => 'catalog/brands/edit',
-    'wezom/brands/delete/<id>' => 'catalog/brands/delete',
-    'wezom/brands/delete_image/<id>' => 'catalog/brands/deleteImage',
+    'wezom/brands/edit/<id:[0-9]*>' => 'catalog/brands/edit',
+    'wezom/brands/delete/<id:[0-9]*>' => 'catalog/brands/delete',
+    'wezom/brands/delete_image/<id:[0-9]*>' => 'catalog/brands/deleteImage',
     'wezom/brands/add' => 'catalog/brands/add',
     // Models
     'wezom/models/index' => 'catalog/models/index',
@@ -47,4 +52,9 @@ return [
     'wezom/questions/index/page/<page:[0-9]*>' => 'catalog/questions/index',
     'wezom/questions/edit/<id:[0-9]*>' => 'catalog/questions/edit',
     'wezom/questions/delete/<id:[0-9]*>' => 'catalog/questions/delete',
+    // Currencies
+    'wezom/currencies/index' => 'catalog/currencies/index',
+    'wezom/currencies/index/page/<page:[0-9]*>' => 'catalog/currencies/index',
+    'wezom/currencies/edit/<id:[0-9]*>' => 'catalog/currencies/edit',
+    'wezom/currencies/delete/<id:[0-9]*>' => 'catalog/currencies/delete',
 ];

@@ -3,14 +3,15 @@
 namespace Wezom\Modules\Catalog\Models;
 
 use Core\Arr;
-use Core\Common;
 use Core\HTML;
-use Core\Message;
 use Core\QB\DB;
+use Core\Common;
+use Core\CommonI18n;
+use I18n;
 use Wezom\Modules\Catalog\Models\CatalogSpecificationsValues AS CSV;
 
-class Items extends \Core\CommonI18n {
-
+class Items extends CommonI18n
+{
     public static $table = 'catalog';
     public static $tableI18n = 'catalog_i18n';
     public static $filters = [
@@ -19,25 +20,56 @@ class Items extends \Core\CommonI18n {
             'action' => 'LIKE',
         ],
         'artikul' => [
-            'table' => NULL,
+            'table' => null,
             'action' => 'LIKE',
         ],
         'parent_id' => [
-            'table' => NULL,
+            'table' => null,
             'action' => '=',
         ],
     ];
     public static $rules = [];
 
     /**
-     * @param null/integer $status - 0 or 1
-     * @param null/string $sort
-     * @param null/string $type - ASC or DESC. No $sort - no $type
-     * @param null/integer $limit
-     * @param null/integer $offset - no $limit - no $offset
+     * Получение оригиналов товаров
+     *
+     * @param $id
+     * @return array
+     */
+    public static function getOriginal($id)
+    {
+        $result = DB::select()->from('catalog_original')->where('catalog_id', '=', $id)->find_all();
+
+        $originals = [];
+
+        foreach ($result as $obj) {
+            $originals[$obj->code] = $obj->brand;
+        }
+
+        return $originals;
+    }
+
+    public static function getParent($parendID)
+    {
+        $result = DB::select('catalog_tree_i18n.name')
+            ->from('catalog_tree')->where('catalog_tree.id', '=', $parendID)
+            ->join('catalog_tree_i18n', 'LEFT')->on('catalog_tree_i18n.row_id', '=', 'catalog_tree.id')
+            ->where('catalog_tree_i18n.language', '=', I18n::$default_lang_backend)
+            ->find()->name;
+
+        return $result ? $result : null;
+    }
+
+    /**
+     * @param null /integer $status - 0 or 1
+     * @param null /string $sort
+     * @param null /string $type - ASC or DESC. No $sort - no $type
+     * @param null /integer $limit
+     * @param null /integer $offset - no $limit - no $offset
      * @return object
      */
-    public static function getRows($status = NULL, $sort = NULL, $type = NULL, $limit = NULL, $offset = NULL, $filter = true) {
+    public static function getRows($status = null, $sort = null, $type = null, $limit = null, $offset = null, $filter = true)
+    {
 
         $lang = \I18n::$lang;
         if (APPLICATION == 'backend') {
@@ -51,41 +83,34 @@ class Items extends \Core\CommonI18n {
             }
         }
         $result = DB::select(
-            static::$tableI18n . '.*', static::$table . '.*', ['catalog_tree_i18n.name', 'catalog_tree_name']
+            static::$tableI18n . '.*',
+            static::$table . '.*'
         )
             ->from(static::$table)
             ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-            ->join('catalog_tree', 'LEFT')->on('catalog_tree.id', '=', static::$table . '.parent_id')
-            ->join('catalog_tree_i18n')->on('catalog_tree_i18n.row_id', '=', 'catalog_tree.id')
-            ->where(static::$tableI18n . '.language', '=', $lang)
-            ->where('catalog_tree_i18n.language', '=', 'ua');
+            ->where(static::$tableI18n . '.language', '=', $lang);
         if ($filter) {
             $result = static::setFilter($result);
         }
-        if ($status <> NULL) {
+        if ($status <> null) {
             $result->where(static::$table . '.status', '=', $status);
         }
-        if ($sort <> NULL) {
-            if ($type <> NULL) {
+        if ($sort <> null) {
+            if ($type <> null) {
                 $result->order_by($sort, $type);
             } else {
                 $result->order_by($sort);
             }
         }
         $result->order_by(static::$table . '.id', 'DESC');
-        if ($limit <> NULL) {
+        if ($limit <> null) {
             $result->limit($limit);
-            if ($offset <> NULL) {
+            if ($offset <> null) {
                 $result->offset($offset);
             }
         }
         return $result->group_by(static::$table . '.id')->find_all();
     }
-
-
-
-
-
 
     /**
      * Add communications specifications - items
@@ -93,7 +118,8 @@ class Items extends \Core\CommonI18n {
      * @param integer $id - item id
      * @return bool
      */
-    public static function changeSpecificationsCommunications($specArray, $id) {
+    public static function changeSpecificationsCommunications($specArray, $id)
+    {
         CSV::delete($id, 'catalog_id');
         if (!$specArray) {
             return false;
@@ -127,7 +153,8 @@ class Items extends \Core\CommonI18n {
      * @param integer $id - item id from catalog_tree table
      * @return array
      */
-    public static function getItemSpecificationsAliases($id) {
+    public static function getItemSpecificationsAliases($id)
+    {
         $specArray = [];
         $res = CSV::getRowsAliases($id);
         foreach ($res as $obj) {
@@ -140,7 +167,8 @@ class Items extends \Core\CommonI18n {
         return $specArray;
     }
 
-    public static function getItemSpecificationsIDS($id) {
+    public static function getItemSpecificationsIDS($id)
+    {
         $specArray = [0];
         $res = CSV::getRows($id);
         foreach ($res as $obj) {
@@ -181,14 +209,33 @@ class Items extends \Core\CommonI18n {
             ],
         ];
         static::$rulesI18n = [
-        'name' => [
-            [
-                'error' => __('Название не может быть пустым! (:lang)'),
-                'key' => 'not_empty',
+            'name' => [
+                [
+                    'error' => __('Название не может быть пустым! (:lang)'),
+                    'key' => 'not_empty',
+                ],
             ],
-        ],
-    ];
+        ];
         return parent::valid($data);
     }
 
+    public static function getStockAsArray()
+    {
+        $result = DB::select(
+            ['warehouses.id', 'id'],
+            ['warehouses_i18n.name', 'name']
+        )
+            ->from('warehouses')
+            ->join('warehouses_i18n', 'LEFT')->on('warehouses_i18n.row_id', '=', 'warehouses.id')
+            ->where('warehouses_i18n.language', '=', I18n::$default_lang_backend)
+            ->find_all();
+
+        $array = ['' => __('Не выбран')];
+
+        foreach ($result as $obj) {
+            $array[$obj->id] = $obj->name;
+        }
+
+        return $array;
+    }
 }

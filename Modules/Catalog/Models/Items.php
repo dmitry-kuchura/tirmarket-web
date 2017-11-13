@@ -7,33 +7,61 @@ use Core\Cookie;
 use Core\QB\DB;
 use Core\CommonI18n;
 use Core\Route;
+use Exception;
 use I18n;
 
 class Items extends CommonI18n
 {
-
     public static $table = 'catalog';
     public static $tableI18n = 'catalog_i18n';
     public static $tableImages = 'catalog_images';
+    public static $tableOriginal = 'catalog_original';
+
+    /**
+     * Получение оригиналов товаров
+     *
+     * @param $id
+     * @return array
+     */
+    public static function getOriginal($id)
+    {
+        $result = DB::select()->from(static::$tableOriginal)->where('catalog_id', '=', $id)->find_all();
+
+        $originals = [];
+
+        foreach ($result as $obj) {
+            $originals[$obj->code] = $obj->brand;
+        }
+
+        return $originals;
+    }
 
     public static function getRow($value, $field = 'id', $status = null)
     {
         $result = DB::select(
-            static::$table . '.*', static::$tableI18n . '.name', static::$tableI18n . '.text', static::$tableI18n . '.h1', static::$tableI18n . '.title', static::$tableI18n . '.keywords', static::$tableI18n . '.description', ['brands_i18n.name', 'brand_name'], ['catalog_tree_i18n.name', 'parent_name']
+            static::$table . '.*',
+            static::$tableI18n . '.name',
+            static::$tableI18n . '.text',
+            static::$tableI18n . '.h1',
+            static::$tableI18n . '.title',
+            static::$tableI18n . '.keywords',
+            static::$tableI18n . '.description',
+            ['brands_i18n.name', 'brand_name'],
+            ['catalog_tree_i18n.name', 'parent_name']
         )
             ->from(static::$table)
             ->join(static::$tableI18n)
             ->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
             ->join('catalog_tree_i18n', 'LEFT')
             ->on(static::$table . '.parent_id', '=', 'catalog_tree_i18n.row_id')
-            ->on('catalog_tree_i18n.language', '=', DB::expr("'" . \I18n::$lang . "'"))
+            ->on('catalog_tree_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
             ->join('brands', 'LEFT')
             ->on(static::$table . '.brand_alias', '=', 'brands.alias')
             ->on('brands.status', '=', DB::expr('1'))
             ->join('brands_i18n', 'LEFT')
             ->on('brands_i18n.row_id', '=', 'brands.id')
-            ->on('brands_i18n.language', '=', DB::expr("'" . \I18n::$lang . "'"))
-            ->where(static::$tableI18n . '.language', '=', \I18n::$lang);
+            ->on('brands_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
+            ->where(static::$tableI18n . '.language', '=', I18n::$lang);
         if ($status !== null) {
             $result = $result->where(static::$table . '.status', '=', 1);
         }
@@ -385,5 +413,4 @@ class Items extends CommonI18n
 
         return $result;
     }
-
 }

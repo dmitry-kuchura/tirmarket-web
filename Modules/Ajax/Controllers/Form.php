@@ -230,6 +230,7 @@ class Form extends Ajax
         $data['user_lang'] = \I18n::$lang;
         if (User::info()) {
             $data['user_id'] = User::info()->id;
+            $data['currencies'] = User::info()->currency_id;
         }
 
         $keys = [];

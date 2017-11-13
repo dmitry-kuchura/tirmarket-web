@@ -6,8 +6,7 @@ use Core\Arr;
 use Core\CommonI18n;
 use Core\Cookie;
 use Core\HTML;
-use Core\QB\DB;
-use Core\Route;
+use Modules\Catalog\Models\Price;
 use I18n;
 use Modules\Ajax;
 use Core\User;
@@ -82,7 +81,7 @@ class General extends Ajax
                 'title' => $obj->name,
                 'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
                 'count' => (int)$item['count'],
-                'price' => (int)$obj->cost . ' грн.',
+                'price' => number_format(Price::getCurrencyForCart($obj->cost), 2, ',', ' '),
                 'maxcount' => 50,
             ];
         }
@@ -91,7 +90,7 @@ class General extends Ajax
             'success' => true,
             'list' => $list,
             'totalCount' => $total_quantity,
-            'totalPrice' => $total_price,
+            'totalPrice' => Price::getCurrentPrice($total_price),
         ]);
     }
 

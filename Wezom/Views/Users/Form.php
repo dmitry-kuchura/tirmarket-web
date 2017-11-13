@@ -17,12 +17,21 @@
                     </div>
                     <div class="form-group">
                         <div class="rowSection">
-                            <div class="col-md-12 form-group">
+                            <div class="col-md-6 form-group">
                                 <?php echo \Forms\Builder::input([
                                     'name' => 'FORM[name]',
                                     'value' => $obj->name,
                                     'class' => 'valid',
                                 ], __('Фамилия Имя')); ?>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <?php echo Forms\Builder::select($currencies, $obj->currency_id, [
+                                    'id' => 'currency_id',
+                                    'name' => 'FORM[currency_id]',
+                                ], [
+                                    'text' => __('Валюта'),
+                                    'tooltip' => '<b>' . __('Валюта пользователя!') . '</b>',
+                                ]); ?>
                             </div>
                         </div>
                     </div>

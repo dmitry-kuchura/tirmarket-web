@@ -6,10 +6,10 @@ use Core\QB\DB;
 use Core\CommonI18n;
 use Core\Text;
 
-class Brands extends CommonI18n
+class Stocks extends CommonI18n
 {
-    public static $table = 'brands';
-    public static $tableI18n = 'brands_i18n';
+    public static $table = 'warehouses';
+    public static $tableI18n = 'warehouses_i18n';
 
     /**
      * Проверка на существование категории по ID
@@ -17,9 +17,9 @@ class Brands extends CommonI18n
      * @param $obj
      * @return bool
      */
-    public static function checkBrand($obj)
+    public static function check($obj)
     {
-        $check = DB::select()->from(static::$table)->where('import_id', '=', $obj->id)->find();
+        $check = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->id)->find();
 
         if (count($check)) {
             return false;
@@ -29,7 +29,7 @@ class Brands extends CommonI18n
     }
 
     /**
-     * Добавление производителей из 1С
+     * Добавление складов из 1С
      *
      * @param $obj
      */
@@ -38,9 +38,7 @@ class Brands extends CommonI18n
         $data = [];
 
         $data['import_id'] = $obj->id;
-        $data['alias'] = self::unique($obj->name);
-        $data['sort'] = $obj->position;
-        $data['status'] = $obj->status;
+        $data['status'] = 1;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -83,26 +81,6 @@ class Brands extends CommonI18n
         }
 
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
-    }
-
-    public static function updateRows($obj)
-    {
-        $data = [];
-        $data['sort'] = $obj->position;
-        $data['updated_at'] = time();
-
-        DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
-        $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find()->id;
-
-        $ua = [];
-        $ua['name'] = $obj->name;
-
-        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID)->where('language', '=', 'ua')->execute();
-
-        $ru = [];
-        $ru['name'] = $obj->name;
-
-        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID)->where('language', '=', 'ru')->execute();
     }
 
     /**

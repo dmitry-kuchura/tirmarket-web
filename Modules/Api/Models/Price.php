@@ -2,24 +2,24 @@
 
 namespace Modules\Api\Models;
 
+use Core\Text;
 use Core\QB\DB;
 use Core\CommonI18n;
-use Core\Text;
 
-class Brands extends CommonI18n
+class Price extends CommonI18n
 {
-    public static $table = 'brands';
-    public static $tableI18n = 'brands_i18n';
+    public static $table = 'price_types';
+    public static $tableI18n = 'price_types_i18n';
 
     /**
-     * Проверка на существование категории по ID
+     * Проверка на существование товара по ID
      *
      * @param $obj
      * @return bool
      */
-    public static function checkBrand($obj)
+    public static function check($obj)
     {
-        $check = DB::select()->from(static::$table)->where('import_id', '=', $obj->id)->find();
+        $check = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->id)->find();
 
         if (count($check)) {
             return false;
@@ -28,19 +28,26 @@ class Brands extends CommonI18n
         }
     }
 
+    public static function checkItem($obj)
+    {
+        $check = DB::select()->from(static::$table)->where('import_id', 'LIKE', $obj->productID)->find();
+
+        if (count($check)) {
+            return true;
+        }
+    }
+
     /**
-     * Добавление производителей из 1С
+     * Добавление из 1С
      *
      * @param $obj
      */
     public static function insertRows($obj)
     {
         $data = [];
-
         $data['import_id'] = $obj->id;
-        $data['alias'] = self::unique($obj->name);
-        $data['sort'] = $obj->position;
-        $data['status'] = $obj->status;
+        $data['discount'] = $obj->discount;
+        $data['status'] = 1;
         $data['created_at'] = time();
         $data['updated_at'] = time();
 
@@ -54,8 +61,10 @@ class Brands extends CommonI18n
         $result = DB::insert(static::$table, $keys)->values($values)->execute();
         $lastID = $result[0];
 
+        /**
+         * i18n
+         */
         $ua = [];
-
         $ua['name'] = $obj->name;
         $ua['language'] = 'ua';
         $ua['row_id'] = $lastID;
@@ -70,7 +79,6 @@ class Brands extends CommonI18n
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
 
         $ru = [];
-
         $ru['name'] = $obj->name;
         $ru['language'] = 'ru';
         $ru['row_id'] = $lastID;
@@ -85,42 +93,36 @@ class Brands extends CommonI18n
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
     }
 
+    /**
+     * Обновление из 1С
+     *
+     * @param $obj
+     */
     public static function updateRows($obj)
     {
         $data = [];
-        $data['sort'] = $obj->position;
+        $data['discount'] = $obj->discount;
+        $data['status'] = 1;
+        $data['created_at'] = time();
         $data['updated_at'] = time();
 
         DB::update(static::$table)->set($data)->where('import_id', '=', $obj->id)->execute();
-        $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find()->id;
+        $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
+        /* i18n */
         $ua = [];
         $ua['name'] = $obj->name;
 
-        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID)->where('language', '=', 'ua')->execute();
+        DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID->id)->where('language', '=', 'ua')->execute();
 
         $ru = [];
         $ru['name'] = $obj->name;
 
-        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID)->where('language', '=', 'ru')->execute();
+        DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID->id)->where('language', '=', 'ru')->execute();
     }
 
-    /**
-     * Проверка на уникальный alias
-     *
-     * @param $value
-     * @return mixed|string
-     */
-    public static function unique($value)
+    public static function updatePrice($obj)
     {
-        $value = Text::translit($value);
-        $count = DB::select([DB::expr('COUNT(id)'), 'count'])
-            ->from('catalog_tree')
-            ->where('alias', '=', $value);
-        $count = $count->count_all();
-        if ($count) {
-            return $value . rand(1000, 9999);
-        }
-        return $value;
+        DB::update('catalog')->set(['cost' => $obj->price, 'updated_at' => time()])->where('import_id', 'LIKE', $obj->productID)->execute();
     }
 }

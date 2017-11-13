@@ -57,6 +57,19 @@ class Price extends Common
         }
     }
 
+    public static function getCurrentCurrency()
+    {
+        $user = User::info();
+
+        if ($user->currency_id) {
+            $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $user->currency_id)->find();
+
+            return $currency->view;
+        } else {
+            return 'грн.';
+        }
+    }
+
     /**
      * Персесчет
      *

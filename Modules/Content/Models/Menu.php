@@ -21,7 +21,23 @@ class Menu extends CommonI18n
             ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
             ->where(static::$tableI18n . '.language', '=', I18n::$lang)
             ->where(static::$table . '.top_menu', '=', 1)
+            ->where(static::$table . '.status', '=', 1)
             ->find_all();
+
+        if (!count($result)) {
+            $result = DB::select(
+                static::$tableI18n . '.*',
+                static::$table . '.*'
+            )
+                ->from(static::$table)
+                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+                ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+                ->where(static::$table . '.status', '=', 1)
+                ->limit(8)
+                ->order_by(DB::expr('RAND()'))
+                ->find_all();
+        }
+
 
         return $result;
     }

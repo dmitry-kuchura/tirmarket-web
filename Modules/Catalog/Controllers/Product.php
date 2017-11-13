@@ -45,6 +45,13 @@ class Product extends Base
         Items::addViewed($item->id);
         // Add to cookie viewed list
         $originals = Items::getOriginal($item->id);
+        $analogue = Items::getAnalogueItems($item->id);
+        if (count($analogue)) {
+            $analogueItems = true;
+        } else {
+            $analogueItems = false;
+        }
+
         // Add plus one to views
         $item = Items::addView($item);
         // Seo
@@ -60,6 +67,7 @@ class Product extends Base
             'images' => $images,
             'specifications' => $spec,
             'originals' => $originals,
+            'analogue' => $analogueItems,
         ], 'Catalog/Item');
         $reviews = Items::getReviews($item->id);
         $this->_content .= View::tpl([

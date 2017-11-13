@@ -37,19 +37,22 @@ class General extends Ajax
 
         $data = [
             'static' => [
+
                 'all' => __('Все результаты'),
                 'href' => HTML::link('search?query=' . $query, false),
                 'buy' => __('Купить'),
+                'currency' => Price::getCurrentCurrency(),
             ],
         ];
 
         foreach ($result as $obj) {
             $data['result'][] = [
                 'id' => $obj->id,
-                'link' => HTML::link($obj->link . '/p' . $obj->id, false),
+                'link' => HTML::link($obj->alias . '/p' . $obj->id, false),
                 'image' => is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
                 'price' => $obj->cost,
                 'title' => $obj->name,
+                'currency' => Price::getCurrentCurrency(),
             ];
         }
 

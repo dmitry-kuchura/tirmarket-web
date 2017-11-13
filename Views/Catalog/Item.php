@@ -224,8 +224,12 @@ use Modules\Catalog\Models\Price;
     <?php if ($obj->text): ?>
         <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
     <?php endif; ?>
+    <?php if ($analogue): ?>
     <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
-    <a href="#" class="tab-link" data-tab-trigger="4" data-tab-ns="originals"><?php echo __('Оригиналы'); ?></a>
+    <?php endif; ?>
+    <?php if (count($originals)): ?>
+        <a href="#" class="tab-link" data-tab-trigger="4" data-tab-ns="product"><?php echo __('Оригиналы'); ?></a>
+    <?php endif; ?>
 </div>
 <div class="_mb-5">
     <div class="is-active" data-tab-content="1" data-tab-ns="product">
@@ -240,7 +244,7 @@ use Modules\Catalog\Models\Price;
             </table>
         </div>
     </div>
-    <div data-tab-content="4" data-tab-ns="originals">
+    <div data-tab-content="4" data-tab-ns="product">
         <div class="wysiwyg">
             <table class="table-zebra">
                 <?php foreach ($originals as $key => $value): ?>

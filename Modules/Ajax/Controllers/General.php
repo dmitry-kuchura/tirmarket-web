@@ -366,6 +366,7 @@ class General extends Ajax
                 'promo' => $obj->top == 1 ? true : false,
                 'popular' => $obj->sale == 1 ? true : false,
                 'text' => [
+                    'currency' => Price::getCurrentCurrency(),
                     'buy' => __('В корзину'),
                     'order' => __('Заказать'),
                     'orderLink' => HTML::link('hidden/order', false),

@@ -12,9 +12,9 @@
                 <div class="_col-auto _flex-grow-1">
                     <a :href="item.link" class="search-item__title">{{ item.title }}</a>
                     <div class="search-item__price search-item__price--disable" v-if="item['disable-price']">
-                        {{ item['disable-price'] }} грн.
+                        {{ item['disable-price'] }} {{ static.currency }}
                 </div>
-                    <div class="search-item__price">{{ item.price }} {{ item.currency }}</div>
+                    <div class="search-item__price">{{ item.price }} {{ static.currency }}</div>
                 </div>
 
                 <div class="_col-auto">

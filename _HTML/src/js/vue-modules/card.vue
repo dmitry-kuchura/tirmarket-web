@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="_col-auto _flex-grow-1">
-                    <a href="#" class="button button--full" v-if="data.exist">
+                    <a href="#" class="button button--full" data-basket-trigger data-alias="/hidden/basket" :data-id="data.id" v-if="data.exist">
                         <span>
                             <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
                             <span>В корзину</span>

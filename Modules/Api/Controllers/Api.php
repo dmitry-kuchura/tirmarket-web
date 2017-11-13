@@ -19,9 +19,11 @@ use Modules\Api\Models\Currencies;
 use Modules\Api\Models\Orders;
 use Modules\Api\Models\StocksCount;
 
-class Api extends Ajax {
+class Api extends Ajax
+{
 
-    public function before() {
+    public function before()
+    {
         header('Content-Type: application/json');
         set_time_limit(9999999999999);
     }
@@ -29,7 +31,8 @@ class Api extends Ajax {
     /**
      * Список категорий
      */
-    public function getCategoriesAction() {
+    public function getCategoriesAction()
+    {
         $result = SOAP::createSoapClient('getCategories');
 
         if (count($result->return->categories->category)) {
@@ -50,7 +53,8 @@ class Api extends Ajax {
      *
      * @throws Exception
      */
-    public function getCategoryAction() {
+    public function getCategoryAction()
+    {
         $result = SOAP::getCategory(['id' => Route::param('id')]);
 
         if (count($result)) {
@@ -64,10 +68,12 @@ class Api extends Ajax {
         $this->success(['success' => true]);
     }
 
+
     /**
      * Список товаров
      */
-    public function getProductsAction() {
+    public function getProductsAction()
+    {
         for ($i = 1; $i <= 1500; $i++) {
             $limit = 150;
             $offset = ($i - 1) * 150;
@@ -100,7 +106,8 @@ class Api extends Ajax {
      *
      * @throws Exception
      */
-    public function getCurrentProductAction() {
+    public function getCurrentProductAction()
+    {
         $params = ['id' => Route::param('id')];
         $result = SOAP::soapProduct($params);
 
@@ -113,12 +120,14 @@ class Api extends Ajax {
         $this->success(['success' => true]);
     }
 
+
     /**
      * Метод getStock
      *
      * @throws Exception
      */
-    public function getStockAction() {
+    public function getStockAction()
+    {
         $params = ['id' => Route::param('id')];
         $result = SOAP::getStock($params);
 
@@ -134,7 +143,8 @@ class Api extends Ajax {
     /**
      * Список брендов
      */
-    public function getBrandsAction() {
+    public function getBrandsAction()
+    {
         $result = SOAP::createSoapClient('getBrands');
 
         foreach ($result->return->brands->brand as $obj) {
@@ -151,7 +161,8 @@ class Api extends Ajax {
      *
      * @throws Exception
      */
-    public function getBrandAction() {
+    public function getBrandAction()
+    {
         $result = SOAP::getBrand(['id' => Route::param('id')]);
 
         if (isset($result)) {
@@ -168,7 +179,8 @@ class Api extends Ajax {
     /**
      * Получение складов
      */
-    public function getStocksAction() {
+    public function getStocksAction()
+    {
         $result = SOAP::createSoapClient('getStocks');
 
         if (count($result->return->stocks->stock)) {
@@ -183,7 +195,8 @@ class Api extends Ajax {
     /**
      * Обновление остатков
      */
-    public function getStockCountAction() {
+    public function getStockCountAction()
+    {
         $result = SOAP::createSoapClient('getStockCount');
 
         try {
@@ -200,12 +213,10 @@ class Api extends Ajax {
     /**
      * Список цен
      */
-    public function getPricesAction() {
+    public function getPricesAction()
+    {
         $params = ['update' => '2017-06-01'];
         $result = SOAP::soapPrices($params);
-
-        var_dump($result);
-        die;
 
         try {
             if (count($result)) {
@@ -227,7 +238,8 @@ class Api extends Ajax {
      *
      * @throws Exception
      */
-    public function getModelsAction() {
+    public function getModelsAction()
+    {
         $result = SOAP::createSoapClient('getModels');
 
         try {
@@ -250,7 +262,8 @@ class Api extends Ajax {
     /**
      * Список типов цен
      */
-    public function getPricesTypesAction() {
+    public function getPricesTypesAction()
+    {
         $result = SOAP::createSoapClient('getPricesTypes');
 
         if (count($result->return->pricetypes->pricetype)) {
@@ -264,7 +277,11 @@ class Api extends Ajax {
         }
     }
 
-    public function getUsersAction() {
+    /**
+     * Список пользователей
+     */
+    public function getUsersAction()
+    {
         $result = SOAP::createSoapClient('getUsers');
 
         if (is_array($result->return->users)) {
@@ -285,7 +302,8 @@ class Api extends Ajax {
     /**
      * Обновление валют из 1С
      */
-    public function getCurrenciesAction() {
+    public function getCurrenciesAction()
+    {
         $result = SOAP::createSoapClient('getCurrencies');
 
         if (count($result->return->currency) > 1) {
@@ -303,7 +321,11 @@ class Api extends Ajax {
         $this->success(['success' => true]);
     }
 
-    public function getOrdersAction() {
+    /**
+     * Список заказов из 1С
+     */
+    public function getOrdersAction()
+    {
         $result = SOAP::createSoapClient('getOrders');
 
         foreach ($result->return->orders->order as $obj) {
@@ -315,7 +337,11 @@ class Api extends Ajax {
         $this->success(['success' => true]);
     }
 
-    public function putOrdersAction() {
+    /**
+     * Отправка заказов в 1С
+     */
+    public function putOrdersAction()
+    {
         header('Content-Type: text/html; charset=UTF-8');
         $result = DB::select()->from('orders')->where('import_id', 'IS', null)->find_all();
 
@@ -344,4 +370,49 @@ class Api extends Ajax {
         $this->success(['success' => true]);
     }
 
+    /**
+     * Шах и Мат БЛЯТЬ
+     *
+     * @throws Exception
+     */
+    public function getQueueAction()
+    {
+        $params = ['update' => '2017-01-01'];
+        $result = SOAP::soapPrices($params);
+
+        try {
+            if (count($result)) {
+                foreach ($result as $obj) {
+                    DB::insert('queue', ['productID', 'price', 'party'])->values([$obj->productID, $obj->price, $obj->party])->execute();
+                }
+            }
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    public function insertQueueAction()
+    {
+        $result = DB::select()->from('queue')->find_all();
+
+        try {
+            foreach ($result as $obj) {
+
+                $params = ['id' => $obj->productID];
+                $result = SOAP::soapProduct($params);
+
+                if (Products::checkItem($result)) {
+                    Products::insertRows($result);
+                } else {
+                    Products::updateRows($result);
+                }
+            }
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
+        }
+
+        $this->success(['success' => true]);
+    }
 }

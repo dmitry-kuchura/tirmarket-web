@@ -29,6 +29,8 @@ return [
     'api/stocks' => 'api/api/getStocks',
 
     'api/prices' => 'api/api/getPrices',
+    'api/queue' => 'api/api/getQueue',
+    'api/queue-insert' => 'api/api/insertQueue',
     'api/prices-types' => 'api/api/getPricesTypes',
 
     'api/count' => 'api/api/getStockCount',
@@ -40,6 +42,5 @@ return [
     'api/currencies' => 'api/api/getCurrencies',
 
     'api/orders' => 'api/api/getOrders',
-
     'api/put-orders' => 'api/api/putOrders',
 ];

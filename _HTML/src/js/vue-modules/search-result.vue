@@ -14,11 +14,11 @@
                     <div class="search-item__price search-item__price--disable" v-if="item['disable-price']">
                         {{ item['disable-price'] }} грн.
                 </div>
-                    <div class="search-item__price">{{ item.price }} грн.</div>
+                    <div class="search-item__price">{{ item.price }} {{ item.currency }}</div>
                 </div>
 
                 <div class="_col-auto">
-                    <a href="#" class="button" data-basket-trigger :data-id="item.id"><span>{{ static.buy }}</span></a>
+                    <a href="#" class="button" data-basket-trigger data-alias="/hidden/basket" :data-id="item.id"><span>{{ static.buy }}</span></a>
                 </div>
             </div>
 

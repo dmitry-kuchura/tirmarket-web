@@ -25,7 +25,7 @@
             </div>
 
             <div class="analogue-table__col">
-                <a href="#" class="button" data-basket-trigger :data-id="item.id" v-if="item.exist">
+                <a href="#" class="button" data-basket-trigger data-alias="/hidden/basket" :data-id="item.id" v-if="item.exist">
                     <span>
                         <i><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Media/icons/icons.svg#cart"></use></svg></i>
                         <span>{{ item.text.buy }}</span>

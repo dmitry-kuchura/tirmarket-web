@@ -221,9 +221,7 @@ class Api extends Ajax
         try {
             if (count($result)) {
                 foreach ($result as $obj) {
-                    if (Price::checkItem($obj)) {
-                        Price::updatePrice($obj);
-                    }
+                    Price::updatePrice($obj);
                 }
             }
         } catch (Exception $err) {
@@ -360,9 +358,8 @@ class Api extends Ajax
                 ];
 
                 $orderID = SOAP::sendOrders($params);
-
                 if ($orderID) {
-                    Orders::update('import_id', $orderID);
+                    DB::update('orders')->set(['import_id' => $orderID])->where('id', '=', $obj->id)->execute();
                 }
             }
         }
@@ -395,7 +392,7 @@ class Api extends Ajax
 
     public function insertQueueAction()
     {
-        $result = DB::select()->from('queue')->limit(500)->offset(0)->find_all();
+        $result = DB::select()->from('queue')->limit(500)->find_all();
 
         try {
             foreach ($result as $obj) {
@@ -405,6 +402,8 @@ class Api extends Ajax
                 if (Products::checkItem($result)) {
                     Products::insertRows($result);
                 }
+
+                DB::delete('queue')->where('id', '=', $obj->id)->execute();
             }
         } catch (Exception $err) {
             throw new Exception($err->getMessage());

@@ -160,7 +160,8 @@ class SOAP {
                 'trace' => true,
             ]);
             $data = $client->putOrder($params);
-            print_r($data);
+
+            return $data->return;
         } catch (Exception $err) {
             throw new Exception($err->getMessage());
         }

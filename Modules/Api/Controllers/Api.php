@@ -395,18 +395,15 @@ class Api extends Ajax
 
     public function insertQueueAction()
     {
-        $result = DB::select()->from('queue')->find_all();
+        $result = DB::select()->from('queue')->limit(500)->offset(0)->find_all();
 
         try {
             foreach ($result as $obj) {
-
                 $params = ['id' => $obj->productID];
                 $result = SOAP::soapProduct($params);
 
                 if (Products::checkItem($result)) {
                     Products::insertRows($result);
-                } else {
-                    Products::updateRows($result);
                 }
             }
         } catch (Exception $err) {

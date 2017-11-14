@@ -36,8 +36,10 @@ class Price extends Common
         /* @var $user User */
         $user = User::info();
 
-        if ($user->currency_id) {
+        if ($user && $user->currency_id) {
             return self::getCurrencies($user->currency_id, $price);
+        } else {
+            return $price . ' грн.';
         }
     }
 
@@ -52,10 +54,7 @@ class Price extends Common
         /* @var $user User */
         $user = User::info();
 
-        var_dump($user);
-        die;
-
-        if ($user != null && $user->currency_id) {
+        if ($user && $user->currency_id) {
             return self::getCurrency($user->currency_id, $price);
         } else {
             return $price . ' грн.';

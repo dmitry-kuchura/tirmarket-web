@@ -105,7 +105,7 @@ class Catalog extends Base
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
 
-        if ((int)$this->_pager->_total_pages === (int)$this->_page) {
+        if ((int)$this->_pager->_total_pages === (int)$this->_page && count($items['items'])) {
             $results = Model::arrayMerge($result, $items);
         } else {
             $results = $result;

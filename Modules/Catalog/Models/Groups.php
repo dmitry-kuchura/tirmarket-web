@@ -50,6 +50,15 @@ class Groups extends CommonI18n
         return $result->count_all();
     }
 
+    public static function countItemsGroup($parent_id)
+    {
+        $result = DB::select([DB::expr('COUNT(catalog.id)'), 'count'])
+            ->from('catalog')
+            ->where('catalog.parent_id', '=', $parent_id)
+            ->where('catalog.status', '=', 1);
+        return $result->count_all();
+    }
+
     public static function getPopularCategories($limit = 4)
     {
         $result = DB::select(
@@ -89,5 +98,16 @@ class Groups extends CommonI18n
             ->find_all();
 
         return $result;
+    }
+
+    public static function arrayMerge($result, $items)
+    {
+        $array = [];
+
+        foreach ($result as $obj) {
+            $array[] = $obj;
+        }
+
+        return array_merge($array, $items['items']);
     }
 }

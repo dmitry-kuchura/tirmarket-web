@@ -95,6 +95,39 @@ class Filter
         ];
     }
 
+    public static function getItemsGroupList($parent_id, $limit, $offset, $sort, $type)
+    {
+        $result = DB::select(
+            'catalog.*',
+            'catalog_i18n.name'
+
+        )
+            ->from('catalog')
+            ->join('catalog_i18n')->on('catalog.id', '=', 'catalog_i18n.row_id')
+            ->where('catalog_i18n.language', '=', \I18n::$lang)
+            ->where('catalog.status', '=', 1)
+            ->where('catalog.parent_id', '=', (int)$parent_id);
+
+        $sortTable = 'catalog';
+        if ($sort == 'name') {
+            $sortTable = 'catalog_i18n';
+        }
+        $result = $result->group_by('catalog.id')
+            ->order_by('catalog.available', 'DESC')
+            ->order_by($sortTable . '.' . $sort, $type)
+            ->find_all();
+
+        $items = [];
+        foreach ($result as $obj) {
+            $items[] = $obj;
+        }
+
+        return [
+            'items' => $items,
+            'total' => sizeof($result),
+        ];
+    }
+
     // Get clickable filters and min/max costs, included current
     public static function getClickableFilterElements()
     {

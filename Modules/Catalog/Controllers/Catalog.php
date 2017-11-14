@@ -19,7 +19,6 @@ use Modules\Content\Models\Control;
 
 class Catalog extends Base
 {
-
     public $current;
     public $sort;
     public $type;
@@ -82,11 +81,21 @@ class Catalog extends Base
             HTTP::redirect('/products', 301);
         }
         Route::factory()->setParam('group', $group->id);
+
         // Count of child groups
         $count = Model::countInnerGroups($group->id);
         if (!$count) {
             return $this->listAction();
         }
+
+        // Count items in group
+        $groupItems = Model::countItemsGroup($group->id);
+        if ($groupItems) {
+            $this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
+            $this->_offset = ($this->_page - 1) * $this->_limit;
+            $items = Filter::getItemsGroupList($group->id, $this->_limit, $this->_offset, $this->sort, $this->type);
+        }
+
         // Seo
         $this->setSeoForGroup($group);
         // Add plus one to views
@@ -95,11 +104,21 @@ class Catalog extends Base
         $result = Model::getInnerGroups($group->id, $this->sort, $this->type, $this->_limit, $this->_offset);
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
+
+        if ((int)$this->_pager->_total_pages === (int)$this->_page) {
+            $results = Model::arrayMerge($result, $items);
+        } else {
+            $results = $result;
+        }
+
         //canonicals settings
         $this->_use_canonical = 1;
         $this->_canonical = 'products/' . Route::param('alias');
         // Render template
-        $this->_content = View::tpl(['result' => $result, 'pager' => $this->_pager->create()], 'Catalog/Groups');
+        $this->_content = View::tpl([
+            'result' => $results,
+            'pager' => $this->_pager->create(),
+        ], 'Catalog/Groups');
     }
 
     // Items list page. Inside group
@@ -190,5 +209,4 @@ class Catalog extends Base
         $this->generateParentBreadcrumbs($page->parent_id, 'catalog_tree', 'parent_id', '/products/');
         $this->setBreadcrumbs($page->name);
     }
-
 }

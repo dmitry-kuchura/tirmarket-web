@@ -42,7 +42,7 @@ class Base
         $cron = new Cron;
         $cron->check();
         $this->config();
-        $this->access();
+//        $this->access();
         $this->ssl();
     }
 

@@ -2,8 +2,14 @@
 
 namespace Modules\Api\Controllers;
 
+use Core\Arr;
+use Core\Common;
+use Core\Config;
+use Core\Files;
+use Core\HTML;
 use Core\QB\DB;
 use Core\Route;
+use Core\SimpleImage;
 use Core\SOAP;
 use Core\User;
 use Exception;
@@ -410,5 +416,113 @@ class Api extends Ajax
         }
 
         $this->success(['success' => true]);
+    }
+
+    public function insertImageAction()
+    {
+        $result = DB::select()->from('query')->where('status', '=', 1)->limit(500)->find_all();
+
+        foreach ($result as $obj) {
+            $this->uploadImage($obj->image);
+            DB::update('query')->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    public function uploadImageAction()
+    {
+        $result = DB::select()->from('query')->where('status', '=', 0)->limit(50)->find_all();
+
+        foreach ($result as $obj) {
+            $find = DB::select()->from('catalog')->where('artikul', '=', $obj->artikul)->find();
+
+            if ($find) {
+                $filename = $this->uploadImageFromDisk($obj->image);
+                Common::factory('catalog')->update(['image' => $filename], $find->id);
+
+                $data = [
+                    'catalog_id' => $find->id,
+                    'image' => $filename,
+                    'main' => 1,
+                ];
+                Common::factory('catalog_images')->insert($data);
+            }
+
+            DB::update('query')->set(['status' => 6])->where('id', '=', $obj->id)->execute();
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    function uploadImage($imageUrl)
+    {
+        // to Temp folder
+        $image = str_replace('http://tirmarket.com.ua/all', '', $imageUrl);
+        $path = HOST . HTML::media(DS . 'images/temp' . $image, false);
+
+        $url = explode('/', $image);
+        $tempPath = HOST . HTML::media(DS . 'images/temp' . DS . $url[1], false);
+
+        Files::createFolder($tempPath, 0777);
+
+        file_put_contents($path, file_get_contents($imageUrl));
+        return true;
+    }
+
+    function uploadImageFromDisk($imageUrl)
+    {
+        // to Temp folder
+        $image = str_replace('http://tirmarket.com.ua/all', '', $imageUrl);
+        $path = HOST . HTML::media(DS . 'images/temp' . $image, false);
+
+        $ext = explode('/', $image);
+        $ext = explode('.', $ext[2]);
+        $ext = $ext[1];
+
+        if (!filesize($path)) {
+            return false;
+        }
+
+        $image = SimpleImage::factory($path);
+
+        $need = Config::get('images.catalog');
+        $filename = md5($imageUrl . time()) . '.' . strtolower($ext);
+
+        foreach ($need AS $one) {
+            $path = HOST . HTML::media(DS . 'images' . DS . 'catalog' . DS . Arr::get($one, 'path'), false);
+
+            Files::createFolder($path, 0777);
+            $file = $path . DS . $filename;
+            $new_width = Arr::get($one, 'width');
+            $new_height = Arr::get($one, 'height');
+            if (Arr::get($one, 'crop')) {
+                if ($new_width && $new_height) {
+                    $image->thumbnail($new_width, $new_height);
+                } else if ($new_width) {
+                    $image->thumbnail($new_width);
+                } else if ($new_height) {
+                    $image->thumbnail($new_height);
+                }
+            } else if (Arr::get($one, 'resize')) {
+                if ($new_width && $new_height) {
+                    $image->best_fit($new_width, $new_height);
+                } else if ($new_width) {
+                    $image->fit_to_width($new_width);
+                } else if ($new_height) {
+                    $image->fit_to_height($new_height);
+                }
+            }
+
+            if (Arr::get($one, 'watermark')) {
+                $watermark = SimpleImage::factory(HOST . HTML::media(str_replace(HOST, '', Config::get('images.watermark')), false));
+                $watermark->fit_to_width($image->get_width() * 0.4);
+                $image->overlay($watermark, 'bottom right', 0.6, 0, 0);
+            }
+
+            $image->save($file, Arr::get($one, 'quality', 80));
+        }
+
+        return $filename;
     }
 }

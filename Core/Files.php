@@ -24,6 +24,7 @@ class Files
         foreach ($need as $one) {
             $image = SimpleImage::factory($_FILES[$name]['tmp_name'])->auto_orient();
             $path = HOST . HTML::media(DS . 'images' . DS . $mainFolder . DS . Arr::get($one, 'path'), false);
+
             Files::createFolder($path, 0777);
             $file = $path . DS . $filename;
             $new_width = Arr::get($one, 'width');

@@ -7,6 +7,7 @@ use Modules\Catalog\Models\Filter;
 /* @var $hide bool */
 /* @var $brands array */
 /* @var $filter array */
+/* @var $groups array */
 ?>
 
 <?php if ($hide == false): ?>
@@ -20,6 +21,26 @@ use Modules\Catalog\Models\Filter;
                 </div>
             </div>
             <div class="_lg-show" data-toggle-target="slide" data-toggle-ns="filter">
+                <?php if (count($groups)): ?>
+                    <div class="sidebar__section _pt-0">
+                        <div class="title title--sm _mb-3"><?php echo __('Категории'); ?></div>
+                        <?php foreach ($groups as $group): ?>
+                            <a href="<?php echo HTML::link('products/' . $group->alias); ?>"
+                               class="form-element form-element--check _mb-2">
+                                <div>
+                                    <i>
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xlink:href="<?php echo HTML::media('icons/icons.svg#check'); ?>"></use>
+                                        </svg>
+                                    </i>
+                                    <span><?php echo $group->name; ?></span>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
                 <?php if (count($brands)): ?>
                     <div class="sidebar__section _pt-0">
                         <div class="title title--sm _mb-3"><?php echo __('Производитель'); ?></div>
@@ -64,7 +85,7 @@ use Modules\Catalog\Models\Filter;
 
                 <div class="sidebar__section _text-center _p-4">
                     <a href="<?php echo HTML::link('products/' . Route::param('alias')); ?>"
-                            class="reset-trigger">
+                       class="reset-trigger">
                         <span>
                             <i>
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cancel', false); ?>"></use></svg>

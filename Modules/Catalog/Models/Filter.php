@@ -214,7 +214,8 @@ class Filter
         $new_costs = [];
         foreach ($items as $item) {
             $for_cost = 0;
-            foreach ($sortable as $sort) {
+            if ($sortable) {
+                foreach ($sortable as $sort) {
                 $filtered = 0;
                 $f = $filter;
                 if (isset($f[$sort])) {
@@ -270,6 +271,7 @@ class Filter
                         $counts[$sort][$value]++;
                     }
                 }
+            }
             }
             if ($for_cost == 0) {
                 $new_costs[] = $item['cost'][0];
@@ -790,17 +792,19 @@ class Filter
     public static function sortFilter($array)
     {
         $template = Config::get('sortable');
-        foreach ($template['spec'] as $tpl) {
-            if (isset($array[$tpl]) and !empty($array[$tpl]) and !(count($array[$tpl]) == 1 and trim((string)end($array[$tpl])) == "")) {
-                $filter[$tpl] = [];
-                if ($tpl != 'mincost' and $tpl != 'maxcost') {
-                    foreach ($template['params'][$tpl] as $key => $val) {
-                        if (in_array($val, $array[$tpl])) {
-                            $filter[$tpl][] = $val;
+        if ($template['spec']) {
+            foreach ($template['spec'] as $tpl) {
+                if (isset($array[$tpl]) and !empty($array[$tpl]) and !(count($array[$tpl]) == 1 and trim((string)end($array[$tpl])) == "")) {
+                    $filter[$tpl] = [];
+                    if ($tpl != 'mincost' and $tpl != 'maxcost') {
+                        foreach ($template['params'][$tpl] as $key => $val) {
+                            if (in_array($val, $array[$tpl])) {
+                                $filter[$tpl][] = $val;
+                            }
                         }
+                    } else {
+                        $filter[$tpl] = $array[$tpl];
                     }
-                } else {
-                    $filter[$tpl] = $array[$tpl];
                 }
             }
         }

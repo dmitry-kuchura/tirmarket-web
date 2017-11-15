@@ -92,8 +92,13 @@ class Catalog extends Base
         $groupItems = Model::countItemsGroup($group->id);
         if ($groupItems) {
             $this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
-            $this->_offset = ($this->_page - 1) * $this->_limit;
-            $items = Filter::getItemsGroupList($group->id, $this->_limit, $this->_offset, $this->sort, $this->type);
+            $items = Filter::getItemsGroupList($group->id, 9, 0, $this->sort, $this->type);
+
+            $this->_template = 'ItemsList';
+            $layout = 'Catalog/ItemsList';
+
+        } else {
+            $layout = 'Catalog/Groups';
         }
 
         // Seo
@@ -106,7 +111,8 @@ class Catalog extends Base
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
 
         if ((int)$this->_pager->_total_pages === (int)$this->_page && count($items['items'])) {
-            $results = Model::arrayMerge($result, $items);
+            $this->_groups_to_filter = $result;
+            $results = $items['items'];
         } else {
             $results = $result;
         }
@@ -118,7 +124,7 @@ class Catalog extends Base
         $this->_content = View::tpl([
             'result' => $results,
             'pager' => $this->_pager->create(),
-        ], 'Catalog/Groups');
+        ], $layout);
     }
 
     // Items list page. Inside group

@@ -6,7 +6,8 @@ use Core\Widgets;
 /* @var $GLOBAL_MESSAGE string */
 /* @var $_breadcrumbs string */
 /* @var $_content string */
-/* @var $hide bool */
+/* @var $_hide_filter bool */
+/* @var $_groups_to_filter object */
 
 ?>
 <!doctype html>
@@ -28,11 +29,17 @@ use Core\Widgets;
         <div class="page-size">
             <?php echo $_breadcrumbs; ?>
             <div class="_flex _lg-flex-nowrap">
-                <?php echo Widgets::get('Catalog_Filter', ['hide' => $_hide_filter]); ?>
+                <?php echo Widgets::get('Catalog_Filter', [
+                    'hide' => $_hide_filter,
+                    'groups' => $_groups_to_filter,
+                ]); ?>
                 <div class="content">
                     <div class="_flex _grid-space-4 _items-center _mb-3">
                         <div class="title _flex-grow-1"><?php echo $_seo['h1']; ?></div>
-                        <?php echo Widgets::get('Catalog_Sort', ['hide' => $_hide_filter]); ?>
+                        <?php echo Widgets::get('Catalog_Sort', [
+                            'hide' => $_hide_filter,
+                            'groups' => $_groups_to_filter,
+                        ]); ?>
                     </div>
                     <?php echo $_content; ?>
                 </div>

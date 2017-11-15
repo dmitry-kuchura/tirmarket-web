@@ -432,7 +432,7 @@ class Api extends Ajax
 
     public function uploadImageAction()
     {
-        $result = DB::select()->from('query')->where('status', '=', 0)->limit(50)->find_all();
+        $result = DB::select()->from('query')->where('status', '=', 0)->limit(500)->find_all();
 
         foreach ($result as $obj) {
             $find = DB::select()->from('catalog')->where('artikul', '=', $obj->artikul)->find();
@@ -484,7 +484,7 @@ class Api extends Ajax
             return false;
         }
 
-        $image = SimpleImage::factory($path);
+        $image = SimpleImage::factory($path)->auto_orient();
 
         $need = Config::get('images.catalog');
         $filename = md5($imageUrl . time()) . '.' . strtolower($ext);
@@ -520,7 +520,7 @@ class Api extends Ajax
                 $image->overlay($watermark, 'bottom right', 0.6, 0, 0);
             }
 
-            $image->save($file, Arr::get($one, 'quality', 80));
+            $image->save($file, 98);
         }
 
         return $filename;

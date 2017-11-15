@@ -90,16 +90,6 @@ class Catalog extends Base
 
         // Count items in group
         $groupItems = Model::countItemsGroup($group->id);
-        if ($groupItems) {
-            $this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
-            $items = Filter::getItemsGroupList($group->id, 9, 0, $this->sort, $this->type);
-
-            $this->_template = 'ItemsList';
-            $layout = 'Catalog/ItemsList';
-
-        } else {
-            $layout = 'Catalog/Groups';
-        }
 
         // Seo
         $this->setSeoForGroup($group);
@@ -109,6 +99,17 @@ class Catalog extends Base
         $result = Model::getInnerGroups($group->id, $this->sort, $this->type, $this->_limit, $this->_offset);
         // Generate pagination
         $this->_pager = Pager::factory($this->_page, $count, $this->_limit);
+
+        if ((int)$this->_pager->_total_pages === (int)$this->_page && $groupItems) {
+            $this->_limit = (int)Arr::get($_GET, 'per_page') ? (int)Arr::get($_GET, 'per_page') : Config::get('basic.limit');
+            $items = Filter::getItemsGroupList($group->id, 9, 0, $this->sort, $this->type);
+
+            $this->_template = 'ItemsList';
+            $layout = 'Catalog/ItemsList';
+
+        } else {
+            $layout = 'Catalog/Groups';
+        }
 
         if ((int)$this->_pager->_total_pages === (int)$this->_page && count($items['items'])) {
             $this->_groups_to_filter = $result;

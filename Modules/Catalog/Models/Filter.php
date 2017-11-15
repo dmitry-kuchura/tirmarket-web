@@ -112,6 +112,7 @@ class Filter
         if ($sort == 'name') {
             $sortTable = 'catalog_i18n';
         }
+        $result = $result->limit($limit)->offset($offset);
         $result = $result->group_by('catalog.id')
             ->order_by('catalog.available', 'DESC')
             ->order_by($sortTable . '.' . $sort, $type)

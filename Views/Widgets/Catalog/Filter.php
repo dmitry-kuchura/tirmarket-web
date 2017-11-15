@@ -27,15 +27,7 @@ use Modules\Catalog\Models\Filter;
                         <?php foreach ($groups as $group): ?>
                             <a href="<?php echo HTML::link('products/' . $group->alias); ?>"
                                class="form-element form-element--check _mb-2">
-                                <div>
-                                    <i>
-                                        <svg>
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                 xlink:href="<?php echo HTML::media('icons/icons.svg#check'); ?>"></use>
-                                        </svg>
-                                    </i>
-                                    <span><?php echo $group->name; ?></span>
-                                </div>
+                                <div><span><?php echo $group->name; ?></span></div>
                             </a>
                         <?php endforeach; ?>
                     </div>

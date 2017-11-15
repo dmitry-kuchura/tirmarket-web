@@ -5,7 +5,7 @@ namespace Modules\Catalog\Models;
 use Core\User;
 use Core\QB\DB;
 use Core\Common;
-
+use Core\Config;
 
 /**
  * Class Price
@@ -39,7 +39,11 @@ class Price extends Common
         if ($user && $user->currency_id) {
             return self::getCurrencies($user->currency_id, $price);
         } else {
-            return $price . ' грн.';
+            if (Config::get('basic.markup') > 0) {
+                return self::addPercent($price) . ' грн.';
+            } else {
+                return $price . ' грн.';
+            }
         }
     }
 
@@ -57,7 +61,11 @@ class Price extends Common
         if ($user && $user->currency_id) {
             return self::getCurrency($user->currency_id, $price);
         } else {
-            return $price . ' грн.';
+            if (Config::get('basic.markup') > 0) {
+                return self::addPercent($price) . ' грн.';
+            } else {
+                return $price . ' грн.';
+            }
         }
     }
 
@@ -89,6 +97,11 @@ class Price extends Common
         if ($currency) {
             $cost = $price * $currency->exchange;
             $cost = number_format($cost, 2, ',', ' ');
+
+            if (Config::get('basic.markup') > 0) {
+                $cost = self::addPercent($cost);
+            }
+
             return $cost . ' ' . $currency->view;
         } else {
             return $price . ' грн.';
@@ -101,9 +114,25 @@ class Price extends Common
         $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
 
         if ($currency) {
-            return $cost = $price * $currency->exchange;
+            $cost = $price * $currency->exchange;
+
+            if (Config::get('basic.markup') > 0) {
+                $cost = self::addPercent($cost);
+            }
+
+            return $cost . ' ' . $currency->view;
         } else {
             return $price;
         }
+    }
+
+    public static function addPercent($price)
+    {
+        $percent = Config::get('basic.markup'); // количество процентов
+        $percent = $price / 100 * $percent; // высчитываем процент от числа
+        $result = $price + $percent; // суммируем число с процентами от этого числа
+
+        // выводим результат
+        return $result;
     }
 }

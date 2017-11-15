@@ -19,8 +19,8 @@ use Core\View;
 
                     <?php if (count($result)): ?>
                         <?php foreach ($result as $obj): ?>
-                            <div>
-                                <a href="<?php echo HTML::link('products/' . $obj->alias); ?>" class="category-item"><?php echo $obj->name; ?></a>
+                            <div class="sidebar-category-item">
+                                <a href="<?php echo HTML::link('products/' . $obj->alias); ?>"><?php echo $obj->name; ?></a>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>

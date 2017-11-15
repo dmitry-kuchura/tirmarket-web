@@ -136,8 +136,6 @@ return [
         ],
         [
             'path' => 'original',
-            'resize' => 0,
-            'crop' => 0,
         ],
 
     ],

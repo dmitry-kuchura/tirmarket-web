@@ -18,5 +18,7 @@ class Slider extends CommonI18n
                 $slider[] = $value;
             }
         }
+
+        return $slider;
     }
 }

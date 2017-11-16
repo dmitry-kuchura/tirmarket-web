@@ -26,12 +26,14 @@ use Core\Config;
                 </div>
                 <div class="_col-auto _ml-auto">
                     <div class="lang">
-                        <a href="<?php echo I18n::switcherLink('ru'); ?>" class="lang__item lang__item--active">
+                        <a href="<?php echo I18n::switcherLink('ru'); ?>"
+                           class="lang__item <?php echo I18n::$lang == 'ru' ? 'lang__item--active' : ''; ?>">
                             <span class="lang__icon">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#russia', false); ?>"></use></svg></span>
                             <span class="lang__title">рус</span>
                         </a>
-                        <a href="<?php echo I18n::switcherLink('ua'); ?>" class="lang__item">
+                        <a href="<?php echo I18n::switcherLink('ua'); ?>"
+                           class="lang__item <?php echo I18n::$lang == 'ua' ? 'lang__item--active' : ''; ?>">
                             <span class="lang__icon">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#ukraine', false); ?>"></use></svg></span>
                             <span class="lang__title">укр</span>
@@ -178,19 +180,22 @@ use Core\Config;
                 <div class="_col-auto">
                     <div class="_flex _items-center">
                         <?php if ($user): ?>
-                            <a href="<?php echo HTML::link('account/favorites', false); ?>" class="header-icon header-icon--light">
+                            <a href="<?php echo HTML::link('account/favorites', false); ?>"
+                               class="header-icon header-icon--light">
                                 <span class="header-icon__image">
                                     <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
                                 </span>
                             </a>
                         <?php else: ?>
-                            <a href="<?php echo HTML::link('favorites', false); ?>" class="header-icon header-icon--light">
+                            <a href="<?php echo HTML::link('favorites', false); ?>"
+                               class="header-icon header-icon--light">
                                 <span class="header-icon__image">
                                     <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use></svg>
                                 </span>
                             </a>
                         <?php endif; ?>
-                        <a href="#" class="header-icon header-icon--light" data-mfp="<?php echo HTML::link('hidden/basket', false); ?>">
+                        <a href="#" class="header-icon header-icon--light"
+                           data-mfp="<?php echo HTML::link('hidden/basket', false); ?>">
                             <span class="header-icon__image">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use></svg>
                                 <span class="header-icon__count" data-cart-count><?php echo $cart; ?></span>

@@ -2,6 +2,7 @@
 
 use Core\HTML;
 use Core\Arr;
+use Modules\Catalog\Models\Price;
 
 ?>
 <table align="left" border="1" cellpadding="5" cellspacing="0" width="100%">
@@ -30,7 +31,7 @@ use Core\Arr;
                 <?php endif; ?>
             </td>
             <td><?php echo $obj->name; ?></td>
-            <td><?php echo (int)$obj->cost; ?><?php echo __('грн.') ?></td>
+            <td><?php echo Price::getCurrentPrice($obj->cost); ?><?php echo __('грн.') ?></td>
             <td><?php echo (int)Arr::get($item, 'count', 1); ?></td>
             <td><?php echo $amt; ?></td>
         </tr>
@@ -39,7 +40,7 @@ use Core\Arr;
     <tfoot>
     <tr>
         <th colspan="4"><b><?php echo __('ВСЕГО:') ?></b></th>
-        <th><?php echo $amount; ?><?php echo __('грн.') ?></th>
+        <th><?php echo Price::getCurrentPrice($amount); ?><?php echo __('грн.') ?></th>
     </tr>
     </tfoot>
 </table>

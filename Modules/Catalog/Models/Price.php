@@ -102,9 +102,9 @@ class Price extends Common
                 $cost = self::addPercent($cost);
             }
 
-            return $cost . ' ' . $currency->view;
+            return number_format($cost, 2, '.', '') . ' ' . $currency->view;
         } else {
-            return $price . ' грн.';
+            return number_format($price, 2, '.', '') . ' грн.';
         }
     }
 
@@ -120,9 +120,9 @@ class Price extends Common
                 $cost = self::addPercent($cost);
             }
 
-            return $cost . ' ' . $currency->view;
+            return number_format($cost, 2, '.', '') . ' ' . $currency->view;
         } else {
-            return $price;
+            return number_format($price, 2, '.', '');
         }
     }
 
@@ -133,6 +133,6 @@ class Price extends Common
         $result = $price + $percent; // суммируем число с процентами от этого числа
 
         // выводим результат
-        return $result;
+        return number_format($result, 2, '.', '');
     }
 }

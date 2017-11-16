@@ -84,7 +84,7 @@ class General extends Ajax
                 'title' => $obj->name,
                 'image' => is_file(HOST . HTML::media('images/catalog/medium/' . $obj->image, false)) ? HTML::media('images/catalog/medium/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
                 'count' => (int)$item['count'],
-                'price' => number_format(Price::getCurrencyForCart($obj->cost), 2, ',', ' '),
+                'price' => Price::getCurrentPrice($total_price),
                 'maxcount' => 50,
             ];
         }

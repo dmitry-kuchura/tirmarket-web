@@ -32,7 +32,9 @@
                 this.totalPrice = data.totalPrice;
                 this.load = false;
 
-                document.querySelector('[data-cart-count]').innerHTML = data.totalCount;
+                $('[data-cart-count]').each(function () {
+                    $(this).text(data.totalCount);
+                });
             }
         },
 
@@ -53,7 +55,9 @@
                         $this.totalPrice = response.data.totalPrice;
                         $this.load = false;
 
-                        document.querySelector('[data-cart-count]').innerHTML = response.data.totalCount;
+                        $('[data-cart-count]').each(function () {
+                            $(this).text(response.data.totalCount);
+                        });
                     }, 1000);
 
                 })

@@ -3,14 +3,14 @@
 return [
     'statuses' => [
         0 => __('Новый'),
-        2 => __('В работе'),
-        1 => __('Выполнен'),
+        1 => __('В работе'),
+        2 => __('Выполнен'),
         3 => __('Отменен'),
     ],
     'st_classes' => [
         0 =>  'status--default',
-        2 =>  'status--wait',
-        1 =>  'status--success',
+        1 =>  'status--wait',
+        2 =>  'status--success',
         3 =>  'status--danger',
     ],
     'payment' => [

@@ -26,12 +26,12 @@ use Core\Config;
                 </div>
                 <div class="_col-auto _ml-auto">
                     <div class="lang">
-                        <a href="<?php echo I18n::switcherLink('ru'); ?>" class="lang__item lang__item--active">
+                        <a href="<?php echo I18n::switcherLink('ru'); ?>" class="lang__item <?php echo I18n::$lang == 'ru' ? 'lang__item--active' : ''; ?>">
                             <span class="lang__icon">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#russia', false); ?>"></use></svg></span>
                             <span class="lang__title">рус</span>
                         </a>
-                        <a href="<?php echo I18n::switcherLink('ua'); ?>" class="lang__item">
+                        <a href="<?php echo I18n::switcherLink('ua'); ?>" class="lang__item <?php echo I18n::$lang == 'ua' ? 'lang__item--active' : ''; ?>">
                             <span class="lang__icon">
                                 <svg><use xlink:href="<?php echo HTML::media('icons/icons.svg#ukraine', false); ?>"></use></svg></span>
                             <span class="lang__title">укр</span>

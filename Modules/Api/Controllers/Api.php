@@ -474,22 +474,21 @@ class Api extends Ajax
     {
         // to Temp folder
         $image = str_replace('http://tirmarket.com.ua/all', '', $imageUrl);
-        $path = HOST . HTML::media(DS . 'images/temp' . $image, false);
+        $pathImage = HOST . HTML::media(DS . 'images/temp' . $image, false);
 
         $ext = explode('/', $image);
         $ext = explode('.', $ext[2]);
         $ext = $ext[1];
 
-        if (!filesize($path)) {
+        if (!filesize($pathImage)) {
             return false;
         }
-
-        $image = SimpleImage::factory($path)->auto_orient();
 
         $need = Config::get('images.catalog');
         $filename = md5($imageUrl . time()) . '.' . strtolower($ext);
 
         foreach ($need AS $one) {
+            $image = SimpleImage::factory($pathImage)->auto_orient();
             $path = HOST . HTML::media(DS . 'images' . DS . 'catalog' . DS . Arr::get($one, 'path'), false);
 
             Files::createFolder($path, 0777);

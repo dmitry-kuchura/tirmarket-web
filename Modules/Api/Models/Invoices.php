@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Models;
 
+use I18n;
 use Core\User;
 use Core\QB\DB;
 use Core\CommonI18n;
@@ -109,5 +110,48 @@ class Invoices extends CommonI18n
                 DB::insert(static::$tableItems, $keys)->values($values)->execute();
             }
         }
+    }
+
+    public static function getInvoices($userID)
+    {
+        $orders = DB::select(
+            static::$table . '.*',
+            [DB::expr('SUM(invoices_items.price * invoices_items.count)'), 'amount'],
+            [DB::expr('SUM(invoices_items.price * invoices_items.count)'), 'count_items']
+        )
+            ->from(static::$table)
+            ->join('invoices_items', 'LEFT')->on('invoices_items.invoice_id', '=', static::$table . '.id')
+            ->where(static::$table . '.client_id', '=', $userID)
+            ->group_by(static::$table . '.id')
+            ->order_by(static::$table . '.created_at', 'DESC');
+        return $orders->find_all();
+    }
+
+    public static function getInvoicesItems($userID)
+    {
+        $items = DB::select(
+            'catalog.id',
+            'invoices_items.invoice_id',
+            'catalog.alias',
+            'catalog_i18n.name',
+            'catalog.parent_id',
+            'catalog.image',
+            'invoices_items.count',
+            'invoices_items.price'
+        )
+            ->from('invoices_items')
+            ->join('invoices', 'LEFT')->on('invoices.id', '=', 'invoices_items.invoice_id')
+            ->join('catalog', 'LEFT')->on('invoices_items.product_id', '=', 'catalog.id')
+            ->join('catalog_i18n', 'LEFT')->on('catalog_i18n.row_id', '=', 'catalog.id')
+            ->where('catalog_i18n.language', '=', I18n::$lang)
+            ->where('invoices.client_id', '=', $userID)->find_all();
+
+        $invoicesItems = [];
+
+        foreach ($items as $item) {
+            $invoicesItems[$item->invoice_id][] = $item;
+        }
+
+        return $invoicesItems;
     }
 }

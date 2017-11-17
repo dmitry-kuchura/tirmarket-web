@@ -29,6 +29,10 @@ $alias = Core\Route::action();
                class="account-menu__link <?php echo $alias == 'orders' ? 'account-menu__link--active' : ''; ?>"><?php echo __('История заказов'); ?></a>
         </li>
         <li class="account-menu__item">
+            <a href="<?php echo HTML::link('account/invoices'); ?>"
+               class="account-menu__link <?php echo $alias == 'invoices' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Выставленные счета'); ?></a>
+        </li>
+        <li class="account-menu__item">
             <a href="<?php echo HTML::link('account/transport'); ?>"
                class="account-menu__link <?php echo $alias == 'transport' ? 'account-menu__link--active' : ''; ?>"><?php echo __('Добавить Т/С'); ?></a>
         </li>

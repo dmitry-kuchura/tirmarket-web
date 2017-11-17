@@ -17,6 +17,7 @@ use Core\Config;
 use Core\User AS U;
 use Core\HTTP;
 use Core\Message;
+use Modules\Api\Models\Invoices;
 use Modules\Base;
 use Modules\Cart\Models\Orders;
 use Modules\Cart\Models\Payments;
@@ -49,7 +50,7 @@ class User extends Base
             return Config::error();
         }
         $this->_content = View::tpl([
-            'user' => U::info()
+            'user' => U::info(),
         ], 'User/Index');
     }
 
@@ -67,7 +68,7 @@ class User extends Base
         }
 
         $this->_content = View::tpl([
-            'user' => $user
+            'user' => $user,
         ], 'User/Edit');
     }
 
@@ -85,7 +86,7 @@ class User extends Base
         }
 
         $this->_content = View::tpl([
-            'user' => $user
+            'user' => $user,
         ], 'User/Password');
     }
 
@@ -223,6 +224,27 @@ class User extends Base
         U::factory()->auth($user, 0);
         Message::GetMessage(1, __('Вы успешно зарегистрировались на сайте! Пожалуйста укажите остальную информацию о себе в личном кабинете для того, что бы мы могли обращаться к Вам по имени'));
         HTTP::redirect('account');
+    }
+
+    /**
+     * Выставленные счета пользователя
+     */
+    public function invoicesAction()
+    {
+        $this->_seo['user_title'] = __('Выставленные счета');
+
+        $invoices = Invoices::getInvoices(U::info()->id);
+
+        if ($invoices) {
+            $invoicesItems = Invoices::getInvoicesItems(U::info()->id);
+        } else {
+            $invoicesItems = [];
+        }
+
+        $this->_content = View::tpl([
+            'invoices' => $invoices,
+            'invoicesItems' => $invoicesItems,
+        ], 'User/Invoices');
     }
 
     /**

@@ -21,8 +21,10 @@ use Modules\Catalog\Models\Price;
         <?php foreach ($invoices as $obj): ?>
             <tr class="_text-center" style="vertical-align: middle">
                 <td>
-                    <span class="history-trigger" data-toggle-trigger
-                          data-toggle-ns="order-id-<?php echo $obj->id; ?>"></span>
+                    <?php if (count($invoicesItems[$obj->id])): ?>
+                        <span class="history-trigger" data-toggle-trigger
+                              data-toggle-ns="order-id-<?php echo $obj->id; ?>"></span>
+                    <?php endif; ?>
                 </td>
                 <td><?php echo $obj->id; ?></td>
                 <td><?php echo date('d/m/Y', $obj->created_at); ?></td>

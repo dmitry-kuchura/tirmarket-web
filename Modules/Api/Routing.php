@@ -45,5 +45,7 @@ return [
     'api/put-orders' => 'api/api/putOrders',
 
     'api/insert-image' => 'api/api/insertImage',
-    'api/upload-image' => 'api/api/uploadImage'
+    'api/upload-image' => 'api/api/uploadImage',
+
+    'api/get-invoices' => 'api/api/getInvoices'
 ];

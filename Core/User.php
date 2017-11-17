@@ -459,4 +459,14 @@ class User {
         return DB::select()->from('users')->where('id', '=', $id)->find();
     }
 
+    public static function infoByImportId($id) {
+        $user = DB::select()->from('users')->where('import_id', '=', $id)->find();
+
+        if ($user) {
+            return $user->id;
+        } else {
+            return null;
+        }
+    }
+
 }

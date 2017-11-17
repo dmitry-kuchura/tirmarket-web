@@ -14,6 +14,7 @@ use Core\SOAP;
 use Core\User;
 use Exception;
 use Modules\Ajax;
+use Modules\Api\Models\Invoices;
 use Modules\Api\Models\Models;
 use Modules\Api\Models\Users;
 use Modules\Api\Models\Price;
@@ -523,5 +524,19 @@ class Api extends Ajax
         }
 
         return $filename;
+    }
+
+    public function getInvoicesAction()
+    {
+        $result = SOAP::createSoapClient('getInvoices');
+
+        foreach ($result->return->invoices->invoice as $obj) {
+            if (Invoices::check($obj)) {
+                if ($obj->products) {
+                    Invoices::insertRows($obj);
+                }
+            }
+        }
+
     }
 }

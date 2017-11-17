@@ -6,7 +6,6 @@ use Exception;
 use SoapClient;
 
 class SOAP {
-
     static $wsdl = 'http://tir.maccen.com:8081/webservice/ws/Exchange.1cws?wsdl';
 
     public static function createSoapClient($function, $params = []) {
@@ -166,5 +165,6 @@ class SOAP {
             throw new Exception($err->getMessage());
         }
     }
+
 
 }

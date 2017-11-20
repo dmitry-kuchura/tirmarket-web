@@ -24,7 +24,7 @@
     <div class="form-label"><?php echo __('Ваш адрес'); ?></div>
     <div class="form-element _mb-3">
         <input type="text" class="form-element__input" data-name="address" name="address"
-               value="<?php echo $user->address ? $user->address : ''; ?>" placeholder="">
+               value="<?php echo $user->address ? $user->address : ''; ?>" required placeholder="">
     </div>
     <input type="hidden" data-name="token" value="<?php echo $_SESSION['token']; ?>"/>
     <input type="hidden" data-name="lang" value="<?php echo I18n::$lang; ?>">

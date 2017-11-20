@@ -47,5 +47,7 @@ return [
     'api/insert-image' => 'api/api/insertImage',
     'api/upload-image' => 'api/api/uploadImage',
 
-    'api/get-invoices' => 'api/api/getInvoices'
+    'api/get-invoices' => 'api/api/getInvoices',
+
+    'api/image-from-file' => 'api/image/uploadImageFile'
 ];

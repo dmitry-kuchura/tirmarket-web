@@ -28,7 +28,6 @@ use Modules\Api\Models\StocksCount;
 
 class Api extends Ajax
 {
-
     public function before()
     {
         header('Content-Type: application/json');

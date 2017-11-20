@@ -1,16 +1,20 @@
 .catalog-slider {
 	position: relative;
 
+	& .slick-slide{
+		&:not(.slick-active) {
+			visibility: hidden;
+			opacity: 0;
+		}
+	}
+
 	&__slide {
 		margin: 0 rem(10);
 		transition: all .3s;
 		min-height: 100%;
 		height: auto;
 
-		&:not(.slick-active) {
-			visibility: hidden;
-			opacity: 0;
-		}
+
 	}
 
 	&__prev, &__next {

@@ -5,8 +5,6 @@ window.jQuery = window.$ = require('jquery');
 window.wHTML = window.wHTML || {};
 import filterHandle from './modules/filter';
 
-console.log('test');
-
 window.jQuery(function ($) {
 
     // filter

@@ -15,7 +15,6 @@ use Core\Widgets;
     <?php foreach ($_seo['scripts']['head'] as $script): ?>
         <?php echo $script; ?>
     <?php endforeach ?>
-    <?php echo $GLOBAL_MESSAGE; ?>
 </head>
 <body class="">
 <?php foreach ($_seo['scripts']['body'] as $script): ?>
@@ -46,12 +45,10 @@ use Core\Widgets;
                 </div>
             </div>
         </div>
-
-
-
     </main>
     <?php echo Widgets::get('Footer'); ?>
 </div>
 <?php echo Widgets::get('HiddenData'); ?>
+<?php echo $GLOBAL_MESSAGE; ?>
 </body>
 </html>

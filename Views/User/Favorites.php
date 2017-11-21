@@ -55,7 +55,7 @@ use Modules\Catalog\Models\Price;
                     </div>
                     <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                         <div class="_col-auto">
-                            <a href="#" class="icon-button favorite-button" data-product="<?php echo $obj->id; ?>"
+                            <a href="#" class="icon-button favorite-button in-favorite-now" data-product="<?php echo $obj->id; ?>"
                                data-user="<?php echo User::info()->id; ?>">
                                 <i>
                                     <svg>

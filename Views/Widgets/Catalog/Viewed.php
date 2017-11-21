@@ -1,4 +1,10 @@
-<?php use Core\HTML; ?>
+<?php
+
+use Core\HTML;
+use Core\User;
+use Modules\Catalog\Models\Price;
+
+?>
 <?php if (count($result)): ?>
     <div class="_lg-show">
         <div class="title _mb-3"><?php echo __('Просмотренные товары'); ?></div>
@@ -35,11 +41,9 @@
                         <div class="_flex _mb-3 _justify-between">
                             <div class="_col-auto">
                                 <?php if ($obj->sale == 1): ?>
-                                    <div class="item-card__price item-card__price--past"><?php echo number_format($obj->cost_old); ?>
-                                        грн.
-                                    </div>
+                                    <div class="item-card__price item-card__price--past"><?php echo Price::getCurrentPrice($obj->cost_old); ?></div>
                                 <?php endif; ?>
-                                <div class="item-card__price"><?php echo number_format($obj->cost); ?> грн.</div>
+                                <div class="item-card__price"><?php echo Price::getCurrentPrice($obj->cost); ?></div>
                             </div>
                             <div class="_col-auto">
                                 <?php if ($obj->available == 1): ?>
@@ -51,9 +55,12 @@
                         </div>
                         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
                             <div class="_col-auto">
-                                <a href="#" class="icon-button"><i>
+                                <a href="#" class="icon-button favorite-button" data-product="<?php echo $obj->id; ?>"
+                                   data-user="<?php echo User::info()->id; ?>">
+                                    <i>
                                         <svg>
-                                            <use xlink:href="<?php echo HTML::media('icons/icons.svg#star'); ?>"></use>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use>
                                         </svg>
                                     </i>
                                 </a>
@@ -74,7 +81,8 @@
                                 </div>
                             <?php else: ?>
                                 <div class="_col-auto _flex-grow-1">
-                                    <a href="#" class="button button--full" data-mfp="<?php echo HTML::link('hidden/order'); ?>"
+                                    <a href="#" class="button button--full"
+                                       data-mfp="<?php echo HTML::link('hidden/order'); ?>"
                                        data-param='<?php echo json_encode(['id' => $obj->id]); ?>'
                                        v-else>
                                         <span>

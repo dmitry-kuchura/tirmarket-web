@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 use Core\QB\DB;
@@ -22,12 +23,12 @@ class Message
             default:
                 $type = 'warning';
         }
-        $_SESSION['GLOBAL_MESSAGE'] = '<script type="text/javascript">$(document).ready(function(){generate("' . $message . '", "' . $type . '", ' . (int)$time . ');});</script>';
+        $_SESSION['GLOBAL_MESSAGE'] = '<script type="text/javascript">jQuery(document).ready(function(){generate("' . $message . '", "' . $type . '", ' . (int)$time . ');});</script>';
     }
 
     static function GetMessage2($message, $time = 3500)
     {
-        $_SESSION['GLOBAL_MESSAGE'] = '<script type="text/javascript">$(document).ready(function(){generate("' . $message . '", "info", ' . (int)$time . ');});</script>';
+        $_SESSION['GLOBAL_MESSAGE'] = '<script type="text/javascript">jQuery(document).ready(function(){generate("' . $message . '", "info", ' . (int)$time . ');});</script>';
     }
 
 }

@@ -35,6 +35,7 @@ jQuery(document).ready(function ($) {
         event.preventDefault();
 
         var product = $(this).data('product');
+        var element = $(this).closest('._col-12');
 
         $.ajax({
             url: '/ajax/addToFavorite',
@@ -49,6 +50,7 @@ jQuery(document).ready(function ($) {
                     if (data.favorite) {
                         $(event.currentTarget).addClass('in-favorite-now');
                     } else {
+                        element.remove();
                         $(event.currentTarget).removeClass('in-favorite-now');
                     }
 

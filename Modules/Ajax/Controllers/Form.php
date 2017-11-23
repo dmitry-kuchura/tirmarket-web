@@ -317,7 +317,6 @@ class Form extends Ajax
         }
 
         if ($update) {
-            $this->putOrders();
             $cart = Cart::factory()->get_list_for_basket();
 
             $link_user = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/orders';
@@ -698,31 +697,5 @@ class Form extends Ajax
         ]);
 
         $this->success(__('Оператор свяжется с Вами в скором времени'));
-    }
-
-    function putOrders()
-    {
-        $result = DB::select()->from('orders')->where('import_id', 'IS', null)->find_all();
-
-        foreach ($result as $obj) {
-            $items = Orders::itemsToArray($obj->id);
-            $user = User::infoById($obj->user_id);
-
-            if ($user->import_id) {
-                $params['data'] = [
-                    'date' => date('Y-m-d', $obj->created_at),
-                    'userID' => $user->import_id,
-                    'clientID' => $user->client_id,
-                    'currencyID' => $user->currency_id,
-                    'contractID' => $user->contract,
-                    'products' => $items,
-                ];
-
-                $orderID = SOAP::sendOrders($params);
-                if ($orderID) {
-                    DB::update('orders')->set(['import_id' => $orderID, 'changed' => 2])->where('id', '=', $obj->id)->execute();
-                }
-            }
-        }
     }
 }

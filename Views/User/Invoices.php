@@ -13,6 +13,7 @@ use Modules\Catalog\Models\Price;
         <tr>
             <th></th>
             <th>№</th>
+            <th><?php echo __('ID'); ?></th>
             <th><?php echo __('Дата заказа'); ?></th>
             <th><?php echo __('Название'); ?></th>
             <th><?php echo __('Кол-во товаров'); ?></th>
@@ -26,7 +27,8 @@ use Modules\Catalog\Models\Price;
                               data-toggle-ns="order-id-<?php echo $obj->id; ?>"></span>
                     <?php endif; ?>
                 </td>
-                <td><?php echo $obj->id; ?></td>
+                <td><?php echo $obj->code_1c; ?></td>
+                <td><?php echo $obj->import_id; ?></td>
                 <td><?php echo date('d/m/Y', $obj->created_at); ?></td>
                 <td><?php echo $obj->document; ?></td>
                 <td><?php echo count($invoicesItems[$obj->id]); ?></td>

@@ -10,7 +10,9 @@ use Core\Route;
 use Core\User;
 use Core\View;
 use Core\Config;
+use Modules\Api\Models\Models;
 use Modules\Base;
+use Modules\Cart\Models\Orders;
 use Modules\Content\Models\Control;
 use Modules\Cart\Models\Cart AS C;
 
@@ -74,6 +76,8 @@ class Cart extends Base
         }
 
         Cookie::delete('order_id');
+
+        Orders::putOrders();
 
         $this->_content = View::tpl([
             'user' => $user,

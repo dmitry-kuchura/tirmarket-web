@@ -4,6 +4,9 @@ namespace Modules\Cart\Models;
 
 use Core\QB\DB;
 use Core\Common;
+use Core\SOAP;
+use Core\User;
+use Modules\Api\Models\Orders as Order;
 
 class Orders extends Common
 {
@@ -61,6 +64,31 @@ class Orders extends Common
         return $result->find();
     }
 
+    public static function putOrders()
+    {
+        $result = DB::select()->from('orders')->where('import_id', 'IS', null)->find_all();
+
+        foreach ($result as $obj) {
+            $items = Order::itemsToArray($obj->id);
+            $user = User::infoById($obj->user_id);
+
+            if ($user->import_id) {
+                $params['data'] = [
+                    'date' => date('Y-m-d', $obj->created_at),
+                    'userID' => $user->import_id,
+                    'clientID' => $user->client_id,
+                    'currencyID' => $user->currency_id,
+                    'contractID' => $user->contract,
+                    'products' => $items,
+                ];
+
+                $orderID = SOAP::sendOrders($params);
+                if ($orderID) {
+                    DB::update('orders')->set(['import_id' => $orderID, 'changed' => 2])->where('id', '=', $obj->id)->execute();
+                }
+            }
+        }
+    }
 
     public static function getOrderItems($order_id)
     {

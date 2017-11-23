@@ -9,10 +9,12 @@ use Core\HTML;
 use Core\HTTP;
 use Core\QB\DB;
 use Core\Arr;
+use Core\SOAP;
 use Core\User;
 use Core\Config AS conf;
 use Core\View;
 use Core\System;
+use Modules\Api\Models\Orders;
 use Modules\Cart\Models\Cart;
 use Core\Log;
 use Core\Email;
@@ -700,29 +702,27 @@ class Form extends Ajax
 
     function putOrders()
     {
-        $curl = curl_init();
+        $result = DB::select()->from('orders')->where('import_id', 'IS', null)->find_all();
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => HTML::link('api/put-orders', true),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "cache-control: no-cache",
-            ],
-        ]);
+        foreach ($result as $obj) {
+            $items = Orders::itemsToArray($obj->id);
+            $user = User::infoById($obj->user_id);
 
-        $err = curl_error($curl);
+            if ($user->import_id) {
+                $params['data'] = [
+                    'date' => date('Y-m-d', $obj->created_at),
+                    'userID' => $user->import_id,
+                    'clientID' => $user->client_id,
+                    'currencyID' => $user->currency_id,
+                    'contractID' => $user->contract,
+                    'products' => $items,
+                ];
 
-        curl_close($curl);
-
-        if ($err) {
-            return false;
-        } else {
-            return true;
+                $orderID = SOAP::sendOrders($params);
+                if ($orderID) {
+                    DB::update('orders')->set(['import_id' => $orderID, 'changed' => 2])->where('id', '=', $obj->id)->execute();
+                }
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ use Core\CommonI18n;
 use Core\Cookie;
 use Core\GeoIP;
 use Core\HTML;
+use Core\HTTP;
 use Core\QB\DB;
 use Core\Arr;
 use Core\User;
@@ -314,6 +315,7 @@ class Form extends Ajax
         }
 
         if ($update) {
+            $this->putOrders();
             $cart = Cart::factory()->get_list_for_basket();
 
             $link_user = 'http://' . Arr::get($_SERVER, 'HTTP_HOST') . '/account/orders';
@@ -696,4 +698,31 @@ class Form extends Ajax
         $this->success(__('Оператор свяжется с Вами в скором времени'));
     }
 
+    function putOrders()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => HTML::link('api/put-orders', true),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "cache-control: no-cache",
+            ],
+        ]);
+
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

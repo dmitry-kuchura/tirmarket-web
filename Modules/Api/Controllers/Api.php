@@ -132,19 +132,20 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getStockAction()
-    {
-        $params = ['id' => Route::param('id')];
-        $result = SOAP::getStock($params);
-
-        var_dump($result);
-        die;
-        try {
-
-        } catch (Exception $err) {
-            throw new Exception($err->getMessage());
-        }
-    }
+//    Ждем реализации
+//    public function getStockAction()
+//    {
+//        $params = ['id' => Route::param('id')];
+//        $result = SOAP::getStock($params);
+//
+//        var_dump($result);
+//        die;
+//        try {
+//
+//        } catch (Exception $err) {
+//            throw new Exception($err->getMessage());
+//        }
+//    }
 
     /**
      * Список брендов

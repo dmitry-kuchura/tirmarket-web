@@ -6,7 +6,6 @@ use I18n;
 
 class NovaPoshta
 {
-
     private static $key = '1299c9a99a45f6721513ffb1b91393a7';
 
     /**
@@ -103,7 +102,6 @@ class NovaPoshta
 
         $warehouses = [];
 
-
         switch ($lang) {
             case 'ru':
                 foreach ($data['data'] as $value) {
@@ -117,22 +115,6 @@ class NovaPoshta
                 break;
         }
 
-//        if ($selectedWarehouse) {
-//            $marker = $selectedWarehouse;
-//        } elseif (isset($_SESSION['order_info']['warehouse']) && $_SESSION['order_info']['warehouse']) {
-//            $marker = $_SESSION['order_info']['warehouse'];
-//        }
-
-//        foreach ($data['data'] as $value) {
-//            $warehouseAddress = $value['DescriptionRu'];
-//            if ($marker == str_replace("\"", "'", $warehouseAddress)) {
-//                $warehouses[] = '<option value="' . str_replace("\"", "'", $warehouseAddress) . '" selected>' . $warehouseAddress . '</option>';
-//            } else {
-//                $warehouses[] = '<option value="' . str_replace("\"", "'", $warehouseAddress) . '">' . $warehouseAddress . '</option>';
-//            }
-//        }
-
         return $warehouses;
     }
-
 }

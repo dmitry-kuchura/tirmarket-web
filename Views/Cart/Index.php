@@ -86,11 +86,10 @@ use Core\HTML;
 
             <div id="nova-poshta" style="display: none;">
                 <div class="title title--md _mb-2"><?php echo __('Новая Почта'); ?></div>
-
                 <div class="_col-auto _flex _items-center _grid-space-2 _lg-show _mb-5">
                     <div class="form-label"><?php echo __('Выберите город'); ?>:</div>
                     <div class="_col-auto" style="margin-left: 28px;">
-                        <select name="sort" class="select" id="novaposhta-city">
+                        <select name="warehouse-city" data-name="warehouse-city" class="select" id="novaposhta-city">
                             <option value=""><?php echo __('Сделайте выбор'); ?></option>
                             <?php foreach ($cities as $key => $value): ?>
                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
@@ -98,7 +97,6 @@ use Core\HTML;
                         </select>
                     </div>
                 </div>
-
                 <div class="_col-auto _flex _items-center _grid-space-2 _lg-show _mb-5" id="warehouses" style="display: none;">
                     <div class="form-label"><?php echo __('Выберите отделение'); ?>:</div>
                     <div class="_col-auto">

@@ -278,6 +278,7 @@ class Form extends Ajax
             $this->error(__('Вы не указали тип доставки'));
         }
 
+        $warehouseCity = Arr::get($this->post, 'warehouse-city');
         $warehouse = Arr::get($this->post, 'warehouse');
 
         $payment = Arr::get($this->post, 'payment');
@@ -289,6 +290,7 @@ class Form extends Ajax
 
         $order = [];
         $order['status'] = 0;
+        $order['warehouse_city'] = $warehouseCity;
         $order['warehouse'] = $warehouse;
         $order['delivery'] = $delivery;
         $order['payment'] = $payment;

@@ -59,6 +59,41 @@ jQuery(document).ready(function ($) {
         });
     });
 
+    // Nova Poshta
+    $('.delivery-div').on('click', function () {
+        var ID = $(this).data('id');
+
+
+        if (ID === 1) {
+            $('#nova-poshta').slideDown();
+        } else {
+            $('#nova-poshta').slideUp();
+        }
+    });
+
+    $('#novaposhta-city').on('change', function () {
+        var city = $(this).val();
+        var language = $('#current-language').val();
+        var select = $('#warehouses');
+        var area = $('#novaposhta-warehouses');
+
+        $.ajax({
+            url: '/ajax/getNovaPoshtaWarehouses',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                city: city,
+                language: language
+            },
+            success: function (data) {
+                if (data.success === true) {
+                    select.slideDown();
+                    area.find('option').remove().end().append(data.html);
+                }
+            }
+        });
+    });
+
     $('#catalogSort select').on('change', function () {
         var uri = $('#catalogSort').data('uri');
         var arr = uri.split('?');

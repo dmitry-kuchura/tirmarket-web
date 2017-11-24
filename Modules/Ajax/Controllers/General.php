@@ -6,6 +6,7 @@ use Core\Arr;
 use Core\CommonI18n;
 use Core\Cookie;
 use Core\HTML;
+use Core\NovaPoshta;
 use Modules\Catalog\Models\Price;
 use I18n;
 use Modules\Ajax;
@@ -378,5 +379,21 @@ class General extends Ajax
         }
 
         die(json_encode($array));
+    }
+
+    public function getNovaPoshtaWarehousesAction()
+    {
+        $city = Arr::get($this->post, 'city');
+        $language = Arr::get($this->post, 'language');
+
+        $warehouses = NovaPoshta::getWarehousesList($city, null, $language);
+
+        $html = '';
+
+        foreach ($warehouses as $key => $value) {
+            $html .= '<option value="' . $key . '">' . $value . '</option>';
+        }
+
+        $this->success(['html' => $html]);
     }
 }

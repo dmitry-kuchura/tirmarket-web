@@ -46,9 +46,12 @@ use Core\HTML;
             <div class="_flex _grid-3 _grid-space-4 _mb-2">
                 <?php foreach ($delivery as $obj): ?>
                     <?php if (is_file(HOST . HTML::media('images/delivery/original/' . $obj->image, false))): ?>
-                        <div class="form-element form-element--radio _mb-4">
+                        <div class="form-element form-element--radio _mb-4 delivery-div"
+                             data-id="<?php echo $obj->id; ?>">
                             <label>
-                                <input type="radio" name="delivery" data-name="delivery" value="<?php echo $obj->id; ?>"
+                                <input type="radio" class="delivery-type" name="delivery"
+                                       data-id="<?php echo $obj->id; ?>" data-name="delivery"
+                                       value="<?php echo $obj->id; ?>"
                                        required> <i>
                                     <svg>
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -63,7 +66,8 @@ use Core\HTML;
                             </label>
                         </div>
                     <?php else: ?>
-                        <div class="form-element form-element--radio _mb-4">
+                        <div class="form-element form-element--radio _mb-4 delivery-div"
+                             data-id="<?php echo $obj->id; ?>">
                             <label>
                                 <input type="radio" name="delivery" data-name="delivery" value="<?php echo $obj->id; ?>"
                                        required><i>
@@ -79,12 +83,39 @@ use Core\HTML;
                 <?php endforeach; ?>
             </div>
             <div class="notification _mb-5"><?php echo __('Товар может быть на разных складах'); ?></div>
+
+            <div id="nova-poshta" style="display: none;">
+                <div class="title title--md _mb-2"><?php echo __('Новая Почта'); ?></div>
+
+                <div class="_col-auto _flex _items-center _grid-space-2 _lg-show _mb-5">
+                    <div class="form-label"><?php echo __('Выберите город'); ?>:</div>
+                    <div class="_col-auto" style="margin-left: 28px;">
+                        <select name="sort" class="select" id="novaposhta-city">
+                            <option value=""><?php echo __('Сделайте выбор'); ?></option>
+                            <?php foreach ($cities as $key => $value): ?>
+                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="_col-auto _flex _items-center _grid-space-2 _lg-show _mb-5" id="warehouses" style="display: none;">
+                    <div class="form-label"><?php echo __('Выберите отделение'); ?>:</div>
+                    <div class="_col-auto">
+                        <select name="warehouse" data-name="warehouse" class="select" id="novaposhta-warehouses" style="min-width: 345px; max-width: 345px;">
+                            <option value=""><?php echo __('Сделайте выбор'); ?></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="title title--md _mb-2"><?php echo __('Оплата'); ?></div>
             <div class="_flex _grid-space-4 _mb-4">
                 <?php foreach ($payments as $obj): ?>
                     <div class="form-element form-element--radio">
                         <label>
-                            <input type="radio" name="payment" data-name="payment" value="<?php echo $obj->id; ?>" required><i>
+                            <input type="radio" name="payment" data-name="payment" value="<?php echo $obj->id; ?>"
+                                   required><i>
                                 <svg>
                                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
                                          xlink:href="<?php echo HTML::media('icons/icons.svg#check', false); ?>"></use>
@@ -124,3 +155,5 @@ use Core\HTML;
         </simple-basket>
     </div>
 </div>
+
+<input id="current-language" type="hidden" value="<?php echo I18n::lang(); ?>">

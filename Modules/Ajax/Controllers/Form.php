@@ -278,6 +278,8 @@ class Form extends Ajax
             $this->error(__('Вы не указали тип доставки'));
         }
 
+        $warehouse = Arr::get($this->post, 'warehouse');
+
         $payment = Arr::get($this->post, 'payment');
         if (!$payment) {
             $this->error(__('Вы не выбрали способ оплаты!'));
@@ -287,6 +289,7 @@ class Form extends Ajax
 
         $order = [];
         $order['status'] = 0;
+        $order['warehouse'] = $warehouse;
         $order['delivery'] = $delivery;
         $order['payment'] = $payment;
 

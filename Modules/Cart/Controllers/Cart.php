@@ -6,6 +6,7 @@ use Core\CommonI18n;
 use Core\Cookie;
 use Core\HTML;
 use Core\HTTP;
+use Core\NovaPoshta;
 use Core\Route;
 use Core\User;
 use Core\View;
@@ -43,6 +44,7 @@ class Cart extends Base
         $this->_seo['keywords'] = $this->current->keywords;
         $this->_seo['description'] = $this->current->description;
 
+        $cities = NovaPoshta::getCitiesList();
         $user = User::info();
         // active delivery
         $delivery = CommonI18n::factory('delivery')->getRows(1, 'sort', 'ASC');
@@ -56,6 +58,7 @@ class Cart extends Base
             'delivery' => $delivery,
             'payments' => $payments,
             'current' => $current,
+            'cities' => $cities,
         ], 'Cart/Index');
     }
 

@@ -198,6 +198,38 @@
                 </div>
             </div>
         </div>
+
+        <?php if ($obj->warehouse): ?>
+        <div class="widget box">
+            <div class="widgetHeader">
+                <div class="widgetTitle"><i class="fa fa-clock-o"></i><?php echo __('Новая Почта'); ?></div>
+            </div>
+            <div class="widgetContent" style="padding-top: 0;" data-ajax="orders/orderNovaPoshta">
+                <?php echo \Forms\Form::open(['class' => 'form-vertical row-border']); ?>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2"><?php echo __('Город'); ?></label>
+                    <div class="col-md-10">
+                        <?php echo \Forms\Builder::select($cities, $obj->warehouse_city, ['name' => 'warehouse_city']); ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2"><?php echo __('Отделение'); ?></label>
+                    <div class="col-md-10">
+                        <?php echo \Forms\Builder::select($warehouses, $obj->warehouse, ['name' => 'warehouse']); ?>
+                    </div>
+                </div>
+
+                <div class="form-actions textright">
+                    <?php echo \Forms\Form::button(__('Обновить'), ['type' => 'button', 'class' => 'btn btn-primary']); ?>
+                </div>
+
+                <?php echo \Forms\Form::close(); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <div class="widget box">
             <div class="widgetHeader">
                 <div class="widgetTitle"><i class="fa fa-clock-o"></i><?php echo __('Оплата'); ?></div>

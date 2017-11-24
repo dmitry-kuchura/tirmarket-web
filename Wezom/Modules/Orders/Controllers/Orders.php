@@ -5,6 +5,7 @@ namespace Wezom\Modules\Orders\Controllers;
 use Core\Common;
 use Core\CommonI18n;
 use Core\HTML;
+use Core\NovaPoshta;
 use Wezom\Modules\User\Models\Users;
 use Core\Config;
 use Core\Route;
@@ -22,7 +23,6 @@ use Wezom\Modules\Catalog\Models\Items AS Catalog;
 
 class Orders extends Base
 {
-
     public $tpl_folder = 'Orders/General';
     public $statuses;
     public $st_classes;
@@ -47,7 +47,6 @@ class Orders extends Base
         $this->statuses = Config::get('order.statuses');
         $this->st_classes = Config::get('order.st_classes');
     }
-
 
     function indexAction()
     {
@@ -77,7 +76,7 @@ class Orders extends Base
         $pager = Pager::factory($this->page, $count, $this->limit)->create();
 
         $statuses = [
-            '' => 'Все'
+            '' => 'Все',
         ];
         $statuses += $this->statuses;
 
@@ -123,6 +122,9 @@ class Orders extends Base
             $delivery[$obj->id] = $obj->name;
         }
 
+        $cities = NovaPoshta::getCitiesList();
+        $warehouses = NovaPoshta::getWarehousesList($result->warehouse_city);
+
         $this->_content = View::tpl(
             [
                 'user' => $user,
@@ -131,6 +133,8 @@ class Orders extends Base
                 'statuses' => $this->statuses,
                 'payment' => $payment,
                 'delivery' => $delivery,
+                'cities' => $cities,
+                'warehouses' => $warehouses,
                 'tpl_folder' => $this->tpl_folder,
             ], $this->tpl_folder . '/Inner');
     }
@@ -245,7 +249,6 @@ class Orders extends Base
         HTTP::redirect('wezom/' . Route::controller() . '/index');
     }
 
-
     function printAction()
     {
         $result = Model::getRow(Route::param('id'));
@@ -259,5 +262,4 @@ class Orders extends Base
         ], $this->tpl_folder . '/Print');
         die;
     }
-
 }

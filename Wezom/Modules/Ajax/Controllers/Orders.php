@@ -189,6 +189,20 @@ class Orders extends \Wezom\Modules\Ajax
         ]);
     }
 
+    public function orderNovaPoshtaAction()
+    {
+        $post = $this->getDataFromSerialize(Arr::get($this->post, 'data'));
+
+        Common::factory('orders')->update([
+            'warehouse_city' => Arr::get($post, 'warehouse_city'),
+            'warehouse' => Arr::get($post, 'warehouse'),
+        ], Arr::get($this->post, 'id'));
+        
+        $this->success([
+            'msg' => __('Данные сохранены!'),
+        ]);
+    }
+
     /**
      * TODO update this method and script in my.js to array changes and without "size_id"
      * Change items information

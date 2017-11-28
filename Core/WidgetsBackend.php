@@ -9,7 +9,6 @@ use Wezom\Modules\Orders\Models\Orders;
 
 class WidgetsBackend
 {
-
     static $_instance;
 
     public $_data = [];
@@ -162,5 +161,4 @@ class WidgetsBackend
             'statuses' => Config::get('order.statuses'),
         ];
     }
-
 }

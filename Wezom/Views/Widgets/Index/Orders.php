@@ -4,7 +4,9 @@
             <div class="widgetHeader">
                 <div class="widgetTitle">
                     <i class="fa fa-reorder"></i>
-                    <?php echo __('Счётчик заказов'); ?>
+                    <?php use Wezom\Modules\Catalog\Models\Price;
+
+                    echo __('Счётчик заказов'); ?>
                 </div>
             </div>
             <div class="widgetContent">
@@ -56,7 +58,7 @@
                             <tr>
                                 <td><a href="/wezom/orders/edit/<?php echo $obj->id; ?>">#<?php echo $obj->id; ?></a></td>
                                 <td><a href="tel:<?php echo preg_replace('/[^0-9]/', '', $obj->phone); ?>"><?php echo $obj->phone; ?></a></td>
-                                <td><b><?php echo (int) $obj->amount; ?></b> грн</td>
+                                <td><b><?php echo Price::getCurrencies($obj->currencies, $obj->amount); ?></b> <?php echo Price::getCurrency($obj->currencies); ?></td>
                                 <td><?php echo date( 'd.m.Y H:i', $obj->created_at ); ?></td>
                                 <td>
                                     <?php if( $obj->status == 3 ): ?>

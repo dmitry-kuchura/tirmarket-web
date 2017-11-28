@@ -38,7 +38,7 @@ class Brands extends CommonI18n
         $data = [];
 
         $data['import_id'] = $obj->id;
-        $data['alias'] = self::unique($obj->name);
+        $data['alias'] = self::unique(trim($obj->name));
         $data['sort'] = $obj->position;
         $data['status'] = $obj->status;
         $data['created_at'] = time();
@@ -56,7 +56,7 @@ class Brands extends CommonI18n
 
         $ua = [];
 
-        $ua['name'] = $obj->name;
+        $ua['name'] = trim($obj->name);
         $ua['language'] = 'ua';
         $ua['row_id'] = $lastID;
 
@@ -71,7 +71,7 @@ class Brands extends CommonI18n
 
         $ru = [];
 
-        $ru['name'] = $obj->name;
+        $ru['name'] = trim($obj->name);
         $ru['language'] = 'ru';
         $ru['row_id'] = $lastID;
 
@@ -95,12 +95,12 @@ class Brands extends CommonI18n
         $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find()->id;
 
         $ua = [];
-        $ua['name'] = $obj->name;
+        $ua['name'] = trim($obj->name);
 
         DB::update(static::$tableI18n)->set($ua)->where('row_id', '=', $itemID)->where('language', '=', 'ua')->execute();
 
         $ru = [];
-        $ru['name'] = $obj->name;
+        $ru['name'] = trim($obj->name);
 
         DB::update(static::$tableI18n)->set($ru)->where('row_id', '=', $itemID)->where('language', '=', 'ru')->execute();
     }
@@ -119,7 +119,7 @@ class Brands extends CommonI18n
             ->where('alias', '=', $value);
         $count = $count->count_all();
         if ($count) {
-            return $value . rand(1000, 9999);
+            return $value . rand(10, 999999);
         }
         return $value;
     }

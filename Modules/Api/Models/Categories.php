@@ -37,9 +37,9 @@ class Categories extends CommonI18n
     {
         $data = [];
         $data['import_id'] = $obj->id;
-        $data['alias'] = self::unique($obj->name);
+        $data['alias'] = self::unique(trim($obj->name));
         $data['sort'] = $obj->position;
-        $data['status'] = $obj->status;
+        $data['status'] = 1;
         $data['image'] = $obj->image;
         $data['top_menu'] = $obj->inMainPage;
         $data['popular'] = $obj->popular;
@@ -99,7 +99,7 @@ class Categories extends CommonI18n
         $data = [];
         $data['import_id'] = $obj->id;
         $data['sort'] = $obj->position;
-        $data['status'] = $obj->status;
+        $data['status'] = 1;
         $data['image'] = $obj->image;
         $data['top_menu'] = $obj->inMainPage;
         $data['parent_id'] = $parent ? $parent->id : null;

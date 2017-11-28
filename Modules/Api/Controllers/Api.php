@@ -74,7 +74,6 @@ class Api extends Ajax
         $this->success(['success' => true]);
     }
 
-
     /**
      * Список товаров
      */
@@ -125,27 +124,6 @@ class Api extends Ajax
 
         $this->success(['success' => true]);
     }
-
-
-    /**
-     * Метод getStock
-     *
-     * @throws Exception
-     */
-//    Ждем реализации
-//    public function getStockAction()
-//    {
-//        $params = ['id' => Route::param('id')];
-//        $result = SOAP::getStock($params);
-//
-//        var_dump($result);
-//        die;
-//        try {
-//
-//        } catch (Exception $err) {
-//            throw new Exception($err->getMessage());
-//        }
-//    }
 
     /**
      * Список брендов

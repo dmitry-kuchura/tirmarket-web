@@ -197,7 +197,7 @@ class Orders extends \Wezom\Modules\Ajax
             'warehouse_city' => Arr::get($post, 'warehouse_city'),
             'warehouse' => Arr::get($post, 'warehouse'),
         ], Arr::get($this->post, 'id'));
-        
+
         $this->success([
             'msg' => __('Данные сохранены!'),
         ]);

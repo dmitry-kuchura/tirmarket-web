@@ -187,7 +187,7 @@ class Products extends CommonI18n
             throw new Exception($err->getMessage());
         }
 
-//        return true;
+        return true;
     }
 
     /**
@@ -204,7 +204,7 @@ class Products extends CommonI18n
             ->where('alias', '=', $value);
         $count = $count->count_all();
         if ($count) {
-            return $value . rand(1000, 9999);
+            return $value . rand(1, 9999999);
         }
         return $value;
     }

@@ -56,7 +56,11 @@ class Price extends Common
         $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies_id)->find();
 
         if ($currency) {
-            return number_format($price * $currency->exchange, 2, '.', '');
+            if ($currency->exchange > 0) {
+                return number_format($price * $currency->exchange, 2, '.', '');
+            } else {
+                return number_format($price / $currency->exchange, 2, '.', '');
+            }
         } else {
             return number_format($price, 2, '.', '');
         }

@@ -9,8 +9,8 @@ class Image extends Ajax
 {
     public function uploadImageFileAction()
     {
-        $file = HOST . "/image.csv";
-        ini_set('max_execution_time', 900);
+        $file = HOST . "/images.csv";
+        ini_set('max_execution_time', 90000);
 
         // чекаем файл, если есть чистим БД и записываем туда, удаляем файл
         $handle = fopen($file, "r");

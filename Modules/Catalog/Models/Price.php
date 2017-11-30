@@ -95,7 +95,11 @@ class Price extends Common
         $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
 
         if ($currency) {
-            $cost = $price * $currency->exchange;
+            if ($currency->exchange > 0) {
+                $cost = $price * $currency->exchange;
+            } else {
+                $cost = $price / $currency->exchange;
+            }
             $cost = number_format($cost, 2, ',', ' ');
 
             if (Config::get('basic.markup') > 0) {
@@ -114,7 +118,11 @@ class Price extends Common
         $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
 
         if ($currency) {
-            $cost = $price * $currency->exchange;
+            if ($currency->exchange > 0) {
+                $cost = $price * $currency->exchange;
+            } else {
+                $cost = $price / $currency->exchange;
+            }
 
             if (Config::get('basic.markup') > 0) {
                 $cost = self::addPercent($cost);

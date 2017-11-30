@@ -353,8 +353,6 @@ class Api extends Ajax
     }
 
     /**
-     * Шах и Мат БЛЯТЬ
-     *
      * @throws Exception
      */
     public function getQueueAction()
@@ -377,7 +375,7 @@ class Api extends Ajax
 
     public function insertQueueAction()
     {
-        $result = DB::select()->from('queue')->limit(500)->find_all();
+        $result = DB::select()->from('queue')->limit(1000)->find_all();
 
         try {
             foreach ($result as $obj) {

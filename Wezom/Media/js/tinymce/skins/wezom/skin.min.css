@@ -1214,6 +1214,8 @@ i.mce-i-checkbox {
 
 .mce-flow-layout {
 	/*white-space: normal;*/
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .mce-tinymce-inline .mce-flow-layout {

@@ -6,7 +6,8 @@ use Core\QB\DB;
 use Core\CommonI18n;
 use Core\Text;
 
-class Brands extends CommonI18n {
+class Brands extends CommonI18n
+{
 
     public static $table = 'brands';
     public static $tableI18n = 'brands_i18n';
@@ -17,10 +18,11 @@ class Brands extends CommonI18n {
      * @param $obj
      * @return bool
      */
-    public static function checkBrand($obj) {
+    public static function checkBrand($obj)
+    {
         $check = DB::select()->from(static::$table)
-                ->where('import_id', '=', $obj->id)
-                ->find();
+            ->where('import_id', '=', $obj->id)
+            ->find();
 
         if (count($check)) {
             return false;
@@ -34,7 +36,8 @@ class Brands extends CommonI18n {
      *
      * @param $obj
      */
-    public static function insertRows($obj) {
+    public static function insertRows($obj)
+    {
         $data = [];
 
         $data['import_id'] = $obj->id;
@@ -85,7 +88,8 @@ class Brands extends CommonI18n {
         DB::insert(static::$tableI18n, $keys)->values($values)->execute();
     }
 
-    public static function updateRows($obj) {
+    public static function updateRows($obj)
+    {
         $data = [];
         $data['sort'] = $obj->position;
         $data['updated_at'] = time();
@@ -110,11 +114,12 @@ class Brands extends CommonI18n {
      * @param $value
      * @return mixed|string
      */
-    public static function unique($value) {
+    public static function unique($value)
+    {
         $value = Text::translit($value);
         $count = DB::select([DB::expr('COUNT(id)'), 'count'])
-                ->from(static::$table)
-                ->where('alias', '=', $value);
+            ->from(static::$table)
+            ->where('alias', '=', $value);
         $count = $count->count_all();
         if ($count) {
             return $value . rand(10, 999999);

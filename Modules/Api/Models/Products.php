@@ -7,7 +7,8 @@ use Core\QB\DB;
 use Core\CommonI18n;
 use Exception;
 
-class Products extends CommonI18n {
+class Products extends CommonI18n
+{
 
     public static $table = 'catalog';
     public static $tableI18n = 'catalog_i18n';
@@ -18,7 +19,8 @@ class Products extends CommonI18n {
      * @param $obj
      * @return bool
      */
-    public static function checkItem($obj) {
+    public static function checkItem($obj)
+    {
         $check = DB::select()->from(static::$table)->where('import_id', '=', $obj->id)->find();
 
         if (count($check)) {
@@ -35,7 +37,8 @@ class Products extends CommonI18n {
      * @return bool
      * @throws Exception
      */
-    public static function insertRows($obj) {
+    public static function insertRows($obj)
+    {
         try {
             $parent = DB::select()->from('catalog_tree')->where('import_id', 'LIKE', $obj->parentID)->find();
             $brand = DB::select()->from('brands')->where('id', '=', $obj->brandID)->find();
@@ -121,7 +124,8 @@ class Products extends CommonI18n {
      * @return bool
      * @throws Exception
      */
-    public static function updateRows($obj) {
+    public static function updateRows($obj)
+    {
         try {
             $parent = DB::select()->from('catalog_tree')->where('id', '=', $obj->parentID)->find();
             $brand = DB::select()->from('brands')->where('id', '=', $obj->brandID)->find();
@@ -140,15 +144,15 @@ class Products extends CommonI18n {
             $itemID = DB::select('id')->from(static::$table)->where('import_id', '=', $obj->id)->find()->id;
 
             DB::update(static::$tableI18n)
-                    ->set(['name' => $obj->name])
-                    ->where('row_id', '=', $itemID)
-                    ->where('language', '=', 'ua')
-                    ->execute();
+                ->set(['name' => $obj->name])
+                ->where('row_id', '=', $itemID)
+                ->where('language', '=', 'ua')
+                ->execute();
             DB::update(static::$tableI18n)
-                    ->set(['name' => $obj->name])
-                    ->where('row_id', '=', $itemID)
-                    ->where('language', '=', 'ru')
-                    ->execute();
+                ->set(['name' => $obj->name])
+                ->where('row_id', '=', $itemID)
+                ->where('language', '=', 'ru')
+                ->execute();
 
             if (isset($obj->originals->original) && count($obj->originals->original)) {
                 if (is_array($obj->originals->original)) {
@@ -193,11 +197,12 @@ class Products extends CommonI18n {
      * @param $value
      * @return mixed|string
      */
-    public static function unique($value) {
+    public static function unique($value)
+    {
         $value = Text::translit($value);
         $count = DB::select([DB::expr('COUNT(id)'), 'count'])
-                ->from(static::$table)
-                ->where('alias', '=', $value);
+            ->from(static::$table)
+            ->where('alias', '=', $value);
         $count = $count->count_all();
         if ($count) {
             return $value . rand(1, 9999999);

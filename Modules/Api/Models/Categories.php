@@ -138,7 +138,7 @@ class Categories extends CommonI18n
     {
         $value = Text::translit($value);
         $count = DB::select([DB::expr('COUNT(id)'), 'count'])
-            ->from('catalog_tree')
+            ->from(static::$table)
             ->where('alias', '=', $value);
         $count = $count->count_all();
         if ($count) {

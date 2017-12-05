@@ -15,35 +15,26 @@
  */
 
 return [
-    'api/categories' => 'api/api/getCategories',
-    'api/category/<id>' => 'api/api/getCategory',
-
-    'api/products' => 'api/api/getProducts',
-    'api/product/<id>' => 'api/api/getCurrentProduct',
+    'api/categories' => 'api/categories/getCategories',
+    'api/category/<id>' => 'api/categories/getCategory',
+    'api/products' => 'api/products/getProducts',
+    'api/product/<id>' => 'api/products/getCurrentProduct',
+    'api/prices' => 'api/products/getPrices',
 
     'api/brands' => 'api/api/getBrands',
     'api/brand/<id>' => 'api/api/getBrand',
 
     'api/stock/<id>' => 'api/api/getStock',
-
     'api/stocks' => 'api/api/getStocks',
-
-    'api/prices' => 'api/api/getPrices',
     'api/queue' => 'api/api/getQueue',
     'api/queue-insert' => 'api/api/insertQueue',
     'api/prices-types' => 'api/api/getPricesTypes',
-
     'api/count' => 'api/api/getStockCount',
-
     'api/models' => 'api/api/getModels',
-
     'api/users' => 'api/api/getUsers',
-
     'api/currencies' => 'api/api/getCurrencies',
-
     'api/orders' => 'api/api/getOrders',
     'api/put-orders' => 'api/api/putOrders',
-
     'api/insert-image' => 'api/api/insertImage',
     'api/upload-image' => 'api/api/uploadImage',
 

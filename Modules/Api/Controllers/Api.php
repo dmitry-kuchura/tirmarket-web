@@ -502,6 +502,9 @@ class Api extends Ajax
         return $filename;
     }
 
+    /**
+     * Полуение документов
+     */
     public function getInvoicesAction()
     {
         $result = SOAP::createSoapClient('getInvoices');

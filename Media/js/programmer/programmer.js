@@ -118,4 +118,21 @@ jQuery(document).ready(function ($) {
         }
         window.location.href = uri;
     });
+
+    var searchInput = $(".search-form form .form-element__input");
+    function searchQuery () {
+        if (searchInput.val().length > 2) {
+            sessionStorage.setItem("searchQuery", searchInput.val());
+        }
+    }
+    $(".search-form form")
+        .on("click", ".search-form__icon", searchQuery)
+        .submit(searchQuery);
+
+    var link = window.location.href.split("?");
+    if (link[0].search(/search/) > -1) {
+        searchInput.val(sessionStorage.getItem("searchQuery"));
+    } else {
+        searchInput.val("");
+    }
 });

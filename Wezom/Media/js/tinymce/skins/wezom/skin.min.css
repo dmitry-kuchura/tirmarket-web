@@ -1214,6 +1214,8 @@ i.mce-i-checkbox {
 
 .mce-flow-layout {
 	/*white-space: normal;*/
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .mce-tinymce-inline .mce-flow-layout {
@@ -1313,7 +1315,7 @@ i.mce-i-checkbox {
 	display: inline-block;
 	overflow-x: hidden;
 	text-overflow: ellipsis;
-	width: 90px;
+	width: 80px;
 }
 
 .mce-menubtn.mce-fixed-width.mce-btn-small span {

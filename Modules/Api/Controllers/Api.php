@@ -36,6 +36,8 @@ class Api extends Ajax
 
     /**
      * Список категорий
+     *
+     * @throws Exception
      */
     public function getCategoriesAction()
     {
@@ -76,10 +78,12 @@ class Api extends Ajax
 
     /**
      * Список товаров
+     *
+     * @throws Exception
      */
     public function getProductsAction()
     {
-        for ($i = 1; $i <= 1500; $i++) {
+        for ($i = 1; $i <= 15000; $i++) {
             $limit = 150;
             $offset = ($i - 1) * 150;
             $update = '2015-01-01';
@@ -96,7 +100,7 @@ class Api extends Ajax
                         }
                     }
                 } else {
-                    $i = 1500;
+                    $i = 15000;
                 }
             } catch (Exception $err) {
                 throw new Exception($err->getMessage());
@@ -127,6 +131,8 @@ class Api extends Ajax
 
     /**
      * Список брендов
+     *
+     * @throws Exception
      */
     public function getBrandsAction()
     {
@@ -163,6 +169,8 @@ class Api extends Ajax
 
     /**
      * Получение складов
+     *
+     * @throws Exception
      */
     public function getStocksAction()
     {
@@ -179,6 +187,8 @@ class Api extends Ajax
 
     /**
      * Обновление остатков
+     *
+     * @throws Exception
      */
     public function getStockCountAction()
     {
@@ -197,10 +207,12 @@ class Api extends Ajax
 
     /**
      * Список цен
+     *
+     * @throws Exception
      */
     public function getPricesAction()
     {
-        $params = ['update' => '2017-06-01'];
+        $params = ['update' => '2015-01-01'];
         $result = SOAP::soapPrices($params);
 
         try {
@@ -244,6 +256,8 @@ class Api extends Ajax
 
     /**
      * Список типов цен
+     *
+     * @throws Exception
      */
     public function getPricesTypesAction()
     {
@@ -262,6 +276,8 @@ class Api extends Ajax
 
     /**
      * Список пользователей
+     *
+     * @throws Exception
      */
     public function getUsersAction()
     {
@@ -284,6 +300,8 @@ class Api extends Ajax
 
     /**
      * Обновление валют из 1С
+     *
+     * @throws Exception
      */
     public function getCurrenciesAction()
     {
@@ -306,6 +324,8 @@ class Api extends Ajax
 
     /**
      * Список заказов из 1С
+     *
+     * @throws Exception
      */
     public function getOrdersAction()
     {
@@ -357,7 +377,7 @@ class Api extends Ajax
      */
     public function getQueueAction()
     {
-        $params = ['update' => '2017-01-01'];
+        $params = ['update' => '2015-01-01'];
         $result = SOAP::soapPrices($params);
 
         try {
@@ -503,7 +523,9 @@ class Api extends Ajax
     }
 
     /**
-     * Полуение документов
+     * Получение документов
+     *
+     * @throws Exception
      */
     public function getInvoicesAction()
     {

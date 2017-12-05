@@ -26,10 +26,9 @@ use Modules\Api\Models\Currencies;
 use Modules\Api\Models\Orders;
 use Modules\Api\Models\StocksCount;
 
-class Api extends Ajax
-{
-    public function before()
-    {
+class Api extends Ajax {
+
+    public function before() {
         header('Content-Type: application/json');
         set_time_limit(9999999999999);
     }
@@ -39,8 +38,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getCategoriesAction()
-    {
+    public function getCategoriesAction() {
         $result = SOAP::createSoapClient('getCategories');
 
         if (count($result->return->categories->category)) {
@@ -61,8 +59,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getCategoryAction()
-    {
+    public function getCategoryAction() {
         $result = SOAP::getCategory(['id' => Route::param('id')]);
 
         if (count($result)) {
@@ -115,8 +112,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getCurrentProductAction()
-    {
+    public function getCurrentProductAction() {
         $params = ['id' => Route::param('id')];
         $result = SOAP::soapProduct($params);
 
@@ -134,8 +130,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getBrandsAction()
-    {
+    public function getBrandsAction() {
         $result = SOAP::createSoapClient('getBrands');
 
         foreach ($result->return->brands->brand as $obj) {
@@ -152,8 +147,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getBrandAction()
-    {
+    public function getBrandAction() {
         $result = SOAP::getBrand(['id' => Route::param('id')]);
 
         if (isset($result)) {
@@ -172,8 +166,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getStocksAction()
-    {
+    public function getStocksAction() {
         $result = SOAP::createSoapClient('getStocks');
 
         if (count($result->return->stocks->stock)) {
@@ -190,8 +183,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getStockCountAction()
-    {
+    public function getStockCountAction() {
         $result = SOAP::createSoapClient('getStockCount');
 
         try {
@@ -233,8 +225,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getModelsAction()
-    {
+    public function getModelsAction() {
         $result = SOAP::createSoapClient('getModels');
 
         try {
@@ -259,8 +250,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getPricesTypesAction()
-    {
+    public function getPricesTypesAction() {
         $result = SOAP::createSoapClient('getPricesTypes');
 
         if (count($result->return->pricetypes->pricetype)) {
@@ -279,8 +269,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getUsersAction()
-    {
+    public function getUsersAction() {
         $result = SOAP::createSoapClient('getUsers');
 
         if (is_array($result->return->users)) {
@@ -303,8 +292,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getCurrenciesAction()
-    {
+    public function getCurrenciesAction() {
         $result = SOAP::createSoapClient('getCurrencies');
 
         if (count($result->return->currency) > 1) {
@@ -327,8 +315,7 @@ class Api extends Ajax
      *
      * @throws Exception
      */
-    public function getOrdersAction()
-    {
+    public function getOrdersAction() {
         $result = SOAP::createSoapClient('getOrders');
 
         foreach ($result->return->orders->order as $obj) {
@@ -343,8 +330,7 @@ class Api extends Ajax
     /**
      * Отправка заказов в 1С
      */
-    public function putOrdersAction()
-    {
+    public function putOrdersAction() {
         header('Content-Type: text/html; charset=UTF-8');
         $result = DB::select()->from('orders')->where('import_id', 'IS', null)->find_all();
 
@@ -393,8 +379,7 @@ class Api extends Ajax
         $this->success(['success' => true]);
     }
 
-    public function insertQueueAction()
-    {
+    public function insertQueueAction() {
         $result = DB::select()->from('queue')->limit(1000)->find_all();
 
         try {
@@ -415,8 +400,7 @@ class Api extends Ajax
         $this->success(['success' => true]);
     }
 
-    public function insertImageAction()
-    {
+    public function insertImageAction() {
         $result = DB::select()->from('query')->where('status', '=', 1)->limit(500)->find_all();
 
         foreach ($result as $obj) {
@@ -427,8 +411,7 @@ class Api extends Ajax
         $this->success(['success' => true]);
     }
 
-    public function uploadImageAction()
-    {
+    public function uploadImageAction() {
         $result = DB::select()->from('query')->where('status', '=', 0)->limit(500)->find_all();
 
         foreach ($result as $obj) {
@@ -452,8 +435,7 @@ class Api extends Ajax
         $this->success(['success' => true]);
     }
 
-    function uploadImage($imageUrl)
-    {
+    function uploadImage($imageUrl) {
         // to Temp folder
         $image = str_replace('http://tirmarket.com.ua/all', '', $imageUrl);
         $path = HOST . HTML::media(DS . 'images/temp' . $image, false);
@@ -467,8 +449,7 @@ class Api extends Ajax
         return true;
     }
 
-    function uploadImageFromDisk($imageUrl)
-    {
+    function uploadImageFromDisk($imageUrl) {
         // to Temp folder
         $image = str_replace('http://tirmarket.com.ua/all', '', $imageUrl);
         $pathImage = HOST . HTML::media(DS . 'images/temp' . $image, false);
@@ -538,6 +519,5 @@ class Api extends Ajax
                 }
             }
         }
-
     }
 }

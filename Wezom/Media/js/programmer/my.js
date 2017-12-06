@@ -53,6 +53,30 @@ function preloader() {
 }
 
 $(document).ready(function () {
+    $('.import1C').on('click', function (e) {
+        e.preventDefault();
+        var button = $(this);
+        var url = $(this).data('alias');
+
+        wPreloader.show();
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function (data) {
+                if (data.success) {
+                    wPreloader.hide();
+                    generate('Обновлено!', 'success', 3500);
+                }
+            },
+            error: function () {
+                generate('Возникла ошибка при импорте из 1С!', 'error', 3500);
+            }
+        });
+    });
+
+
+
     // IMPORT 1C
     $('.import1C').on('click', function (e) {
         e.preventDefault();
@@ -459,7 +483,6 @@ $(document).ready(function () {
     }
 });
 
-
 //////////////// DAMN UPLOADER
 $(function () {
     var dropzone = $('.dropZone');
@@ -517,7 +540,6 @@ $(function () {
         });
     }
 });
-
 
 //////////////// RELATED ITEMS
 $(function () {
@@ -652,7 +674,6 @@ $(function () {
         search();
     });
 });
-
 
 /////////// ADD POSITION TO ORDER
 $(function () {

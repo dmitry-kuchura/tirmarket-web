@@ -3,6 +3,7 @@
 namespace Wezom\Modules\Import\Controllers;
 
 use Core\View;
+use Core\Widgets;
 use Wezom\Modules\Base;
 use Wezom\Modules\Import\Models\Import AS Model;
 
@@ -24,6 +25,7 @@ class Import extends Base
         $worker = Model::countWorkerJob();
         $logger = Model::getLog();
 
+        $this->_toolbar = Widgets::get('Toolbar_Query');
         $this->_content = View::tpl(
             [
                 'query' => $query,

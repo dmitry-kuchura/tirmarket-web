@@ -42,7 +42,7 @@ class Base
         $this->CSRF();
         $this->_method = $_SERVER['REQUEST_METHOD'];
         $this->config();
-        $this->access();
+//        $this->access();
         $this->redirects();
         $this->ssl();
         User::factory()->is_remember();

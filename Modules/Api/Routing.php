@@ -27,5 +27,6 @@ return [
     'api/v2/prices' => 'api/query/getPrices',
 
     // разгрузка очереди
-    'api/v2/worker' => 'api/worker/job'
+    'api/v2/worker' => 'api/worker/job',
+    'api/v2/worker-manual' => 'api/worker/manualJob'
 ];

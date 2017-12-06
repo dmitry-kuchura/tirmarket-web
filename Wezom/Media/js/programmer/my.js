@@ -75,6 +75,29 @@ $(document).ready(function () {
         });
     });
 
+    $('.addQuery').on('click', function (e) {
+        e.preventDefault();
+        var button = $(this);
+        var url = $(this).data('alias');
+
+        wPreloader.show();
+
+        console.log(url);
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (data) {
+                if (data.success) {
+                    window.location.reload();
+                    generate('Добавлено в очередь!', 'success', 3500);
+                }
+            },
+            error: function () {
+                generate('Возникла ошибка при добавлении в очередь!', 'error', 3500);
+            }
+        });
+    });
 
 
     // IMPORT 1C

@@ -84,4 +84,21 @@ class Import extends Common
 
         return $result;
     }
+
+    public static function checkQuery()
+    {
+        $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'], static::$table . '.type')
+            ->from(static::$table)
+            ->where(static::$table . '.status', '=', 1)
+            ->group_by(static::$table . '.type')
+            ->execute(null, true);
+
+        $query = [];
+
+        foreach ($result as $obj) {
+            $query[$obj->type] = $obj->count;
+        }
+
+        return $query;
+    }
 }

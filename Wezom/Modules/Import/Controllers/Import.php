@@ -24,10 +24,12 @@ class Import extends Base
         $query = Model::countQuery();
         $worker = Model::countWorkerJob();
         $logger = Model::getLog();
+        $check = Model::checkQuery();
 
         $this->_toolbar = Widgets::get('Toolbar_Query');
         $this->_content = View::tpl(
             [
+                'check' => $check,
                 'query' => $query,
                 'worker' => $worker,
                 'logger' => $logger,

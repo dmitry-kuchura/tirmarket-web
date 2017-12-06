@@ -8,6 +8,7 @@ use Core\Text;
 
 class Categories extends CommonI18n
 {
+    public static $query = 'query';
     public static $table = 'catalog_tree';
     public static $tableI18n = 'catalog_tree_i18n';
 
@@ -145,5 +146,30 @@ class Categories extends CommonI18n
             return $value . rand(1000, 9999);
         }
         return $value;
+    }
+
+    /**
+     * Запись категорий в табличку с очередью
+     *
+     * @param $array
+     */
+    public static function insertCategoriesToQuery($array)
+    {
+        $data = [];
+
+        $data['result'] = json_encode($array);
+        $data['type'] = 'categories';
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        $keys = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::insert(static::$query, $keys)->values($values)->execute();
     }
 }

@@ -25,6 +25,7 @@ class Products extends Api
 
             try {
                 $result = SOAP::soapProductsList($params);
+
                 if (count($result)) {
                     foreach ($result as $obj) {
                         if (Model::checkItem($obj)) {

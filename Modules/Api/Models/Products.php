@@ -9,7 +9,7 @@ use Exception;
 
 class Products extends CommonI18n
 {
-
+    public static $query = 'query';
     public static $table = 'catalog';
     public static $tableI18n = 'catalog_i18n';
 
@@ -135,7 +135,9 @@ class Products extends CommonI18n
             $data['sort'] = $obj->position;
             $data['status'] = $obj->status;
             $data['artikul'] = trim($obj->article);
-            $data['parent_id'] = $parent->id;
+            if ($parent) {
+                $data['parent_id'] = $parent->id;
+            }
             $data['brand_alias'] = $brand->alias;
             $data['updated_at'] = time();
 
@@ -210,4 +212,28 @@ class Products extends CommonI18n
         return $value;
     }
 
+    /**
+     * Запись товаров в табличку с очередью
+     *
+     * @param $array
+     */
+    public static function insertProductsToQuery($array)
+    {
+        $data = [];
+
+        $data['result'] = json_encode($array);
+        $data['type'] = 'products';
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        $keys = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::insert(static::$query, $keys)->values($values)->execute();
+    }
 }

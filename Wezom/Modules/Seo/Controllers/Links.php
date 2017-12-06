@@ -11,7 +11,7 @@
     use Core\Pager\Pager;
     use Core\Arr;
 
-    use Wezom\Modules\Seo\Models\Links AS Model;
+    use Wezom\Modules\Seo\Models\Import AS Model;
 
     class Links extends \Wezom\Modules\Base {
 

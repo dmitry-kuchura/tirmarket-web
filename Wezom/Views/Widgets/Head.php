@@ -69,7 +69,7 @@
 <script src="<?php echo Core\HTML::bmedia('js/jquery.dataTables.min.js'); ?>"></script>
 <script src="<?php echo Core\HTML::bmedia('js/dataTables.bootstrap.js'); ?>"></script>
 <!--<script src="--><?php //echo Core\HTML::bmedia('js/jquery.liTranslit.js'); ?><!--"></script>-->
-<script src="<?php echo Core\HTML::bmedia('js/highcharts.js'); ?>"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="<?php echo Core\HTML::bmedia('js/data.js'); ?>"></script>
 <script src="<?php echo Core\HTML::bmedia('js/jquery.liQuickEdit.js'); ?>"></script>
 <script src="<?php echo Core\HTML::bmedia('js/jquery.magnific-popup.min.js'); ?>"></script>

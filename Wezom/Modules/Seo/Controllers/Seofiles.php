@@ -12,7 +12,7 @@
     use Core\Arr;
     use Core\Support;
 
-    use Wezom\Modules\Seo\Models\Links AS Model;
+    use Wezom\Modules\Seo\Models\Import AS Model;
 
     class Seofiles extends \Wezom\Modules\Base {
 

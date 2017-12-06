@@ -9,10 +9,10 @@ ob_start();
 
 define('DS', '/');
 define('HOST', dirname(dirname(__FILE__)));
-define('MULTI_LANGUAGE', FALSE);
+define('MULTI_LANGUAGE', false);
 define('APPLICATION', 'backend');
-define('PROFILER', FALSE);
-define('START_TIME', microtime(TRUE));
+define('PROFILER', false);
+define('START_TIME', microtime(true));
 define('START_MEMORY', memory_get_usage());
 
 require_once HOST . DS . 'loader.php';

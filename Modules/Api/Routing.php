@@ -40,5 +40,9 @@ return [
 
     'api/get-invoices' => 'api/api/getInvoices',
 
-    'api/image-from-file' => 'api/image/uploadImageFile'
+    'api/image-from-file' => 'api/image/uploadImageFile',
+
+
+    'api/v2/products' => 'api/query/getProducts',
+    'api/v2/categories' => 'api/query/getCategories',
 ];

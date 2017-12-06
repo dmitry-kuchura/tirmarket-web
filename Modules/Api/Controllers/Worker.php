@@ -5,6 +5,7 @@ namespace Modules\Api\Controllers;
 use Core\QB\DB;
 use Exception;
 use Modules\Api\Models\Brands;
+use Modules\Api\Models\Image;
 use Modules\Api\Models\Price;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
@@ -58,7 +59,9 @@ class Worker extends Api
                     DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
                     break;
                 case 'image':
-                    //
+                    Image::uploadPhoto(json_decode($obj->result));
+
+                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
                     break;
             }
         }

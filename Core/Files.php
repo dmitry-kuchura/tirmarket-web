@@ -1,14 +1,17 @@
 <?php
+
 namespace Core;
 
 class Files
 {
 
     /**
-     *  Upload image
-     * @param string $mainFolder - name of th block in Config/images.php
-     * @param string $name - input tag 'name'
-     * @return string            - filename
+     * Upload image
+     *
+     * @param $mainFolder
+     * @param string $name
+     * @return bool|string
+     * @throws \Exception
      */
     public static function uploadImage($mainFolder, $name = 'file')
     {
@@ -142,7 +145,6 @@ class Files
         return $file_name;
     }
 
-
     /**
      *  Delete image
      * @param string $mainFolder - name of th block in Config/images.php
@@ -161,7 +163,6 @@ class Files
         }
         return true;
     }
-
 
     /**
      *  Create folder with some rights (0777 as default)

@@ -22,11 +22,13 @@ class Import extends Base
     {
         $query = Model::countQuery();
         $worker = Model::countWorkerJob();
+        $logger = Model::getLog();
 
         $this->_content = View::tpl(
             [
                 'query' => $query,
                 'worker' => $worker,
+                'logger' => $logger,
                 'tpl_folder' => $this->tpl_folder,
             ], $this->tpl_folder . '/Dashboard');
     }

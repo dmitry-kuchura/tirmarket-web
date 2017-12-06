@@ -72,4 +72,14 @@ class Import extends Common
 
         return $query;
     }
+
+    public static function getLog()
+    {
+        $result = DB::select()
+            ->from('query_log')
+            ->order_by('id', 'DESC')
+            ->find_all();
+
+        return $result;
+    }
 }

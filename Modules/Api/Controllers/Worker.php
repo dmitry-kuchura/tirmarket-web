@@ -10,7 +10,7 @@ use Modules\Api\Models\Categories;
 class Worker extends Api
 {
     static $query = 'query';
-
+    static $log = 'query_log';
 
     /**
      * Собственно очистка очереди
@@ -49,6 +49,8 @@ class Worker extends Api
                     break;
             }
         }
+
+        DB::insert(static::$log, ['description', 'created_at'])->values(['Обновлено из планировщика задач', time()])->execute();
 
         $this->success(['success' => true]);
     }

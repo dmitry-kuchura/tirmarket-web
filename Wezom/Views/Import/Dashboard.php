@@ -34,21 +34,21 @@
 
                             <table class="table table-striped table-checkable tableTask">
                                 <tbody>
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform">&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Выполнен запуск очереди по расписанию
-                                    </td>
-                                    <td>
-                                        <span class="time">05 декабря 2017</span>
-                                    </td>
-                                </tr>
+                                <?php foreach ($logger as $obj): ?>
+                                    <tr>
+                                        <td class="checkbox-column">
+                                            <div class="checker">
+                                                <label>
+                                                    <input type="checkbox" class="uniform">&nbsp;
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td><?php echo $obj->description; ?></td>
+                                        <td>
+                                            <span class="time"><?php echo date('Y-m-d H:i:s', $obj->created_at) ?></span>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
 
@@ -128,17 +128,17 @@
                 series: {
                     dataLabels: {
                         enabled: true,
-                        format: '{point.name}: {point.y:.1f}%'
+                        format: '{point.name}: {point.y} шт.'
                     }
                 }
             },
 
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} шт.</b><br/>'
             },
             series: [{
-                name: 'Brands',
+                name: 'Доступные',
                 colorByPoint: true,
                 data: <?php echo $worker; ?>
             }]

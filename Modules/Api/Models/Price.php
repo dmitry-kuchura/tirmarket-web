@@ -8,6 +8,7 @@ use Core\CommonI18n;
 
 class Price extends CommonI18n
 {
+    public static $query = 'query';
     public static $table = 'price_types';
     public static $tableI18n = 'price_types_i18n';
 
@@ -124,5 +125,30 @@ class Price extends CommonI18n
     public static function updatePrice($obj)
     {
         DB::update('catalog')->set(['cost' => $obj->price, 'updated_at' => time()])->where('import_id', 'LIKE', $obj->productID)->execute();
+    }
+
+    /**
+     * Запись цен в табличку с очередью
+     *
+     * @param $array
+     */
+    public static function insertPricesToQuery($array)
+    {
+        $data = [];
+
+        $data['result'] = json_encode($array);
+        $data['type'] = 'prices';
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        $keys = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::insert(static::$query, $keys)->values($values)->execute();
     }
 }

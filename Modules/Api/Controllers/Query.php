@@ -5,6 +5,8 @@ namespace Modules\Api\Controllers;
 use Exception;
 use Core\SOAP;
 use Modules\Ajax;
+use Modules\Api\Models\Brands;
+use Modules\Api\Models\Price;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
 
@@ -65,14 +67,42 @@ class Query extends Ajax
         $this->success(['success' => true]);
     }
 
+    /**
+     * Добавление в очередь брендов
+     *
+     * @throws Exception
+     */
     public function getBrandsAction()
     {
-        $result = SOAP::soapGetCategoriesList();
+        $result = SOAP::soapGetBrandsList();
 
         if (count($result)) {
             foreach ($result as $obj) {
-                Categories::insertCategoriesToQuery($obj);
+                Brands::insertBrandsToQuery($obj);
             }
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    /**
+     * Ченники в очередь
+     *
+     * @throws Exception
+     */
+    public function getPricesAction()
+    {
+        $params = ['update' => '2016-01-01'];
+        $result = SOAP::soapGetPricesList($params);
+
+        try {
+            if (count($result)) {
+                foreach ($result as $obj) {
+                    Price::insertPricesToQuery($obj);
+                }
+            }
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
         }
 
         $this->success(['success' => true]);

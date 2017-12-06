@@ -9,36 +9,67 @@ class Import extends Common
 {
     public static $table = 'query';
 
-    public static function countProductsInQuery($status = 1)
+    public static function countWorkerJob($status = 1)
     {
-        $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
+        $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'], static::$table . '.type')
             ->from(static::$table)
-            ->where(static::$table . '.type', 'LIKE', 'products');
-        if ($status !== null) {
-            $result->where(static::$table . '.status', '=', $status);
+            ->where(static::$table . '.status', '=', 0)
+            ->group_by(static::$table . '.type')
+            ->execute(null, true);
+
+        $data = [];
+
+        foreach ($result as $obj) {
+            $data[$obj->type] = $obj->count;
         }
 
-        return $result->count_all();
-    }
+        $description = [
+            'products' => 'Товары',
+            'categories' => 'Категории',
+            'prices' => 'Цены',
+            'brands' => 'Бренды',
+        ];
 
-    public static function countCategoriesInQuery($status = 1)
-    {
-        $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
-            ->from(static::$table)
-            ->where(static::$table . '.type', 'LIKE', 'categories');
-        if ($status !== null) {
-            $result->where(static::$table . '.status', '=', $status);
+        $worker = '[';
+
+        foreach ($data as $key => $value) {
+            $worker .= '{"name": "' . $description[$key] . '", "y": ' . $value . '},';
         }
 
-        return $result->count_all();
+        $worker .= ']';
+
+        return $worker;
     }
 
     public static function countQuery()
     {
-        $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
+        $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'], static::$table . '.type')
             ->from(static::$table)
-            ->where(static::$table . '.status', '=', 1);
+            ->where(static::$table . '.status', '=', 1)
+            ->group_by(static::$table . '.type')
+            ->execute(null, true);
 
-        return $result->count_all();
+        $data = [];
+
+        foreach ($result as $obj) {
+            $data[$obj->type] = $obj->count;
+        }
+
+        $description = [
+            'products' => 'Товары',
+            'categories' => 'Категории',
+            'prices' => 'Цены',
+            'brands' => 'Бренды',
+        ];
+
+        $query = '[';
+
+        foreach ($data as $key => $value) {
+            $query .= '{"name": "' . $description[$key] . '", "y": ' . $value . '},';
+        }
+
+        $query .= ']';
+
+        return $query;
     }
 }

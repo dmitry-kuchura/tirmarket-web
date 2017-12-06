@@ -8,7 +8,7 @@ use Core\Text;
 
 class Brands extends CommonI18n
 {
-
+    public static $query = 'query';
     public static $table = 'brands';
     public static $tableI18n = 'brands_i18n';
 
@@ -127,4 +127,28 @@ class Brands extends CommonI18n
         return $value;
     }
 
+    /**
+     * Запись брендов в табличку с очередью
+     *
+     * @param $array
+     */
+    public static function insertBrandsToQuery($array)
+    {
+        $data = [];
+
+        $data['result'] = json_encode($array);
+        $data['type'] = 'brands';
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        $keys = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::insert(static::$query, $keys)->values($values)->execute();
+    }
 }

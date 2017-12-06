@@ -43,120 +43,10 @@
                                         </div>
                                     </td>
                                     <td>
-
-                                        Загрузить товары в каталог
+                                        Выполнен запуск очереди по расписанию
                                     </td>
                                     <td>
-                                        <span class="time">13 июня 2014</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform">&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Перезвонить клиенту по поводу доставки
-                                    </td>
-                                    <td>
-                                        <span class="time">13 июня 2014</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform" checked>&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Отправить товар
-                                    </td>
-                                    <td>
-                                        <span class="time">13 июня 2014</span>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform">&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Сходить вечером в кино
-                                    </td>
-                                    <td>
-                                        <span class="time">13 июня 2014</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform">&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Загрузить товары в каталог
-                                    </td>
-                                    <td>
-                                        <span class="time">13 июня 2014</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform">&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Перезвонить клиенту по поводу доставки
-                                    </td>
-                                    <td>
-                                        <span class="time">13 июня 2014</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform">&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Отправить товар
-                                    </td>
-                                    <td>
-                                        <span class="time">13 июня 2014</span>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td class="checkbox-column">
-                                        <div class="checker">
-                                            <label>
-                                                <input type="checkbox" class="uniform">&nbsp;
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Сходить вечером в кино
-                                    </td>
-                                    <td>
-                                        <span class="time">13 июня 2014</span>
+                                        <span class="time">05 декабря 2017</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -170,10 +60,31 @@
     </div>
 </div>
 
+<div class="rowSection clearFix">
+    <div class="col-md-12">
+        <div class="rowSection clearFix">
+
+            <div class="col-md-12">
+                <div class="widget box">
+                    <div class="widgetHeader">
+                        <div class="widgetTitle">
+                            <i class="fa fa-reorder"></i>
+                            Worker
+                        </div>
+                    </div>
+                    <div class="widgetContent">
+                        <div class="memorySize" id="worker"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $('#memory').highcharts({
-            // Highcharts.chart('#memory', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -202,16 +113,34 @@
             series: [{
                 name: 'В очереди',
                 colorByPoint: true,
-                data: [{
-                    name: 'Товары',
-                    y: <?php echo $products; ?>,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Категори',
-                    y: <?php echo $categories; ?>,
-                    sliced: true
-                }]
+                data: <?php echo $query; ?>
+            }]
+        });
+
+        $('#worker').highcharts({
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Доступно из очереди на сайте'
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.y:.1f}%'
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: <?php echo $worker; ?>
             }]
         });
     });

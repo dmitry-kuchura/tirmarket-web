@@ -71,7 +71,7 @@ class SOAP
     }
 
     /**
-     * Список категорий
+     * Список брендов
      *
      * @return mixed
      * @throws Exception
@@ -86,10 +86,27 @@ class SOAP
 
         $result = $client->getBrands();
 
-        return $result->return->categories->category;
+        return $result->return->brands->brand;
     }
 
+    /**
+     * Список цен
+     *
+     * @param array $params
+     * @return mixed
+     */
+    public static function soapGetPricesList($params = [])
+    {
+        $client = new SoapClient(self::$wsdl, [
+            'exception' => 1,
+            'cache_wsdl' => WSDL_CACHE_MEMORY,
+            'trace' => true,
+        ]);
 
+        $result = $client->getPrices($params);
+
+        return $result->return->prices;
+    }
 
     /**
      * Конкретная категория
@@ -180,25 +197,6 @@ class SOAP
         $result = $client->getProduct($params);
 
         return $result->return;
-    }
-
-    /**
-     * Список цен
-     *
-     * @param array $params
-     * @return mixed
-     */
-    public static function soapPrices($params = [])
-    {
-        $client = new SoapClient(self::$wsdl, [
-            'exception' => 1,
-            'cache_wsdl' => WSDL_CACHE_MEMORY,
-            'trace' => true,
-        ]);
-
-        $result = $client->getPrices($params);
-
-        return $result->return->prices;
     }
 
     /**

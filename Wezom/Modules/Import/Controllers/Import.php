@@ -20,14 +20,13 @@ class Import extends Base
 
     function indexAction()
     {
-        $products = Model::countProductsInQuery();
-        $categories = Model::countCategoriesInQuery();
-        $count = Model::countQuery();
+        $query = Model::countQuery();
+        $worker = Model::countWorkerJob();
 
         $this->_content = View::tpl(
             [
-                'products' => $products,
-                'categories' => $categories,
+                'query' => $query,
+                'worker' => $worker,
                 'tpl_folder' => $this->tpl_folder,
             ], $this->tpl_folder . '/Dashboard');
     }

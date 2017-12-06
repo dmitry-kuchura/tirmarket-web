@@ -28,6 +28,7 @@ class Import extends Common
             'categories' => 'Категории',
             'prices' => 'Цены',
             'brands' => 'Бренды',
+            'image' => 'Изображения',
         ];
 
         $worker = '[';
@@ -60,6 +61,7 @@ class Import extends Common
             'categories' => 'Категории',
             'prices' => 'Цены',
             'brands' => 'Бренды',
+            'image' => 'Изображения',
         ];
 
         $query = '[';

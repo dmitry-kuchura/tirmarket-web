@@ -57,6 +57,9 @@ class Worker extends Api
 
                     DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
                     break;
+                case 'image':
+                    //
+                    break;
             }
         }
 

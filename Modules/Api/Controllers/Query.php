@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Controllers;
 
+use Core\QB\DB;
 use Exception;
 use Core\SOAP;
 use Modules\Ajax;
@@ -86,7 +87,7 @@ class Query extends Ajax
     }
 
     /**
-     * Ченники в очередь
+     * Ценники в очередь
      *
      * @throws Exception
      */
@@ -106,5 +107,40 @@ class Query extends Ajax
         }
 
         $this->success(['success' => true]);
+    }
+
+    public function getImagesAction()
+    {
+        $file = HOST . "/images.csv";
+        ini_set('max_execution_time', 90000);
+
+        $handle = fopen($file, "r");
+        if ($handle) {
+            $lines = file($file, FILE_IGNORE_NEW_LINES);
+
+            foreach ($lines as $line) {
+                $row = explode(',', $line);
+
+                $data = [];
+                $data['type'] = 'image';
+                $data['result'] = json_encode(['artikul' => str_replace('"', '', $row[0]), 'image' => str_replace('"', '', $row[1])]);
+                $data['created_at'] = time();
+                $data['updated_at'] = time();
+
+                $keys = [];
+                $values = [];
+
+                foreach ($data as $key => $value) {
+                    $keys[] = $key;
+                    $values[] = $value;
+                }
+
+                DB::insert('query', $keys)->values($values)->execute();
+            }
+
+            @unlink($file);
+            $this->success(['success' => true]);
+        }
+
     }
 }

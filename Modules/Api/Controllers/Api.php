@@ -35,44 +35,6 @@ class Api extends Ajax
     }
 
     /**
-     * Список брендов
-     *
-     * @throws Exception
-     */
-    public function getBrandsAction()
-    {
-        $result = SOAP::createSoapClient('getBrands');
-
-        foreach ($result->return->brands->brand as $obj) {
-            if (Brands::checkBrand($obj)) {
-                Brands::insertRows($obj);
-            } else {
-                Brands::updateRows($obj);
-            }
-        }
-    }
-
-    /**
-     * Отдельный бренд
-     *
-     * @throws Exception
-     */
-    public function getBrandAction()
-    {
-        $result = SOAP::getBrand(['id' => Route::param('id')]);
-
-        if (isset($result)) {
-            try {
-                Brands::updateRows($result);
-            } catch (Exception $err) {
-                throw new Exception($err->getMessage());
-            }
-        }
-
-        $this->success(['success' => true]);
-    }
-
-    /**
      * Получение складов
      *
      * @throws Exception

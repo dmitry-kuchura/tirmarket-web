@@ -3,7 +3,6 @@
 /* @var $check array */
 
 ?>
-
 <div class="rowSection clearFix">
     <div class="col-md-6">
         <div class="widget box">
@@ -101,7 +100,6 @@
 <div class="rowSection clearFix">
     <div class="col-md-6">
         <div class="rowSection clearFix">
-
             <!-- disc count-->
             <div class="col-md-12">
                 <div class="widget box">
@@ -116,12 +114,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="col-md-6">
         <div class="rowSection clearFix">
-
             <div class="col-md-12">
                 <div class="widget box">
                     <div class="widgetHeader">
@@ -135,7 +131,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

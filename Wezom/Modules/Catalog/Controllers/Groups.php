@@ -29,11 +29,12 @@ class Groups extends Base
 
     function indexAction()
     {
-        $result = Model::getRows(NULL, 'catalog_tree.sort', 'ASC');
+        $result = Model::getRows(null, 'catalog_tree.sort', 'ASC');
         $arr = [];
-        foreach ($result AS $obj) {
+        foreach ($result as $obj) {
             $arr[$obj->parent_id][] = $obj;
         }
+
         $this->_filter = Widgets::get('Filter_Pages', ['open' => 1]);
         $this->_toolbar = Widgets::get('Toolbar_List', ['add' => 1]);
         $this->_content = View::tpl(

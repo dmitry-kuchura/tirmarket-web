@@ -49,7 +49,7 @@
                         / <?php echo $check['prices']; ?></a>
                 <?php endif; ?>
                 <?php if (!isset($check['stocks'])): ?>
-                    <a class="btn btn-info btn-block addQuery" data-alias="/api/v2/stocks"
+                    <a class="btn btn-save btn-block addQuery" data-alias="/api/v2/stocks"
                        href="javascript:void(0);">Добавить остатки</a>
                 <?php else: ?>
                     <a class="btn btn-save btn-block" href="javascript:void(0);">Остатки

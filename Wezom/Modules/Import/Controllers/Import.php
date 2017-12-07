@@ -14,9 +14,9 @@ class Import extends Base
     function before()
     {
         parent::before();
-        $this->_seo['h1'] = __('Статистика импорта');
-        $this->_seo['title'] = __('Статистика импорта');
-        $this->setBreadcrumbs(__('Статистика импорта'), 'wezom/import/index');
+        $this->_seo['h1'] = __('Импорт 1С');
+        $this->_seo['title'] = __('Импорт 1С');
+        $this->setBreadcrumbs(__('Импорт 1С'), 'wezom/import/index');
     }
 
     function indexAction()

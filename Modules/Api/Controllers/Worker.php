@@ -67,7 +67,7 @@ class Worker extends Api
         }
 
         DB::insert(static::$log, ['description', 'created_at'])->values(['Обновлено из планировщика задач', time()])->execute();
-        DB::update(static::$query)->set(['status' => 1])->execute();
+        DB::update('catalog')->set(['status' => 1])->execute();
 
         $this->success(['success' => true]);
     }
@@ -119,7 +119,7 @@ class Worker extends Api
         }
 
         DB::insert(static::$log, ['description', 'created_at'])->values(['Обновлено вручную', time()])->execute();
-        DB::update(static::$query)->set(['status' => 1])->execute();
+        DB::update('catalog')->set(['status' => 1])->execute();
 
         $this->success(['success' => true]);
     }

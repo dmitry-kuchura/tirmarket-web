@@ -135,5 +135,6 @@ class Worker extends Api
     {
         DB::update('catalog')->set(['status' => 1])->execute();
         DB::update('catalog')->set(['available' => 0])->where('cost', '=', 0)->execute();
+        DB::update('catalog')->set(['available' => 1])->where('cost', '!=', 0)->execute();
     }
 }

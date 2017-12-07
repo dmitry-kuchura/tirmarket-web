@@ -11,14 +11,8 @@ use Modules\Api\Models\Price;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
 
-class Query extends Ajax
+class Query extends Api
 {
-    public function before()
-    {
-        header('Content-Type: application/json');
-        set_time_limit(9999999999999);
-    }
-
     /**
      * Импорт товаров
      *
@@ -109,6 +103,9 @@ class Query extends Ajax
         $this->success(['success' => true]);
     }
 
+    /**
+     * Изображения из файла ./images.csv в таблицу очереди
+     */
     public function getImagesAction()
     {
         $file = HOST . "/images.csv";

@@ -131,6 +131,9 @@ class Worker extends Api
         }
     }
 
+    /**
+     * Оптимизация таблиц после импорта
+     */
     public static function optimizeTable()
     {
         DB::update('catalog')->set(['status' => 1])->execute();

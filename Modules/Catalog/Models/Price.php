@@ -119,4 +119,52 @@ class Price extends Common
         // выводим результат
         return number_format($result, 2, '.', '');
     }
+
+    public static function getCostForFilter($price)
+    {
+        /* @var $user User */
+        $user = User::info();
+
+        if ($user && $user->currency_id) {
+            return self::convertPriceForFilter($price, $user->currency_id);
+        } else {
+            if (Config::get('basic.markup') > 0) {
+                return self::addPercent(self::convertPriceForFilter($price));
+            } else {
+                return self::convertPriceForFilter($price);
+            }
+        }
+    }
+
+    /**
+     * Дефолтная валюта гривна
+     *
+     * USD - 7383a1a6-e50d-11e0-a668-a71a9f00b1d1
+     * EUR - 7383a1a7-e50d-11e0-a668-a71a9f00b1d1
+     * PLN - 8d106635-3613-11e1-9d1a-1c7ee51fe239
+     * UAH - 7383a1a5-e50d-11e0-a668-a71a9f00b1d1
+     *
+     * @param $price
+     * @param string $currencies
+     * @return string
+     */
+    public static function convertPriceForFilter($price, $currencies = '7383a1a5-e50d-11e0-a668-a71a9f00b1d1')
+    {
+        /* @var $currency Price */
+        $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
+
+        if ($currency) {
+            if ($currency->exchange > 0) {
+                $cost = $price * $currency->exchange;
+            } else {
+                $cost = $price / $currency->exchange;
+            }
+
+            if (Config::get('basic.markup') > 0) {
+                $cost = self::addPercent($cost);
+            }
+
+            return number_format($cost, 2, '.', '');
+        }
+    }
 }

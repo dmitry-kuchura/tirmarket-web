@@ -8,6 +8,7 @@ use Core\Text;
 
 class StocksCount extends CommonI18n
 {
+    public static $query = 'query';
     public static $table = 'warehouses';
     public static $catalogTable = 'catalog';
     public static $tableI18n = 'warehouses_i18n';
@@ -44,5 +45,31 @@ class StocksCount extends CommonI18n
         $data['updated_at'] = time();
 
         DB::update('catalog')->set($data)->where('import_id', 'LIKE', $obj->productID)->execute();
+    }
+
+    /**
+     * Добавление в очередь
+     *
+     * @param $array
+     */
+    public static function insertBrandsToQuery($array)
+    {
+        $data = [];
+
+        $data['type'] = 'stocks';
+        $data['status'] = 1;
+        $data['result'] = json_encode($array);
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+
+        $keys = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        DB::insert(static::$query, $keys)->values($values)->execute();
     }
 }

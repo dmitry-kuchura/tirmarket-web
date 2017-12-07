@@ -20,7 +20,6 @@
                     <a class="btn btn-success btn-block" href="javascript:void(0);">Категории
                         / <?php echo $check['categories']; ?></a>
                 <?php endif; ?>
-
                 <?php if (!isset($check['brands'])): ?>
                     <a class="btn btn-warning btn-block addQuery" data-alias="/api/v2/brands"
                        href="javascript:void(0);">Добавить бренды</a>
@@ -28,7 +27,6 @@
                     <a class="btn btn-warning btn-block" href="javascript:void(0);">Бренды
                         / <?php echo $check['brands']; ?></a>
                 <?php endif; ?>
-
                 <?php if (!isset($check['products'])): ?>
                     <a class="btn btn-danger btn-block addQuery" data-alias="/api/v2/products"
                        href="javascript:void(0);">Добавить товары</a>
@@ -36,7 +34,6 @@
                     <a class="btn btn-danger btn-block" href="javascript:void(0);">Товары
                         / <?php echo $check['products']; ?></a>
                 <?php endif; ?>
-
                 <?php if (!isset($check['image'])): ?>
                     <a class="btn btn-primary btn-block addQuery" data-alias="/api/v2/images"
                        href="javascript:void(0);">Добавить изображения</a>
@@ -44,13 +41,19 @@
                     <a class="btn btn-primary btn-block" href="javascript:void(0);">Изображения
                         / <?php echo $check['image']; ?></a>
                 <?php endif; ?>
-
                 <?php if (!isset($check['prices'])): ?>
                     <a class="btn btn-info btn-block addQuery" data-alias="/api/v2/prices"
                        href="javascript:void(0);">Добавить цены</a>
                 <?php else: ?>
                     <a class="btn btn-info btn-block" href="javascript:void(0);">Цены
                         / <?php echo $check['prices']; ?></a>
+                <?php endif; ?>
+                <?php if (!isset($check['stocks'])): ?>
+                    <a class="btn btn-info btn-block addQuery" data-alias="/api/v2/stocks"
+                       href="javascript:void(0);">Добавить остатки</a>
+                <?php else: ?>
+                    <a class="btn btn-save btn-block" href="javascript:void(0);">Остатки
+                        / <?php echo $check['stocks']; ?></a>
                 <?php endif; ?>
             </div>
         </div>

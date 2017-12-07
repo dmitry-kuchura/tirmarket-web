@@ -109,6 +109,25 @@ class SOAP
     }
 
     /**
+     * Остатки товаров
+     *
+     * @return mixed
+     */
+    public static function soapGetStocksList()
+    {
+        $client = new SoapClient(self::$wsdl, [
+            'exception' => 1,
+            'cache_wsdl' => WSDL_CACHE_MEMORY,
+            'trace' => true,
+        ]);
+
+        $result = $client->getStockCount();
+
+        return $result->return->stockcount;
+    }
+
+
+    /**
      * Конкретная категория
      *
      * @param array $params

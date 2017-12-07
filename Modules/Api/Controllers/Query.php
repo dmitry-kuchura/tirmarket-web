@@ -5,11 +5,11 @@ namespace Modules\Api\Controllers;
 use Core\QB\DB;
 use Exception;
 use Core\SOAP;
-use Modules\Ajax;
-use Modules\Api\Models\Brands;
 use Modules\Api\Models\Price;
+use Modules\Api\Models\Brands;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
+use Modules\Api\Models\StocksCount;
 
 class Query extends Api
 {
@@ -98,6 +98,19 @@ class Query extends Api
             }
         } catch (Exception $err) {
             throw new Exception($err->getMessage());
+        }
+
+        $this->success(['success' => true]);
+    }
+
+    public function getStocksAction()
+    {
+        $result = SOAP::soapGetStocksList();
+
+        if (count($result)) {
+            foreach ($result as $obj) {
+                StocksCount::insertBrandsToQuery($obj);
+            }
         }
 
         $this->success(['success' => true]);

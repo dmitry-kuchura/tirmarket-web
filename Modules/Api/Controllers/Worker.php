@@ -9,6 +9,7 @@ use Modules\Api\Models\Image;
 use Modules\Api\Models\Price;
 use Modules\Api\Models\Products;
 use Modules\Api\Models\Categories;
+use Modules\Api\Models\StocksCount;
 
 class Worker extends Api
 {
@@ -64,6 +65,11 @@ class Worker extends Api
 
                         DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
                         break;
+                    case 'stocks':
+                        if (StocksCount::check(json_decode($obj->result))) {
+                            StocksCount::insertRows(json_decode($obj->result));
+                        }
+                        break;
                 }
             }
 
@@ -118,6 +124,16 @@ class Worker extends Api
                         }
 
                         DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'image':
+                        Image::uploadPhoto(json_decode($obj->result));
+
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'stocks':
+                        if (StocksCount::check(json_decode($obj->result))) {
+                            StocksCount::insertRows(json_decode($obj->result));
+                        }
                         break;
                 }
             }

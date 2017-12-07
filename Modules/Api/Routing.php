@@ -23,11 +23,10 @@ return [
 
     'api/v2/categories' => 'api/query/getCategories',
     'api/v2/brands' => 'api/query/getBrands',
-
     'api/v2/products' => 'api/query/getProducts',
     'api/v2/images' => 'api/query/getImages',
-
     'api/v2/prices' => 'api/query/getPrices',
+    'api/v2/stocks' => 'api/query/getStocks',
 
     // разгрузка очереди
     'api/v2/worker' => 'api/worker/job',

@@ -9,7 +9,7 @@ class Import extends Common
 {
     public static $table = 'query';
 
-    public static function countWorkerJob($status = 1)
+    public static function countWorkerJob()
     {
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'], static::$table . '.type')
             ->from(static::$table)
@@ -29,6 +29,7 @@ class Import extends Common
             'prices' => 'Цены',
             'brands' => 'Бренды',
             'image' => 'Изображения',
+            'stocks' => 'Остатки товаров',
         ];
 
         $worker = '[';
@@ -62,6 +63,7 @@ class Import extends Common
             'prices' => 'Цены',
             'brands' => 'Бренды',
             'image' => 'Изображения',
+            'stocks' => 'Остатки товаров',
         ];
 
         $query = '[';

@@ -6,7 +6,6 @@ use Core\User;
 use Core\QB\DB;
 use Core\Common;
 
-
 /**
  * Class Price
  *

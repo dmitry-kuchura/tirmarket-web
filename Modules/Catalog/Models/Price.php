@@ -37,13 +37,45 @@ class Price extends Common
         $user = User::info();
 
         if ($user && $user->currency_id) {
-            return self::getCurrencies($user->currency_id, $price);
+            return self::convertPrice($price, $user->currency_id);
         } else {
             if (Config::get('basic.markup') > 0) {
-                return self::addPercent($price) . ' грн.';
+                return self::addPercent(self::convertPrice($price));
             } else {
-                return $price . ' грн.';
+                return self::convertPrice($price);
             }
+        }
+    }
+
+    /**
+     * Дефолтная валюта гривна
+     *
+     * USD - 7383a1a6-e50d-11e0-a668-a71a9f00b1d1
+     * EUR - 7383a1a7-e50d-11e0-a668-a71a9f00b1d1
+     * PLN - 8d106635-3613-11e1-9d1a-1c7ee51fe239
+     * UAH - 7383a1a5-e50d-11e0-a668-a71a9f00b1d1
+     *
+     * @param $price
+     * @param string $currencies
+     * @return string
+     */
+    public static function convertPrice($price, $currencies = '7383a1a5-e50d-11e0-a668-a71a9f00b1d1')
+    {
+        /* @var $currency Price */
+        $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
+
+        if ($currency) {
+            if ($currency->exchange > 0) {
+                $cost = $price * $currency->exchange;
+            } else {
+                $cost = $price / $currency->exchange;
+            }
+
+            if (Config::get('basic.markup') > 0) {
+                $cost = self::addPercent($cost);
+            }
+
+            return number_format($cost, 2, '.', ' ') . ' ' . $currency->view;
         }
     }
 
@@ -59,86 +91,30 @@ class Price extends Common
         $user = User::info();
 
         if ($user && $user->currency_id) {
-            return self::getCurrency($user->currency_id, $price);
+            return self::convertPrice($price, $user->currency_id);
         } else {
             if (Config::get('basic.markup') > 0) {
-                return self::addPercent($price) . ' грн.';
+                return self::addPercent(self::convertPrice($price));
             } else {
-                return $price . ' грн.';
+                return self::convertPrice($price);
             }
-        }
-    }
-
-    public static function getCurrentCurrency()
-    {
-        $user = User::info();
-
-        if ($user->currency_id) {
-            $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $user->currency_id)->find();
-
-            return $currency->view;
-        } else {
-            return 'грн.';
         }
     }
 
     /**
-     * Персесчет
+     * Добавление наценки на цены
      *
-     * @param $currencies
      * @param $price
-     * @return mixed
+     * @return string
      */
-    public static function getCurrencies($currencies, $price)
-    {
-        /* @var $currency Price */
-        $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
-
-        if ($currency) {
-            if ($currency->exchange > 0) {
-                $cost = $price * $currency->exchange;
-            } else {
-                $cost = $price / $currency->exchange;
-            }
-            $cost = number_format($cost, 2, ',', ' ');
-
-            if (Config::get('basic.markup') > 0) {
-                $cost = self::addPercent($cost);
-            }
-
-            return number_format($cost, 2, '.', '') . ' ' . $currency->view;
-        } else {
-            return number_format($price, 2, '.', '') . ' грн.';
-        }
-    }
-
-    public static function getCurrency($currencies, $price)
-    {
-        /* @var $currency Price */
-        $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
-
-        if ($currency) {
-            if ($currency->exchange > 0) {
-                $cost = $price * $currency->exchange;
-            } else {
-                $cost = $price / $currency->exchange;
-            }
-
-            if (Config::get('basic.markup') > 0) {
-                $cost = self::addPercent($cost);
-            }
-
-            return number_format($cost, 2, '.', '') . ' ' . $currency->view;
-        } else {
-            return number_format($price, 2, '.', '');
-        }
-    }
-
     public static function addPercent($price)
     {
-        $percent = Config::get('basic.markup'); // количество процентов
-        $percent = $price / 100 * $percent; // высчитываем процент от числа
-        $result = $price + $percent; // суммируем число с процентами от этого числа
+        // количество процентов
+        $percent = Config::get('basic.markup');
+        // высчитываем процент от числа
+        $percent = $price / 100 * $percent;
+        // суммируем число с процентами от этого числа
+        $result = $price + $percent;
 
         // выводим результат
         return number_format($result, 2, '.', '');

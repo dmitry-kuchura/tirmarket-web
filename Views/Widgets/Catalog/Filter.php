@@ -2,6 +2,7 @@
 
 use Core\HTML;
 use Core\Route;
+use Modules\Catalog\Models\Price;
 use Modules\Catalog\Models\Filter;
 
 /* @var $hide bool */
@@ -47,7 +48,7 @@ use Modules\Catalog\Models\Filter;
                         <div class="title title--sm _mb-3"><?php echo __('Цена'); ?></div>
 
                         <div class="form-element">
-                            <div data-range="[<?php echo $min . ', ' . $max . ', ' . $min . ', ' . $max; ?>]"
+                            <div data-range="[<?php echo Price::getCostForFilter($min) . ', ' . Price::getCostForFilter($max) . ', ' . Price::getCostForFilter($min) . ', ' . Price::getCostForFilter($max); ?>]"
                                  data-ns="price"></div>
                             <input type="hidden" name="mincost" data-ns="price[0]">
                             <input type="hidden" name="maxcost" data-ns="price[1]">

@@ -103,7 +103,7 @@ class Categories extends CommonI18n
         $data['status'] = 1;
         $data['image'] = $obj->image;
         $data['top_menu'] = $obj->inMainPage;
-        $data['parent_id'] = $parent ? $parent->id : null;
+        $data['parent_id'] = $parent ? $parent->id : 0;
         $data['popular'] = $obj->popular;
         $data['created_at'] = time();
         $data['updated_at'] = time();

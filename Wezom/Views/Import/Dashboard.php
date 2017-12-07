@@ -49,7 +49,7 @@
                     <a class="btn btn-info btn-block addQuery" data-alias="/api/v2/prices"
                        href="javascript:void(0);">Добавить цены</a>
                 <?php else: ?>
-                    <a class="btn btn-info btn-block" href="javascript:void(0);">цены
+                    <a class="btn btn-info btn-block" href="javascript:void(0);">Цены
                         / <?php echo $check['prices']; ?></a>
                 <?php endif; ?>
             </div>
@@ -173,7 +173,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Доступно позиций на сайте'
+                text: 'Доступно / обновлено позиций на сайте'
             },
             plotOptions: {
                 series: {

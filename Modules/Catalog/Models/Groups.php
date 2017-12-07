@@ -1,6 +1,4 @@
-<?php
-
-namespace Modules\Catalog\Models;
+<?php namespace Modules\Catalog\Models;
 
 use Core\CommonI18n;
 use Core\HTML;
@@ -10,15 +8,16 @@ use I18n;
 
 class Groups extends CommonI18n
 {
+
     public static $table = 'catalog_tree';
     public static $tableI18n = 'catalog_tree_i18n';
+    public static $DEFAULT_LIMIT = 4;
 
     public static function getInnerGroups($parent_id, $sort = null, $type = null, $limit = null, $offset = null)
     {
         $result = DB::select(
-            static::$tableI18n . '.name',
-            static::$table . '.*'
-        )
+                static::$tableI18n . '.name', static::$table . '.*'
+            )
             ->from(static::$table)
             ->join(static::$tableI18n)
             ->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
@@ -62,9 +61,8 @@ class Groups extends CommonI18n
     public static function getPopularCategories($limit = 4)
     {
         $result = DB::select(
-            static::$tableI18n . '.*',
-            static::$table . '.*'
-        )
+                static::$tableI18n . '.*', static::$table . '.*'
+            )
             ->from(static::$table)
             ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
             ->where(static::$tableI18n . '.language', '=', I18n::$lang)
@@ -86,15 +84,29 @@ class Groups extends CommonI18n
     public static function getRandomGroup()
     {
         $result = DB::select(
-            static::$tableI18n . '.*',
-            static::$table . '.*'
-        )
+                static::$tableI18n . '.*', static::$table . '.*'
+            )
             ->from(static::$table)
             ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
             ->where(static::$tableI18n . '.language', '=', I18n::$lang)
             ->where(static::$table . '.status', '=', 1)
             ->order_by(DB::expr('RAND ()'))
-            ->limit(4)
+            ->limit(self::$DEFAULT_LIMIT)
+            ->find_all();
+
+        return $result;
+    }
+
+    public static function getGroups()
+    {
+        $result = DB::select(
+                static::$tableI18n . '.*', static::$table . '.*'
+            )
+            ->from(static::$table)
+            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+            ->where(static::$table . '.status', '=', 1)
+            ->limit(self::$DEFAULT_LIMIT)
             ->find_all();
 
         return $result;

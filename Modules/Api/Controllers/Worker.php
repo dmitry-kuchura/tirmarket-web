@@ -72,7 +72,7 @@ class Worker extends Api
 
             $this->success(['success' => true]);
         } else {
-            $this->success(['alert' => 'Worker пуст, обновлений не было!']);
+            $this->success(['alert' => 'Worker empty!']);
         }
     }
 
@@ -127,7 +127,7 @@ class Worker extends Api
 
             $this->success(['success' => true]);
         } else {
-            $this->success(['alert' => 'Worker пуст, обновлений не было!']);
+            $this->success(['alert' => 'Worker empty!']);
         }
     }
 

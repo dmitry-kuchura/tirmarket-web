@@ -381,6 +381,9 @@ class General extends Ajax
         die(json_encode($array));
     }
 
+    /**
+     * Склады Новой Почты
+     */
     public function getNovaPoshtaWarehousesAction()
     {
         $city = Arr::get($this->post, 'city');

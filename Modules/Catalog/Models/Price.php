@@ -137,6 +137,26 @@ class Price extends Common
     }
 
     /**
+     * Получение текущей валюты
+     *
+     * @return string
+     */
+    public static function getCurrentCurrency()
+    {
+        /* @var $user User */
+        $user = User::info();
+
+        if ($user && $user->currency_id) {
+            /* @var $currency Price */
+            $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $user->currency_id)->find();
+
+            return $currency->view;
+        } else {
+            return 'грн.';
+        }
+    }
+
+    /**
      * Дефолтная валюта гривна
      *
      * USD - 7383a1a6-e50d-11e0-a668-a71a9f00b1d1

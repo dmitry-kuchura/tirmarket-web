@@ -14,7 +14,6 @@ use Modules\Catalog\Models\Items;
 
 class Search extends Base
 {
-
     public $current;
     public $sort;
     public $type;
@@ -35,7 +34,6 @@ class Search extends Base
         $this->type = in_array(strtolower(Arr::get($_GET, 'type')), ['asc', 'desc']) ? strtoupper(Arr::get($_GET, 'type')) : 'ASC';
     }
 
-    // Search list
     public function indexAction()
     {
         if (Config::get('error')) {
@@ -81,10 +79,8 @@ class Search extends Base
         return $result;
     }
 
-    // This we will show when no results
     public function noResults()
     {
         return '<p>' . __('По Вашему запросу ничего не найдено!') . '</p>';
     }
-
 }

@@ -50,7 +50,7 @@ $limit = Config::get('basic.limit');
             <div class="_col-auto">
                 <select name="per_page" class="select">
                     <?php for ($i = $limit; $i < $limit * 5; $i += $limit): ?>
-                        <option value="<?php echo $i; ?>" <?php echo Arr::get($_GET, 'per_page') == $i ? 'selected' : ''; ?>><?php echo $i; ?><?php echo __('товаров'); ?></option>
+                        <option value="<?php echo $i; ?>" <?php echo Arr::get($_GET, 'per_page') == $i ? 'selected' : ''; ?>><?php echo $i; ?> <?php echo __('товаров'); ?></option>
                     <?php endfor; ?>
                 </select>
             </div>

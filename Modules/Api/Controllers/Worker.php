@@ -127,5 +127,6 @@ class Worker extends Api
     public static function optimizeTable()
     {
         DB::update('catalog')->set(['status' => 1])->execute();
+        DB::update('catalog')->set(['available' => 0])->where('cost', '!=', 0)->execute();
     }
 }

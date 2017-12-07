@@ -24,52 +24,56 @@ class Worker extends Api
     {
         $result = DB::select()->from(static::$query)->where('status', '=', 1)->limit(666)->find_all();
 
-        foreach ($result as $obj) {
-            switch ($obj->type) {
-                case 'products':
-                    if (Products::checkItem(json_decode($obj->result))) {
-                        Products::insertRows(json_decode($obj->result));
-                    } else {
-                        Products::updateRows(json_decode($obj->result));
-                    }
+        if (count($result)) {
+            foreach ($result as $obj) {
+                switch ($obj->type) {
+                    case 'products':
+                        if (Products::checkItem(json_decode($obj->result))) {
+                            Products::insertRows(json_decode($obj->result));
+                        } else {
+                            Products::updateRows(json_decode($obj->result));
+                        }
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
-                case 'prices':
-                    Price::updatePrice(json_decode($obj->result));
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'prices':
+                        Price::updatePrice(json_decode($obj->result));
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
-                case 'brands':
-                    if (Brands::checkBrand(json_decode($obj->result))) {
-                        Brands::insertRows(json_decode($obj->result));
-                    } else {
-                        Brands::updateRows(json_decode($obj->result));
-                    }
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'brands':
+                        if (Brands::checkBrand(json_decode($obj->result))) {
+                            Brands::insertRows(json_decode($obj->result));
+                        } else {
+                            Brands::updateRows(json_decode($obj->result));
+                        }
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
-                case 'categories':
-                    if (Categories::checkCategory(json_decode($obj->result))) {
-                        Categories::insertRows(json_decode($obj->result));
-                    } else {
-                        Categories::updateRows(json_decode($obj->result));
-                    }
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'categories':
+                        if (Categories::checkCategory(json_decode($obj->result))) {
+                            Categories::insertRows(json_decode($obj->result));
+                        } else {
+                            Categories::updateRows(json_decode($obj->result));
+                        }
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
-                case 'image':
-                    Image::uploadPhoto(json_decode($obj->result));
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'image':
+                        Image::uploadPhoto(json_decode($obj->result));
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                }
             }
+
+            DB::insert(static::$log, ['description', 'created_at'])->values(['Обновлено из планировщика задач', time()])->execute();
+            self::optimizeTable();
+
+            $this->success(['success' => true]);
+        } else {
+            $this->success(['alert' => 'Worker пуст, обновлений не было!']);
         }
-
-        DB::insert(static::$log, ['description', 'created_at'])->values(['Обновлено из планировщика задач', time()])->execute();
-        self::optimizeTable();
-
-        $this->success(['success' => true]);
     }
 
     /**
@@ -80,48 +84,51 @@ class Worker extends Api
     public function manualJobAction()
     {
         $result = DB::select()->from(static::$query)->where('status', '=', 1)->limit(666)->find_all();
+        if (count($result)) {
+            foreach ($result as $obj) {
+                switch ($obj->type) {
+                    case 'products':
+                        if (Products::checkItem(json_decode($obj->result))) {
+                            Products::insertRows(json_decode($obj->result));
+                        } else {
+                            Products::updateRows(json_decode($obj->result));
+                        }
 
-        foreach ($result as $obj) {
-            switch ($obj->type) {
-                case 'products':
-                    if (Products::checkItem(json_decode($obj->result))) {
-                        Products::insertRows(json_decode($obj->result));
-                    } else {
-                        Products::updateRows(json_decode($obj->result));
-                    }
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'prices':
+                        Price::updatePrice(json_decode($obj->result));
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
-                case 'prices':
-                    Price::updatePrice(json_decode($obj->result));
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'brands':
+                        if (Brands::checkBrand(json_decode($obj->result))) {
+                            Brands::insertRows(json_decode($obj->result));
+                        } else {
+                            Brands::updateRows(json_decode($obj->result));
+                        }
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
-                case 'brands':
-                    if (Brands::checkBrand(json_decode($obj->result))) {
-                        Brands::insertRows(json_decode($obj->result));
-                    } else {
-                        Brands::updateRows(json_decode($obj->result));
-                    }
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                    case 'categories':
+                        if (Categories::checkCategory(json_decode($obj->result))) {
+                            Categories::insertRows(json_decode($obj->result));
+                        } else {
+                            Categories::updateRows(json_decode($obj->result));
+                        }
 
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
-                case 'categories':
-                    if (Categories::checkCategory(json_decode($obj->result))) {
-                        Categories::insertRows(json_decode($obj->result));
-                    } else {
-                        Categories::updateRows(json_decode($obj->result));
-                    }
-
-                    DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
-                    break;
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
+                        break;
+                }
             }
+
+            DB::insert(static::$log, ['description', 'created_at'])->values(['Обновлено вручную', time()])->execute();
+            self::optimizeTable();
+
+            $this->success(['success' => true]);
+        } else {
+            $this->success(['alert' => 'Worker пуст, обновлений не было!']);
         }
-
-        DB::insert(static::$log, ['description', 'created_at'])->values(['Обновлено вручную', time()])->execute();
-        self::optimizeTable();
-
-        $this->success(['success' => true]);
     }
 
     public static function optimizeTable()

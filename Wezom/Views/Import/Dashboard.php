@@ -100,7 +100,6 @@
 <div class="rowSection clearFix">
     <div class="col-md-6">
         <div class="rowSection clearFix">
-            <!-- disc count-->
             <div class="col-md-12">
                 <div class="widget box">
                     <div class="widgetHeader">
@@ -174,7 +173,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Доступно из очереди на сайте'
+                text: 'Доступно позиций на сайте'
             },
             plotOptions: {
                 series: {

@@ -69,6 +69,8 @@ class Worker extends Api
                         if (StocksCount::check(json_decode($obj->result))) {
                             StocksCount::insertRows(json_decode($obj->result));
                         }
+
+                        DB::update(static::$query)->set(['status' => 0])->where('id', '=', $obj->id)->execute();
                         break;
                 }
             }

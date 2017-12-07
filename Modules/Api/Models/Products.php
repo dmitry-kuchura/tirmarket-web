@@ -128,7 +128,7 @@ class Products extends CommonI18n
     {
         try {
             $parent = DB::select()->from('catalog_tree')->where('id', '=', $obj->parentID)->find();
-            $brand = DB::select()->from('brands')->where('id', '=', $obj->brandID)->find();
+            $brand = DB::select()->from('brands')->where('import_id', 'LIKE', $obj->brandID)->find();
 
             $data = [];
             $data['code_1с'] = $obj->code1C;

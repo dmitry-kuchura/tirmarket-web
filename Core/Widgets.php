@@ -1,6 +1,4 @@
-<?php
-
-namespace Core;
+<?php namespace Core;
 
 use I18n;
 use Core\QB\DB;
@@ -13,8 +11,8 @@ use Modules\Content\Models\Slider;
 
 class Widgets
 {
-    static $_instance;
 
+    static $_instance;
     public $_data = [];
     public $_contentMenu = [];
     public $_tree = [];
@@ -92,7 +90,6 @@ class Widgets
         }
         return null;
     }
-
     /* Основные */
 
     public function Head()
@@ -102,7 +99,6 @@ class Widgets
             HTML::media('js/noty/css/animate.css', false),
         ];
         return ['styles' => $styles];
-
     }
 
     public function Header()
@@ -135,7 +131,6 @@ class Widgets
 
         return ['left' => $result['left'], 'right' => $result['right']];
     }
-
     /* Главная страница */
 
     public function Index_Manufactures()
@@ -177,7 +172,7 @@ class Widgets
 
     public function Index_Catalog()
     {
-        $result = Groups::getRandomGroup();
+        $result = Groups::getGroups();
 
         return [
             'result' => $result,
@@ -190,7 +185,6 @@ class Widgets
 
         return ['result' => $result];
     }
-
     /* Страницы каталога */
 
     public function Catalog_Viewed()
@@ -214,7 +208,6 @@ class Widgets
             'max' => $array['max'],
         ];
     }
-
     /* Страницы Личного Кабинета  */
 
     public function User_Transport()

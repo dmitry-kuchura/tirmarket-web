@@ -76,51 +76,6 @@
     <?php if( $obj->id ): ?>
         <div class="col-md-5">
             <div class="widget">
-                <div class="widgetContent">
-                    <ul class="anyClass accordion harmonica">
-                        <li><a href="#" class="btn harFull harClose"><?php echo __('Социальные сети'); ?></a>
-                            <ul class="">
-                                <div>
-                                    <table class="table table-hover table-condensed">
-                                        <thead>
-                                        <tr>
-                                            <th><?php echo __('Сеть'); ?></th>
-                                            <th>UID</th>
-                                            <th><?php echo __('Имя'); ?></th>
-                                            <th><?php echo __('Фамилия'); ?></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php if( !sizeof($socials) ): ?>
-                                            <tr style="background-color: #F3F3C3;">
-                                                <td colspan="4"><?php echo __('Пользователь не прикрепил ни одной социальной сети'); ?></td>
-                                            </tr>
-                                        <?php else: ?>
-                                            <?php foreach( $socials AS $key => $value ): ?>
-                                                <tr>
-                                                    <td><?php echo $value->network; ?></td>
-                                                    <td><a href="<?php echo $value->profile; ?>" target="_blank"><?php echo $value->uid; ?></a></td>
-                                                    <td><?php echo $value->first_name ?: '----'; ?></td>
-                                                    <td><?php echo $value->last_name ?: '----'; ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="widget withButtons">
-                <a href="<?php echo \Core\HTML::link('wezom/orders/index?uid='.\Core\Route::param('id')); ?>" class="btn bs-tooltip" title="<?php echo __('Посмотреть список заказов этого пользователя'); ?>"><?php echo __('Заказы'); ?> (<?php echo $count_orders; ?>)</a>
-                <a href="<?php echo \Core\HTML::link('auth-like-regular-user/'.\Core\Encrypt::instance()->encode(\Core\Route::param('id'))); ?>" target="_blank" class="btn btn-warning bs-tooltip" title="<?php echo __('Авторизоваться на сайте как этот пользователь'); ?>"><?php echo __('Авторизоваться'); ?></a>
-                <a id="sendThePassword" data-id="<?php echo \Core\Route::param('id'); ?>" class="btn btn-info bs-tooltip" title="<?php echo __('Сгенерировать и выслать новый пароль на почту'); ?>"><?php echo __('Выслать пароль'); ?></a>
-            </div>
-
-            <div class="widget">
                 <div class="pageInfo alert alert-info">
                     <div class="rowSection">
                         <div class="col-md-6"><strong>IP</strong></div>
@@ -151,6 +106,12 @@
                         <div class="col-md-6"><?php echo $amount_good_orders; ?> грн</div>
                     </div>
                 </div>
+            </div>
+
+            <div class="widget withButtons">
+                <a href="<?php echo \Core\HTML::link('wezom/orders/index?uid='.\Core\Route::param('id')); ?>" class="btn bs-tooltip" title="<?php echo __('Посмотреть список заказов этого пользователя'); ?>"><?php echo __('Заказы'); ?> (<?php echo $count_orders; ?>)</a>
+                <a href="<?php echo \Core\HTML::link('auth-like-regular-user/'.\Core\Encrypt::instance()->encode(\Core\Route::param('id'))); ?>" target="_blank" class="btn btn-warning bs-tooltip" title="<?php echo __('Авторизоваться на сайте как этот пользователь'); ?>"><?php echo __('Авторизоваться'); ?></a>
+                <a id="sendThePassword" data-id="<?php echo \Core\Route::param('id'); ?>" class="btn btn-info bs-tooltip" title="<?php echo __('Сгенерировать и выслать новый пароль на почту'); ?>"><?php echo __('Выслать пароль'); ?></a>
             </div>
         </div>
     <?php endif; ?>

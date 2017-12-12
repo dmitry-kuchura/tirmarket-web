@@ -18,7 +18,7 @@ return [
 
     'api/currencies' => 'api/api/getCurrencies',
     'api/category/<id>' => 'api/categories/getCategory',
-    'api/product/<id>' => 'api/products/getCurrentProduct',
+    'api/product/<id>' => 'api/api/getCurrentProduct',
     'api/brand/<id>' => 'api/api/getBrand',
 
     'api/v2/categories' => 'api/query/getCategories',

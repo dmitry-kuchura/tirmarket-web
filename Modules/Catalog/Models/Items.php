@@ -194,6 +194,7 @@ class Items extends CommonI18n
         )
             ->from(static::$table)
             ->join(static::$tableI18n, 'LEFT')->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
+            ->join('catalog_original', 'LEFT')->on('catalog_original.catalog_id', '=', static::$table . '.id')
             ->where(static::$tableI18n . '.language', '=', \I18n::$lang)
 //            ->join('brands', 'LEFT OUTER')->on('brands.alias', '=', static::$table . '.brand_alias')
 //            ->join('brands_i18n')
@@ -211,9 +212,17 @@ class Items extends CommonI18n
             $result->where(static::$table . '.artikul', 'LIKE', '%' . $query . '%');
         }
         $result->or_where_close();
+
+        $result->or_where_open();
+        foreach ($queries as $query) {
+            $result->where('catalog_original.code', 'LIKE', '%' . $query . '%');
+        }
+        $result->or_where_close();
         $result->and_where_close();
+
         $result->order_by(static::$table . '.sort', 'ASC');
         $result->order_by(static::$table . '.id', 'DESC');
+        $result->group_by(static::$table . '.id');
         if ($limit !== null) {
             $result->limit($limit);
             if ($offset !== null) {

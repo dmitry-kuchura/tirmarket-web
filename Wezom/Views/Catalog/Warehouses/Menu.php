@@ -33,12 +33,6 @@
                                        class="bs-tooltip dropdownToggle"><i class="fa fa-cog"></i> </a>
                                     <ul class="dropdownMenu pull-right">
                                         <li>
-                                            <a title="<?php echo __('Редактировать'); ?>"
-                                               href="<?php echo '/wezom/' . Core\Route::controller() . '/edit/' . $obj->id; ?>"><i
-                                                        class="fa fa-pencil"></i> <?php echo __('Редактировать'); ?></a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
                                             <a title="<?php echo __('Удалить'); ?>"
                                                onclick="return confirm('<?php echo __('Это действие необратимо. Продолжить?'); ?>');"
                                                href="<?php echo '/wezom/' . Core\Route::controller() . '/delete/' . $obj->id; ?>"><i

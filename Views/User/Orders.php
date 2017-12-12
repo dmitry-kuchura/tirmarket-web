@@ -36,41 +36,45 @@ use Core\HTML;
                     <span class="status <?php echo $stClasses[$obj->status]; ?>"><?php echo $statuses[$obj->status]; ?></span>
                 </td>
             </tr>
-            <tr>
-                <td colspan="7" style="padding: 0">
-                    <table class="table-null table-history" data-toggle-target
-                           data-toggle-ns="order-id-<?php echo $obj->id; ?>">
-                        <?php $i = 1; ?>
-                        <?php foreach ($orders_items[$obj->id] as $item): ?>
-                            <?php
-                            if (is_file(HOST . HTML::media('images/catalog/original/' . $item->image, false))) {
-                                $image = HTML::media('images/catalog/original/' . $item->image, false);
-                            } else {
-                                $image = HTML::media('pic/no-image.png');
-                            }
-                            ?>
-                            <tr style="vertical-align: middle">
-                                <td><?php echo $i; ?></td>
-                                <td>
-                                    <div class="history-image">
-                                        <img src="<?php echo $image; ?>" alt="">
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="<?php echo HTML::link($item->alias . '/p' . $item->id); ?>"
-                                       class="history-title"><?php echo $item->name; ?></a>
-                                </td>
-                                <td><?php echo $item->count; ?> шт.</td>
-                                <?php $amount = $item->price * $item->count; ?>
-                                <td><span class="history-price"><?php echo number_format($item->price); ?> грн.</span>
-                                </td>
-                                <td><span class="history-price"><?php echo number_format($amount); ?> грн.</span></td>
-                            </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
-                    </table>
-                </td>
-            </tr>
+            <?php if (count($orders_items[$obj->id])): ?>
+                <tr>
+                    <td colspan="7" style="padding: 0">
+                        <table class="table-null table-history" data-toggle-target
+                               data-toggle-ns="order-id-<?php echo $obj->id; ?>">
+                            <?php $i = 1; ?>
+                            <?php foreach ($orders_items[$obj->id] as $item): ?>
+                                <?php
+                                if (is_file(HOST . HTML::media('images/catalog/original/' . $item->image, false))) {
+                                    $image = HTML::media('images/catalog/original/' . $item->image, false);
+                                } else {
+                                    $image = HTML::media('pic/no-image.png');
+                                }
+                                ?>
+                                <tr style="vertical-align: middle">
+                                    <td><?php echo $i; ?></td>
+                                    <td>
+                                        <div class="history-image">
+                                            <img src="<?php echo $image; ?>" alt="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="<?php echo HTML::link($item->alias . '/p' . $item->id); ?>"
+                                           class="history-title"><?php echo $item->name; ?></a>
+                                    </td>
+                                    <td><?php echo $item->count; ?> шт.</td>
+                                    <?php $amount = $item->price * $item->count; ?>
+                                    <td><span class="history-price"><?php echo number_format($item->price); ?>
+                                            грн.</span>
+                                    </td>
+                                    <td><span class="history-price"><?php echo number_format($amount); ?> грн.</span>
+                                    </td>
+                                </tr>
+                                <?php $i++; ?>
+                            <?php endforeach; ?>
+                        </table>
+                    </td>
+                </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
     </table>
 </div>

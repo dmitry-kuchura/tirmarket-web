@@ -43,7 +43,7 @@ use Modules\Catalog\Models\Filter;
                     </div>
                 <?php endif; ?>
 
-                <?php if ($min != $max): ?>
+                <?php if ($min != $max || $min != 0): ?>
                     <div class="sidebar__section">
                         <div class="title title--sm _mb-3"><?php echo __('Цена'); ?></div>
 

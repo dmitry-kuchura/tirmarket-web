@@ -52,7 +52,7 @@ class Brands extends Base
         $this->_seo['keywords'] = $this->current->keywords;
         $this->_seo['description'] = $this->current->description;
         // Get brands list
-        $result = CommonI18n::factory('brands')->getRows(1);
+        $result = Model::getRows(1, 'name', 'ASC');
         // Get alphabet
         $this->_content = View::tpl(['result' => $result], 'Brands/Index');
     }

@@ -225,7 +225,7 @@ use Modules\Catalog\Models\Price;
         <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
     <?php endif; ?>
     <?php if ($analogue): ?>
-    <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
+        <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
     <?php endif; ?>
     <?php if (count($originals)): ?>
         <a href="#" class="tab-link" data-tab-trigger="4" data-tab-ns="product"><?php echo __('Оригиналы'); ?></a>

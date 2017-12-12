@@ -128,7 +128,7 @@
                                                         <a title="<?php echo __('Редактировать'); ?>" href="/wezom/<?php echo Core\Route::controller(); ?>/edit/<?php echo $obj->id; ?>"><i class="fa fa-pencil"></i> <?php echo __('Редактировать'); ?></a>
                                                     </li>
                                                     <li>
-                                                        <a title="<?php echo __('Импрот из 1С'); ?>" class="import1C" data-alias="<?php echo '/api/category/' . $obj->import_id; ?>" href="javascript:void(0);"><i class="fa fa-download"></i> <?php echo __('Импрот из 1С'); ?></a>
+                                                        <a title="<?php echo __('Импрот из 1С'); ?>" class="import1C" data-alias="<?php echo '/api/product/' . $obj->import_id; ?>" href="javascript:void(0);"><i class="fa fa-download"></i> <?php echo __('Импрот из 1С'); ?></a>
                                                     </li>
                                                     <li class="divider"></li>
                                                     <li>

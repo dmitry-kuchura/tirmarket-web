@@ -5,3 +5,4 @@ Config/database.php
 Media/images
 nbproject
 deployment/deployment.log
+/vendor/

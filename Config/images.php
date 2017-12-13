@@ -29,6 +29,11 @@ return [
             'height' => 321,
             'resize' => 1,
             'crop' => 1,
+        ], [
+            'path' => 'blur',
+            'width' => 1366,
+            'height' => 321,
+            'blur' => 1,
         ],
         [
             'path' => 'original',

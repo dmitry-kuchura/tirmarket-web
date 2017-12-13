@@ -22,6 +22,9 @@ foreach (\Core\Config::get('modules.backend') AS $moduleName) {
     Loader::instance()->addNamespace('Wezom\\Modules\\' . ucfirst($moduleName) . '\\Models', 'Wezom/Modules/' . ucfirst($moduleName) . '/Models');
 }
 
+if (is_file(HOST . '/vendor/autoload.php')) {
+    require HOST . '/vendor/autoload.php';
+}
 
 /**
  * Class Loader

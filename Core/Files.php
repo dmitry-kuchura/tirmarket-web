@@ -48,6 +48,9 @@ class Files
                 } else if ($new_height) {
                     $image->fit_to_height($new_height);
                 }
+            } else if (Arr::get($one, 'blur')) {
+                $image->blur('gaussian', 150);
+                $image->thumbnail($new_width, $new_height);
             }
             if (Arr::get($one, 'watermark')) {
                 $watermark = SimpleImage::factory(HOST . HTML::media(str_replace(HOST, '', Config::get('images.watermark')), false));

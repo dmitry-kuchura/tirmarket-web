@@ -32,7 +32,6 @@ class Warehouses extends Base
             $arr[0][] = $obj;
         }
         $this->_filter = Widgets::get('Filter_Pages', ['open' => 1]);
-        $this->_toolbar = Widgets::get('Toolbar_List', ['add' => 1]);
         $this->_content = View::tpl(
             [
                 'result' => $arr,

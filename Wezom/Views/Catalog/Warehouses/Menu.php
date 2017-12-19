@@ -16,9 +16,7 @@
                             <div class="clearFix">
                                 <div class="pull-left">
                                     <div class="pull-left">
-                                        <div><a class="pageLinkEdit"
-                                                href="<?php echo '/wezom/' . Core\Route::controller() . '/edit/' . $obj->id; ?>"><?php echo $obj->name; ?></a>
-                                        </div>
+                                        <div><?php echo $obj->name; ?></div>
                                     </div>
                                 </div>
                             </div>

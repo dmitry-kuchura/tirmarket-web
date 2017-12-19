@@ -63,7 +63,7 @@ class I18n
      * @return  string
      * @since   3.0.2
      */
-    public static function lang($lang = NULL)
+    public static function lang($lang = null)
     {
         if ($lang) {
             // Normalize the language
@@ -90,7 +90,7 @@ class I18n
      * @param   string $lang target language
      * @return  string
      */
-    public static function get($string, $lang = NULL)
+    public static function get($string, $lang = null)
     {
         if (!$lang) {
             // Use the global target language
@@ -194,12 +194,12 @@ class I18n
      * @param $lang
      * @return string
      */
-    protected static function prefixLink($lang)
+    protected static function prefixLink($lang, $uri = null)
     {
-        $uri = '/' . trim($_SERVER['REQUEST_URI'], '/') . '/';
+        $uri = '/' . trim(($uri ?: $_SERVER['REQUEST_URI']), '/') . '/';
         $uri = preg_replace('#^\/' . \I18n::$lang . '\/#', '/', $uri, 1); // Remove current language
-
-        if ($lang != \I18n::$default_lang) {
+        $uri = preg_replace('#\/{2,}#', '/', $uri);
+        if ($lang != I18n::$default_lang) {
             $uri = $lang . $uri;
         }
 
@@ -222,7 +222,7 @@ if (!function_exists('__')) {
      * @param   string $lang source language
      * @return  string
      */
-    function __($string, array $values = NULL, $lang = 'ua')
+    function __($string, array $values = null, $lang = 'ua')
     {
         $string = I18n::get($string);
         return empty($values) ? $string : strtr($string, $values);

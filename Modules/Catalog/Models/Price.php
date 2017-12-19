@@ -21,8 +21,8 @@ use Core\Config;
  *
  * @package Modules\Catalog\Models
  */
-class Price extends Common
-{
+class Price extends Common {
+
     public static $table = 'currencies';
 
     /**
@@ -31,14 +31,16 @@ class Price extends Common
      * @param $price
      * @return mixed
      */
-    public static function getCurrentPrice($price)
-    {
+    public static function getCurrentPrice($price) {
         /* @var $user User */
         $user = User::info();
 
         if ($user && $user->currency_id) {
             return self::convertPrice($price, $user->currency_id);
         } else {
+            if ($price == 0) {
+                return __('Не указана');
+            }
             if (Config::get('basic.markup') > 0) {
                 return self::addPercent(self::convertPrice($price));
             } else {
@@ -59,8 +61,7 @@ class Price extends Common
      * @param string $currencies
      * @return string
      */
-    public static function convertPrice($price, $currencies = '7383a1a5-e50d-11e0-a668-a71a9f00b1d1')
-    {
+    public static function convertPrice($price, $currencies = '7383a1a5-e50d-11e0-a668-a71a9f00b1d1') {
         /* @var $currency Price */
         $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
 
@@ -85,14 +86,16 @@ class Price extends Common
      * @param $price
      * @return mixed
      */
-    public static function getCurrencyForCart($price)
-    {
+    public static function getCurrencyForCart($price) {
         /* @var $user User */
         $user = User::info();
 
         if ($user && $user->currency_id) {
             return self::convertPrice($price, $user->currency_id);
         } else {
+            if ($price == 0) {
+                return __('Не указана');
+            }
             if (Config::get('basic.markup') > 0) {
                 return self::addPercent(self::convertPrice($price));
             } else {
@@ -107,8 +110,7 @@ class Price extends Common
      * @param $price
      * @return string
      */
-    public static function addPercent($price)
-    {
+    public static function addPercent($price) {
         // количество процентов
         $percent = Config::get('basic.markup');
         // высчитываем процент от числа
@@ -120,8 +122,7 @@ class Price extends Common
         return number_format($result, 2, '.', '');
     }
 
-    public static function getCostForFilter($price)
-    {
+    public static function getCostForFilter($price) {
         /* @var $user User */
         $user = User::info();
 
@@ -141,8 +142,7 @@ class Price extends Common
      *
      * @return string
      */
-    public static function getCurrentCurrency()
-    {
+    public static function getCurrentCurrency() {
         /* @var $user User */
         $user = User::info();
 
@@ -168,8 +168,7 @@ class Price extends Common
      * @param string $currencies
      * @return string
      */
-    public static function convertPriceForFilter($price, $currencies = '7383a1a5-e50d-11e0-a668-a71a9f00b1d1')
-    {
+    public static function convertPriceForFilter($price, $currencies = '7383a1a5-e50d-11e0-a668-a71a9f00b1d1') {
         /* @var $currency Price */
         $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
 
@@ -187,4 +186,5 @@ class Price extends Common
             return number_format($cost, 2, '.', '');
         }
     }
+
 }

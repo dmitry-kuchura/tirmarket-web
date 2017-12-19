@@ -1,4 +1,4 @@
-<div class="title title--sm _mb-4"><?php echo __('По вашему запросу найдено'); ?> <span style="color: #163379"><?php echo count($result); ?> <?php echo __('совпадения'); ?></span></div>
+<div class="title title--sm _mb-4"><?php echo __('По вашему запросу найдено'); ?> <span style="color: #163379"><?php echo $count; ?> <?php echo __('совпадения'); ?></span></div>
 <search-list data-vue="true" data-lang="<?php echo I18n::$lang; ?>" inline-template>
     <div>
         <paginate name="results" :list="list" :per="4" tag="div" v-if="width > 1280">

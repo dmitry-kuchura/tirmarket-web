@@ -51,9 +51,9 @@ class General extends Ajax
                 'id' => $obj->id,
                 'link' => HTML::link($obj->alias . '/p' . $obj->id, false),
                 'image' => is_file(HOST . HTML::media('images/catalog/search/' . $obj->image, false)) ? HTML::media('images/catalog/search/' . $obj->image, false) : HTML::media('pic/no-image.png', false),
-                'price' => $obj->cost,
+                'price' => $obj->cost > 0 ? $obj->cost : __('Не указана'),
                 'title' => $obj->name,
-                'currency' => Price::getCurrentCurrency(),
+                'currency' => $obj->cost > 0 ? Price::getCurrentCurrency() : '',
             ];
         }
 

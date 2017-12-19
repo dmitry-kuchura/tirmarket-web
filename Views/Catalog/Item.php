@@ -219,20 +219,21 @@ $ids = \Core\Cookie::getArray('favorites', []);
     </div>
 </div>
 <div class="_flex _mb-4">
-    <a href="#" class="tab-link is-active" data-tab-trigger="1"
-       data-tab-ns="product"><?php echo __('Характеристики'); ?></a>
-       <?php if ($obj->text): ?>
-        <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
+    <?php if (count($specifications)) : ?>
+        <a href="#" class="tab-link is-active" data-tab-trigger="1"  data-tab-ns="product"><?php echo __('Характеристики'); ?></a>
+    <?php endif; ?>
+    <?php if ($obj->text): ?>
+        <a href="#" class="tab-link <?php echo!count($specifications) ? 'is-active' : NULL ?>" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
     <?php endif; ?>
     <?php if ($analogue): ?>
-        <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
+        <a href="#" class="tab-link <?php echo!$obj->text ? 'is-active' : NULL ?>" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
     <?php endif; ?>
     <?php if (count($originals)): ?>
-        <a href="#" class="tab-link" data-tab-trigger="4" data-tab-ns="product"><?php echo __('Оригиналы'); ?></a>
+        <a href="#" class="tab-link <?php echo!$analogue ? 'is-active' : NULL ?>" data-tab-trigger="4" data-tab-ns="product"><?php echo __('Оригиналы'); ?></a>
     <?php endif; ?>
 </div>
 <div class="_mb-5">
-    <div class="is-active" data-tab-content="1" data-tab-ns="product">
+    <div class="<?php echo count($specifications) ? 'is-active' : NULL ?>" data-tab-content="1" data-tab-ns="product">
         <div class="wysiwyg">
             <table class="table-zebra">
                 <?php foreach ($specifications as $key => $value): ?>
@@ -244,22 +245,10 @@ $ids = \Core\Cookie::getArray('favorites', []);
             </table>
         </div>
     </div>
-    <div data-tab-content="4" data-tab-ns="product">
-        <div class="wysiwyg">
-            <table class="table-zebra">
-                <?php foreach ($originals as $key => $value): ?>
-                    <tr>
-                        <td><?php echo $value; ?></td>
-                        <td><b><?php echo $key; ?></b></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
-    </div>
-    <div data-tab-content="2" data-tab-ns="product">
+    <div class="<?php echo!count($specifications) ? 'is-active' : NULL ?>" data-tab-content="2" data-tab-ns="product">
         <div class="wysiwyg"><?php echo $obj->text; ?></div>
     </div>
-    <div data-tab-content="3" data-tab-ns="product">
+    <div class="<?php echo!$obj->text ? 'is-active' : NULL ?>" data-tab-content="3" data-tab-ns="product">
         <analogue-list data-vue="true" data-lang="<?php echo I18n::$lang; ?>" inline-template>
             <div>
                 <div class="analogue-table" v-if="width > 1280">
@@ -280,4 +269,18 @@ $ids = \Core\Cookie::getArray('favorites', []);
             </div>
         </analogue-list>
     </div>
+    <?php if ($originals): ?>
+        <div class="<?php echo!$analogue ? 'is-active' : NULL ?>" data-tab-content="4" data-tab-ns="product">
+            <div class="wysiwyg">
+                <table class="table-zebra">
+                    <?php foreach ($originals as $key => $value): ?>
+                        <tr>
+                            <td><?php echo $value; ?></td>
+                            <td><b><?php echo $key; ?></b></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>

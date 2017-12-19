@@ -3,6 +3,7 @@
 use Core\Cookie;
 use Core\HTML;
 use Core\User;
+use Modules\Catalog\Models\Price;
 
 if (is_file(HOST . HTML::media('images/catalog/original/' . $obj->image, false))) {
     $image = HTML::media('images/catalog/original/' . $obj->image, false);
@@ -38,7 +39,7 @@ $favorites = Cookie::getArray('favorites', []);
                 <?php if ($obj->sale == 1): ?>
                     <div class="item-card__price item-card__price--past"><?php echo number_format($obj->cost_old); ?> грн.</div>
                 <?php endif; ?>
-                <div class="item-card__price"><?php echo number_format($obj->cost); ?> грн.</div>
+                <div class="item-card__price"><?php echo Price::getCurrentPrice($obj->cost); ?></div>
             </div>
             <div class="_col-auto">
                 <?php if ($obj->available == 1): ?>

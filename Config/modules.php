@@ -2,8 +2,8 @@
 
 return [
     'frontend' => [
-        'Ajax', 'Index', 'Articles', 'News', 'Api', 'Cart', 'User', 'Catalog', 'Unsubscribe',
-        'Search', 'Sitemap', 'Contact', 'Reviews', 'Content',
+        'Ajax', 'Index', 'Partners','Articles', 'News', 'Api', 'Cart', 'User', 'Catalog', 'Unsubscribe',
+        'Search', 'Sitemap', 'Contact', 'Reviews' ,'Content',
     ],
     'backend' => [
         'Ajax', 'Index', 'Catalog', 'Config', 'Contacts', 'Content', 'Index', 'Log', 'Visitors', 'Blog', 'Blacklist',

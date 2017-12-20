@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Content\Controllers;
+namespace Modules\Partners\Controllers;
 
+use Core\CommonI18n;
 use Core\Route;
 use Core\View;
 use Core\Config;
 use Core\HTTP;
 use Modules\Base;
-use Modules\Content\Models\Partners AS Model;
+use Modules\Partners\Models\Partners AS Model;
 use Modules\Content\Models\Control;
 
-class Partners extends Base
-{
-    public function indexAction()
-    {
-        $page = Control::getRowSimple('partners', 'alias');
+class Partners extends Base {
+
+    public function indexAction() {
+        $page = Control::getRowSimple(Route::controller(), 'alias');
 
         if (!$page) {
             if (!$page) {
@@ -32,8 +32,8 @@ class Partners extends Base
         $this->setBreadcrumbs($page->name);
 
         $this->_content = View::tpl([
-            'result' => $result,
-        ], 'Content/Partners');
+                    'result' => $result, 'page' => $page,
+                        ], 'Content/Partners');
     }
+
 }
-    

@@ -19,7 +19,7 @@
 
   "stylesheets": {
     "src": "scss",
-    "dest": "css"
+    "dest": "../../Media/css"
   },
 
   "images": {

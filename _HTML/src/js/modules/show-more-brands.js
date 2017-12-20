@@ -17,12 +17,12 @@ module.exports = function () {
 
         if($link_show_more_brands.hasClass('clicked')){
             showLessBrands();
-            $link_show_more_brands.attr('title', 'Нажмите, чтобы показать всех производителей');
-            $link_show_more_brands[0].innerHTML = "Показать все";
+            $link_show_more_brands.attr('title',  $link_show_more_brands.data('title'));
+            $link_show_more_brands[0].innerHTML = $link_show_more_brands.data('text');
         } else {
             showAllBrands();
-            $link_show_more_brands.attr('title', 'Нажмите, чтобы показать меньше производителей');
-            $link_show_more_brands[0].innerHTML = "Показать меньше";
+            $link_show_more_brands.attr('title', $link_show_more_brands.data('title-clicked'));
+            $link_show_more_brands[0].innerHTML = $link_show_more_brands.data('text-clicked');
         }
 
         $link_show_more_brands.toggleClass('clicked');

@@ -40,7 +40,12 @@ use Modules\Catalog\Models\Filter;
                         <?php foreach ($brands as $brand) {
                             echo Filter::generateInput($filter, $brand, 'brand');
                         } ?>
-                        <a class="link-show-more-brands js-link-show-more-brands title title--sm _mt-3" title="Нажмите, чтобы показать всех производителей">Показать все</a>
+                        <a class="link-show-more-brands js-link-show-more-brands title title--sm _mt-3"
+                           title="Нажмите, чтобы показать всех производителей"
+                           data-text="Показать все"
+                           data-text-clicked="Показать меньше"
+                           data-title="Нажмите, чтобы показать всех производителей"
+                           data-title-clicked="Нажмите, чтобы показать меньше производителей">Показать все</a>
                     </div>
                 <?php endif; ?>
 

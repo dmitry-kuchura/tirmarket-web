@@ -35,7 +35,7 @@ jQuery(document).ready(function ($) {
         event.preventDefault();
 
         var product = $(this).data('product');
-        var element = $(this).closest('._col-12');
+        var element = $(this).closest('.favorite-item-block');
 
         $.ajax({
             url: '/ajax/addToFavorite',

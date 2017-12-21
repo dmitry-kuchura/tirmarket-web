@@ -15,7 +15,7 @@ $favorites = Cookie::getArray('favorites', []);
 
 ?>
 
-<div class="_col-12 _sm-col-6 _lg-col-3 _mb-3">
+<div class="_col-12 _sm-col-6 _lg-col-3 _mb-3 favorite-item-block">
     <div class="item-card">
         <div>
             <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image" style="background-image:url(<?php echo $image; ?>)"></a>

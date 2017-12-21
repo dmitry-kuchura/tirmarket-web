@@ -17,7 +17,7 @@ use Modules\Catalog\Models\Price;
                 $image = HTML::media('pic/no-image.png');
             }
             ?>
-            <div class="_col-12 _sm-col-6 _md-col-4 _lg-col-6 _xl-col-4 _mb-3">
+            <div class="_col-12 _sm-col-6 _md-col-4 _lg-col-6 _xl-col-4 _mb-3 favorite-item-block">
                 <div class="item-card">
                     <div>
                         <a href="<?php echo HTML::link($obj->alias . '/p' . $obj->id); ?>" class="item-card__image"

@@ -31,6 +31,9 @@ window.jQuery(function ($) {
     // basket
     require("./modules/basket")();
 
+    // link show more brands
+    require("./modules/show-more-brands")();
+
     // magnific
     if ($('[data-mfp], [data-gallery-root]').length) {
         require.ensure([], function (require) {

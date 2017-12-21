@@ -86,18 +86,13 @@
                 <?php echo \Core\Widgets::get('Index_Log'); ?>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="widget">
-                <?php echo \Core\Widgets::get('Index_News'); ?>
-            </div>
-        </div>
     </div>
     <?php echo \Core\Widgets::get('Index_Readme'); ?>
 <?php else: ?>
     <div class="rowSection clearFix">
         <div class="col-md-6">
             <div class="widget">
-                <?php echo \Core\Widgets::get('Index_News'); ?>
+                <?php //echo \Core\Widgets::get('Index_News'); ?>
             </div>
         </div>
     </div>

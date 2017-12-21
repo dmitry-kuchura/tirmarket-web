@@ -1,4 +1,6 @@
-<?php namespace Core;
+<?php
+
+namespace Core;
 
 use I18n;
 use Core\QB\DB;
@@ -9,24 +11,21 @@ use Modules\Catalog\Models\Items;
 use Modules\Content\Models\Menu;
 use Modules\Content\Models\Slider;
 
-class Widgets
-{
+class Widgets {
 
     static $_instance;
     public $_data = [];
     public $_contentMenu = [];
     public $_tree = [];
 
-    static function factory()
-    {
+    static function factory() {
         if (self::$_instance == null) {
             self::$_instance = new self();
         }
         return self::$_instance;
     }
 
-    public static function get($name, $array = [], $save = true, $cache = false)
-    {
+    public static function get($name, $array = [], $save = true, $cache = false) {
         $arr = explode('_', $name);
         $viewpath = implode('/', $arr);
 
@@ -83,17 +82,16 @@ class Widgets
         return $w->_data[$name] = $w->common($viewpath, $array);
     }
 
-    public function common($viewPath, $array)
-    {
+    public function common($viewPath, $array) {
         if (file_exists(HOST . '/Views/Widgets/' . $viewPath . '.php')) {
             return View::widget($array, $viewPath);
         }
         return null;
     }
+
     /* Основные */
 
-    public function Head()
-    {
+    public function Head() {
         $styles = [
             HTML::media('css/style.css', false),
             HTML::media('js/noty/css/animate.css', false),
@@ -101,8 +99,7 @@ class Widgets
         return ['styles' => $styles];
     }
 
-    public function Header()
-    {
+    public function Header() {
         $array['user'] = User::info();
         $array['top_menu'] = Menu::getTopMenu();
         $array['menu'] = Menu::contentMenu();
@@ -111,8 +108,7 @@ class Widgets
         return $array;
     }
 
-    public function HiddenData()
-    {
+    public function HiddenData() {
         $scripts = [
             HTML::media('js/programmer/initial-config.js', false),
             HTML::media('js/bundle.js', false),
@@ -125,44 +121,39 @@ class Widgets
         return ['scripts' => $scripts];
     }
 
-    public function Footer()
-    {
+    public function Footer() {
         $result = Menu::getFooterMenu();
 
         return ['left' => $result['left'], 'right' => $result['right']];
     }
+
     /* Главная страница */
 
-    public function Index_Manufactures()
-    {
+    public function Index_Manufactures() {
         $result = CommonI18n::factory('brands')->getRows(1, 'sort', 'ASC', 18);
 
         return ['result' => $result];
     }
 
-    public function Index_Slider()
-    {
+    public function Index_Slider() {
         $result = Slider::getSlider();
 
         return ['slider' => $result];
     }
 
-    public function Index_News()
-    {
+    public function Index_News() {
         $result = CommonI18n::factory('news')->getRows(null, 'id', 'DESC', 2);
 
         return ['result' => $result];
     }
 
-    public function Index_Categories()
-    {
+    public function Index_Categories() {
         $result = Groups::getPopularCategories(4);
 
         return ['result' => $result];
     }
 
-    public function Index_Sale()
-    {
+    public function Index_Sale() {
         $array['sale'] = Items::getItemsByFlag('sale');
         $array['top'] = Items::getItemsByFlag('top');
         $array['favorites'] = Cookie::getArray('favorites', []);
@@ -170,8 +161,7 @@ class Widgets
         return $array;
     }
 
-    public function Index_Catalog()
-    {
+    public function Index_Catalog() {
         $result = Groups::getGroups();
 
         return [
@@ -179,23 +169,21 @@ class Widgets
         ];
     }
 
-    public function Index_Partners()
-    {
-        $result = CommonI18n::factory('partners')->getRows(1, 'id', 'DESC', 4);
-
-        return ['result' => $result];
+    public function Index_Partners() {
+        $result = CommonI18n::factory('partners')->getRows(1, 'id', 'DESC', Config::get('basic.limit_partners'));
+        $partners = CommonI18n::factory('control')->getRowSimple('partners', 'alias');
+        return ['result' => $result, 'text' => $partners->text_left];
     }
+
     /* Страницы каталога */
 
-    public function Catalog_Viewed()
-    {
+    public function Catalog_Viewed() {
         $result = Items::getViewedItems(null, null, 5);
 
         return $result;
     }
 
-    public function Catalog_Filter()
-    {
+    public function Catalog_Filter() {
         $array = Filter::getClickableFilterElements();
         $brands = Filter::getBrandsWidget();
         $specifications = Filter::getSpecificationsWidget();
@@ -208,15 +196,16 @@ class Widgets
             'max' => $array['max'],
         ];
     }
+
     /* Страницы Личного Кабинета  */
 
-    public function User_Transport()
-    {
+    public function User_Transport() {
         $result = DB::select()
-            ->from('users_transport')
-            ->where('users_transport.user_id', '=', User::info()->id)
-            ->find_all();
+                ->from('users_transport')
+                ->where('users_transport.user_id', '=', User::info()->id)
+                ->find_all();
 
         return ['result' => $result];
     }
+
 }

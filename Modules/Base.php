@@ -48,6 +48,7 @@ class Base
         User::factory()->is_remember();
         $cron = new Cron;
         $cron->check();
+        //var_dump(Route::module()); die;
     }
 
     private function setLanguage()

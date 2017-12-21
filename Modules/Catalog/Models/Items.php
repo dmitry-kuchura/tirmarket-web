@@ -10,8 +10,8 @@ use Core\Route;
 use Exception;
 use I18n;
 
-class Items extends CommonI18n
-{
+class Items extends CommonI18n {
+
     public static $table = 'catalog';
     public static $tableI18n = 'catalog_i18n';
     public static $tableImages = 'catalog_images';
@@ -23,8 +23,7 @@ class Items extends CommonI18n
      * @param $id
      * @return array
      */
-    public static function getOriginal($id)
-    {
+    public static function getOriginal($id) {
         $result = DB::select()->from(static::$tableOriginal)->where('catalog_id', '=', $id)->find_all();
 
         $originals = [];
@@ -36,32 +35,23 @@ class Items extends CommonI18n
         return $originals;
     }
 
-    public static function getRow($value, $field = 'id', $status = null)
-    {
+    public static function getRow($value, $field = 'id', $status = null) {
         $result = DB::select(
-            static::$table . '.*',
-            static::$tableI18n . '.name',
-            static::$tableI18n . '.text',
-            static::$tableI18n . '.h1',
-            static::$tableI18n . '.title',
-            static::$tableI18n . '.keywords',
-            static::$tableI18n . '.description',
-            ['brands_i18n.name', 'brand_name'],
-            ['catalog_tree_i18n.name', 'parent_name']
-        )
-            ->from(static::$table)
-            ->join(static::$tableI18n)
-            ->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
-            ->join('catalog_tree_i18n', 'LEFT')
-            ->on(static::$table . '.parent_id', '=', 'catalog_tree_i18n.row_id')
-            ->on('catalog_tree_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
-            ->join('brands', 'LEFT')
-            ->on(static::$table . '.brand_alias', '=', 'brands.alias')
-            ->on('brands.status', '=', DB::expr('1'))
-            ->join('brands_i18n', 'LEFT')
-            ->on('brands_i18n.row_id', '=', 'brands.id')
-            ->on('brands_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
-            ->where(static::$tableI18n . '.language', '=', I18n::$lang);
+                        static::$table . '.*', static::$tableI18n . '.name', static::$tableI18n . '.text', static::$tableI18n . '.h1', static::$tableI18n . '.title', static::$tableI18n . '.keywords', static::$tableI18n . '.description', ['brands_i18n.name', 'brand_name'], ['catalog_tree_i18n.name', 'parent_name']
+                )
+                ->from(static::$table)
+                ->join(static::$tableI18n)
+                ->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
+                ->join('catalog_tree_i18n', 'LEFT')
+                ->on(static::$table . '.parent_id', '=', 'catalog_tree_i18n.row_id')
+                ->on('catalog_tree_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
+                ->join('brands', 'LEFT')
+                ->on(static::$table . '.brand_alias', '=', 'brands.alias')
+                ->on('brands.status', '=', DB::expr('1'))
+                ->join('brands_i18n', 'LEFT')
+                ->on('brands_i18n.row_id', '=', 'brands.id')
+                ->on('brands_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
+                ->where(static::$tableI18n . '.language', '=', I18n::$lang);
         if ($status !== null) {
             $result = $result->where(static::$table . '.status', '=', 1);
         }
@@ -71,16 +61,15 @@ class Items extends CommonI18n
         return $result->find();
     }
 
-    public static function getRows($status = null, $sort = null, $type = null, $limit = null, $offset = null, $filter = true)
-    {
+    public static function getRows($status = null, $sort = null, $type = null, $limit = null, $offset = null, $filter = true) {
         $result = DB::select(
-            static::$table . '.*', ['brands_i18.name', 'brand_name'], ['models.name', 'model_name']
-        )
-            ->from(static::$table)
-            ->join('brands', 'left')->on(static::$table . '.brand_alias', '=', 'brands.alias')
-            ->join('brands_i18n')->on('brands_i18n.row_id', '=', 'brands.id')
-            ->join('models', 'left')->on(static::$table . '.model_alias', '=', 'models.alias')
-            ->where('brands_i18n.language', '=', \I18n::$lang);
+                        static::$table . '.*', ['brands_i18.name', 'brand_name'], ['models.name', 'model_name']
+                )
+                ->from(static::$table)
+                ->join('brands', 'left')->on(static::$table . '.brand_alias', '=', 'brands.alias')
+                ->join('brands_i18n')->on('brands_i18n.row_id', '=', 'brands.id')
+                ->join('models', 'left')->on(static::$table . '.model_alias', '=', 'models.alias')
+                ->where('brands_i18n.language', '=', \I18n::$lang);
         if ($status !== null) {
             $result->where(static::$table . '.status', '=', $status);
         }
@@ -104,36 +93,34 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-    public static function getItemImages($item_id)
-    {
+    public static function getItemImages($item_id) {
         $result = DB::select('image')
-            ->from(static::$tableImages)
-            ->where(static::$tableImages . '.catalog_id', '=', $item_id)
-            ->order_by(static::$tableImages . '.sort');
+                ->from(static::$tableImages)
+                ->where(static::$tableImages . '.catalog_id', '=', $item_id)
+                ->order_by(static::$tableImages . '.sort');
         return $result->find_all();
     }
 
-    public static function getItemSpecifications($item_id, $parent_id)
-    {
+    public static function getItemSpecifications($item_id, $parent_id) {
         $specifications = DB::select('specifications.*', 'specifications_i18n.name')
-            ->from('specifications')
-            ->join('specifications_i18n')
-            ->on('specifications.id', '=', 'specifications_i18n.row_id')
-            ->join('catalog_tree_specifications', 'LEFT')->on('catalog_tree_specifications.specification_id', '=', 'specifications.id')
-            ->where('catalog_tree_specifications.catalog_tree_id', '=', $parent_id)
-            ->where('specifications.status', '=', 1)
-            ->where('specifications_i18n.language', '=', \I18n::$lang)
-            ->order_by('specifications_i18n.name')
-            ->as_object()->execute();
+                        ->from('specifications')
+                        ->join('specifications_i18n')
+                        ->on('specifications.id', '=', 'specifications_i18n.row_id')
+                        ->join('catalog_tree_specifications', 'LEFT')->on('catalog_tree_specifications.specification_id', '=', 'specifications.id')
+                        ->where('catalog_tree_specifications.catalog_tree_id', '=', $parent_id)
+                        ->where('specifications.status', '=', 1)
+                        ->where('specifications_i18n.language', '=', \I18n::$lang)
+                        ->order_by('specifications_i18n.name')
+                        ->as_object()->execute();
         $res = DB::select('specifications_values.*', 'specifications_values_i18n.name')
-            ->from('specifications_values')
-            ->join('specifications_values_i18n')
-            ->on('specifications_values.id', '=', 'specifications_values_i18n.row_id')
-            ->join('catalog_specifications_values', 'LEFT')->on('catalog_specifications_values.specification_value_alias', '=', 'specifications_values.alias')
-            ->where('catalog_specifications_values.catalog_id', '=', $item_id)
-            ->where('specifications_values_i18n.language', '=', \I18n::$lang)
-            ->where('specifications_values.status', '=', 1)
-            ->find_all();
+                ->from('specifications_values')
+                ->join('specifications_values_i18n')
+                ->on('specifications_values.id', '=', 'specifications_values_i18n.row_id')
+                ->join('catalog_specifications_values', 'LEFT')->on('catalog_specifications_values.specification_value_alias', '=', 'specifications_values.alias')
+                ->where('catalog_specifications_values.catalog_id', '=', $item_id)
+                ->where('specifications_values_i18n.language', '=', \I18n::$lang)
+                ->where('specifications_values.status', '=', 1)
+                ->find_all();
         $specValues = [];
         foreach ($res as $obj) {
             $specValues[$obj->specification_id][] = $obj;
@@ -155,52 +142,49 @@ class Items extends CommonI18n
         return $spec;
     }
 
-    public static function getReviews($catalog_id)
-    {
+    public static function getReviews($catalog_id) {
 
         $result = DB::select()->from('catalog_comments')
-            ->where('catalog_id', '=', $catalog_id)
-            ->where('status', '=', 1)
-            ->order_by('date', 'DESC')
-            ->find_all();
+                ->where('catalog_id', '=', $catalog_id)
+                ->where('status', '=', 1)
+                ->order_by('date', 'DESC')
+                ->find_all();
 
         return $result;
     }
 
-    public static function getFavorites()
-    {
+    public static function getFavorites() {
         $ids = Cookie::getArray('favorites', []);
         if (count($ids)) {
             $favorites = DB::select(
-                static::$tableI18n . '.*', static::$table . '.*'
-            )
-                ->from(static::$table)
-                ->join('users_favorites', 'LEFT')->on('users_favorites.product_id', '=', static::$table . '.id')
-                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-                ->where(static::$tableI18n . '.language', '=', I18n::$lang)
-                ->where(static::$table . '.id', 'IN', $ids)
-                ->group_by(static::$table . '.id')
-                ->find_all();
+                            static::$tableI18n . '.*', static::$table . '.*'
+                    )
+                    ->from(static::$table)
+                    ->join('users_favorites', 'LEFT')->on('users_favorites.product_id', '=', static::$table . '.id')
+                    ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+                    ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+                    ->where(static::$table . '.id', 'IN', $ids)
+                    ->group_by(static::$table . '.id')
+                    ->find_all();
             return $favorites;
         } else {
             return null;
         }
     }
 
-    public static function searchRows($queries, $limit = null, $offset = null)
-    {
+    public static function searchRows($queries, $limit = null, $offset = null) {
         $result = DB::select(
-            static::$table . '.*', static::$tableI18n . '.name'
-        )
-            ->from(static::$table)
-            ->join(static::$tableI18n, 'LEFT')->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
-            ->join('catalog_original', 'LEFT')->on('catalog_original.catalog_id', '=', static::$table . '.id')
-            ->where(static::$tableI18n . '.language', '=', \I18n::$lang)
+                        static::$table . '.*', static::$tableI18n . '.name'
+                )
+                ->from(static::$table)
+                ->join(static::$tableI18n, 'LEFT')->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
+                ->join('catalog_original', 'LEFT')->on('catalog_original.catalog_id', '=', static::$table . '.id')
+                ->where(static::$tableI18n . '.language', '=', \I18n::$lang)
 //            ->join('brands', 'LEFT OUTER')->on('brands.alias', '=', static::$table . '.brand_alias')
 //            ->join('brands_i18n')
 //            ->on('brands_i18n.row_id', '=', 'brands.id')
 //            ->where('brands_i18n.language', '=', \I18n::$lang)
-            ->where(static::$table . '.status', '=', 1);
+                ->where(static::$table . '.status', '=', 1);
         $result->and_where_open();
         $result->or_where_open();
         foreach ($queries as $query) {
@@ -233,17 +217,17 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-    public static function countSearchRows($queries)
-    {
+    public static function countSearchRows($queries) {
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
-            ->from(static::$table)
-            ->join(static::$tableI18n)->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
-            ->where(static::$tableI18n . '.language', '=', \I18n::$lang)
-            ->join('brands', 'LEFT OUTER')->on('brands.alias', '=', static::$table . '.brand_alias')
-            ->join('brands_i18n')
-            ->on('brands_i18n.row_id', '=', 'brands.id')
-            ->where('brands_i18n.language', '=', \I18n::$lang)
-            ->where(static::$table . '.status', '=', 1);
+                ->from(static::$table)
+                ->join(static::$tableI18n)->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
+                ->join('catalog_original', 'LEFT')->on('catalog_original.catalog_id', '=', static::$table . '.id')
+                ->where(static::$tableI18n . '.language', '=', \I18n::$lang)
+//            ->join('brands', 'LEFT OUTER')->on('brands.alias', '=', static::$table . '.brand_alias')
+//            ->join('brands_i18n')
+//            ->on('brands_i18n.row_id', '=', 'brands.id')
+//            ->where('brands_i18n.language', '=', \I18n::$lang)
+                ->where(static::$table . '.status', '=', 1);
         $result->and_where_open();
         $result->or_where_open();
         foreach ($queries as $query) {
@@ -255,31 +239,30 @@ class Items extends CommonI18n
             $result->where(static::$table . '.artikul', 'LIKE', '%' . $query . '%');
         }
         $result->or_where_close();
+
         $result->or_where_open();
         foreach ($queries as $query) {
-            $result->where('brands_i18n.name', 'LIKE', '%' . $query . '%');
+            $result->where('catalog_original.code', 'LIKE', '%' . $query . '%');
         }
         $result->or_where_close();
         $result->and_where_close();
         return $result->count_all();
     }
 
-    public static function getQueries($query)
-    {
+    public static function getQueries($query) {
         $spaces = ['-', '_', '/', '\\', '=', '+', '*', '$', '@', '(', ')', '[', ']', '|', ',', '.', ';', ':', '{', '}'];
         $query = str_replace($spaces, ' ', $query);
         $arr = preg_split("/[\s,]+/", $query);
         return $arr;
     }
 
-    public static function getBrandItems($brand_alias, $sort = null, $type = null, $limit = null, $offset = null)
-    {
+    public static function getBrandItems($brand_alias, $sort = null, $type = null, $limit = null, $offset = null) {
         $result = DB::select(static::$table . '.*', static::$tableI18n . '.name')
-            ->from(static::$table)
-            ->join(static::$tableI18n)->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
-            ->where(static::$table . '.brand_alias', '=', $brand_alias)
-            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
-            ->where(static::$table . '.status', '=', 1);
+                ->from(static::$table)
+                ->join(static::$tableI18n)->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
+                ->where(static::$table . '.brand_alias', '=', $brand_alias)
+                ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+                ->where(static::$table . '.status', '=', 1);
         if ($sort !== null) {
             if ($type !== null) {
                 $result->order_by(static::$table . '.' . $sort, $type);
@@ -296,27 +279,25 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-    public static function countBrandItems($brand_alias)
-    {
+    public static function countBrandItems($brand_alias) {
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
-            ->from(static::$table)
-            ->where(static::$table . '.brand_alias', '=', $brand_alias)
-            ->where(static::$table . '.status', '=', 1);
+                ->from(static::$table)
+                ->where(static::$table . '.brand_alias', '=', $brand_alias)
+                ->where(static::$table . '.status', '=', 1);
         return $result->count_all();
     }
 
-    public static function getItemsByFlag($flag, $sort = null, $type = null, $limit = null, $offset = null)
-    {
+    public static function getItemsByFlag($flag, $sort = null, $type = null, $limit = null, $offset = null) {
         $result = DB::select(
-            static::$table . '.*', static::$tableI18n . '.name', DB::expr('( SELECT RAND() * (SELECT MAX(`catalog`.`id`) FROM `catalog`) AS `max_id`) AS `max`')
-        )
-            ->from(static::$table)
-            ->join(static::$tableI18n)
-            ->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
-            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
-            ->where(static::$table . '.' . $flag, '=', 1)
-            ->where(static::$table . '.id', '>=', 'max')
-            ->where(static::$table . '.status', '=', 1);
+                        static::$table . '.*', static::$tableI18n . '.name', DB::expr('( SELECT RAND() * (SELECT MAX(`catalog`.`id`) FROM `catalog`) AS `max_id`) AS `max`')
+                )
+                ->from(static::$table)
+                ->join(static::$tableI18n)
+                ->on(static::$table . '.id', '=', static::$tableI18n . '.row_id')
+                ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+                ->where(static::$table . '.' . $flag, '=', 1)
+                ->where(static::$table . '.id', '>=', 'max')
+                ->where(static::$table . '.status', '=', 1);
 
         if ($sort !== null) {
             $sortTable = static::$table;
@@ -338,17 +319,15 @@ class Items extends CommonI18n
         return $result->find_all();
     }
 
-    public static function countItemsByFlag($flag)
-    {
+    public static function countItemsByFlag($flag) {
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
-            ->from(static::$table)
-            ->where(static::$table . '.' . $flag, '=', 1)
-            ->where(static::$table . '.status', '=', 1);
+                ->from(static::$table)
+                ->where(static::$table . '.' . $flag, '=', 1)
+                ->where(static::$table . '.status', '=', 1);
         return $result->count_all();
     }
 
-    public static function addViewed($id)
-    {
+    public static function addViewed($id) {
         $ids = static::getViewedIDs();
         if (!in_array($id, $ids)) {
             $ids[] = $id;
@@ -357,69 +336,66 @@ class Items extends CommonI18n
         return;
     }
 
-    public static function getViewedIDs()
-    {
+    public static function getViewedIDs() {
         $ids = Cookie::getArray('viewed', []);
         return $ids;
     }
 
-    public static function getViewedItems($sort = null, $type = null, $limit = null, $offset = null)
-    {
+    public static function getViewedItems($sort = null, $type = null, $limit = null, $offset = null) {
         $ids = Items::getViewedIDs();
         if (!$ids) {
             return false;
         }
 
         $array['result'] = DB::select(
-            static::$tableI18n . '.*', static::$table . '.*'
-        )
-            ->from(static::$table)
-            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
-            ->where('catalog.id', 'IN', $ids)
-            ->where('catalog.id', '!=', Route::param('id'))
-            ->where(static::$table . '.status', '=', 1)
-            ->order_by(DB::expr('RAND ()'))
-            ->limit($limit)
-            ->find_all();
+                        static::$tableI18n . '.*', static::$table . '.*'
+                )
+                ->from(static::$table)
+                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+                ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+                ->where('catalog.id', 'IN', $ids)
+                ->where('catalog.id', '!=', Route::param('id'))
+                ->where(static::$table . '.status', '=', 1)
+                ->order_by(DB::expr('RAND ()'))
+                ->limit($limit)
+                ->find_all();
         return $array;
     }
 
-    public static function countViewedItems()
-    {
+    public static function countViewedItems() {
         $ids = Items::getViewedIDs();
         if (!$ids) {
             return 0;
         }
         $result = DB::select([DB::expr('COUNT(' . static::$table . '.id)'), 'count'])
-            ->from(static::$table)
-            ->where(static::$table . '.id', 'IN', $ids)
-            ->where(static::$table . '.status', '=', 1);
+                ->from(static::$table)
+                ->where(static::$table . '.id', 'IN', $ids)
+                ->where(static::$table . '.status', '=', 1);
         return $result->count_all();
     }
 
-    public static function getAnalogueItems($refer = null)
-    {
+    public static function getAnalogueItems($refer = null) {
         $result = DB::select(
-            static::$tableI18n . '.*', static::$table . '.*', ['brands_i18n.name', 'brand_name']
-        )
-            ->from(static::$table)
-            ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
-            ->join(static::$table . '_related')
-            ->on(static::$table . '_related.with_id', '=', static::$table . '.id')
-            ->join('brands', 'LEFT')
-            ->on(static::$table . '.brand_alias', '=', 'brands.alias')
-            ->on('brands.status', '=', DB::expr('1'))
-            ->join('brands_i18n', 'LEFT')
-            ->on('brands_i18n.row_id', '=', 'brands.id')
-            ->on('brands_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
-            ->where(static::$table . '_related.who_id', '=', $refer)
-            ->where(static::$tableI18n . '.language', '=', I18n::$lang)
-            ->where(static::$table . '.status', '=', 1)
-            ->order_by(DB::expr('RAND ()'))
-            ->limit(5)
-            ->find_all();
+                        static::$tableI18n . '.*', static::$table . '.*', ['brands_i18n.name', 'brand_name']
+                )
+                ->from(static::$table)
+                ->join(static::$tableI18n, 'LEFT')->on(static::$tableI18n . '.row_id', '=', static::$table . '.id')
+                ->join(static::$table . '_related')
+                ->on(static::$table . '_related.with_id', '=', static::$table . '.id')
+                ->join('brands', 'LEFT')
+                ->on(static::$table . '.brand_alias', '=', 'brands.alias')
+                ->on('brands.status', '=', DB::expr('1'))
+                ->join('brands_i18n', 'LEFT')
+                ->on('brands_i18n.row_id', '=', 'brands.id')
+                ->on('brands_i18n.language', '=', DB::expr("'" . I18n::$lang . "'"))
+                ->where(static::$table . '_related.who_id', '=', $refer)
+                ->where(static::$tableI18n . '.language', '=', I18n::$lang)
+                ->where(static::$table . '.status', '=', 1)
+                ->order_by(DB::expr('RAND ()'))
+                ->limit(5)
+                ->find_all();
 
         return $result;
     }
+
 }

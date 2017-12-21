@@ -335,6 +335,7 @@ class Route
      */
     protected function run()
     {
+        //var_dump($this->_routes); die;
         foreach ($this->_routes as $pattern => $route) {
             // Check if pattern same as current URI
             if ($pattern == $this->_uri) {

@@ -51,7 +51,7 @@ $favorites = Cookie::getArray('favorites', []);
         </div>
         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
             <div class="_col-auto">
-                <a href="#" class="icon-button favorite-button" data-product="<?php echo $obj->id; ?>" data-user="<?php echo User::info()->id; ?>">
+                <a href="#" class="icon-button favorite-button <?php echo in_array($obj->id, $favorites) ?   'in-favorite-now' : NULL ?>" data-product="<?php echo $obj->id; ?>" data-user="<?php echo User::info()->id; ?>">
                     <i>
                         <svg>
                             <use xmlns:xlink="http://www.w3.org/1999/xlink"

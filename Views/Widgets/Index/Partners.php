@@ -11,7 +11,7 @@ use Core\Config;
         <a href="<?php echo HTML::link('partners'); ?>"><?php echo __('Все партнёры'); ?> →</a>
     </div>
     <div class="wysiwyg">
-        <p><?php echo Config::get('partners.text_partners_' . I18n::$lang); ?></p>
+        <p><?php echo $text; ?></p>
     </div>
     <div class="_flex _grid-2 _sm-grid-3 _lg-grid-6 _items-center _mb-3 _mt-3">
         <?php foreach ($result as $obj): ?>

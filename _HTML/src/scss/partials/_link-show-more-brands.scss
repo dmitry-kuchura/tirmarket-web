@@ -1,0 +1,11 @@
+.filter-brand-item:nth-child(n+12){
+  display: none;
+}
+
+.link-show-more-brands{
+
+  &:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

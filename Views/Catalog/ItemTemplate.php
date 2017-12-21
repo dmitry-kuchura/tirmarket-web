@@ -9,7 +9,7 @@ if (is_file(HOST . HTML::media('images/catalog/item/' . $obj->image, false))) {
 } else {
     $image = HTML::media('pic/no-image.png');
 }
-
+$ids = \Core\Cookie::getArray('favorites', []);
 ?>
 
 <div class="_col-12 _sm-col-6 _md-col-4 _lg-col-6 _xl-col-4 _mb-3">
@@ -48,7 +48,7 @@ if (is_file(HOST . HTML::media('images/catalog/item/' . $obj->image, false))) {
         </div>
         <div class="_flex _justify-between _items-center _grid-space-3 _flex-nowrap">
             <div class="_col-auto">
-                <a href="#" class="icon-button favorite-button" data-product="<?php echo $obj->id; ?>" data-user="<?php echo User::info()->id; ?>">
+                <a href="#" class="icon-button favorite-button <?php echo in_array($obj->id, $ids) ?   'in-favorite-now' : NULL ?>" data-product="<?php echo $obj->id; ?>" data-user="<?php echo User::info()->id; ?>">
                     <i>
                         <svg>
                             <use xmlns:xlink="http://www.w3.org/1999/xlink"

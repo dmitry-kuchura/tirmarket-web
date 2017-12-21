@@ -5,11 +5,11 @@ use Core\User;
 use Core\Config;
 use Modules\Catalog\Models\Price;
 
+$ids = \Core\Cookie::getArray('favorites', []);
 /* @var $obj object */
 /* @var $images array */
 /* @var $originals array */
 /* @var $specifications array */
-
 ?>
 <div class="_flex _grid-space-3">
     <div class="_col-12 _lg-col-5 _xl-col-4 _flex-grow-0 _mb-3">
@@ -85,17 +85,17 @@ use Modules\Catalog\Models\Price;
             <div class="_flex _items-center">
                 <div class="_col-6">
                     <div class="product-maker"><?php echo __('Производитель'); ?>: <a
-                                href="<?php echo HTML::link('brands/' . $obj->brand_alias); ?>"><?php echo $obj->brand_name; ?></a>
+                            href="<?php echo HTML::link('brands/' . $obj->brand_alias); ?>"><?php echo $obj->brand_name; ?></a>
                     </div>
                 </div>
                 <div class="_col-6">
-                    <a href="#" class="favorite-button" data-product="<?php echo $obj->id; ?>"
+                    <a href="#" class="favorite-button <?php echo in_array($obj->id, $ids) ? 'in-favorite-now' : NULL ?>" data-product="<?php echo $obj->id; ?>"
                        data-user="<?php echo User::info()->id; ?>">
                         <i class="icon icon--sm icon--blue _mr-2">
                             <svg>
-                                <use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use>
+                            <use xlink:href="<?php echo HTML::media('icons/icons.svg#star', false); ?>"></use>
                             </svg>
-                        </i><span><?php echo __('В избранное'); ?></span>
+                        </i><span><?php echo in_array($obj->id, $ids) ? __('В избранном') : __('В избранное'); ?></span>
                     </a>
                 </div>
             </div>
@@ -126,7 +126,7 @@ use Modules\Catalog\Models\Price;
                                data-param='{"id": "<?php echo $obj->id; ?>"}'>
                                 <i class="icon icon--sm icon--blue _mr-2">
                                     <svg>
-                                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#cursor', false); ?>"></use>
+                                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#cursor', false); ?>"></use>
                                     </svg>
                                 </i>
                                 <span><?php echo __('Купить в ОДИН КЛИК'); ?></span>
@@ -136,11 +136,11 @@ use Modules\Catalog\Models\Price;
                                    data-id="<?php echo $obj->id; ?>"
                                    data-alias="<?php echo HTML::link('hidden/basket'); ?>"
                                    data-binding="product">
-                                <span>
+                                    <span>
                                         <i>
                                             <svg>
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 xlink:href="<?php echo HTML::media('icons/icons.svg#cart', false); ?>"></use>
                                             </svg>
                                         </i>
                                         <span><?php echo __('В корзину'); ?></span>
@@ -165,17 +165,17 @@ use Modules\Catalog\Models\Price;
             </div>
             <div class="divider divider--white"></div>
             <?php /* <div class="_p-3">
-                <div class="product-discount">При заказке от <span
-                            class="product-discount__count">10 шт</span>: Цена - <span
-                            class="product-discount__price">121 000 грн.</span></div>
-            </div> */ ?>
+              <div class="product-discount">При заказке от <span
+              class="product-discount__count">10 шт</span>: Цена - <span
+              class="product-discount__price">121 000 грн.</span></div>
+              </div> */ ?>
         </div>
     </div>
     <div class="_col-12 _xl-col-3 _flex-grow-0 _mb-3">
         <div class="_p-4" style="background-color: #f8f8f8">
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#delivery', false); ?>"></use>
+                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#delivery', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Доставка'); ?></div>
@@ -183,7 +183,7 @@ use Modules\Catalog\Models\Price;
             <div class="wysiwyg _mb-3"><?php echo Config::get('item.text_delivery_' . I18n::$lang); ?></div>
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#payment', false); ?>"></use>
+                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#payment', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Оплата'); ?></div>
@@ -191,7 +191,7 @@ use Modules\Catalog\Models\Price;
             <div class="wysiwyg _mb-3"><?php echo Config::get('item.text_payment_' . I18n::$lang); ?></div>
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#warranty', false); ?>"></use>
+                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#warranty', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Гарантия'); ?></div>
@@ -201,7 +201,7 @@ use Modules\Catalog\Models\Price;
             </div>
             <div class="_flex _items-center _mb-2"><i class="icon icon--md icon--grey _mr-3">
                     <svg>
-                        <use xlink:href="<?php echo HTML::media('icons/icons.svg#refund', false); ?>"></use>
+                    <use xlink:href="<?php echo HTML::media('icons/icons.svg#refund', false); ?>"></use>
                     </svg>
                 </i>
                 <div class="title title--ms"><?php echo __('Возврат'); ?></div>
@@ -219,20 +219,21 @@ use Modules\Catalog\Models\Price;
     </div>
 </div>
 <div class="_flex _mb-4">
-    <a href="#" class="tab-link is-active" data-tab-trigger="1"
-       data-tab-ns="product"><?php echo __('Характеристики'); ?></a>
+    <?php if (count($specifications)) : ?>
+        <a href="#" class="tab-link is-active" data-tab-trigger="1"  data-tab-ns="product"><?php echo __('Характеристики'); ?></a>
+    <?php endif; ?>
     <?php if ($obj->text): ?>
-        <a href="#" class="tab-link" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
+        <a href="#" class="tab-link <?php echo!count($specifications) ? 'is-active' : NULL ?>" data-tab-trigger="2" data-tab-ns="product"><?php echo __('Описание'); ?></a>
     <?php endif; ?>
     <?php if ($analogue): ?>
-        <a href="#" class="tab-link" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
+        <a href="#" class="tab-link <?php echo!$obj->text ? 'is-active' : NULL ?>" data-tab-trigger="3" data-tab-ns="product"><?php echo __('Аналоги'); ?></a>
     <?php endif; ?>
     <?php if (count($originals)): ?>
-        <a href="#" class="tab-link" data-tab-trigger="4" data-tab-ns="product"><?php echo __('Оригиналы'); ?></a>
+        <a href="#" class="tab-link <?php echo!$analogue ? 'is-active' : NULL ?>" data-tab-trigger="4" data-tab-ns="product"><?php echo __('Оригиналы'); ?></a>
     <?php endif; ?>
 </div>
 <div class="_mb-5">
-    <div class="is-active" data-tab-content="1" data-tab-ns="product">
+    <div class="<?php echo count($specifications) ? 'is-active' : NULL ?>" data-tab-content="1" data-tab-ns="product">
         <div class="wysiwyg">
             <table class="table-zebra">
                 <?php foreach ($specifications as $key => $value): ?>
@@ -244,22 +245,10 @@ use Modules\Catalog\Models\Price;
             </table>
         </div>
     </div>
-    <div data-tab-content="4" data-tab-ns="product">
-        <div class="wysiwyg">
-            <table class="table-zebra">
-                <?php foreach ($originals as $key => $value): ?>
-                    <tr>
-                        <td><?php echo $value; ?></td>
-                        <td><b><?php echo $key; ?></b></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
-    </div>
-    <div data-tab-content="2" data-tab-ns="product">
+    <div class="<?php echo!count($specifications) ? 'is-active' : NULL ?>" data-tab-content="2" data-tab-ns="product">
         <div class="wysiwyg"><?php echo $obj->text; ?></div>
     </div>
-    <div data-tab-content="3" data-tab-ns="product">
+    <div class="<?php echo!$obj->text ? 'is-active' : NULL ?>" data-tab-content="3" data-tab-ns="product">
         <analogue-list data-vue="true" data-lang="<?php echo I18n::$lang; ?>" inline-template>
             <div>
                 <div class="analogue-table" v-if="width > 1280">
@@ -280,4 +269,18 @@ use Modules\Catalog\Models\Price;
             </div>
         </analogue-list>
     </div>
+    <?php if ($originals): ?>
+        <div class="<?php echo!$analogue ? 'is-active' : NULL ?>" data-tab-content="4" data-tab-ns="product">
+            <div class="wysiwyg">
+                <table class="table-zebra">
+                    <?php foreach ($originals as $key => $value): ?>
+                        <tr>
+                            <td><?php echo $value; ?></td>
+                            <td><b><?php echo $key; ?></b></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>

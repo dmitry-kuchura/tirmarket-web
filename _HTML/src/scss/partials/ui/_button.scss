@@ -12,6 +12,9 @@
 	border: none;
 	cursor: pointer;
 	transition: background .25s;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 
 	&--full {
 		width: 100%;

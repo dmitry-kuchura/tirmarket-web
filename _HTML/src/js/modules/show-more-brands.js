@@ -29,8 +29,7 @@ module.exports = function () {
 
     }
 
-    if($link_show_more_brands.length){
-        $link_show_more_brands.on('click', linkShowMoreClicked);
-    }
+    $link_show_more_brands.on('click', linkShowMoreClicked);
+
 
 };

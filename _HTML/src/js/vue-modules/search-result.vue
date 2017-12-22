@@ -14,7 +14,7 @@
                     <div class="search-item__price search-item__price--disable" v-if="item['disable-price']">
                         {{ item['disable-price'] }} {{ static.currency }}
                 </div>
-                    <div class="search-item__price">{{ item.price }} {{ static.currency }}</div>
+                    <div class="search-item__price">{{ item.price }}</div>
                 </div>
 
                 <div class="_col-auto">

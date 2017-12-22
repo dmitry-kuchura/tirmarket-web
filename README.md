@@ -7,7 +7,7 @@
 - ######Wezom.net
     - http://tirmarket.wezom.net/
 - ######Jira
-   - https://wezomcommandos.atlassian.net/browse/TIRMARKET
+    - https://wezomcommandos.atlassian.net/browse/TIRMARKET
 
 - Фронтенд написан на https://ru.vuejs.org/
 - Локальная разработка "на лету": **npm run start**

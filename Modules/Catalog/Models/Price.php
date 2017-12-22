@@ -187,4 +187,22 @@ class Price extends Common {
         }
     }
 
+    public static function filterPrice($price, $currencies = '7383a1a5-e50d-11e0-a668-a71a9f00b1d1') {
+        /* @var $currency Price */
+        $currency = DB::select()->from(static::$table)->where('status', '=', 1)->and_where('import_id', 'LIKE', $currencies)->find();
+
+        if ($currency) {
+            if ($currency->exchange > 0) {
+                $cost = $price / $currency->exchange;
+            } else {
+                $cost = $price * $currency->exchange;
+            }
+
+            if (Config::get('basic.markup') > 0) {
+                $cost = self::addPercent($cost);
+            }
+
+            return number_format($cost, 2, '.', '');
+        }
+    }
 }

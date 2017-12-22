@@ -40,11 +40,11 @@ class Filter
             unset($filter['model']);
         }
         if (is_array($filter) && array_key_exists('maxcost', $filter) && count($filter['maxcost']) && (int)$filter['maxcost'][0] > 0) {
-            $result->where('catalog.cost', '<=', (int)$filter['maxcost'][0]);
+            $result->where('catalog.cost', '<=', (int)Price::filterPrice($filter['maxcost'][0]));
             unset($filter['maxcost']);
         }
         if (is_array($filter) && array_key_exists('mincost', $filter) && count($filter['mincost']) && (int)$filter['mincost'][0] >= 0) {
-            $result->where('catalog.cost', '>=', (int)$filter['mincost'][0]);
+            $result->where('catalog.cost', '>=', (int)Price::filterPrice($filter['mincost'][0]));
             unset($filter['mincost']);
         }
         if (is_array($filter) && array_key_exists('available', $filter) && count($filter['available'])) {

@@ -2,8 +2,8 @@
 
 namespace Modules;
 
-use Core\Arr;
 use I18n;
+use Core\Arr;
 
 class Ajax extends Base
 {
@@ -34,7 +34,6 @@ class Ajax extends Base
         die;
     }
 
-
     /**
      * Generate Ajax success answer
      *
@@ -50,7 +49,6 @@ class Ajax extends Base
         $data['success'] = true;
         $this->answer($data);
     }
-
 
     /**
      * generate Ajax answer with error

@@ -32,7 +32,11 @@ window.jQuery(function ($) {
     require("./modules/basket")();
 
     // link show more brands
-    require("./modules/show-more-brands")();
+    if ($('.js-link-show-more-brands').length) {
+        require.ensure([], function (require) {
+            require('./modules/show-more-brands')();
+        }, 'show-more-brands');
+    }
 
     // magnific
     if ($('[data-mfp], [data-gallery-root]').length) {

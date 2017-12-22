@@ -10,15 +10,23 @@
                 </div>
 
                 <div class="_col-auto _flex-grow-1">
+
                     <a :href="item.link" class="search-item__title">{{ item.title }}</a>
+
                     <div class="search-item__price search-item__price--disable" v-if="item['disable-price']">
-                        {{ item['disable-price'] }} {{ static.currency }}
-                </div>
-                    <div class="search-item__price">{{ item.price }} {{ static.currency }}</div>
+                        {{ item['disable-price'] }}
+                    </div>
+
+                    <div class="search-item__price">
+                        {{ item.price }}
+                    </div>
+
                 </div>
 
                 <div class="_col-auto">
-                    <a href="#" class="button" data-basket-trigger data-alias="/hidden/basket" :data-id="item.id"><span>{{ static.buy }}</span></a>
+                    <a v-if="isNaN(item.price)" href="#" class="button" data-basket-trigger data-alias="/hidden/basket" :data-id="item.id"><span>{{ static.order }}</span></a>
+                    <a v-else="!isNaN(item.price)" href="#" class="button" data-basket-trigger data-alias="/hidden/basket" :data-id="item.id"><span>{{ static.buy }}</span></a>
+
                 </div>
             </div>
 

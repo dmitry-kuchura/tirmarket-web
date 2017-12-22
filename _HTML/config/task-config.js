@@ -1,5 +1,5 @@
 module.exports = {
-    // html: false,
+    html: false,
     // images: false,
     // fonts: false,
     // static: false,
@@ -7,13 +7,13 @@ module.exports = {
     // ghPages: false,
     // stylesheets: true,
 
-    html: {
-        htmlmin: false
-    },
-    images: true,
-    fonts: true,
-    static: true,
-    svgSprite: true,
+    //html: {
+    //    htmlmin: false
+    //},
+    images: false,
+    fonts: false,
+    static: false,
+    svgSprite: false,
     ghPages: false,
     stylesheets: true,
 

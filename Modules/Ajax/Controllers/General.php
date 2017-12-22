@@ -42,6 +42,7 @@ class General extends Ajax
                 'all' => __('Все результаты'),
                 'href' => HTML::link('search?query=' . $query, false),
                 'buy' => __('Купить'),
+                'order' => __('Заказать'),
                 'currency' => Price::getCurrentCurrency(),
             ],
         ];
@@ -363,7 +364,7 @@ class General extends Ajax
                     'title' => $obj->brand_name,
                     'link' => HTML::link('brands/' . $obj->brand_alias, false),
                 ],
-                'price' => $obj->cost . ' грн.',
+                'price' => $obj->cost,
                 'exist' => $obj->available == 1 ? true : false,
                 'exist-string' => $obj->available == 1 ? __('В наличии') : __('Нет в наличии'),
                 'new' => $obj->new == 1 ? true : false,

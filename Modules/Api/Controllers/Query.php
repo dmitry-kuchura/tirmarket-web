@@ -24,7 +24,7 @@ class Query extends Api
             $limit = 500;
             $offset = ($i - 1) * 500;
             $update = '2016-01-01';
-            $params = ['limit' => $limit, 'offset' => $offset, 'update' => $update];
+            $params = ['limit' => $limit, 'offset' => $offset];
 
             try {
                 $result = SOAP::soapGetProductsList($params);

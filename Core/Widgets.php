@@ -8,6 +8,7 @@ use Modules\Cart\Models\Cart;
 use Modules\Catalog\Models\Filter;
 use Modules\Catalog\Models\Groups;
 use Modules\Catalog\Models\Items;
+use Modules\Catalog\Models\Price;
 use Modules\Content\Models\Menu;
 use Modules\Content\Models\Slider;
 
@@ -205,12 +206,31 @@ class Widgets
         $brands = Filter::getBrandsWidget();
         $specifications = Filter::getSpecificationsWidget();
 
+        $filter = $filter = Config::get('filter_array');
+
+        if (array_key_exists('mincost', $filter) && count($filter['mincost']) && (int)$filter['mincost'][0] >= 0) {
+            $mincost = $filter['mincost'][0];
+        } else {
+            $mincost = null;
+        }
+
+        if (array_key_exists('maxcost', $filter) && count($filter['maxcost']) && (int)$filter['maxcost'][0] >= 0) {
+            $maxcost = $filter['maxcost'][0];
+        } else {
+            $maxcost = null;
+        }
+
+        if ($mincost && $maxcost) {
+            $range = '[' . Price::getCostForFilter($array['min']) . ', ' . Price::getCostForFilter($array['max']) . ', ' . $mincost . ', ' . $maxcost . ']';
+        } else {
+            $range = '[' . Price::getCostForFilter($array['min']) . ', ' . Price::getCostForFilter($array['max']) . ', ' . Price::getCostForFilter($array['min']) . ', ' . Price::getCostForFilter($array['max']) . ']';
+        }
+
         return [
             'brands' => $brands,
             'specifications' => $specifications,
             'filter' => $array['filter'],
-            'min' => $array['min'],
-            'max' => $array['max'],
+            'range' => $range,
         ];
     }
 

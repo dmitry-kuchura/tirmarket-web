@@ -23,7 +23,7 @@ class Worker extends Api
      */
     public function jobAction()
     {
-        $result = DB::select()->from(static::$query)->where('status', '=', 1)->limit(666)->find_all();
+        $result = DB::select()->from(static::$query)->where('status', '=', 1)->limit(1666)->find_all();
 
         if (count($result)) {
             foreach ($result as $obj) {

@@ -23,7 +23,7 @@ class Api extends Ajax
     public function before()
     {
         header('Content-Type: application/json');
-        set_time_limit(9999999999999);
+        set_time_limit(0);
     }
 
     /**

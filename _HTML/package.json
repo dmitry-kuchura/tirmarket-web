@@ -16,7 +16,7 @@
     "es6-promise-polyfill": "^1.2.0",
     "form-serialize": "^0.7.2",
     "jquery": "^3.2.1",
-    "jquery-validation": "^1.16.0",
+    "jquery-validation": "^1.19.3",
     "load-google-maps-api": "^1.0.0",
     "lodash": "^4.17.4",
     "magnific-popup": "^1.1.0",
